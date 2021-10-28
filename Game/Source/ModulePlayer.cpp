@@ -8,6 +8,7 @@
 #include "Audio.h"
 #include "ModuleCollisions.h"
 #include "ModuleFadeToBlack.h"
+#include "Window.h"
 //#include "ModuleFonts.h"
 #include "Log.h"
 
@@ -16,7 +17,7 @@
 #include <stdio.h>
 #include <time.h>
 
-ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
+ModulePlayer::ModulePlayer(bool startEnabled)
 {
 	// idle left
 	idleLeftAnim.PushBack({ 0, 167, 28, 33 });
@@ -138,6 +139,10 @@ bool ModulePlayer::Start()
 
 	//srand(time(NULL));
 
+	uint winWidth, winHeight;
+
+	app->win->GetWindowSize(winWidth, winHeight);
+
 	return ret;
 }
 
@@ -229,11 +234,11 @@ bool ModulePlayer::Update(float dt)
 		}
 	}
 
-	if ((PlayerLookingPosition == 1) && (position.x < app->render->camera.x / SCREEN_SIZE + 190))
+	if ((PlayerLookingPosition == 1) && (position.x < app->render->camera.x / app->win->GetScale() + 190))
 	{
 		app->render->camera.x -= 5;
 	}
-	if ((PlayerLookingPosition == 2) && (position.x > app->render->camera.x / SCREEN_SIZE + 140))
+	if ((PlayerLookingPosition == 2) && (position.x > app->render->camera.x / app->win->GetScale() + 140))
 	{
 		app->render->camera.x += 5;
 	}
