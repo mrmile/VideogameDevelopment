@@ -12,7 +12,7 @@ class ModulePlayer : public Module
 {
 public:
 	// Constructor
-	ModulePlayer(bool startEnabled);
+	ModulePlayer();
 
 	// Destructor
 	~ModulePlayer();
@@ -36,7 +36,7 @@ public:
 	bool CleanUp();
 
 	// Collision callback, called when the player intersects with another collider
-	void OnCollision(Collider* c1, Collider* c2) override;
+	
 
 public:
 	// Position of the player in the map

@@ -6,6 +6,7 @@
 #include "PugiXml/src/pugixml.hpp"
 
 class App;
+class PhysBody;
 
 class Module
 {
@@ -67,6 +68,30 @@ public:
 		return true;
 	}
 
+	bool IsActive() const
+	{
+		return active;
+	}
+	void Enable()
+	{
+		if (active == false)
+		{
+			active = true;
+			Start();
+		}
+	}
+	void Disable()
+	{
+		if (active == true)
+		{
+			active = false;
+			CleanUp();
+		}
+	}
+
+	virtual void OnCollision(PhysBody* bodyA, PhysBody* bodyB)
+	{
+	}
 public:
 
 	SString name;

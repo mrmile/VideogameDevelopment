@@ -19,13 +19,13 @@
     <ClCompile Include="Source\Collider.cpp">
       <Filter>imported_modules</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ModuleCollisions.cpp">
-      <Filter>imported_modules</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ModuleFadeToBlack.cpp">
       <Filter>imported_modules</Filter>
     </ClCompile>
     <ClCompile Include="Source\ModulePlayer.cpp">
+      <Filter>imported_modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModulePhysics.cpp">
       <Filter>imported_modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -66,9 +66,6 @@
     <ClInclude Include="Source\Collider.h">
       <Filter>imported_modules</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ModuleCollisions.h">
-      <Filter>imported_modules</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ModuleFadeToBlack.h">
       <Filter>imported_modules</Filter>
     </ClInclude>
@@ -76,6 +73,9 @@
       <Filter>imported_modules</Filter>
     </ClInclude>
     <ClInclude Include="Source\Animation.h">
+      <Filter>imported_modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModulePhysics.h">
       <Filter>imported_modules</Filter>
     </ClInclude>
   </ItemGroup>

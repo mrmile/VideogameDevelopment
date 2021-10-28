@@ -6,17 +6,17 @@
 #include "Render.h"
 //#include "ModuleParticles.h"
 #include "Audio.h"
-#include "ModuleCollisions.h"
 #include "ModuleFadeToBlack.h"
+#include "Window.h"
 //#include "ModuleFonts.h"
 #include "Log.h"
 
 #include "Scene.h"
-
+#include "ModulePhysics.h"
 #include <stdio.h>
 #include <time.h>
 
-ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
+ModulePlayer::ModulePlayer()
 {
 	// idle left
 	idleLeftAnim.PushBack({ 0, 167, 28, 33 });
@@ -121,7 +121,6 @@ bool ModulePlayer::Start()
 
 	destroyed = false;
 
-	collider = app->collisions->AddCollider({ position.x + 6, position.y + 6, 19, 27 }, Collider::Type::PLAYER, this); //Añadir modulo en application.h y cpp
 
 	// TODO 0: Notice how a font is loaded and the meaning of all its arguments 
 	//char lookupTable[] = { "!  ,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz" };
@@ -137,6 +136,10 @@ bool ModulePlayer::Start()
 	playerIdleAnimationTimer = 0;
 
 	//srand(time(NULL));
+
+	uint winWidth, winHeight;
+
+	app->win->GetWindowSize(winWidth, winHeight);
 
 	return ret;
 }
@@ -229,11 +232,11 @@ bool ModulePlayer::Update(float dt)
 		}
 	}
 
-	if ((PlayerLookingPosition == 1) && (position.x < app->render->camera.x / SCREEN_SIZE + 190))
+	if ((PlayerLookingPosition == 1) && (position.x < app->render->camera.x / app->win->GetScale() + 190))
 	{
 		app->render->camera.x -= 5;
 	}
-	if ((PlayerLookingPosition == 2) && (position.x > app->render->camera.x / SCREEN_SIZE + 140))
+	if ((PlayerLookingPosition == 2) && (position.x > app->render->camera.x / app->win->GetScale() + 140))
 	{
 		app->render->camera.x += 5;
 	}
@@ -269,7 +272,7 @@ bool ModulePlayer::Update(float dt)
 	}
 	*/
 
-	collider->SetPos(position.x + 6, position.y + 6);
+	
 
 	currentAnimation->Update();
 
@@ -287,46 +290,15 @@ bool ModulePlayer::PostUpdate()
 	app->render->DrawTexture(texture, position.x, position.y, &rect);
 
 	// Draw UI (score) --------------------------------------
-	//sprintf_s(scoreText, 10, "%7d", score);
+	sprintf_s(scoreText, 10, "%7d", score);
 
 	// TODO 3: Blit the text of the score in at the bottom of the screen
 	//app->fonts->BlitText(58, 248, scoreFont, scoreText);
 
 	//app->fonts->BlitText(150, 248, scoreFont, "this is just a font test message");
 
-	true;
+	return true;
 }
 
-void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
-{
-	// Example
-	/*
-	if (c1->type == Collider::Type::PLAYER_SHOT && c2->type == Collider::Type::ENEMY)
-	{
-		score += 23;
-	}
-	*/
 
-	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TELEPORT_R)
-	{
-		position.x = position.x - 730;
-
-		app->render->camera.x = app->render->camera.x - 2200;
-	}
-
-	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TELEPORT_L)
-	{
-		position.x = position.x + 730;
-
-		app->render->camera.x = app->render->camera.x + 2200;
-	}
-
-	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::PLANT)
-	{
-		plantCollision = true;
-	}
-	else
-	{
-		plantCollision = false;
-	}
-}
+	
