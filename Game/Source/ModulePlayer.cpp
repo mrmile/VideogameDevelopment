@@ -160,7 +160,7 @@ bool ModulePlayer::Update(float dt)
 	playerTimer++;
 
 
-	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
 	{
 		if (currentAnimation != &leftAnim)
 		{
@@ -169,11 +169,11 @@ bool ModulePlayer::Update(float dt)
 		}
 		speed = 1;
 		position.x -= speed;
-		app->render->camera.x -= 3;
+		app->render->camera.x += 2;
 		PlayerLookingPosition = 1;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT)
 	{
 		if (currentAnimation != &rightAnim)
 		{
@@ -182,7 +182,7 @@ bool ModulePlayer::Update(float dt)
 		}
 		speed = 1;
 		position.x += speed;
-		app->render->camera.x += 3;
+		app->render->camera.x -= 2;
 		PlayerLookingPosition = 2;
 	}
 

@@ -29,6 +29,12 @@ int main(int argc, char* args[])
 {
 	LOG("Engine starting ...");
 
+	const int FPS = 60;
+	const int frameDelay = 1000 / FPS;
+
+	Uint64 frameStart;
+	int frameTime;
+
 	MainState state = CREATE;
 	int result = EXIT_FAILURE;
 
@@ -79,8 +85,19 @@ int main(int argc, char* args[])
 
 			// Loop all modules until we are asked to leave ---------------------
 			case LOOP:
+
+				frameStart = SDL_GetTicks();
+
 			if(app->Update() == false)
 				state = CLEAN;
+
+			frameTime = SDL_GetTicks() - frameStart;
+
+			if (frameDelay > frameTime)
+			{
+				SDL_Delay(frameDelay - frameTime);
+			}
+
 			break;
 
 			// Cleanup allocated memory -----------------------------------------
