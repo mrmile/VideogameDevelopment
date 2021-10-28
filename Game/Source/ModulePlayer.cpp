@@ -119,11 +119,11 @@ bool ModulePlayer::Start()
 
 	bool ret = true;
 
-	texture = app->tex->Load("Assets/player.png");
+	texture = app->tex->Load("Assets/textures/player.png");
 	currentAnimation = &idleRightAnim;
 
-	laserFx = app->audio->LoadFx("Assets/Fx/laser.wav");
-	explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");
+	//laserFx = app->audio->LoadFx("Assets/Fx/laser.wav");
+	//explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");
 
 	position = app->map->MapToWorld(5, 90);
 
