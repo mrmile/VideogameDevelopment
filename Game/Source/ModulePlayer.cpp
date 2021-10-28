@@ -12,6 +12,7 @@
 #include "Log.h"
 
 #include "Scene.h"
+#include "Map.h"
 #include "ModulePhysics.h"
 #include <stdio.h>
 #include <time.h>
@@ -124,8 +125,7 @@ bool ModulePlayer::Start()
 	laserFx = app->audio->LoadFx("Assets/Fx/laser.wav");
 	explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");
 
-	position.x = 830;
-	position.y = 180;
+	position = app->map->MapToWorld(5, 90);
 
 	destroyed = false;
 
@@ -160,7 +160,7 @@ bool ModulePlayer::Update(float dt)
 	playerTimer++;
 
 
-	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT)
 	{
 		if (currentAnimation != &leftAnim)
 		{
@@ -173,7 +173,7 @@ bool ModulePlayer::Update(float dt)
 		PlayerLookingPosition = 1;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
 	{
 		if (currentAnimation != &rightAnim)
 		{
@@ -240,6 +240,7 @@ bool ModulePlayer::Update(float dt)
 		}
 	}
 
+	/*
 	if ((PlayerLookingPosition == 1) && (position.x < app->render->camera.x / app->win->GetScale() + 190))
 	{
 		app->render->camera.x -= 5;
@@ -247,36 +248,6 @@ bool ModulePlayer::Update(float dt)
 	if ((PlayerLookingPosition == 2) && (position.x > app->render->camera.x / app->win->GetScale() + 140))
 	{
 		app->render->camera.x += 5;
-	}
-
-	/*
-	if (app->input->keys[SDL_SCANCODE_RIGHT] == KeyState::KEY_REPEAT)
-	{
-
-		if (app->render->camera.x / SCREEN_SIZE + app->render->camera.w + speed < 1242)
-		{
-
-			if (position.x + 70 > app->render->camera.x / SCREEN_SIZE + app->render->camera.w - horizontalMargin)
-			{
-				app->render->camera.x += speed + (SCREEN_SIZE - 1);
-			}
-
-		}
-
-	}
-	if (app->input->keys[SDL_SCANCODE_LEFT] == KeyState::KEY_REPEAT)
-	{
-
-
-		if (app->render->camera.x / SCREEN_SIZE - app->render->camera.w - speed < 1242)
-		{
-
-			if (position.x - 285 < app->render->camera.x / SCREEN_SIZE - app->render->camera.w + horizontalMargin)
-			{
-				app->render->camera.x -= speed + (SCREEN_SIZE - 1);
-			}
-
-		}
 	}
 	*/
 
@@ -295,7 +266,7 @@ bool ModulePlayer::PostUpdate()
 	}
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, &rect);
+	app->render->DrawTexture(texture, position.x, position.y, &rect); // <-- SDL_render copy error (cannot blit to screen)
 
 	// Draw UI (score) --------------------------------------
 	sprintf_s(scoreText, 10, "%7d", score);
