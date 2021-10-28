@@ -31,6 +31,11 @@ ModulePhysics::~ModulePhysics()
 {
 }
 
+bool ModulePhysics::Awake(pugi::xml_node&)
+{
+	return true;
+}
+
 bool ModulePhysics::Start()
 {
 	LOG("Creating Physics 2D environment");

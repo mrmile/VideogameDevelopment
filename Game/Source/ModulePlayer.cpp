@@ -16,6 +16,9 @@
 #include <stdio.h>
 #include <time.h>
 
+//ModulePlayer::ModulePlayer( bool start_enabled) : Module(start_enabled)
+
+
 ModulePlayer::ModulePlayer()
 {
 	// idle left
@@ -102,6 +105,11 @@ ModulePlayer::ModulePlayer()
 ModulePlayer::~ModulePlayer()
 {
 
+}
+
+bool ModulePlayer::Awake()
+{
+	return true;
 }
 
 bool ModulePlayer::Start()
@@ -300,5 +308,7 @@ bool ModulePlayer::PostUpdate()
 	return true;
 }
 
-
-	
+bool ModulePlayer::CleanUp() // Implementar???
+{
+	return true;
+}
