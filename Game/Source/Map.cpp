@@ -118,9 +118,18 @@ iPoint Map::WorldToMap(int x, int y) const
 {
 	iPoint ret(0, 0);
 
-	// L05: TODO 2: Add orthographic world to map coordinates
+	if (mapData.type == MAPTYPE_ORTHOGONAL)
+	{
+		x = ret.x / mapData.tileWidth;
+		y = ret.y / mapData.tileHeight;
+	}
 
-	// L05: TODO 3: Add the case for isometric maps to WorldToMap
+	// L05: TODO_D 3: Add the case for isometric maps to WorldToMap
+	if (mapData.type == MAPTYPE_ISOMETRIC)
+	{
+		y = (ret.y - ret.x) / (2 * (mapData.tileHeight * 0.5f));
+		x = (ret.x + (ret.y - ret.x) / (2 * (mapData.tileHeight * 0.5f)) * (mapData.tileWidth * 0.5f)) / (mapData.tileWidth * 0.5f);
+	}
 
 
 	return ret;
@@ -387,7 +396,7 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	bool ret = true;
 
 	//Load the attributes
-	//layer->id = node.attribute("id").as_int();
+	layer->id = node.attribute("id").as_int();
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();

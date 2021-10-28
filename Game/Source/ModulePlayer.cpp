@@ -125,7 +125,7 @@ bool ModulePlayer::Start()
 	//laserFx = app->audio->LoadFx("Assets/Fx/laser.wav");
 	//explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");
 
-	position = app->map->MapToWorld(5, 90);
+	position = app->map->WorldToMap(5, 90);
 
 	destroyed = false;
 
@@ -266,7 +266,7 @@ bool ModulePlayer::PostUpdate()
 	}
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, &rect); // <-- SDL_render copy error (cannot blit to screen)
+	app->render->DrawTexture(texture, position.x, position.y, &rect);
 
 	// Draw UI (score) --------------------------------------
 	sprintf_s(scoreText, 10, "%7d", score);
