@@ -5,20 +5,18 @@
 
 #include "Module.h"
 #include "Collider.h"
-#include "PugiXml\src\pugixml.hpp"
-
 
 class ModuleCollisions : public Module
 {
 public:
 	// Constructor
 	// Fills all collision matrix data
-	ModuleCollisions();
+	ModuleCollisions(bool startEnabled);
 
 	// Destructor
 	~ModuleCollisions();
 
-	bool Awake(pugi::xml_node&);
+	bool Awake();
 
 	// Called before all Updates
 	bool PreUpdate();

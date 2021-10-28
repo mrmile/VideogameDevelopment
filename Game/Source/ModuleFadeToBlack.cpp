@@ -3,12 +3,12 @@
 #include "app.h"
 #include "Render.h"
 #include "Log.h"
-#include "Window.h"
+
 #include "SDL/include/SDL_render.h"
 
-ModuleFadeToBlack::ModuleFadeToBlack()
+ModuleFadeToBlack::ModuleFadeToBlack(bool startEnabled) : Module(startEnabled)
 {
-	
+	screenRect = {0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE};
 }
 
 ModuleFadeToBlack::~ModuleFadeToBlack()
@@ -16,16 +16,6 @@ ModuleFadeToBlack::~ModuleFadeToBlack()
 
 }
 
-bool ModuleFadeToBlack::Awake(pugi::xml_node& conf)
-{
-	uint winWidth, winHeight;
-
-	app->win->GetWindowSize(winWidth, winHeight);
-
-	screenRect = { 0, 0,  (int)winWidth * (int)app->win->GetScale(), (int)winHeight * (int)app->win->GetScale() };
-
-	return true;
-}
 bool ModuleFadeToBlack::Start()
 {
 	LOG("Preparing Fade Screen");

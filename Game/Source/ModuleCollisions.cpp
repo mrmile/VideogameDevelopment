@@ -8,7 +8,7 @@
 
 #include "SDL/include/SDL_Scancode.h"
 
-ModuleCollisions::ModuleCollisions() // Seguramente se arregle haciendo bien el fade to black
+ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled) // Seguramente se arregle haciendo bien el fade to black
 {
 	for(uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
@@ -111,16 +111,6 @@ ModuleCollisions::~ModuleCollisions()
 
 }
 
-bool ModuleCollisions::Awake(pugi::xml_node& conf)
-{
-	uint winWidth, winHeight;
-
-	app->win->GetWindowSize(winWidth, winHeight);
-
-	screenRect = { 0, 0,  (int)winWidth * (int)app->win->GetScale(), (int)winHeight * (int)app->win->GetScale() };
-
-	return true;
-}
 bool ModuleCollisions::PostUpdate()
 {
 	// Remove all colliders scheduled for deletion

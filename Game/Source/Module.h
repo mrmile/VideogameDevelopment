@@ -67,26 +67,6 @@ public:
 		return true;
 	}
 
-	bool IsActive() const
-	{
-		return active;
-	}
-	void Enable()
-	{
-		if (active == false)
-		{
-			active = true;
-			Start();
-		}
-	}
-	void Disable()
-	{
-		if (active == true)
-		{
-			active = false;
-			CleanUp();
-		}
-	}
 public:
 
 	SString name;

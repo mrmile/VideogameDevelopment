@@ -3,19 +3,16 @@
 
 #include "Module.h"
 #include "SDL\include\SDL_rect.h"
-#include "PugiXml\src\pugixml.hpp"
 
 class ModuleFadeToBlack : public Module
 {
 public:
 	//Constructor
-	ModuleFadeToBlack();
+	ModuleFadeToBlack(bool startEnabled);
 
 	//Destructor
 	~ModuleFadeToBlack();
 
-
-	bool Awake(pugi::xml_node&);
 	// Called when the module is activated
 	// Enables the blending mode for transparency
 	bool Start() override;
