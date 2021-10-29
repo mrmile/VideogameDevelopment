@@ -373,7 +373,8 @@ bool ModulePlayer::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KeyState::KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_UP) == KeyState::KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_IDLE
-		&& app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_IDLE && jump == false)
+		&& app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_IDLE
+		&& jump == false && Player->body->GetLinearVelocity().x == 0)
 	{
 		playerIdleAnimationTimer++;
 		speed = 0;
