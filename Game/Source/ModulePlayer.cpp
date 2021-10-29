@@ -220,26 +220,20 @@ bool ModulePlayer::Update(float dt)
 		{
 			if (Player->body->GetLinearVelocity().x >= -2) Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
 
-			if (Player->body->IsAwake() == true)
+			if (currentAnimation != &leftAnim)
 			{
-				if (currentAnimation != &leftAnim)
-				{
-					leftRunAnim.Reset();
-					currentAnimation = &leftAnim;
-				}
+				leftRunAnim.Reset();
+				currentAnimation = &leftAnim;
 			}
 		}
 		else if (run == true)
 		{
 			if (Player->body->GetLinearVelocity().x >= -4) Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
 
-			if (Player->body->IsAwake() == true)
+			if (currentAnimation != &leftRunAnim)
 			{
-				if (currentAnimation != &leftRunAnim)
-				{
-					leftRunAnim.Reset();
-					currentAnimation = &leftRunAnim;
-				}
+				leftRunAnim.Reset();
+				currentAnimation = &leftRunAnim;
 			}
 		}
 
@@ -254,26 +248,20 @@ bool ModulePlayer::Update(float dt)
 		{
 			if (Player->body->GetLinearVelocity().x <= 2) Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
 
-			if (Player->body->IsAwake() == true)
+			if (currentAnimation != &rightAnim)
 			{
-				if (currentAnimation != &rightAnim)
-				{
-					rightAnim.Reset();
-					currentAnimation = &rightAnim;
-				}
+				rightAnim.Reset();
+				currentAnimation = &rightAnim;
 			}
 		}
 		else if (run == true)
 		{
 			if (Player->body->GetLinearVelocity().x <= 4) Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
 
-			if (Player->body->IsAwake() == true)
+			if (currentAnimation != &rightRunAnim)
 			{
-				if (currentAnimation != &rightRunAnim)
-				{
-					rightAnim.Reset();
-					currentAnimation = &rightRunAnim;
-				}
+				rightAnim.Reset();
+				currentAnimation = &rightRunAnim;
 			}
 		}
 		
@@ -283,22 +271,35 @@ bool ModulePlayer::Update(float dt)
 		
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN && jump == false)
 	{
 		Player->body->ApplyLinearImpulse({ 0,-160 }, { 0,0 }, true);
 		app->audio->PlayFx(jumpSound);
+		jump = true;
+	}
 
-		if (PlayerLookingPosition == 1)
+	if (PlayerLookingPosition == 1 && jump == true)
+	{
+		if (currentAnimation != &jumpLeftAnim)
 		{
-
-			doubleJump = true;
-
-		}
-		if (PlayerLookingPosition == 2)
-		{
-			doubleJump = true;
+			jumpLeftAnim.Reset();
+			currentAnimation = &jumpLeftAnim;
 		}
 	}
+	if (PlayerLookingPosition == 2 && jump == true)
+	{
+		if (currentAnimation != &jumpRightAnim)
+		{
+			jumpRightAnim.Reset();
+			currentAnimation = &jumpRightAnim;
+		}
+	}
+
+	if (Player->body->GetLinearVelocity().y < -0.01f)
+	{
+		jump = false;
+	}
+
 	if (app->input->GetKey(SDL_SCANCODE_X) == KeyState::KEY_REPEAT)
 	{
 		run = true;
@@ -331,7 +332,7 @@ bool ModulePlayer::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KeyState::KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_UP) == KeyState::KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_IDLE
-		&& app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_IDLE)
+		&& app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_IDLE && jump == false)
 	{
 		playerIdleAnimationTimer++;
 		speed = 0;
