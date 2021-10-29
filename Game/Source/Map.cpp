@@ -3,6 +3,7 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Map.h"
+#include "ModulePhysics.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -293,6 +294,10 @@ bool Map::Load(const char* filename)
 			layer = layer->next;
 		}
     }
+	if (ret == true)
+	{
+		ret = LoadAllLayers(mapFile.child("map"));
+	}
 
     mapLoaded = ret;
 
@@ -457,4 +462,18 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	}
 	
 	return ret;
+}
+
+bool Map::LoadColliders(pugi::xml_node& tileset_node, TileSet* set)
+{
+	pugi::xml_node tile;
+
+	for (tile=tileset_node.child("data").child("tile");tile!=NULL;tile=tileset_node.next_sibling("tile"))
+	{
+		if (tile.child("type").child_value() == "collision")
+		{
+			//LOS 0 SON TEMPORALES
+			app->physics->CreateColliderRectangle(0, 0, mapData.tileWidth, mapData.tileHeight);
+		}
+	}
 }
