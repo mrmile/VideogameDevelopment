@@ -162,7 +162,7 @@ public:
 	MapData mapData;
 
 private:
-
+	List<PhysBody*> Collisions;
     SString folder;
     bool mapLoaded;
 };

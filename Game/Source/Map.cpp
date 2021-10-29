@@ -240,7 +240,10 @@ bool Map::Load(const char* filename)
 	{
 		ret = LoadAllLayers(mapFile.child("map"));
 	}
-    
+	if (ret == true)
+	{
+		ret = LoadColliders(mapFile.child("map"), mapData.tilesets.start->data);
+	}
     if(ret == true)
     {
         // L03: DONE 5: LOG all the data loaded iterate all tilesets and LOG everything
@@ -349,6 +352,7 @@ bool Map::LoadTileSets(pugi::xml_node mapFile) {
 		TileSet* set = new TileSet();
 		if (ret == true) ret = LoadTilesetDetails(tileset, set);
 		if (ret == true) ret = LoadTilesetImage(tileset, set);
+		if (ret == true) ret = LoadColliders(tileset, set);
 		mapData.tilesets.add(set);
 	}
 
@@ -464,18 +468,27 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	return ret;
 }
 
-/*
+
 bool Map::LoadColliders(pugi::xml_node& tileset_node, TileSet* set)
 {
+	bool ret = true;
 	pugi::xml_node tile;
-
-	for (tile=tileset_node.child("data").child("tile");tile!=NULL;tile=tileset_node.next_sibling("tile"))
+	tile = tileset_node.child("layer");
+	if (tile.attribute("id").as_int() == 2)
 	{
-		if (tile.child("type").child_value() == "collision")
+		for (tile.child("data").child("tile"); tile != NULL; tile = tileset_node.next_sibling("tile"))
 		{
-			//LOS 0 SON TEMPORALES
-			app->physics->CreateColliderRectangle(0, 0, mapData.tileWidth, mapData.tileHeight);
+			if (tile.attribute("gid")>0)
+			{
+				//LOS 0 SON TEMPORALES
+				PhysBody* NewCollision;
+				SDL_Rect rect = set->GetTileRect(tile.attribute("gid").as_int());
+				NewCollision = app->physics->CreateColliderRectangle(rect.x, rect.y, rect.w, rect.h);
+				Collisions.add(NewCollision);
+				Collisions.start->next;
+			}
 		}
 	}
+	return ret;
 }
-*/
+
