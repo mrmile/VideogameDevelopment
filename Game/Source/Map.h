@@ -123,6 +123,9 @@ public:
     // Called each loop iteration
     void Draw();
 
+	//Called to draw all colliders
+	bool CreateColliders(pugi::xml_node& map);
+
     // Called before quitting
     bool CleanUp();
 
@@ -136,6 +139,8 @@ public:
 	iPoint WorldToMap(int x, int y) const;
 
 	
+
+	
 private:
 
 	// L03: Methods to load all required map data
@@ -143,7 +148,7 @@ private:
 	bool LoadTileSets(pugi::xml_node mapFile);
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
-	bool LoadColliders(pugi::xml_node& tileset_node, TileSet* set);
+	
 
 
 	// L04
@@ -162,7 +167,7 @@ public:
 	MapData mapData;
 
 private:
-
+	List<PhysBody*> colliders;
     SString folder;
     bool mapLoaded;
 };
