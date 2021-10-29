@@ -115,18 +115,26 @@ ModulePlayer::ModulePlayer()
 	rightRunAnim.speed = 0.3f;
 
 	// Jump left
-	jumpLeftAnim.PushBack({ 51, 130, 26, 33 });
-	jumpLeftAnim.PushBack({ 27, 130, 26, 33 });
-	jumpLeftAnim.PushBack({ 1, 130, 28, 33 });
+	jumpLeftAnim.PushBack({ 1, 130, 26, 33 });
 	jumpLeftAnim.loop = false;
 	jumpLeftAnim.speed = 0.3f;
 
+	// fall
+	fallLeftAnim.PushBack({ 27, 130, 25, 33 });
+	fallLeftAnim.PushBack({ 51, 130, 25, 33 });
+	fallLeftAnim.loop = false;
+	fallLeftAnim.speed = 0.3f;
+
 	// Jump right
-	jumpRightAnim.PushBack({ 2, 90, 27, 33 });
-	jumpRightAnim.PushBack({ 28, 90, 26, 33 });
 	jumpRightAnim.PushBack({ 52, 90, 28, 33 });
 	jumpRightAnim.loop = false;
 	jumpRightAnim.speed = 0.3f;
+
+	// fall
+	fallRightAnim.PushBack({ 28, 90, 25, 33 });
+	fallRightAnim.PushBack({ 2, 90, 26, 33 });
+	fallRightAnim.loop = false;
+	fallRightAnim.speed = 0.3f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -275,29 +283,56 @@ bool ModulePlayer::Update(float dt)
 	{
 		Player->body->ApplyLinearImpulse({ 0,-160 }, { 0,0 }, true);
 		app->audio->PlayFx(jumpSound);
+		//jump = true;
+	}
+
+	if (Player->body->GetLinearVelocity().y < 0)
+	{
 		jump = true;
+	}
+
+	if (Player->body->GetLinearVelocity().y == 0)
+	{
+		jump = false;
 	}
 
 	if (PlayerLookingPosition == 1 && jump == true)
 	{
-		if (currentAnimation != &jumpLeftAnim)
+		if (Player->body->GetLinearVelocity().y < 0)
 		{
-			jumpLeftAnim.Reset();
-			currentAnimation = &jumpLeftAnim;
+			if (currentAnimation != &jumpLeftAnim)
+			{
+				jumpLeftAnim.Reset();
+				currentAnimation = &jumpLeftAnim;
+			}
+		}
+		if (Player->body->GetLinearVelocity().y > 0)
+		{
+			if (currentAnimation != &fallLeftAnim)
+			{
+				fallLeftAnim.Reset();
+				currentAnimation = &fallLeftAnim;
+			}
 		}
 	}
 	if (PlayerLookingPosition == 2 && jump == true)
 	{
-		if (currentAnimation != &jumpRightAnim)
+		if (Player->body->GetLinearVelocity().y < 0)
 		{
-			jumpRightAnim.Reset();
-			currentAnimation = &jumpRightAnim;
+			if (currentAnimation != &jumpRightAnim)
+			{
+				jumpRightAnim.Reset();
+				currentAnimation = &jumpRightAnim;
+			}
 		}
-	}
-
-	if (Player->body->GetLinearVelocity().y < -0.01f)
-	{
-		jump = false;
+		if (Player->body->GetLinearVelocity().y > 0)
+		{
+			if (currentAnimation != &fallRightAnim)
+			{
+				fallRightAnim.Reset();
+				currentAnimation = &fallRightAnim;
+			}
+		}
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_X) == KeyState::KEY_REPEAT)

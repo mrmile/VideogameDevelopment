@@ -68,6 +68,8 @@ public:
 	Animation leftRunAnim;
 	Animation jumpRightAnim;
 	Animation jumpLeftAnim;
+	Animation fallRightAnim;
+	Animation fallLeftAnim;
 
 	// Sound effects indices
 	uint jumpSound = 0;
