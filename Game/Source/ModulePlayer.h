@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Point.h"
+#include "ModulePhysics.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -38,6 +39,13 @@ public:
 public:
 	// Position of the player in the map
 	iPoint position;
+
+	//Player body for physics implementation
+	PhysBody* Player;
+	bool jump;
+	bool doubleJump;
+	//TEST OF IMPLEMENTATION
+	PhysBody* TestingGround;
 
 	// The speed in which we move the player (pixels per frame)
 	int speed = 1;
@@ -82,6 +90,8 @@ public:
 
 	//Collision bools
 	bool plantCollision;
+
+
 
 };
 

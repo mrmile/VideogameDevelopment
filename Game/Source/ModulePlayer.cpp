@@ -129,7 +129,9 @@ bool ModulePlayer::Start()
 
 	destroyed = false;
 
+	Player = app->physics->CreatePlayerBox(position.x+14, position.y+16, 28, 33);
 
+	TestingGround = app->physics->CreateColliderRectangle(0, 200, 1000, 100);
 	// TODO 0: Notice how a font is loaded and the meaning of all its arguments 
 	//char lookupTable[] = { "!  ,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz" };
 	//scoreFont = app->fonts->Load("Assets/Fonts/rtype_font.png", "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz", 1);
@@ -142,6 +144,8 @@ bool ModulePlayer::Start()
 
 	playerTimer = 0;
 	playerIdleAnimationTimer = 0;
+
+	jump = true;
 
 	//srand(time(NULL));
 
@@ -158,34 +162,123 @@ bool ModulePlayer::Update(float dt)
 	//app->player->position.x += 1;
 
 	playerTimer++;
-
+	
 
 	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
 	{
+		/*
 		if (currentAnimation != &leftAnim)
 		{
 			leftAnim.Reset();
 			currentAnimation = &leftAnim;
 		}
-		speed = 1;
-		position.x -= speed;
+		*/
+
+		Player->body->ApplyLinearImpulse({ -0.05f,0 }, { 0,0 }, true);
+		if (Player->body->IsAwake() == true)
+		{
+			if (currentAnimation != &leftAnim)
+			{
+				rightAnim.Reset();
+				currentAnimation = &leftAnim;
+			}
+		}
+		else
+		{
+			currentAnimation = &idleLeftAnim;
+		}
 		app->render->camera.x += 2;
 		PlayerLookingPosition = 1;
+		
 	}
-
-	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_UP)
 	{
+		Player->body->ApplyLinearImpulse({ 0.05f,0 }, { 0,0 }, true);
+		if (currentAnimation != &leftAnim)
+		{
+			leftAnim.Reset();
+			currentAnimation = &leftAnim;
+		}
+	}
+	
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT)
+	{	
+		/*
 		if (currentAnimation != &rightAnim)
 		{
 			rightAnim.Reset();
 			currentAnimation = &rightAnim;
 		}
-		speed = 1;
-		position.x += speed;
+		*/
+
+		Player->body->ApplyLinearImpulse({ 0.05f,0 }, { 0,0 }, true);
+		if (Player->body->IsAwake() == true)
+		{
+			if (currentAnimation != &rightAnim)
+			{
+				rightAnim.Reset();
+				currentAnimation = &rightAnim;
+			}
+		}
+		else
+		{
+			currentAnimation = &idleRightAnim;
+		}
+			
 		app->render->camera.x -= 2;
 		PlayerLookingPosition = 2;
+		
+	}
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_UP)
+	{
+		Player->body->ApplyLinearImpulse({ -0.05f,0 }, { 0,0 }, true);
+	}
+	if (jump == true)
+	{
+		
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN)
+	{
+		Player->body->ApplyLinearImpulse({ 0,-100 }, { 0,0 }, true);
+
+		if (PlayerLookingPosition == 1)
+		{
+
+			doubleJump = true;
+			//jump = false; 
+
+		}
+		if (PlayerLookingPosition == 2)
+		{
+			doubleJump = true;
+			//jump = false;				
+		}
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_IDLE)
+		{
+			Player->body->ApplyLinearImpulse({ 0,500 }, { 0,0 }, true);
+		}
+	}
+	/*
+	if (doubleJump == true)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN)
+		{
+			if (PlayerLookingPosition == 1)
+			{
+				Player->body->ApplyForce({ 0,-500 }, { 0,0 }, true);
+				doubleJump = false;
+			}
+			if (PlayerLookingPosition == 2)
+			{
+				Player->body->ApplyForce({ 0,-500 }, { 0,0 }, true);
+				doubleJump = false;
+			}
+		}
+	}
+	*/
+	
+	
 	// If no up/down movement detected, set the current animation back to idle
 	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KeyState::KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_UP) == KeyState::KEY_IDLE
@@ -239,7 +332,7 @@ bool ModulePlayer::Update(float dt)
 			break;
 		}
 	}
-
+	
 	/*
 	if ((PlayerLookingPosition == 1) && (position.x < app->render->camera.x / app->win->GetScale() + 190))
 	{
@@ -250,11 +343,13 @@ bool ModulePlayer::Update(float dt)
 		app->render->camera.x += 5;
 	}
 	*/
-
 	
 
 	currentAnimation->Update();
 
+	Player->GetPosition(position.x, position.y);
+	
+	
 	return true;
 }
 

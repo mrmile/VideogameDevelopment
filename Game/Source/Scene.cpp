@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Scene.h"
 #include "Map.h"
+#include "ModulePhysics.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -38,6 +39,7 @@ bool Scene::Start()
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
 
+
 	return true;
 }
 
@@ -68,6 +70,7 @@ bool Scene::Update(float dt)
 
 	if(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		app->render->camera.x += 1;
+
 
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
 
