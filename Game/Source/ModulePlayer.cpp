@@ -101,6 +101,18 @@ ModulePlayer::ModulePlayer()
 	rightAnim.PushBack({ 1, 47, 28, 33 });
 	rightAnim.loop = true;
 	rightAnim.speed = 0.3f;
+
+	// Run left
+	leftRunAnim.PushBack({ 308, 7, 35, 33 });
+	leftRunAnim.PushBack({ 343, 7, 36, 33 });
+	leftRunAnim.loop = true;
+	leftRunAnim.speed = 0.3f;
+
+	// Run right
+	rightRunAnim.PushBack({ 344, 47, 36, 33 });
+	rightRunAnim.PushBack({ 308, 47, 36, 33 });
+	rightRunAnim.loop = true;
+	rightRunAnim.speed = 0.3f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -121,6 +133,8 @@ bool ModulePlayer::Start()
 
 	texture = app->tex->Load("Assets/textures/player.png");
 	currentAnimation = &idleRightAnim;
+
+	jumpSound = app->audio->LoadFx("Assets/audio/fx/Jump.wav");
 
 	//laserFx = app->audio->LoadFx("Assets/Fx/laser.wav");
 	//explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");
@@ -180,29 +194,38 @@ bool ModulePlayer::Update(float dt)
 	playerTimer++;
 	app->render->camera.x = -(Player->body->GetPosition().x * 100) + 640;
 	//app->render->camera.x = -(Player->body->GetPosition().x * 100); <-- Este es el que se aplica al final
-	app->win->GetScale();
 	//app->win->GetWindowSize()
 	
 	//LOG("Player %s", Player->body->GetPosition().x);
 	//LOG("Camera %s", app->render->camera.x);
 
-	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT && Player->body->GetLinearVelocity().x >= -2)
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
 	{
 		
-		if (currentAnimation != &leftAnim)
+		if (run == false)
 		{
-			leftAnim.Reset();
-			currentAnimation = &leftAnim;
-		}
-		
+			if (Player->body->GetLinearVelocity().x >= -2) Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
 
-		Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
-		if (Player->body->IsAwake() == true)
-		{
-			if (currentAnimation != &leftAnim)
+			if (Player->body->IsAwake() == true)
 			{
-				rightAnim.Reset();
-				currentAnimation = &leftAnim;
+				if (currentAnimation != &leftAnim)
+				{
+					leftRunAnim.Reset();
+					currentAnimation = &leftAnim;
+				}
+			}
+		}
+		else if (run == true)
+		{
+			if (Player->body->GetLinearVelocity().x >= -4) Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
+
+			if (Player->body->IsAwake() == true)
+			{
+				if (currentAnimation != &leftRunAnim)
+				{
+					leftRunAnim.Reset();
+					currentAnimation = &leftRunAnim;
+				}
 			}
 		}
 
@@ -210,34 +233,46 @@ bool ModulePlayer::Update(float dt)
 		
 	}
 	
-	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT && Player->body->GetLinearVelocity().x <= 2)
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT)
 	{	
 		
-		if (currentAnimation != &rightAnim)
+		if (run == false)
 		{
-			rightAnim.Reset();
-			currentAnimation = &rightAnim;
-		}
-		
+			if (Player->body->GetLinearVelocity().x <= 2) Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
 
-		Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
-		
-		if (Player->body->IsAwake() == true)
-		{
-			if (currentAnimation != &rightAnim)
+			if (Player->body->IsAwake() == true)
 			{
-				rightAnim.Reset();
-				currentAnimation = &rightAnim;
+				if (currentAnimation != &rightAnim)
+				{
+					rightAnim.Reset();
+					currentAnimation = &rightAnim;
+				}
 			}
 		}
+		else if (run == true)
+		{
+			if (Player->body->GetLinearVelocity().x <= 4) Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
+
+			if (Player->body->IsAwake() == true)
+			{
+				if (currentAnimation != &rightRunAnim)
+				{
+					rightAnim.Reset();
+					currentAnimation = &rightRunAnim;
+				}
+			}
+		}
+		
+		
 		
 		PlayerLookingPosition = 2;
 		
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN)
 	{
 		Player->body->ApplyLinearImpulse({ 0,-160 }, { 0,0 }, true);
+		app->audio->PlayFx(jumpSound);
 
 		if (PlayerLookingPosition == 1)
 		{
@@ -251,10 +286,14 @@ bool ModulePlayer::Update(float dt)
 			doubleJump = true;
 			//jump = false;				
 		}
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_IDLE)
-		{
-			Player->body->ApplyLinearImpulse({ 0,500 }, { 0,0 }, true);
-		}
+	}
+	if (app->input->GetKey(SDL_SCANCODE_X) == KeyState::KEY_REPEAT)
+	{
+		run = true;
+	}
+	else
+	{
+		run = false;
 	}
 	/*
 	if (doubleJump == true)

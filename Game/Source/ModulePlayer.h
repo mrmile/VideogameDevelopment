@@ -64,6 +64,13 @@ public:
 	Animation idleLeftAnim2;
 	Animation rightAnim;
 	Animation leftAnim;
+	Animation rightRunAnim;
+	Animation leftRunAnim;
+	Animation jumpRightAnim;
+	Animation jumpLeftAnim;
+
+	// Sound effects indices
+	uint jumpSound = 0;
 
 	// The player's collider
 	Collider* collider = nullptr;
@@ -91,8 +98,8 @@ public:
 	//Collision bools
 	bool plantCollision;
 
-
-
+	//Action things
+	bool run = false;
 };
 
 #endif //!__MODULE_PLAYER_H__
