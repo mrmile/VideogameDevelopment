@@ -125,7 +125,7 @@ bool ModulePlayer::Start()
 	//laserFx = app->audio->LoadFx("Assets/Fx/laser.wav");
 	//explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");
 
-	position = app->map->MapToWorld(5, 90);
+	position = app->map->MapToWorld(5, 21);
 	//position.x = 0;
 	//position.y = 0;
 
@@ -135,19 +135,19 @@ bool ModulePlayer::Start()
 
 	//scale = 2
 	// ofset Px = 1 = Cx = 2 
-	// ofset Py = 1 = Cy = 2 ???
+	// ofset Py = 1 = Cy = 2
 
 	//app->render->camera.x = app->map->MapToWorld(32, 4100).x;
 	//app->render->camera.y = app->map->MapToWorld(32, 4100).y;
 
-	app->render->camera.x = 0;
-	app->render->camera.y = 1456;
+	app->render->camera.x = app->map->MapToWorld(0, -15).x;
+	app->render->camera.y = app->map->MapToWorld(0, -15).y;
 
 	destroyed = false;
 
 	Player = app->physics->CreatePlayerBox(position.x+14, position.y+16, 28, 33);
 
-	TestingGround = app->physics->CreateColliderRectangle(app->map->MapToWorld(5, 91).x, app->map->MapToWorld(5, 91).y, 1000, 100);
+	TestingGround = app->physics->CreateColliderRectangle(app->map->MapToWorld(5, 22).x, app->map->MapToWorld(5, 22).y, 1000, 100);
 	//TestingGround = app->physics->CreateColliderRectangle(0, 50, 1000, 100);
 
 	// TODO 0: Notice how a font is loaded and the meaning of all its arguments 

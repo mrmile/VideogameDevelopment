@@ -464,6 +464,7 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	return ret;
 }
 
+/*
 bool Map::LoadColliders(pugi::xml_node& tileset_node, TileSet* set)
 {
 	pugi::xml_node tile;
@@ -477,3 +478,4 @@ bool Map::LoadColliders(pugi::xml_node& tileset_node, TileSet* set)
 		}
 	}
 }
+*/
