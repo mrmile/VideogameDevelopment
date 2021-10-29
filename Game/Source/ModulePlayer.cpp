@@ -178,7 +178,13 @@ bool ModulePlayer::Update(float dt)
 {
 
 	playerTimer++;
+	app->render->camera.x = -(Player->body->GetPosition().x * 100) + 640;
+	//app->render->camera.x = -(Player->body->GetPosition().x * 100); <-- Este es el que se aplica al final
+	app->win->GetScale();
+	//app->win->GetWindowSize()
 	
+	//LOG("Player %s", Player->body->GetPosition().x);
+	//LOG("Camera %s", app->render->camera.x);
 
 	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT && Player->body->GetLinearVelocity().x >= -2)
 	{
@@ -200,8 +206,6 @@ bool ModulePlayer::Update(float dt)
 			}
 		}
 
-		//position.x -= 3;
-		app->render->camera.x += 2;
 		PlayerLookingPosition = 1;
 		
 	}
@@ -226,9 +230,7 @@ bool ModulePlayer::Update(float dt)
 				currentAnimation = &rightAnim;
 			}
 		}
-
-		//position.x += 3;
-		app->render->camera.x -= 2;
+		
 		PlayerLookingPosition = 2;
 		
 	}
