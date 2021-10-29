@@ -140,6 +140,7 @@ PhysBody* ModulePhysics::CreatePlayerBox(int x, int y, int width, int height)
 	b2FixtureDef fixture;
 	fixture.shape = &box;
 	fixture.density = 50.0f;
+	//fixture.friction = 0.8f;
 
 	b->CreateFixture(&fixture);
 

@@ -180,7 +180,7 @@ bool ModulePlayer::Update(float dt)
 	playerTimer++;
 	
 
-	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT && Player->body->GetLinearVelocity().x >= -2)
 	{
 		
 		if (currentAnimation != &leftAnim)
@@ -190,7 +190,7 @@ bool ModulePlayer::Update(float dt)
 		}
 		
 
-		//Player->body->ApplyForce({ -100,0 }, { 0,0 }, true);
+		Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
 		if (Player->body->IsAwake() == true)
 		{
 			if (currentAnimation != &leftAnim)
@@ -200,13 +200,13 @@ bool ModulePlayer::Update(float dt)
 			}
 		}
 
-		position.x -= 3;
+		//position.x -= 3;
 		app->render->camera.x += 2;
 		PlayerLookingPosition = 1;
 		
 	}
 	
-	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT && Player->body->GetLinearVelocity().x <= 2)
 	{	
 		
 		if (currentAnimation != &rightAnim)
@@ -216,7 +216,7 @@ bool ModulePlayer::Update(float dt)
 		}
 		
 
-		//Player->body->ApplyForce({ 100,0 }, { 0,0 }, true);
+		Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
 		
 		if (Player->body->IsAwake() == true)
 		{
@@ -227,7 +227,7 @@ bool ModulePlayer::Update(float dt)
 			}
 		}
 
-		position.x += 3;
+		//position.x += 3;
 		app->render->camera.x -= 2;
 		PlayerLookingPosition = 2;
 		
