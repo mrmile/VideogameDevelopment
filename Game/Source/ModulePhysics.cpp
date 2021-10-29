@@ -149,7 +149,7 @@ PhysBody* ModulePhysics::CreatePlayerBox(int x, int y, int width, int height)
 	pbody->width = width * 0.5f;
 	pbody->height = height * 0.5f;
 	pbody->body->SetFixedRotation(true);
-
+	
 	return pbody;
 }
 
