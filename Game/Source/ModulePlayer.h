@@ -42,8 +42,7 @@ public:
 
 	//Player body for physics implementation
 	PhysBody* Player;
-	bool jump;
-	bool doubleJump;
+	
 	//TEST OF IMPLEMENTATION
 	PhysBody* TestingGround;
 
@@ -102,6 +101,9 @@ public:
 
 	//Action things
 	bool run = false;
+	bool jump;
+	bool doubleJump;
+	bool inTheAir = false;
 };
 
 #endif //!__MODULE_PLAYER_H__

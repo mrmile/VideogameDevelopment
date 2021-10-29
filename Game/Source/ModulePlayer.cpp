@@ -279,7 +279,7 @@ bool ModulePlayer::Update(float dt)
 		
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN && jump == false)
+	if (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN && jump == false && inTheAir == false)
 	{
 		Player->body->ApplyLinearImpulse({ 0,-160 }, { 0,0 }, true);
 		app->audio->PlayFx(jumpSound);
@@ -294,6 +294,12 @@ bool ModulePlayer::Update(float dt)
 	if (Player->body->GetLinearVelocity().y == 0)
 	{
 		jump = false;
+		inTheAir = false;
+	}
+
+	if (Player->body->GetLinearVelocity().y != 0)
+	{
+		inTheAir = true;
 	}
 
 	if (PlayerLookingPosition == 1 && jump == true)
