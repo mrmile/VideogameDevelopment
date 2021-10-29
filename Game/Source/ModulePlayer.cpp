@@ -126,17 +126,30 @@ bool ModulePlayer::Start()
 	//explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");
 
 	position = app->map->MapToWorld(5, 90);
+	//position.x = 0;
+	//position.y = 0;
 
-	iPoint mapCameraPos;
-	mapCameraPos = app->map->MapToWorld(0, 82);
-	app->render->camera.x = mapCameraPos.x;
-	app->render->camera.y = mapCameraPos.y;
+	//scale = 1
+	// ofset x = 500
+	// ofset y = 50
+
+	//scale = 2
+	// ofset Px = 1 = Cx = 2 
+	// ofset Py = 1 = Cy = 2 ???
+
+	//app->render->camera.x = app->map->MapToWorld(32, 4100).x;
+	//app->render->camera.y = app->map->MapToWorld(32, 4100).y;
+
+	app->render->camera.x = 0;
+	app->render->camera.y = 1456;
 
 	destroyed = false;
 
 	Player = app->physics->CreatePlayerBox(position.x+14, position.y+16, 28, 33);
 
-	TestingGround = app->physics->CreateColliderRectangle(0, 200, 1000, 100);
+	TestingGround = app->physics->CreateColliderRectangle(app->map->MapToWorld(5, 91).x, app->map->MapToWorld(5, 91).y, 1000, 100);
+	//TestingGround = app->physics->CreateColliderRectangle(0, 50, 1000, 100);
+
 	// TODO 0: Notice how a font is loaded and the meaning of all its arguments 
 	//char lookupTable[] = { "!  ,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz" };
 	//scoreFont = app->fonts->Load("Assets/Fonts/rtype_font.png", "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz", 1);
@@ -163,8 +176,6 @@ bool ModulePlayer::Start()
 
 bool ModulePlayer::Update(float dt)
 {
-	// Moving the player with the camera scroll
-	//app->player->position.x += 1;
 
 	playerTimer++;
 	
@@ -179,7 +190,7 @@ bool ModulePlayer::Update(float dt)
 		}
 		*/
 
-		Player->body->ApplyLinearImpulse({ -0.05f,0 }, { 0,0 }, true);
+		//Player->body->ApplyLinearImpulse({ -0.05f,0 }, { 0,0 }, true);
 		if (Player->body->IsAwake() == true)
 		{
 			if (currentAnimation != &leftAnim)
@@ -192,18 +203,10 @@ bool ModulePlayer::Update(float dt)
 		{
 			currentAnimation = &idleLeftAnim;
 		}
+		position.x -= 5;
 		app->render->camera.x += 2;
 		PlayerLookingPosition = 1;
 		
-	}
-	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_UP)
-	{
-		Player->body->ApplyLinearImpulse({ 0.05f,0 }, { 0,0 }, true);
-		if (currentAnimation != &leftAnim)
-		{
-			leftAnim.Reset();
-			currentAnimation = &leftAnim;
-		}
 	}
 	
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT)
@@ -216,7 +219,8 @@ bool ModulePlayer::Update(float dt)
 		}
 		*/
 
-		Player->body->ApplyLinearImpulse({ 0.05f,0 }, { 0,0 }, true);
+		//Player->body->ApplyLinearImpulse({ 0.05f,0 }, { 0,0 }, true);
+		
 		if (Player->body->IsAwake() == true)
 		{
 			if (currentAnimation != &rightAnim)
@@ -229,17 +233,10 @@ bool ModulePlayer::Update(float dt)
 		{
 			currentAnimation = &idleRightAnim;
 		}
-			
+
+		position.x += 5;
 		app->render->camera.x -= 2;
 		PlayerLookingPosition = 2;
-		
-	}
-	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_UP)
-	{
-		Player->body->ApplyLinearImpulse({ -0.05f,0 }, { 0,0 }, true);
-	}
-	if (jump == true)
-	{
 		
 	}
 
