@@ -131,11 +131,35 @@ PhysBody* ModulePhysics::CreatePlayerBox(int x, int y, int width, int height)
 {
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
+	//body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 
 	b2Body* b = world->CreateBody(&body);
 	b2PolygonShape box;
-	box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
+
+	b2Vec2 playerBoxPolyPoints[6];
+
+	playerBoxPolyPoints[0].x = 0;
+	playerBoxPolyPoints[0].y = 0;
+
+	playerBoxPolyPoints[1].x = (PIXEL_TO_METERS(width) * 0.5f) * 2;
+	playerBoxPolyPoints[1].y = 0;
+
+	playerBoxPolyPoints[2].x = (PIXEL_TO_METERS(width) * 0.5f) * 2;
+	playerBoxPolyPoints[2].y = ((PIXEL_TO_METERS(height) * 0.5f) - PIXEL_TO_METERS(4) ) * 2;
+
+	playerBoxPolyPoints[3].x = ((PIXEL_TO_METERS(width) * 0.5f) - PIXEL_TO_METERS(2)) * 2;
+	playerBoxPolyPoints[3].y = (PIXEL_TO_METERS(height) * 0.5f) * 2;
+
+	playerBoxPolyPoints[4].x = 0 + PIXEL_TO_METERS(2) * 2;
+	playerBoxPolyPoints[4].y = (PIXEL_TO_METERS(height) * 0.5f) * 2;
+
+	playerBoxPolyPoints[5].x = 0;
+	playerBoxPolyPoints[5].y = ((PIXEL_TO_METERS(height) * 0.5f) - PIXEL_TO_METERS(4)) * 2;
+
+	box.Set(playerBoxPolyPoints, 6);
+
+	//box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
 
 	b2FixtureDef fixture;
 	fixture.shape = &box;
@@ -143,6 +167,10 @@ PhysBody* ModulePhysics::CreatePlayerBox(int x, int y, int width, int height)
 	//fixture.friction = 0.8f;
 
 	b->CreateFixture(&fixture);
+
+	b2Vec2 colliderPosPoint;
+	colliderPosPoint.x = PIXEL_TO_METERS(-14);
+	colliderPosPoint.y = PIXEL_TO_METERS(-17);
 
 	PhysBody* pbody = new PhysBody();
 	pbody->body = b;

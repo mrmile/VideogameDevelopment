@@ -181,7 +181,7 @@ bool ModulePlayer::Start()
 
 	destroyed = false;
 
-	Player = app->physics->CreatePlayerBox(position.x+14, position.y+16, 28, 33);
+	Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
 
 	TestingGround = app->physics->CreateColliderRectangle(app->map->MapToWorld(5, 26).x, app->map->MapToWorld(5, 26).y, 1000, 100);
 	//TestingGround = app->physics->CreateColliderRectangle(0, 50, 1000, 100);
