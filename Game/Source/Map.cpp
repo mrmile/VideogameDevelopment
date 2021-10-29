@@ -7,7 +7,7 @@
 
 #include "Defs.h"
 #include "Log.h"
-#include "Collider.h"
+
 #include <math.h>
 
 Map::Map() : Module(), mapLoaded(false)
@@ -298,7 +298,7 @@ bool Map::Load(const char* filename)
 	{
 		ret = LoadAllLayers(mapFile.child("map"));
 	}
-	CreateColliders();
+
     mapLoaded = ret;
 
     return ret;
@@ -464,52 +464,18 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	return ret;
 }
 
-
-bool Map::CreateColliders(pugi::xml_node &map)
+/*
+bool Map::LoadColliders(pugi::xml_node& tileset_node, TileSet* set)
 {
-	
-	pugi::xml_node LAYER;
-	bool ret = true;
+	pugi::xml_node tile;
 
-	ListItem<MapLayer*>* mapLayerItem;
-	mapLayerItem = mapData.layers.start;
-	TileSet* tileset = GetTilesetFromTileId(231);
-	
-	while (mapLayerItem != NULL) {
-		if (LAYER.child("layer").child("name").child_value()=="collision_layer")
+	for (tile=tileset_node.child("data").child("tile");tile!=NULL;tile=tileset_node.next_sibling("tile"))
+	{
+		if (tile.child("type").child_value() == "collision")
 		{
-			for (int x = 0; x < LAYER.; x++)
-			{
-				for (int y = 0; y < mapLayerItem->data->height; y++)
-				{
-					int gid = mapLayerItem->data->Get(x, y);
-
-					if (gid == 231) {
-
-						//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
-						//now we always use the firt tileset in the list
-						//TileSet* tileset = mapData.tilesets.start->data;
-						
-
-						SDL_Rect r = tileset->GetTileRect(gid);
-						iPoint pos = MapToWorld(x, y);
-						pos.x += r.w / 2;
-						pos.y += r.h / 2;
-						PhysBody* Colliders = new PhysBody();
-						Colliders->listener = this;
-						Colliders = app->physics->CreateColliderRectangle(pos.x, pos.y, r.w, r.h);
-					
-						colliders.add(Colliders);
-
-					}
-
-				}
-			}
+			//LOS 0 SON TEMPORALES
+			app->physics->CreateColliderRectangle(0, 0, mapData.tileWidth, mapData.tileHeight);
 		}
-		
-		mapLayerItem = mapLayerItem->next;
 	}
-
-	return ret;
 }
-
+*/

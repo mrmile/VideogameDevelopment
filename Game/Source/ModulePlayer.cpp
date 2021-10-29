@@ -147,7 +147,7 @@ bool ModulePlayer::Start()
 
 	Player = app->physics->CreatePlayerBox(position.x+14, position.y+16, 28, 33);
 
-	//TestingGround = app->physics->CreateColliderRectangle(app->map->MapToWorld(5, 22).x, app->map->MapToWorld(5, 22).y, 1000, 100);
+	TestingGround = app->physics->CreateColliderRectangle(app->map->MapToWorld(5, 26).x, app->map->MapToWorld(5, 26).y, 1000, 100);
 	//TestingGround = app->physics->CreateColliderRectangle(0, 50, 1000, 100);
 
 	// TODO 0: Notice how a font is loaded and the meaning of all its arguments 
@@ -182,15 +182,15 @@ bool ModulePlayer::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
 	{
-		/*
+		
 		if (currentAnimation != &leftAnim)
 		{
 			leftAnim.Reset();
 			currentAnimation = &leftAnim;
 		}
-		*/
+		
 
-		//Player->body->ApplyLinearImpulse({ -0.05f,0 }, { 0,0 }, true);
+		//Player->body->ApplyForce({ -100,0 }, { 0,0 }, true);
 		if (Player->body->IsAwake() == true)
 		{
 			if (currentAnimation != &leftAnim)
@@ -199,11 +199,8 @@ bool ModulePlayer::Update(float dt)
 				currentAnimation = &leftAnim;
 			}
 		}
-		else
-		{
-			currentAnimation = &idleLeftAnim;
-		}
-		position.x -= 5;
+
+		position.x -= 3;
 		app->render->camera.x += 2;
 		PlayerLookingPosition = 1;
 		
@@ -211,15 +208,15 @@ bool ModulePlayer::Update(float dt)
 	
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT)
 	{	
-		/*
+		
 		if (currentAnimation != &rightAnim)
 		{
 			rightAnim.Reset();
 			currentAnimation = &rightAnim;
 		}
-		*/
+		
 
-		//Player->body->ApplyLinearImpulse({ 0.05f,0 }, { 0,0 }, true);
+		//Player->body->ApplyForce({ 100,0 }, { 0,0 }, true);
 		
 		if (Player->body->IsAwake() == true)
 		{
@@ -229,12 +226,8 @@ bool ModulePlayer::Update(float dt)
 				currentAnimation = &rightAnim;
 			}
 		}
-		else
-		{
-			currentAnimation = &idleRightAnim;
-		}
 
-		position.x += 5;
+		position.x += 3;
 		app->render->camera.x -= 2;
 		PlayerLookingPosition = 2;
 		
@@ -242,7 +235,7 @@ bool ModulePlayer::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN)
 	{
-		Player->body->ApplyLinearImpulse({ 0,-100 }, { 0,0 }, true);
+		Player->body->ApplyLinearImpulse({ 0,-160 }, { 0,0 }, true);
 
 		if (PlayerLookingPosition == 1)
 		{
