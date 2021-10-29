@@ -147,7 +147,7 @@ bool ModulePlayer::Start()
 
 	Player = app->physics->CreatePlayerBox(position.x+14, position.y+16, 28, 33);
 
-	TestingGround = app->physics->CreateColliderRectangle(app->map->MapToWorld(5, 22).x, app->map->MapToWorld(5, 22).y, 1000, 100);
+	//TestingGround = app->physics->CreateColliderRectangle(app->map->MapToWorld(5, 22).x, app->map->MapToWorld(5, 22).y, 1000, 100);
 	//TestingGround = app->physics->CreateColliderRectangle(0, 50, 1000, 100);
 
 	// TODO 0: Notice how a font is loaded and the meaning of all its arguments 
