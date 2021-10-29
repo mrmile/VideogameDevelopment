@@ -60,16 +60,16 @@ bool Scene::Update(float dt)
 		app->SaveGameRequest();
 
 	if(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		app->render->camera.y -= 1;
+		app->render->camera.y -= 5;
 
 	if(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		app->render->camera.y += 1;
+		app->render->camera.y += 5;
 
 	if(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		app->render->camera.x -= 1;
+		app->render->camera.x -= 5;
 
 	if(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		app->render->camera.x += 1;
+		app->render->camera.x += 5;
 
 
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more

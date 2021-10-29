@@ -125,7 +125,12 @@ bool ModulePlayer::Start()
 	//laserFx = app->audio->LoadFx("Assets/Fx/laser.wav");
 	//explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");
 
-	position = app->map->WorldToMap(5, 90);
+	position = app->map->MapToWorld(5, 90);
+
+	iPoint mapCameraPos;
+	mapCameraPos = app->map->MapToWorld(0, 82);
+	app->render->camera.x = mapCameraPos.x;
+	app->render->camera.y = mapCameraPos.y;
 
 	destroyed = false;
 
