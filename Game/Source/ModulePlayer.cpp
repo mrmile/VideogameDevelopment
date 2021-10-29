@@ -113,6 +113,20 @@ ModulePlayer::ModulePlayer()
 	rightRunAnim.PushBack({ 308, 47, 36, 33 });
 	rightRunAnim.loop = true;
 	rightRunAnim.speed = 0.3f;
+
+	// Jump left
+	jumpLeftAnim.PushBack({ 51, 130, 26, 33 });
+	jumpLeftAnim.PushBack({ 27, 130, 26, 33 });
+	jumpLeftAnim.PushBack({ 1, 130, 28, 33 });
+	jumpLeftAnim.loop = false;
+	jumpLeftAnim.speed = 0.3f;
+
+	// Jump right
+	jumpRightAnim.PushBack({ 2, 90, 27, 33 });
+	jumpRightAnim.PushBack({ 28, 90, 26, 33 });
+	jumpRightAnim.PushBack({ 52, 90, 28, 33 });
+	jumpRightAnim.loop = false;
+	jumpRightAnim.speed = 0.3f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -177,7 +191,7 @@ bool ModulePlayer::Start()
 	playerTimer = 0;
 	playerIdleAnimationTimer = 0;
 
-	jump = true;
+	jump = false;
 
 	//srand(time(NULL));
 
@@ -278,13 +292,11 @@ bool ModulePlayer::Update(float dt)
 		{
 
 			doubleJump = true;
-			//jump = false; 
 
 		}
 		if (PlayerLookingPosition == 2)
 		{
 			doubleJump = true;
-			//jump = false;				
 		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_X) == KeyState::KEY_REPEAT)
