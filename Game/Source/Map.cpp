@@ -478,7 +478,7 @@ bool Map::LoadColliders(pugi::xml_node& tileset_node, TileSet* set)
 	{
 		for (tile.child("data").child("tile"); tile != NULL; tile = tileset_node.next_sibling("tile"))
 		{
-			if (tile.attribute("gid")>0)
+			if (tile.attribute("gid")!=0)
 			{
 				//LOS 0 SON TEMPORALES
 				PhysBody* NewCollision;
@@ -489,6 +489,9 @@ bool Map::LoadColliders(pugi::xml_node& tileset_node, TileSet* set)
 			}
 		}
 	}
+	
+	tile.next_sibling("layer");
+	
 	return ret;
 }
 
