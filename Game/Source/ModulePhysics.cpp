@@ -131,7 +131,6 @@ PhysBody* ModulePhysics::CreatePlayerBox(int x, int y, int width, int height)
 {
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
-	//body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 
 	b2Body* b = world->CreateBody(&body);
@@ -159,11 +158,12 @@ PhysBody* ModulePhysics::CreatePlayerBox(int x, int y, int width, int height)
 
 	box.Set(playerBoxPolyPoints, 6);
 
-	//box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
+	box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
 
 	b2FixtureDef fixture;
 	fixture.shape = &box;
 	fixture.density = 50.0f;
+	
 	//fixture.friction = 0.8f;
 
 	b->CreateFixture(&fixture);
