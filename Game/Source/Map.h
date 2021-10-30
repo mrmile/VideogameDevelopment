@@ -122,7 +122,7 @@ public:
 
     // Called each loop iteration
     void Draw();
-
+	void DrawColliders();
     // Called before quitting
     bool CleanUp();
 
@@ -143,7 +143,7 @@ private:
 	bool LoadTileSets(pugi::xml_node mapFile);
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
-	bool LoadColliders(pugi::xml_node& tileset_node, TileSet* set);
+	
 
 
 	// L04

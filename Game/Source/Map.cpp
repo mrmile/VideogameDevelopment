@@ -240,10 +240,6 @@ bool Map::Load(const char* filename)
 	{
 		ret = LoadAllLayers(mapFile.child("map"));
 	}
-	if (ret == true)
-	{
-		ret = LoadColliders(mapFile.child("map"), mapData.tilesets.start->data);
-	}
     if(ret == true)
     {
         // L03: DONE 5: LOG all the data loaded iterate all tilesets and LOG everything
@@ -352,7 +348,6 @@ bool Map::LoadTileSets(pugi::xml_node mapFile) {
 		TileSet* set = new TileSet();
 		if (ret == true) ret = LoadTilesetDetails(tileset, set);
 		if (ret == true) ret = LoadTilesetImage(tileset, set);
-		if (ret == true) ret = LoadColliders(tileset, set);
 		mapData.tilesets.add(set);
 	}
 
@@ -468,7 +463,7 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	return ret;
 }
 
-
+/*
 bool Map::LoadColliders(pugi::xml_node& tileset_node, TileSet* set)
 {
 	bool ret = true;
@@ -476,7 +471,7 @@ bool Map::LoadColliders(pugi::xml_node& tileset_node, TileSet* set)
 	tile = tileset_node.child("layer");
 	if (tile.attribute("id").as_int() == 2)
 	{
-		for (tile.child("data").child("tile"); tile != NULL; tile = tileset_node.next_sibling("tile"))
+		for (tile = tile.child("data").child("tile"); tile != NULL; tile = tileset_node.next_sibling("tile"))
 		{
 			if (tile.attribute("gid")!=0)
 			{
@@ -494,4 +489,49 @@ bool Map::LoadColliders(pugi::xml_node& tileset_node, TileSet* set)
 	
 	return ret;
 }
+*/
+void Map::DrawColliders()
+{
 
+	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
+	ListItem<MapLayer*>* mapLayerItem;
+	mapLayerItem = mapData.layers.start;
+
+	while (mapLayerItem != NULL)
+	{
+	
+		//if (mapLayerItem->data->properties.GetProperty("Draw") == 0) return;
+		if (mapLayerItem->data->id != 2)
+		{
+			mapLayerItem=mapLayerItem->next;
+		}
+		else if(mapLayerItem->data->id == 2)
+		{
+			for (int x = 0; x < mapLayerItem->data->width; x++)
+			{
+				for (int y = 0; y < mapLayerItem->data->height; y++)
+				{
+					// L04: DONE 9: Complete the draw function
+					int gid = mapLayerItem->data->Get(x, y);
+
+					if (gid > 0)
+					{
+
+						//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
+						//now we always use the firt tileset in the list
+						TileSet* tileset = mapData.tilesets.start->data;
+
+						SDL_Rect r = tileset->GetTileRect(gid);
+						iPoint pos = MapToWorld(x, y);
+						PhysBody* NewCollision;
+						NewCollision=app->physics->CreateColliderRectangle(pos.x, pos.y, r.w, r.h);
+						Collisions.add(NewCollision);
+						Collisions.start->next;
+					}
+
+				}
+			}
+		}
+		
+	}
+}

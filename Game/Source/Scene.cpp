@@ -38,7 +38,7 @@ bool Scene::Start()
 	
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
-
+	app->map->DrawColliders();
 
 	return true;
 }
@@ -76,6 +76,7 @@ bool Scene::Update(float dt)
 
 	// Draw map
 	app->map->Draw();
+	
 
 	// L03: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
