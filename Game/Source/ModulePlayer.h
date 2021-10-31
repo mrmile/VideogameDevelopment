@@ -6,6 +6,8 @@
 #include "Point.h"
 #include "ModulePhysics.h"
 
+// sound fx web: https://themushroomkingdom.net/media/smw2/wav
+
 struct SDL_Texture;
 struct Collider;
 
@@ -69,9 +71,13 @@ public:
 	Animation jumpLeftAnim;
 	Animation fallRightAnim;
 	Animation fallLeftAnim;
+	Animation hoverRightAnim;
+	Animation hoverLeftAnim;
 
 	// Sound effects indices
 	uint jumpSound = 0;
+	uint hoverSound = 0;
+	uint hoverSoundL = 0;
 
 	// The player's collider
 	Collider* collider = nullptr;
@@ -92,6 +98,7 @@ public:
 
 	int playerTimer;
 	int playerIdleAnimationTimer;
+	int hoverTimer;
 
 	//Margin of movement
 	int horizontalMargin = 45;
@@ -104,6 +111,8 @@ public:
 	bool jump;
 	bool doubleJump;
 	bool inTheAir = false;
+	bool hover = false;
+
 };
 
 #endif //!__MODULE_PLAYER_H__

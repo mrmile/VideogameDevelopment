@@ -135,6 +135,20 @@ ModulePlayer::ModulePlayer()
 	fallRightAnim.PushBack({ 2, 90, 26, 33 });
 	fallRightAnim.loop = false;
 	fallRightAnim.speed = 0.3f;
+
+	// hover left
+	hoverLeftAnim.PushBack({ 110, 92, 24, 34 });
+	hoverLeftAnim.PushBack({ 133, 92, 25, 34 });
+	hoverLeftAnim.PushBack({ 158, 92, 26, 34 });
+	hoverLeftAnim.loop = true;
+	hoverLeftAnim.speed = 0.3f;
+
+	// hover right
+	hoverRightAnim.PushBack({ 158, 132, 24, 34 });
+	hoverRightAnim.PushBack({ 135, 132, 24, 34 });
+	hoverRightAnim.PushBack({ 109, 132, 26, 34 });
+	hoverRightAnim.loop = true;
+	hoverRightAnim.speed = 0.3f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -157,6 +171,8 @@ bool ModulePlayer::Start()
 	currentAnimation = &idleRightAnim;
 
 	jumpSound = app->audio->LoadFx("Assets/audio/fx/Jump.wav");
+	hoverSound = app->audio->LoadFx("Assets/audio/fx/Flutter_s.wav");
+	hoverSoundL = app->audio->LoadFx("Assets/audio/fx/Flutter_l.wav");
 
 	//laserFx = app->audio->LoadFx("Assets/Fx/laser.wav");
 	//explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");
@@ -183,7 +199,7 @@ bool ModulePlayer::Start()
 
 	Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
 
-	TestingGround = app->physics->CreateColliderRectangle(app->map->MapToWorld(5, 26).x, app->map->MapToWorld(5, 26).y, 1000, 100);
+	TestingGround = app->physics->CreateColliderRectangle(app->map->MapToWorld(5, 26).x, app->map->MapToWorld(5, 26).y, 1000, 100); // Tendria que estar en Scene.cpp
 	//TestingGround = app->physics->CreateColliderRectangle(0, 50, 1000, 100);
 
 	// TODO 0: Notice how a font is loaded and the meaning of all its arguments 
@@ -198,6 +214,7 @@ bool ModulePlayer::Start()
 
 	playerTimer = 0;
 	playerIdleAnimationTimer = 0;
+	hoverTimer = 0;
 
 	jump = false;
 
@@ -228,7 +245,7 @@ bool ModulePlayer::Update(float dt)
 		{
 			if (Player->body->GetLinearVelocity().x >= -2) Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
 
-			if (currentAnimation != &leftAnim)
+			if (currentAnimation != &leftAnim && hover == false)
 			{
 				leftRunAnim.Reset();
 				currentAnimation = &leftAnim;
@@ -238,7 +255,7 @@ bool ModulePlayer::Update(float dt)
 		{
 			if (Player->body->GetLinearVelocity().x >= -4) Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
 
-			if (currentAnimation != &leftRunAnim)
+			if (currentAnimation != &leftRunAnim && hover == false)
 			{
 				leftRunAnim.Reset();
 				currentAnimation = &leftRunAnim;
@@ -256,7 +273,7 @@ bool ModulePlayer::Update(float dt)
 		{
 			if (Player->body->GetLinearVelocity().x <= 2) Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
 
-			if (currentAnimation != &rightAnim)
+			if (currentAnimation != &rightAnim && hover == false)
 			{
 				rightAnim.Reset();
 				currentAnimation = &rightAnim;
@@ -266,7 +283,7 @@ bool ModulePlayer::Update(float dt)
 		{
 			if (Player->body->GetLinearVelocity().x <= 4) Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
 
-			if (currentAnimation != &rightRunAnim)
+			if (currentAnimation != &rightRunAnim && hover == false)
 			{
 				rightAnim.Reset();
 				currentAnimation = &rightRunAnim;
@@ -295,6 +312,8 @@ bool ModulePlayer::Update(float dt)
 	{
 		jump = false;
 		inTheAir = false;
+		hover = false;
+		hoverTimer = 0;
 	}
 
 	if (Player->body->GetLinearVelocity().y != 0)
@@ -302,7 +321,51 @@ bool ModulePlayer::Update(float dt)
 		inTheAir = true;
 	}
 
-	if (PlayerLookingPosition == 1 && jump == true)
+	if (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_REPEAT && Player->body->GetLinearVelocity().y > 0) // <--
+	{
+		hover = true;
+		run = false;
+
+		if (hoverTimer < 75)
+		{
+			Player->body->ApplyForce({ 0,-1800 }, { 0,0 }, true);
+			if (hoverTimer < 2 && hover == true) app->audio->PlayFx(hoverSound);
+			if (hoverTimer > 30 && hoverTimer < 34 && hover == true) app->audio->PlayFx(hoverSound);
+		}
+
+		if (PlayerLookingPosition == 1)
+		{
+			if(Player->body->GetLinearVelocity().x < -1) Player->body->ApplyLinearImpulse({ 3.0f,0 }, { 0,0 }, true);
+			if (currentAnimation != &hoverLeftAnim)
+			{
+				hoverLeftAnim.Reset();
+				currentAnimation = &hoverLeftAnim;
+			}
+		}
+		if (PlayerLookingPosition == 2)
+		{
+			if (Player->body->GetLinearVelocity().x > 1) Player->body->ApplyLinearImpulse({ -3.0f,0 }, { 0,0 }, true);
+			if (currentAnimation != &hoverRightAnim)
+			{
+				hoverRightAnim.Reset();
+				currentAnimation = &hoverRightAnim;
+			}
+		}
+	}
+	if (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_UP)
+	{
+		hover = false;
+	}
+	if (hover == true)
+	{
+		hoverTimer++;
+	}
+	if (hoverTimer > 75)
+	{
+		hover = false;
+	}
+
+	if (PlayerLookingPosition == 1 && jump == true && hover == false)
 	{
 		if (Player->body->GetLinearVelocity().y < 0)
 		{
@@ -321,7 +384,7 @@ bool ModulePlayer::Update(float dt)
 			}
 		}
 	}
-	if (PlayerLookingPosition == 2 && jump == true)
+	if (PlayerLookingPosition == 2 && jump == true && hover == false)
 	{
 		if (Player->body->GetLinearVelocity().y < 0)
 		{
@@ -343,7 +406,7 @@ bool ModulePlayer::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_X) == KeyState::KEY_REPEAT)
 	{
-		run = true;
+		if (hover == false) run = true;
 	}
 	else
 	{
