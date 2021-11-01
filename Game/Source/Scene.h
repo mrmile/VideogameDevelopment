@@ -32,6 +32,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	int sceneTimer;
 	
 private:
 	SDL_Texture* img;

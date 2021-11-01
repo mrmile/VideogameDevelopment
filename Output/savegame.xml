@@ -10,6 +10,6 @@
 	<:anonymous />
 	<:anonymous />
 	<renderer>
-		<camera x="-174" y="-240" />
+		<camera x="480" y="-240" />
 	</renderer>
 </save_state>

@@ -40,6 +40,8 @@ bool Scene::Start()
 	app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
 	//app->map->DrawColliders(); No se para que se ha creado esta función si el box2d ya hace esto cuando le das al F1
 
+	sceneTimer = 0;
+
 	return true;
 }
 
@@ -52,6 +54,8 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+	sceneTimer++;
+
     // L02: DONE 3: Request Load / Save when pressing L/S
 	if(app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		app->LoadGameRequest();
@@ -76,6 +80,8 @@ bool Scene::Update(float dt)
 
 	// Draw map
 	app->map->Draw();
+
+	if(sceneTimer <= 1) app->map->LoadColliders();
 	
 
 	// L03: DONE 7: Set the window title with map/tileset info

@@ -86,6 +86,8 @@ void Map::Draw()
 							pos.x,
 							pos.y,
 							&r);
+
+						
 					}
 
 				}
@@ -462,33 +464,55 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	return ret;
 }
 
-/*
-bool Map::LoadColliders(pugi::xml_node& tileset_node, TileSet* set)
+
+void Map::LoadColliders()
 {
-	bool ret = true;
-	pugi::xml_node tile;
-	tile = tileset_node.child("layer");
-	if (tile.attribute("id").as_int() == 2)
+	if (mapLoaded == false) return;
+
+	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
+	ListItem<MapLayer*>* mapLayerItem;
+	mapLayerItem = mapData.layers.start;
+
+	// L06: TODO 4: Make sure we draw all the layers and not just the first one
+	while (mapLayerItem != NULL)
 	{
-		for (tile = tile.child("data").child("tile"); tile != NULL; tile = tileset_node.next_sibling("tile"))
+
+		if (mapLayerItem->data->properties.GetProperty("Draw") == 0)
 		{
-			if (tile.attribute("gid")!=0)
+
+			for (int x = 0; x < mapLayerItem->data->width; x++)
 			{
-				//LOS 0 SON TEMPORALES
-				PhysBody* NewCollision;
-				SDL_Rect rect = set->GetTileRect(tile.attribute("gid").as_int());
-				NewCollision = app->physics->CreateColliderRectangle(rect.x, rect.y, rect.w, rect.h);
-				Collisions.add(NewCollision);
-				Collisions.start->next;
+				for (int y = 0; y < mapLayerItem->data->height; y++)
+				{
+					// L04: DONE 9: Complete the draw function
+					int gid = mapLayerItem->data->Get(x, y);
+
+					if (gid > 0)
+					{
+
+						//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
+						//now we always use the firt tileset in the list
+						//TileSet* tileset = mapData.tilesets.start->data;
+						TileSet* tileset = GetTilesetFromTileId(gid);
+
+						SDL_Rect r = tileset->GetTileRect(gid);
+						iPoint pos = MapToWorld(x, y);
+
+						//app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
+						if (mapLayerItem->data->properties.GetProperty("Navigation") == 1)
+						{
+							app->physics->CreateColliderRectangle(pos.x + 8, pos.y + 8, 16, 16);
+						}
+					}
+
+				}
 			}
 		}
+
+		mapLayerItem = mapLayerItem->next;
 	}
-	
-	tile.next_sibling("layer");
-	
-	return ret;
 }
-*/
+
 void Map::DrawColliders()
 {
 
