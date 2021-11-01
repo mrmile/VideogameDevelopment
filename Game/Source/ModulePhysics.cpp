@@ -182,6 +182,31 @@ PhysBody* ModulePhysics::CreatePlayerBox(int x, int y, int width, int height)
 	return pbody;
 }
 
+PhysBody* ModulePhysics::CreatePlayerCircle(int x, int y, int radius)
+{
+	b2BodyDef body;
+	body.type = b2_dynamicBody;
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+
+	b2Body* b = world->CreateBody(&body);
+
+	b2CircleShape shape;
+	shape.m_radius = PIXEL_TO_METERS(radius);
+	b2FixtureDef fixture;
+	fixture.shape = &shape;
+	fixture.density = 50.0f;
+
+	b->CreateFixture(&fixture);
+
+	PhysBody* pbody = new PhysBody();
+	pbody->body = b;
+	b->SetUserData(pbody);
+	pbody->width = pbody->height = radius;
+	pbody->body->SetFixedRotation(true);
+
+	return pbody;
+}
+
 PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int height)
 {
 	b2BodyDef body;
