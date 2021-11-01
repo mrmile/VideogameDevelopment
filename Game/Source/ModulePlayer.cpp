@@ -198,6 +198,7 @@ bool ModulePlayer::Start()
 	destroyed = false;
 
 	Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
+	app->physics->CreateRectangleSensor(position.x, position.y + 16, 28, 1);
 	//Player = app->physics->CreatePlayerCircle(position.x, position.y, 16);
 
 	//TestingGround = app->physics->CreateColliderRectangle(app->map->MapToWorld(5, 26).x, app->map->MapToWorld(5, 26).y, 1000, 100); // Tendria que estar en Scene.cpp
@@ -309,7 +310,7 @@ bool ModulePlayer::Update(float dt)
 		jump = true;
 	}
 
-	if (Player->body->GetLinearVelocity().y == 0)
+	if (Player->body->GetLinearVelocity().y == 0 && app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_IDLE)
 	{
 		jump = false;
 		inTheAir = false;
@@ -317,10 +318,7 @@ bool ModulePlayer::Update(float dt)
 		hoverTimer = 0;
 	}
 
-	if (Player->body->GetLinearVelocity().y != 0)
-	{
-		inTheAir = true;
-	}
+	
 
 	if (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_REPEAT && Player->body->GetLinearVelocity().y > 0) // <--
 	{
