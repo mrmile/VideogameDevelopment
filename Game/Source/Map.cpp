@@ -57,34 +57,38 @@ void Map::Draw()
 	ListItem<MapLayer*>* mapLayerItem;
 	mapLayerItem = mapData.layers.start;
 
+	// L06: TODO 4: Make sure we draw all the layers and not just the first one
 	while (mapLayerItem != NULL)
 	{
 
-		//if (mapLayerItem->data->properties.GetProperty("Draw") == 0) return;
-
-		for (int x = 0; x < mapLayerItem->data->width; x++)
+		if (mapLayerItem->data->properties.GetProperty("Draw") == 1)
 		{
-			for (int y = 0; y < mapLayerItem->data->height; y++)
+
+			for (int x = 0; x < mapLayerItem->data->width; x++)
 			{
-				// L04: DONE 9: Complete the draw function
-				int gid = mapLayerItem->data->Get(x, y);
-
-				if (gid > 0)
+				for (int y = 0; y < mapLayerItem->data->height; y++)
 				{
+					// L04: DONE 9: Complete the draw function
+					int gid = mapLayerItem->data->Get(x, y);
 
-					//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
-					//now we always use the firt tileset in the list
-					TileSet* tileset = mapData.tilesets.start->data;
+					if (gid > 0)
+					{
 
-					SDL_Rect r = tileset->GetTileRect(gid);
-					iPoint pos = MapToWorld(x, y);
+						//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
+						//now we always use the firt tileset in the list
+						//TileSet* tileset = mapData.tilesets.start->data;
+						TileSet* tileset = GetTilesetFromTileId(gid);
 
-					app->render->DrawTexture(tileset->texture,
-						pos.x,
-						pos.y,
-						&r);
+						SDL_Rect r = tileset->GetTileRect(gid);
+						iPoint pos = MapToWorld(x, y);
+
+						app->render->DrawTexture(tileset->texture,
+							pos.x,
+							pos.y,
+							&r);
+					}
+
 				}
-
 			}
 		}
 
@@ -446,18 +450,13 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 {
 	bool ret = false;
 
-	//iterate xml properties
-
-		//declare a new property
-
-		//add the propertie to the list
-		//properties.list.add();
-
-	for (pugi::xml_node propertieNode = node.child("Properties").child("Property"); propertieNode != NULL; propertieNode = propertieNode.next_sibling())
+	for (pugi::xml_node propertieNode = node.child("properties").child("property"); propertieNode; propertieNode = propertieNode.next_sibling("property"))
 	{
 		Properties::Property* p = new Properties::Property();
 		p->name = propertieNode.attribute("name").as_string();
 		p->value = propertieNode.attribute("value").as_int();
+
+		properties.list.add(p);
 	}
 	
 	return ret;
