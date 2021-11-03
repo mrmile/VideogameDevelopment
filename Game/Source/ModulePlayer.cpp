@@ -305,7 +305,7 @@ bool ModulePlayer::Update(float dt)
 		//jump = true;
 	}
 
-	if (Player->body->GetLinearVelocity().y < 0)
+	if (Player->body->GetLinearVelocity().y < 0 && app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN)
 	{
 		jump = true;
 	}

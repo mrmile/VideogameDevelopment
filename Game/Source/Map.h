@@ -124,6 +124,7 @@ public:
     void Draw();
 	void DrawColliders();
 	void LoadColliders();
+	void LoadCollidersNewer();
     // Called before quitting
     bool CleanUp();
 
@@ -135,6 +136,8 @@ public:
 
 	// L05: DONE 2: Add orthographic world to map coordinates
 	iPoint WorldToMap(int x, int y) const;
+
+	int MapToWorldSingle(int x) const; // Just for orthogonal
 
 	
 private:

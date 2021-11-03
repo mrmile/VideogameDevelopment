@@ -82,7 +82,7 @@ bool Scene::Update(float dt)
 	app->map->Draw();
 
 	if(sceneTimer <= 1) app->map->LoadColliders();
-	
+	//if (sceneTimer <= 1) app->map->LoadCollidersNewer();
 
 	// L03: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",

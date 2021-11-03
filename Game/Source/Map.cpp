@@ -9,6 +9,7 @@
 #include "Log.h"
 
 #include <math.h>
+#include <vector>
 
 Map::Map() : Module(), mapLoaded(false)
 {
@@ -115,6 +116,18 @@ iPoint Map::MapToWorld(int x, int y) const
 	{
 		ret.x = (x - y) * (mapData.tileWidth * 0.5f);
 		ret.y = (x + y) * (mapData.tileHeight * 0.5f);
+	}
+
+	return ret;
+}
+
+int Map::MapToWorldSingle(int number) const
+{
+	int ret;
+
+	if (mapData.type == MAPTYPE_ORTHOGONAL)
+	{
+		ret = number * mapData.tileWidth;
 	}
 
 	return ret;
@@ -465,7 +478,7 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 }
 
 
-void Map::LoadColliders()
+void Map::LoadColliders() // Old version
 {
 	if (mapLoaded == false) return;
 
@@ -507,6 +520,79 @@ void Map::LoadColliders()
 
 				}
 			}
+		}
+
+		mapLayerItem = mapLayerItem->next;
+	}
+}
+
+
+void Map::LoadCollidersNewer() //New Version
+{
+	if (mapLoaded == false) return;
+
+	pugi::xml_node mapFile;
+	mapFile.child("objectgroup");
+
+	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
+	ListItem<MapLayer*>* mapLayerItem;
+	mapLayerItem = mapData.layers.start;
+
+	// L06: TODO 4: Make sure we draw all the layers and not just the first one
+	while (mapLayerItem != NULL)
+	{
+		for (int x = 0; x < mapLayerItem->data->width; x++)
+		{
+			for (int y = 0; y < mapLayerItem->data->height; y++)
+			{
+				int gid = mapLayerItem->data->Get(x, y);
+
+				iPoint pos = MapToWorld(x, y);
+
+				for (pugi::xml_node polygons = mapFile.child("object"); polygons; polygons = polygons.next_sibling("object"))
+				{
+					pugi::xml_node polyPoints = mapFile.child("object").child("polygon");
+					int arraySize = 0;
+					iPoint arrayGet[500];
+					int pointsArray[1000];
+					/*
+					for (pugi::xml_node_iterator it = polyPoints.begin(); it != polyPoints.end(); ++it)
+					{
+
+
+						for (pugi::xml_attribute_iterator ait = it->attributes_begin(), int i = 1; ait != it->attributes_end(); ++ait, i++)
+						{
+							pointsArray[i - 1] = it->attribute("points").as_int();
+
+							arraySize = i;
+						}
+
+
+					}
+					*/
+					int i = 0;
+					for (pugi::xml_node_iterator it = polyPoints.begin(); it != polyPoints.end(); ++it)
+					{
+
+
+						for (pugi::xml_attribute_iterator ait = it->attributes_begin(); ait != it->attributes_end(); ++ait)
+						{
+							pointsArray[i] = it->attribute("points").as_int();
+							i++;
+						}
+
+
+					}
+
+					app->physics->CreateChain(pos.x, pos.y, pointsArray, arraySize);
+				}
+				
+
+			}
+		}
+		if (mapLayerItem->data->properties.GetProperty("Collisions") == 1)
+		{
+
 		}
 
 		mapLayerItem = mapLayerItem->next;
