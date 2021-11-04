@@ -83,12 +83,21 @@ void Map::Draw()
 						SDL_Rect r = tileset->GetTileRect(gid);
 						iPoint pos = MapToWorld(x, y);
 
-						app->render->DrawTexture(tileset->texture,
-							pos.x,
-							pos.y,
-							&r);
-
+						//app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
+						if (mapLayerItem->data->properties.GetProperty("Parallax") == 1)
+						{
+							app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r, 1);
+						}
 						
+						if (mapLayerItem->data->properties.GetProperty("Parallax") == 2)
+						{
+							app->render->DrawTexture(tileset->texture, pos.x, pos.y - MapToWorldSingle(5), &r, 0.5f);
+						}
+						
+						if (mapLayerItem->data->properties.GetProperty("Parallax") == 3)
+						{
+							app->render->DrawTexture(tileset->texture, pos.x, pos.y - MapToWorldSingle(5), &r, 0.4f);
+						}
 					}
 
 				}
