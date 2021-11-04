@@ -28,6 +28,9 @@
     <ClCompile Include="Source\ModulePhysics.cpp">
       <Filter>imported_modules</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ModuleCollisions.cpp">
+      <Filter>imported_modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -76,6 +79,9 @@
       <Filter>imported_modules</Filter>
     </ClInclude>
     <ClInclude Include="Source\ModulePhysics.h">
+      <Filter>imported_modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModuleCollisions.h">
       <Filter>imported_modules</Filter>
     </ClInclude>
   </ItemGroup>

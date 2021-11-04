@@ -20,6 +20,7 @@ class Map;
 class ModuleFadeToBlack;
 class ModulePhysics;
 class ModulePlayer;
+class ModuleCollisions;
 
 class App
 {
@@ -94,6 +95,7 @@ public:
 	ModuleFadeToBlack* fade;
 	ModulePhysics* physics;
 	ModulePlayer* player;
+	ModuleCollisions* collisions;
 
 private:
 

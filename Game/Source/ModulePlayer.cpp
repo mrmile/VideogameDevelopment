@@ -14,6 +14,8 @@
 #include "Scene.h"
 #include "Map.h"
 #include "ModulePhysics.h"
+#include "ModuleCollisions.h"
+
 #include <stdio.h>
 #include <time.h>
 
@@ -192,14 +194,14 @@ bool ModulePlayer::Start()
 	//app->render->camera.x = app->map->MapToWorld(32, 4100).x;
 	//app->render->camera.y = app->map->MapToWorld(32, 4100).y;
 
-	app->render->camera.x = app->map->MapToWorld(0, -15).x;
-	app->render->camera.y = app->map->MapToWorld(0, -15).y;
-
 	destroyed = false;
 
+	collider = app->collisions->AddCollider({ position.x + 5, position.y + 3, 28, 33 }, Collider::Type::PLAYER, this);
+
 	Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
-	app->physics->CreateRectangleSensor(position.x, position.y + 16, 28, 1);
+	//app->physics->CreateRectangleSensor(position.x, position.y + 16, 28, 1);
 	//Player = app->physics->CreatePlayerCircle(position.x, position.y, 16);
+	
 
 	//TestingGround = app->physics->CreateColliderRectangle(app->map->MapToWorld(5, 26).x, app->map->MapToWorld(5, 26).y, 1000, 100); // Tendria que estar en Scene.cpp
 	//TestingGround = app->physics->CreateColliderRectangle(0, 50, 1000, 100);
@@ -231,10 +233,10 @@ bool ModulePlayer::Start()
 
 bool ModulePlayer::Update(float dt)
 {
+	collider->SetPos(position.x, position.y);
 
 	playerTimer++;
-	app->render->camera.x = -(Player->body->GetPosition().x * 100) + 640;
-	//app->render->camera.x = -(Player->body->GetPosition().x * 100); <-- Este es el que se aplica al final
+	
 	//app->win->GetWindowSize()
 	
 	//LOG("Player %s", Player->body->GetPosition().x);
@@ -530,4 +532,29 @@ bool ModulePlayer::PostUpdate()
 bool ModulePlayer::CleanUp() // Implementar???
 {
 	return true;
+}
+
+/*
+void ModulePlayer::b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB)
+{
+	
+}
+*/
+
+void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
+{
+	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::H_CB) // HORIZONTAL_CAMERA_BOUND = H_CB
+	{
+		if (horizontalCM == false)
+		{
+			horizontalCM = true;
+		}
+	}
+	else if (c1->type == Collider::Type::PLAYER && c2->type != Collider::Type::H_CB)
+	{
+		if (horizontalCM == true)
+		{
+			horizontalCM = false;
+		}
+	}
 }

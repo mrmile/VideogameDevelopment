@@ -9,6 +9,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModulePhysics.h"
 #include "ModulePlayer.h"
+#include "ModuleCollisions.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -31,6 +32,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	physics = new ModulePhysics();
 	fade = new ModuleFadeToBlack();
 	player = new ModulePlayer();
+	collisions = new ModuleCollisions();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -38,11 +40,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(scene);
-	AddModule(map);
-	AddModule(fade);
 	AddModule(physics);
+	AddModule(map);
+	AddModule(scene);
 	AddModule(player);
+	AddModule(collisions);
+	AddModule(fade);
 
 	// Render last to swap buffer
 	AddModule(render);

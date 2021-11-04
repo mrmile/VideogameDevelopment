@@ -7,6 +7,8 @@
 #include "Scene.h"
 #include "Map.h"
 #include "ModulePhysics.h"
+#include "ModulePlayer.h"
+#include "ModuleCollisions.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -38,9 +40,32 @@ bool Scene::Start()
 	
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
-	
 
 	sceneTimer = 0;
+
+	//b2Filter filter;
+
+	//filter.categoryBits = 1;
+
+	//filter.categoryBits = 0x0001;
+	//filter.maskBits = 0x0001;
+
+	//h_CB1 = app->physics->CreateRectangleSensor(app->map->MapToWorldSingle(0) + app->map->MapToWorldSingle(15) / 2, app->map->MapToWorldSingle(16) + app->map->MapToWorldSingle(7) / 2, app->map->MapToWorldSingle(15), app->map->MapToWorldSingle(7));
+	//h_CB1->listener = this;
+	//h_CB1->body->GetFixtureList()->SetFilterData(filter);
+
+	//h_CB2 = app->physics->CreateRectangleSensor(app->map->MapToWorldSingle(118) + app->map->MapToWorldSingle(10) / 2, app->map->MapToWorldSingle(13) + app->map->MapToWorldSingle(10) / 2, app->map->MapToWorldSingle(10), app->map->MapToWorldSingle(10));
+	//h_CB2->listener = this;
+	//h_CB2->body->GetFixtureList()->SetFilterData(filter);
+
+	app->render->camera.x = app->map->MapToWorld(0, -15).x;
+	app->render->camera.y = app->map->MapToWorld(0, -15).y;
+
+	//NULL COLLIDER --> (experimental test for camera functions and other mechanical stuff related with old type colliders
+	app->collisions->AddCollider({ app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(1200), app->map->MapToWorldSingle(100) }, Collider::Type::NULL_COLLIDER);
+
+	app->collisions->AddCollider({ app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(16), app->map->MapToWorldSingle(19), app->map->MapToWorldSingle(7) }, Collider::Type::H_CB);
+	app->collisions->AddCollider({ app->map->MapToWorldSingle(118), app->map->MapToWorldSingle(13), app->map->MapToWorldSingle(10), app->map->MapToWorldSingle(10) }, Collider::Type::H_CB);
 
 	return true;
 }
@@ -55,6 +80,10 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 	sceneTimer++;
+	//app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 640;
+	//app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 160; //<-- Este es el que se aplica al final
+	
+	if(app->player->horizontalCM == false) app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 630;
 
     // L02: DONE 3: Request Load / Save when pressing L/S
 	if(app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
@@ -114,3 +143,43 @@ bool Scene::CleanUp()
 
 	return true;
 }
+
+/*
+void Scene::b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB)
+{
+	if (bodyA != nullptr && bodyB != nullptr)
+	{
+		b2Filter filter;
+		filter.categoryBits = 0x0001;
+		filter.maskBits = 0x0001;
+
+		if (bodyB->body == app->player->Player->body && bodyA->body == app->scene->h_CB1->body)
+		{
+
+			filter.categoryBits = 0x0002;
+			filter.maskBits = 0x0002 | 0x0001;
+
+			//b2Vec2 position;
+			//position.x = 688;
+			//position.y = 820;
+
+			LOG("Player Collision");
+			//app->player->Player->body->GetFixtureList()->SetFilterData(filter);
+			//app->player->player->body->DestroyFixture();
+
+			if (app->player->horizontalCM == false)
+			{
+				app->player->horizontalCM = true;
+			}
+			
+		}
+		else if (bodyB->body == app->player->Player->body && bodyA->body != app->scene->h_CB1->body)
+		{
+			if (app->player->horizontalCM == true)
+			{
+				app->player->horizontalCM = false;
+			}
+		}
+	}
+}
+*/

@@ -18,8 +18,8 @@ struct Collider
 		ENEMY,
 		PLAYER_SHOT,
 		ENEMY_SHOT,
-		TELEPORT_R,
-		TELEPORT_L,
+		H_CB,
+		V_CB,
 		PLANT,
 
 		MAX

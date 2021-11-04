@@ -91,7 +91,7 @@ void Map::Draw()
 						
 						if (mapLayerItem->data->properties.GetProperty("Parallax") == 2)
 						{
-							app->render->DrawTexture(tileset->texture, pos.x, pos.y - MapToWorldSingle(5), &r, 0.5f);
+							app->render->DrawTexture(tileset->texture, pos.x, pos.y - MapToWorldSingle(4), &r, 0.5f);
 						}
 						
 						if (mapLayerItem->data->properties.GetProperty("Parallax") == 3)
@@ -137,12 +137,14 @@ iPoint Map::MapToWorld(int x, int y) const
 
 int Map::MapToWorldSingle(int number) const
 {
-	int ret;
+	int ret = number;
 
 	if (mapData.type == MAPTYPE_ORTHOGONAL)
 	{
-		ret = number * mapData.tileWidth;
+		
 	}
+
+	ret = number * mapData.tileWidth;
 
 	return ret;
 }
@@ -647,6 +649,7 @@ void Map::LoadCollidersNewer() //New Version
 						NewCollision = app->physics->CreateColliderRectangle(pos.x, pos.y, r.w, r.h);
 						Collisions.add(NewCollision);
 						Collisions.start->next;
+
 					}
 
 				}

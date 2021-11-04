@@ -72,7 +72,7 @@ bool ModulePhysics::PreUpdate()
 			PhysBody* pb1 = (PhysBody*)c->GetFixtureA()->GetBody()->GetUserData();
 			PhysBody* pb2 = (PhysBody*)c->GetFixtureA()->GetBody()->GetUserData();
 			if(pb1 && pb2 && pb1->listener)
-				pb1->listener->OnCollision(pb1, pb2);
+				pb1->listener->b2dOnCollision(pb1, pb2);
 		}
 	}
 
@@ -439,8 +439,8 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 	PhysBody* physB = (PhysBody*)contact->GetFixtureB()->GetBody()->GetUserData();
 
 	if(physA && physA->listener != NULL)
-		physA->listener->OnCollision(physA, physB);
+		physA->listener->b2dOnCollision(physA, physB);
 
 	if(physB && physB->listener != NULL)
-		physB->listener->OnCollision(physB, physA);
+		physB->listener->b2dOnCollision(physB, physA);
 }

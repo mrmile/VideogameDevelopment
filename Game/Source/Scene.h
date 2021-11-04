@@ -32,8 +32,13 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//void b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB);
+
 	int sceneTimer;
-	
+
+	PhysBody* h_CB1;
+	PhysBody* h_CB2;
+
 private:
 	SDL_Texture* img;
 };

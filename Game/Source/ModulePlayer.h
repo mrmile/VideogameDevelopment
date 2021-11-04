@@ -35,8 +35,10 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//void b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB);
+
 	// Collision callback, called when the player intersects with another collider
-	
+	void OnCollision(Collider* c1, Collider* c2) override;
 
 public:
 	// Position of the player in the map
@@ -112,6 +114,8 @@ public:
 	bool doubleJump;
 	bool inTheAir = false;
 	bool hover = false;
+	bool horizontalCM = false;
+	bool verticalCM = false;
 
 };
 

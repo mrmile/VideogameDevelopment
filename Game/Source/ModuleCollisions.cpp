@@ -8,7 +8,8 @@
 
 #include "SDL/include/SDL_Scancode.h"
 
-ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled) // Seguramente se arregle haciendo bien el fade to black
+//ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
+ModuleCollisions::ModuleCollisions()
 {
 	for(uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
@@ -18,8 +19,8 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled) // 
 	matrix[Collider::Type::WALL][Collider::Type::ENEMY] = true;
 	matrix[Collider::Type::WALL][Collider::Type::PLAYER_SHOT] = true;
 	matrix[Collider::Type::WALL][Collider::Type::ENEMY_SHOT] = true;
-	matrix[Collider::Type::WALL][Collider::Type::TELEPORT_R] = false;
-	matrix[Collider::Type::WALL][Collider::Type::TELEPORT_L] = false;
+	matrix[Collider::Type::WALL][Collider::Type::H_CB] = false;
+	matrix[Collider::Type::WALL][Collider::Type::V_CB] = false;
 	matrix[Collider::Type::WALL][Collider::Type::PLANT] = false;
 	matrix[Collider::Type::WALL][Collider::Type::NULL_COLLIDER] = false;
 
@@ -28,8 +29,8 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled) // 
 	matrix[Collider::Type::PLAYER][Collider::Type::ENEMY] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER_SHOT] = false;
 	matrix[Collider::Type::PLAYER][Collider::Type::ENEMY_SHOT] = true;
-	matrix[Collider::Type::PLAYER][Collider::Type::TELEPORT_R] = true;
-	matrix[Collider::Type::PLAYER][Collider::Type::TELEPORT_L] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::H_CB] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::V_CB] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLANT] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::NULL_COLLIDER] = true;
 
@@ -38,8 +39,8 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled) // 
 	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER_SHOT] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY_SHOT] = false;
-	matrix[Collider::Type::ENEMY][Collider::Type::TELEPORT_R] = true;
-	matrix[Collider::Type::ENEMY][Collider::Type::TELEPORT_L] = true;
+	matrix[Collider::Type::ENEMY][Collider::Type::H_CB] = true;
+	matrix[Collider::Type::ENEMY][Collider::Type::V_CB] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::PLANT] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::NULL_COLLIDER] = false;
 
@@ -48,8 +49,8 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled) // 
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::ENEMY] = true;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::PLAYER_SHOT] = false;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::ENEMY_SHOT] = false;
-	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::TELEPORT_R] = true;
-	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::TELEPORT_L] = true;
+	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::H_CB] = true;
+	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::V_CB] = true;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::PLANT] = false;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::NULL_COLLIDER] = false;
 
@@ -58,38 +59,38 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled) // 
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ENEMY] = false;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::PLAYER_SHOT] = false;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ENEMY_SHOT] = false;
-	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::TELEPORT_R] = true;
-	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::TELEPORT_L] = true;
+	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::H_CB] = true;
+	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::V_CB] = true;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::PLANT] = false;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::NULL_COLLIDER] = false;
 
-	matrix[Collider::Type::TELEPORT_R][Collider::Type::WALL] = false;
-	matrix[Collider::Type::TELEPORT_R][Collider::Type::PLAYER] = true;
-	matrix[Collider::Type::TELEPORT_R][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::TELEPORT_R][Collider::Type::PLAYER_SHOT] = true;
-	matrix[Collider::Type::TELEPORT_R][Collider::Type::ENEMY_SHOT] = true;
-	matrix[Collider::Type::TELEPORT_R][Collider::Type::TELEPORT_R] = true;
-	matrix[Collider::Type::TELEPORT_R][Collider::Type::TELEPORT_L] = true;
-	matrix[Collider::Type::TELEPORT_R][Collider::Type::PLANT] = false;
-	matrix[Collider::Type::TELEPORT_R][Collider::Type::NULL_COLLIDER] = false;
+	matrix[Collider::Type::H_CB][Collider::Type::WALL] = false;
+	matrix[Collider::Type::H_CB][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::H_CB][Collider::Type::ENEMY] = true;
+	matrix[Collider::Type::H_CB][Collider::Type::PLAYER_SHOT] = true;
+	matrix[Collider::Type::H_CB][Collider::Type::ENEMY_SHOT] = true;
+	matrix[Collider::Type::H_CB][Collider::Type::H_CB] = true;
+	matrix[Collider::Type::H_CB][Collider::Type::V_CB] = true;
+	matrix[Collider::Type::H_CB][Collider::Type::PLANT] = false;
+	matrix[Collider::Type::H_CB][Collider::Type::NULL_COLLIDER] = false;
 
-	matrix[Collider::Type::TELEPORT_L][Collider::Type::WALL] = false;
-	matrix[Collider::Type::TELEPORT_L][Collider::Type::PLAYER] = true;
-	matrix[Collider::Type::TELEPORT_L][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::TELEPORT_L][Collider::Type::PLAYER_SHOT] = true;
-	matrix[Collider::Type::TELEPORT_L][Collider::Type::ENEMY_SHOT] = true;
-	matrix[Collider::Type::TELEPORT_L][Collider::Type::TELEPORT_R] = true;
-	matrix[Collider::Type::TELEPORT_L][Collider::Type::TELEPORT_L] = true;
-	matrix[Collider::Type::TELEPORT_L][Collider::Type::PLANT] = false;
-	matrix[Collider::Type::TELEPORT_L][Collider::Type::NULL_COLLIDER] = false;
+	matrix[Collider::Type::V_CB][Collider::Type::WALL] = false;
+	matrix[Collider::Type::V_CB][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::V_CB][Collider::Type::ENEMY] = true;
+	matrix[Collider::Type::V_CB][Collider::Type::PLAYER_SHOT] = true;
+	matrix[Collider::Type::V_CB][Collider::Type::ENEMY_SHOT] = true;
+	matrix[Collider::Type::V_CB][Collider::Type::H_CB] = true;
+	matrix[Collider::Type::V_CB][Collider::Type::V_CB] = true;
+	matrix[Collider::Type::V_CB][Collider::Type::PLANT] = false;
+	matrix[Collider::Type::V_CB][Collider::Type::NULL_COLLIDER] = false;
 
 	matrix[Collider::Type::PLANT][Collider::Type::WALL] = false;
 	matrix[Collider::Type::PLANT][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::PLANT][Collider::Type::ENEMY] = true;
 	matrix[Collider::Type::PLANT][Collider::Type::PLAYER_SHOT] = false;
 	matrix[Collider::Type::PLANT][Collider::Type::ENEMY_SHOT] = false;
-	matrix[Collider::Type::PLANT][Collider::Type::TELEPORT_R] = false;
-	matrix[Collider::Type::PLANT][Collider::Type::TELEPORT_L] = false;
+	matrix[Collider::Type::PLANT][Collider::Type::H_CB] = false;
+	matrix[Collider::Type::PLANT][Collider::Type::V_CB] = false;
 	matrix[Collider::Type::PLANT][Collider::Type::PLANT] = false;
 	matrix[Collider::Type::PLANT][Collider::Type::NULL_COLLIDER] = false;
 
@@ -98,8 +99,8 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled) // 
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::ENEMY] = false;
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::PLAYER_SHOT] = false;
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::ENEMY_SHOT] = false;
-	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::TELEPORT_R] = false;
-	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::TELEPORT_L] = false;
+	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::H_CB] = false;
+	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::V_CB] = false;
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::PLANT] = false;
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::NULL_COLLIDER] = false;
 
@@ -111,12 +112,17 @@ ModuleCollisions::~ModuleCollisions()
 
 }
 
-bool ModuleCollisions::PostUpdate()
+bool ModuleCollisions::Awake()
+{
+	return true;
+}
+
+bool ModuleCollisions::PreUpdate()
 {
 	// Remove all colliders scheduled for deletion
-	for(uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if(colliders[i] != nullptr && colliders[i]->pendingToDelete == true)
+		if (colliders[i] != nullptr && colliders[i]->pendingToDelete == true)
 		{
 			delete colliders[i];
 			colliders[i] = nullptr;
@@ -126,28 +132,28 @@ bool ModuleCollisions::PostUpdate()
 	Collider* c1;
 	Collider* c2;
 
-	for(uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
 		// skip empty colliders
-		if(colliders[i] == nullptr)
+		if (colliders[i] == nullptr)
 			continue;
 
 		c1 = colliders[i];
 
 		// avoid checking collisions already checked
-		for(uint k = i+1; k < MAX_COLLIDERS; ++k)
+		for (uint k = i + 1; k < MAX_COLLIDERS; ++k)
 		{
 			// skip empty colliders
-			if(colliders[k] == nullptr)
+			if (colliders[k] == nullptr)
 				continue;
 
 			c2 = colliders[k];
 
-			if(matrix[c1->type][c2->type] && c1->Intersects(c2->rect))
+			if (matrix[c1->type][c2->type] && c1->Intersects(c2->rect))
 			{
 				for (uint i = 0; i < MAX_LISTENERS; ++i)
-					if (c1->listeners[i] != nullptr) c1->listeners[i]->OnCollision(c1, c2); // Add on module.h and cpp
-				
+					if (c1->listeners[i] != nullptr) c1->listeners[i]->OnCollision(c1, c2);
+
 				for (uint i = 0; i < MAX_LISTENERS; ++i)
 					if (c2->listeners[i] != nullptr) c2->listeners[i]->OnCollision(c2, c1);
 			}
@@ -201,10 +207,10 @@ void ModuleCollisions::DebugDraw()
 			case Collider::Type::ENEMY_SHOT: // magenta
 			app->render->DrawRectangle(colliders[i]->rect, 0, 255, 255, alpha);
 			break;
-			case Collider::Type::TELEPORT_R: // orange
+			case Collider::Type::H_CB: // orange
 			app->render->DrawRectangle(colliders[i]->rect, 255, 155, 0, alpha);
 			break;
-			case Collider::Type::TELEPORT_L: // light blue
+			case Collider::Type::V_CB: // light blue
 			app->render->DrawRectangle(colliders[i]->rect, 0, 240, 255, alpha);
 			break;
 			case Collider::Type::PLANT: // light green

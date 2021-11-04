@@ -4,12 +4,13 @@
 	<input />
 	<textures />
 	<audio />
-	<scene />
+	<:anonymous />
 	<map />
+	<scene />
 	<:anonymous />
 	<:anonymous />
 	<:anonymous />
 	<renderer>
-		<camera x="480" y="-240" />
+		<camera x="-2510" y="-240" />
 	</renderer>
 </save_state>
