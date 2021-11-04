@@ -543,6 +543,7 @@ void Map::LoadColliders() // Old version
 
 void Map::LoadCollidersNewer() //New Version
 {
+	/*
 	if (mapLoaded == false) return;
 
 	pugi::xml_node mapFile;
@@ -569,7 +570,7 @@ void Map::LoadCollidersNewer() //New Version
 					int arraySize = 0;
 					iPoint arrayGet[500];
 					int pointsArray[1000];
-					/*
+					
 					for (pugi::xml_node_iterator it = polyPoints.begin(); it != polyPoints.end(); ++it)
 					{
 
@@ -583,24 +584,24 @@ void Map::LoadCollidersNewer() //New Version
 
 
 					}
-					*/
-					int i = 0;
-					for (pugi::xml_node_iterator it = polyPoints.begin(); it != polyPoints.end(); ++it)
-					{
+					
+	int i = 0;
+	for (pugi::xml_node_iterator it = polyPoints.begin(); it != polyPoints.end(); ++it)
+	{
 
 
-						for (pugi::xml_attribute_iterator ait = it->attributes_begin(); ait != it->attributes_end(); ++ait)
-						{
-							pointsArray[i] = it->attribute("points").as_int();
-							i++;
-						}
+		for (pugi::xml_attribute_iterator ait = it->attributes_begin(); ait != it->attributes_end(); ++ait)
+		{
+			pointsArray[i] = it->attribute("points").as_int();
+			i++;
+		}
 
 
-					}
+	}
 
-					app->physics->CreateChain(pos.x, pos.y, pointsArray, arraySize);
-				}
-				
+	app->physics->CreateChain(pos.x, pos.y, pointsArray, arraySize);
+}
+
 
 			}
 		}
@@ -610,6 +611,48 @@ void Map::LoadCollidersNewer() //New Version
 		}
 
 		mapLayerItem = mapLayerItem->next;
+	}
+	*/
+	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
+	ListItem<MapLayer*>* mapLayerItem;
+	mapLayerItem = mapData.layers.start;
+
+	while (mapLayerItem != NULL)
+	{
+
+		//if (mapLayerItem->data->properties.GetProperty("Draw") == 0) return;
+		if (mapLayerItem->data->id != 5)
+		{
+			mapLayerItem = mapLayerItem->next;
+		}
+		else if (mapLayerItem->data->id == 5)
+		{
+			for (int x = 0; x < mapLayerItem->data->width; x++)
+			{
+				for (int y = 0; y < mapLayerItem->data->height; y++)
+				{
+					// L04: DONE 9: Complete the draw function
+					int gid = mapLayerItem->data->Get(x, y);
+
+					if (gid > 0)
+					{
+
+						//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
+						//now we always use the firt tileset in the list
+						TileSet* tileset = mapData.tilesets.start->data;
+
+						SDL_Rect r = tileset->GetTileRect(gid);
+						iPoint pos = MapToWorld(x, y);
+						PhysBody* NewCollision;
+						NewCollision = app->physics->CreateColliderRectangle(pos.x, pos.y, r.w, r.h);
+						Collisions.add(NewCollision);
+						Collisions.start->next;
+					}
+
+				}
+			}
+		}
+
 	}
 }
 

@@ -38,7 +38,7 @@ bool Scene::Start()
 	
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
-	//app->map->DrawColliders(); No se para que se ha creado esta función si el box2d ya hace esto cuando le das al F1
+	
 
 	sceneTimer = 0;
 
@@ -83,6 +83,7 @@ bool Scene::Update(float dt)
 
 	if(sceneTimer <= 1) app->map->LoadColliders();
 	//if (sceneTimer <= 1) app->map->LoadCollidersNewer();
+	//if (sceneTimer <= 1) app->map->DrawColliders(); //No se para que se ha creado esta función si el box2d ya hace esto cuando le das al F1
 
 	// L03: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",

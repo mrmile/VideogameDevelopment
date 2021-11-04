@@ -180543,6 +180543,8 @@
  </layer>
  <objectgroup id="5" name="collisions" offsetx="448" offsety="0">
   <properties>
+   <property name="Collision" value="1"/>
+   <property name="Draw" value="0"/>
    <property name="Parallax" value="1"/>
   </properties>
   <object id="20" x="0.5" y="352">
