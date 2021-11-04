@@ -98,6 +98,11 @@ void Map::Draw()
 						{
 							app->render->DrawTexture(tileset->texture, pos.x, pos.y - MapToWorldSingle(5), &r, 0.4f);
 						}
+
+						if (mapLayerItem->data->properties.GetProperty("Parallax") == 4)
+						{
+							app->render->DrawTexture(tileset->texture, pos.x, pos.y - MapToWorldSingle(5), &r, 0.3f);
+						}
 					}
 
 				}
