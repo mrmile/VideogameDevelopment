@@ -459,6 +459,30 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 
 	return ret;
 }
+bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
+{
+	bool ret = true;
+
+	//Load the attributes
+	object->id = node.attribute("id").as_int();
+	object->name = node.attribute("name").as_string();
+	
+	//L06: TODO_D 6 Call Load Properties
+	LoadProperties(node, object->properties);
+
+
+	//Iterate over all the tiles and assign the values
+	pugi::xml_node NewObject;
+	int i = 0;
+	for (NewObject = node.child("object").child("polygon"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
+	{
+		object->points = NewObject.attribute("points").as_string();
+		i++;
+		// crear colisiones aqui 
+	}
+
+	return ret;
+}
 
 // L04: DONE 4: Iterate all layers and load each of them
 bool Map::LoadAllLayers(pugi::xml_node mapNode) {
@@ -471,6 +495,21 @@ bool Map::LoadAllLayers(pugi::xml_node mapNode) {
 
 		//add the layer to the map
 		mapData.layers.add(mapLayer);
+	}
+
+	return ret;
+}
+
+bool Map::LoadAllObjects(pugi::xml_node mapNode) {
+	bool ret = true;
+	for (pugi::xml_node layerNode = mapNode.child("objectgroup"); layerNode && ret; layerNode = layerNode.next_sibling("objectgroup"))
+	{
+		//Load the layer
+		MapObjects* objectLayer = new MapObjects();
+		ret = LoadObject(layerNode, objectLayer);
+
+		//add the layer to the map
+		mapData.objects.add(objectLayer);
 	}
 
 	return ret;
@@ -530,6 +569,7 @@ void Map::LoadColliders() // Old version
 						//app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
 						if (mapLayerItem->data->properties.GetProperty("Navigation") == 1)
 						{
+							
 							app->physics->CreateColliderRectangle(pos.x + 8, pos.y + 8, 16, 16);
 						}
 					}
@@ -542,93 +582,23 @@ void Map::LoadColliders() // Old version
 	}
 }
 
-
+/*
 void Map::LoadCollidersNewer() //New Version
 {
-	/*
 	if (mapLoaded == false) return;
 
-	pugi::xml_node mapFile;
-	mapFile.child("objectgroup");
-
 	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
-	ListItem<MapLayer*>* mapLayerItem;
-	mapLayerItem = mapData.layers.start;
-
+	ListItem<MapObjects*>* mapObjectItem;
+	mapObjectItem = mapData.objects.start;
+	
 	// L06: TODO 4: Make sure we draw all the layers and not just the first one
-	while (mapLayerItem != NULL)
-	{
-		for (int x = 0; x < mapLayerItem->data->width; x++)
-		{
-			for (int y = 0; y < mapLayerItem->data->height; y++)
-			{
-				int gid = mapLayerItem->data->Get(x, y);
-
-				iPoint pos = MapToWorld(x, y);
-
-				for (pugi::xml_node polygons = mapFile.child("object"); polygons; polygons = polygons.next_sibling("object"))
-				{
-					pugi::xml_node polyPoints = mapFile.child("object").child("polygon");
-					int arraySize = 0;
-					iPoint arrayGet[500];
-					int pointsArray[1000];
-					
-					for (pugi::xml_node_iterator it = polyPoints.begin(); it != polyPoints.end(); ++it)
-					{
-
-
-						for (pugi::xml_attribute_iterator ait = it->attributes_begin(), int i = 1; ait != it->attributes_end(); ++ait, i++)
-						{
-							pointsArray[i - 1] = it->attribute("points").as_int();
-
-							arraySize = i;
-						}
-
-
-					}
-					
-	int i = 0;
-	for (pugi::xml_node_iterator it = polyPoints.begin(); it != polyPoints.end(); ++it)
+	
+	while (mapObjectItem != NULL)
 	{
 
-
-		for (pugi::xml_attribute_iterator ait = it->attributes_begin(); ait != it->attributes_end(); ++ait)
+		if (mapObjectItem->data->properties.GetProperty("Collision") == 1)
 		{
-			pointsArray[i] = it->attribute("points").as_int();
-			i++;
-		}
-
-
-	}
-
-	app->physics->CreateChain(pos.x, pos.y, pointsArray, arraySize);
-}
-
-
-			}
-		}
-		if (mapLayerItem->data->properties.GetProperty("Collisions") == 1)
-		{
-
-		}
-
-		mapLayerItem = mapLayerItem->next;
-	}
-	*/
-	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
-	ListItem<MapLayer*>* mapLayerItem;
-	mapLayerItem = mapData.layers.start;
-
-	while (mapLayerItem != NULL)
-	{
-
-		//if (mapLayerItem->data->properties.GetProperty("Draw") == 0) return;
-		if (mapLayerItem->data->id != 5)
-		{
-			mapLayerItem = mapLayerItem->next;
-		}
-		else if (mapLayerItem->data->id == 5)
-		{
+			/*
 			for (int x = 0; x < mapLayerItem->data->width; x++)
 			{
 				for (int y = 0; y < mapLayerItem->data->height; y++)
@@ -641,23 +611,36 @@ void Map::LoadCollidersNewer() //New Version
 
 						//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
 						//now we always use the firt tileset in the list
-						TileSet* tileset = mapData.tilesets.start->data;
+						//TileSet* tileset = mapData.tilesets.start->data;
+						TileSet* tileset = GetTilesetFromTileId(gid);
 
 						SDL_Rect r = tileset->GetTileRect(gid);
 						iPoint pos = MapToWorld(x, y);
-						PhysBody* NewCollision;
-						NewCollision = app->physics->CreateColliderRectangle(pos.x, pos.y, r.w, r.h);
-						Collisions.add(NewCollision);
-						Collisions.start->next;
 
+						//app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
+						if (mapLayerItem->data->properties.GetProperty("Navigation") == 1)
+						{
+
+							app->physics->CreateColliderRectangle(pos.x + 8, pos.y + 8, 16, 16);
+						}
 					}
 
 				}
 			}
+			
+			for(mapObjectItem->data->points)
+			
+			Objeto.child(mapObjectItem->data->name.GetString());
+			
+			
+			
 		}
 
+		mapObjectItem = mapObjectItem->next;
 	}
+
 }
+*/
 
 void Map::DrawColliders()
 {

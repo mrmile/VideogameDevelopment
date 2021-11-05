@@ -93,6 +93,26 @@ struct MapLayer
 	}
 };
 
+
+//MAP OBJECTS
+struct MapObjects
+{
+	SString	name;
+	int id;
+	const pugi::char_t* points;
+
+	// L06: DONE 1: Support custom properties
+	Properties properties;
+
+	MapObjects() : points(NULL)
+	{}
+
+	~MapObjects()
+	{
+		RELEASE(points);
+	}
+
+};
 // L03: DONE 1: Create a struct needed to hold the information to Map node
 struct MapData
 {
@@ -106,6 +126,7 @@ struct MapData
 
 	// L04: DONE 2: Add a list/array of layers to the map
 	List<MapLayer*> layers;
+	List<MapObjects*> objects;
 };
 
 class Map : public Module
@@ -124,7 +145,7 @@ public:
     void Draw();
 	void DrawColliders();
 	void LoadColliders();
-	void LoadCollidersNewer();
+	//void LoadCollidersNewer();
     // Called before quitting
     bool CleanUp();
 
@@ -152,7 +173,9 @@ private:
 
 	// L04
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
+	bool LoadObject(pugi::xml_node& node, MapObjects* object);
 	bool LoadAllLayers(pugi::xml_node mapNode);
+	bool LoadAllObjects(pugi::xml_node mapNode);
 
 	// L06: TODO_D 6: Load a group of properties 
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
