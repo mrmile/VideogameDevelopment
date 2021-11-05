@@ -11,6 +11,7 @@
 #include <math.h>
 #include <vector>
 
+
 Map::Map() : Module(), mapLoaded(false)
 {
     name.Create("map");
@@ -328,11 +329,12 @@ bool Map::Load(const char* filename)
 			layer = layer->next;
 		}
     }
+	/*
 	if (ret == true)
 	{
-		ret = LoadAllLayers(mapFile.child("map"));
+		ret = LoadAllObjects(mapFile.child("map"));
 	}
-
+	*/
     mapLoaded = ret;
 
     return ret;
@@ -474,11 +476,24 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 	//Iterate over all the tiles and assign the values
 	pugi::xml_node NewObject;
 	int i = 0;
-	for (NewObject = node.child("object").child("polygon"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
+	for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
 	{
-		object->points = NewObject.attribute("points").as_string();
+		object->points = NewObject.child("polygon").attribute("points").as_string();
 		i++;
-		// crear colisiones aqui 
+		char* CharsArray =new char[];
+		CharsArray[i] = *object->points;
+		int* array = new int[i];
+		if (isdigit(CharsArray[i]))
+		{
+			array[i] = (int)CharsArray[i];
+			
+			
+		}
+		// if the string has gotten to it's limit create the chain
+		app->physics->CreateChain(NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int(), array, i);
+		
+		delete[] & CharsArray;
+		delete[] & array;
 	}
 
 	return ret;

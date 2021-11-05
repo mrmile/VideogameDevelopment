@@ -11,6 +11,6 @@
 	<:anonymous />
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="-240" />
+		<camera x="470" y="-240" />
 	</renderer>
 </save_state>

@@ -110,7 +110,7 @@ bool Scene::Update(float dt)
 	// Draw map
 	app->map->Draw();
 
-	if(sceneTimer <= 1) app->map->LoadColliders();
+	//if(sceneTimer <= 1) app->map->LoadColliders();
 	//if (sceneTimer <= 1) app->map->LoadCollidersNewer();
 	//if (sceneTimer <= 1) app->map->DrawColliders(); //No se para que se ha creado esta función si el box2d ya hace esto cuando le das al F1
 
