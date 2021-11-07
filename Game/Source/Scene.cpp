@@ -69,6 +69,7 @@ bool Scene::Start()
 
 	//app->map->LoadColliders(); Old version makes the game laggy but with TMX 
 	 app->map->LoadCollidersNewer(); //New version creating the colliders by hand
+	 app->map->LoadLavaColliders();
 
 	return true;
 }

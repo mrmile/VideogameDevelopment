@@ -133,7 +133,7 @@ class Map : public Module
 {
 public:
 
-    Map(bool start_enabled = false);
+    Map();
 
     // Destructor
     virtual ~Map();
@@ -145,9 +145,8 @@ public:
     void Draw();
 	//void DrawColliders();
 	void LoadColliders();
-
 	void LoadCollidersNewer();
-
+	void LoadLavaColliders();
     // Called before quitting
     bool CleanUp();
 
