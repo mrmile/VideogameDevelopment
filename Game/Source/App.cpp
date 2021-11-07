@@ -141,29 +141,17 @@ bool App::Update()
 	if(input->GetWindowEvent(WE_QUIT) == true)
 		ret = false;
 
-	while (item != NULL && ret == true)
-	{
-		if (item->data->IsEnabled() == true)
-			ret = item->data->PreUpdate();
-		item = item->next;
-	}
-	
-	while (item != NULL && ret == true)
-	{
-		if (item->data->IsEnabled() == true)
-			ret = item->data->PreUpdate();
-		item = item->next;
-	}
+	if (input->GetWindowEvent(WE_QUIT) == true)
+		ret = false;
 
-	if(ret == true)
+	if (ret == true)
+		ret = PreUpdate();
+
+	if (ret == true)
 		ret = DoUpdate();
 
-	while (item != NULL && ret == true)
-	{
-		if (item->data->IsEnabled() == true)
-			ret = item->data->PostUpdate();
-		item = item->next;
-	}
+	if (ret == true)
+		ret = PostUpdate();
 
 	FinishUpdate();
 	return ret;
