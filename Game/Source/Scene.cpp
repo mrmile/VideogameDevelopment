@@ -67,6 +67,9 @@ bool Scene::Start()
 	app->collisions->AddCollider({ app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(16), app->map->MapToWorldSingle(19), app->map->MapToWorldSingle(7) }, Collider::Type::H_CB);
 	app->collisions->AddCollider({ app->map->MapToWorldSingle(118), app->map->MapToWorldSingle(13), app->map->MapToWorldSingle(10), app->map->MapToWorldSingle(10) }, Collider::Type::H_CB);
 
+	//app->map->LoadColliders(); Old version makes the game laggy but with TMX 
+	 app->map->LoadCollidersNewer(); //New version creating the colliders by hand
+
 	return true;
 }
 
@@ -110,9 +113,8 @@ bool Scene::Update(float dt)
 	// Draw map
 	app->map->Draw();
 
-	//if(sceneTimer <= 1) app->map->LoadColliders();
-	//if (sceneTimer <= 1) app->map->LoadCollidersNewer();
-	//if (sceneTimer <= 1) app->map->DrawColliders(); //No se para que se ha creado esta función si el box2d ya hace esto cuando le das al F1
+	 
+	
 
 	// L03: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",

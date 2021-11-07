@@ -143,9 +143,9 @@ public:
 
     // Called each loop iteration
     void Draw();
-	void DrawColliders();
+	//void DrawColliders();
 	void LoadColliders();
-	//void LoadCollidersNewer();
+	void LoadCollidersNewer();
     // Called before quitting
     bool CleanUp();
 

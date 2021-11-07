@@ -81,7 +81,7 @@ void Map::Draw()
 
 					if (gid > 0)
 					{
-
+						
 						//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
 						//now we always use the firt tileset in the list
 						//TileSet* tileset = mapData.tilesets.start->data;
@@ -89,7 +89,7 @@ void Map::Draw()
 
 						SDL_Rect r = tileset->GetTileRect(gid);
 						iPoint pos = MapToWorld(x, y);
-
+						
 						//app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
 						if (mapLayerItem->data->properties.GetProperty("Parallax") == 1)
 						{
@@ -196,7 +196,7 @@ TileSet* Map::GetTilesetFromTileId(int id) const
 		set = item->data;
 		item = item->next;
 	}
-
+	
 	return set;
 }
 
@@ -664,66 +664,39 @@ void Map::LoadColliders() // Old version
 	}
 }
 
-/*
+
 void Map::LoadCollidersNewer() //New Version
 {
-	if (mapLoaded == false) return;
+	int Chains1[16] = { 0,0,350,-0.5, 350.5,16.5, 415,16.5, 415,33, 511.5,31.5, 511.5,127.5, -1.5,128 };
+	int Chains2[16] = { 0,0, -1,-80, 94,-79, 95,-96.5, 239,-96, 239,-112.5, 269.5,-112.5, 270.5,-0.5 };
+	int Chains3[56] = { 0,0, 351,0, 351,17.5, 398.5,17.5, 398.5,34 ,478,34, 478,-16, 735.5,-15.5 ,735.5,2 ,830.5,1.5, 830,-15.5 ,878,-14.5 ,877.5,-30, 1422.5,-31.5, 1422.5,-13, 1678,-14.5 ,1678.5,-30.5, 1774,-30.5, 1773.5,-46, 1935,-46, 1935,-30, 2031,-30 ,2031,83.5, 1886.5,83.5, 1887,211, 2078,210, 2078.5,-237 ,-1.5,-237 };
+	int Chains4[12] = { 0,0 ,-0.5,-79.5, -207,-80, -207,-96.5 ,-256,-96.5, -255.5,0 };
+	int Chains5[8] = { 0,0, 0,-95, -46.5,-94.5 ,-45.5,1.5 };
+	int Chains6[8] = { 0,0 ,-0.5,-111.5, 45.5,-111.5, 45.5,-1.5 };
+	int Chains7[15] = { 0,0, -2.54545,-2.90909, -44.3636,-2.90909, -46.5455,-0.545455, -46.5455,1.45455 ,-44.7273,2.90909 ,-2.18182,3.45455 - 0.181818,2 };
+	int Chains8[24] = { 0,0, 1.81818,-2.72727, 13.4545,-3.09091 ,34.7273,6.54545, 45.2727,14.7273, 45.6364,18, 43.6364,19.4545, 40.5455,19.4545, 36.9091,14.7273, 14.7273,3.45455, 2.36364,3.81818, 0,1.81818 };
+	int Chains9[14] = { 0,0 ,25.4545,-28.5455, 27.6364,-28.3636, 30.3636,-26.3636 ,30.1818,-24, 4.18182,3.09091, 1.27273,2.54545 };
+	int Chains10[22] = { 0,0 ,2,-2.54545 ,15.4545,-2.36364, 22,1.09091, 30.7273,11.8182 ,30.5455,15.2727 ,28.7273,17.6364, 26.3636,17.6364 ,13.8182,3.63636 ,2.36364,3.63636, 0.181818,2.18182 };
+	int Chains11[20] = { 0,0 ,8.90909,-8.36364, 26.5455,-17.0909 ,29.4545,-16.3636, 30.3636,-13.4545, 28.1818,-10 ,22.1818,-7.45455, 8.54545,0.545455, 3.09091,5.09091, 0.727273,3.81818 };
+	int Chains12[38] = { 0,0, 33.4545,0 ,40.3636,-6.36364 ,63.2727,-16.5455, 92.3636,-16.1818 ,101.273,-7.27273 ,109.091,10.1818, 109.455,21.4545 ,106.545,22.9091 ,103.818,22.7273 ,101.273,20.1818 ,101.636,10.1818 ,91.8182,-9.27273 ,63.2727,-9.63636 ,46.9091,-1.45455, 36.7273,6.90909 ,0,6.72727 ,-1.81818,5.09091 ,-2,2.18182 };
+	int Chains13[8] = { 0,0 ,16.1818,0 ,16.3636,-79.0909, 0.363636,-79.0909 };
 
-	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
-	ListItem<MapObjects*>* mapObjectItem;
-	mapObjectItem = mapData.objects.start;
-	
-	// L06: TODO 4: Make sure we draw all the layers and not just the first one
-	
-	while (mapObjectItem != NULL)
-	{
-
-		if (mapObjectItem->data->properties.GetProperty("Collision") == 1)
-		{
-			/*
-			for (int x = 0; x < mapLayerItem->data->width; x++)
-			{
-				for (int y = 0; y < mapLayerItem->data->height; y++)
-				{
-					// L04: DONE 9: Complete the draw function
-					int gid = mapLayerItem->data->Get(x, y);
-
-					if (gid > 0)
-					{
-
-						//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
-						//now we always use the firt tileset in the list
-						//TileSet* tileset = mapData.tilesets.start->data;
-						TileSet* tileset = GetTilesetFromTileId(gid);
-
-						SDL_Rect r = tileset->GetTileRect(gid);
-						iPoint pos = MapToWorld(x, y);
-
-						//app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
-						if (mapLayerItem->data->properties.GetProperty("Navigation") == 1)
-						{
-
-							app->physics->CreateColliderRectangle(pos.x + 8, pos.y + 8, 16, 16);
-						}
-					}
-
-				}
-			}
-			
-			for(mapObjectItem->data->points)
-			
-			Objeto.child(mapObjectItem->data->name.GetString());
-			
-			
-			
-		}
-
-		mapObjectItem = mapObjectItem->next;
-	}
-
+	app->physics->CreateChain(0.5, 352, Chains1, 16);
+	app->physics->CreateChain(625.5, 480.5, Chains2, 16);
+	app->physics->CreateChain(1.5, 269.5, Chains3, 56);
+	app->physics->CreateChain(1631.5, 480.5, Chains4, 12);
+	app->physics->CreateChain(1743, 478.5, Chains5, 8);
+	app->physics->CreateChain(1793, 480, Chains6, 8);
+	app->physics->CreateChain(623.091, 403.455, Chains7, 15);
+	app->physics->CreateChain(897.091, 371.455, Chains8, 24);
+	app->physics->CreateChain(993.091, 400.909, Chains9, 14);
+	app->physics->CreateChain(1040.73, 339.455, Chains10, 22);
+	app->physics->CreateChain(1153.27, 402.727, Chains11, 20);
+	app->physics->CreateChain(1218.18, 384.727, Chains12, 38);
+	app->physics->CreateChain(-0.181818, 350.727, Chains13, 8);
 }
-*/
 
+/*
 void Map::DrawColliders()
 {
 
@@ -769,3 +742,4 @@ void Map::DrawColliders()
 		
 	}
 }
+*/
