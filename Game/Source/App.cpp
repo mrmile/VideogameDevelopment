@@ -31,7 +31,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map(true);
 	physics = new ModulePhysics(true);
 	fade = new ModuleFadeToBlack(true);
-	player = new ModulePlayer(false);
+	player = new ModulePlayer(true);
 	collisions = new ModuleCollisions(true);
 
 	// Ordered for awake / Start / Update

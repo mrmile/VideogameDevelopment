@@ -14,11 +14,12 @@ class Module
 public:
 
 	Module(bool start_enabled = false) : active(start_enabled)
-	{}
-
-	void Init()
 	{
-		active = true;
+	}
+
+	bool Init()
+	{
+		return true;
 	}
 
 	// Called before render is available
