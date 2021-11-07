@@ -34,7 +34,7 @@ public:
 class ModulePhysics : public Module, public b2ContactListener // TODO
 {
 public:
-	ModulePhysics();
+	ModulePhysics(bool start_enabled = false);
 	~ModulePhysics();
 
 	bool Awake(pugi::xml_node&);

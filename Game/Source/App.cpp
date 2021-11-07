@@ -22,17 +22,17 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 {
 	frames = 0;
 
-	win = new Window();
-	input = new Input();
-	render = new Render();
-	tex = new Textures();
-	audio = new Audio();
-	scene = new Scene();
-	map = new Map();
-	physics = new ModulePhysics();
-	fade = new ModuleFadeToBlack();
-	player = new ModulePlayer();
-	collisions = new ModuleCollisions();
+	win = new Window(true);
+	input = new Input(true);
+	render = new Render(true);
+	tex = new Textures(true);
+	audio = new Audio(true);
+	scene = new Scene(true);
+	map = new Map(true);
+	physics = new ModulePhysics(true);
+	fade = new ModuleFadeToBlack(true);
+	player = new ModulePlayer(false);
+	collisions = new ModuleCollisions(true);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -122,7 +122,8 @@ bool App::Start()
 
 	while(item != NULL && ret == true)
 	{
-		ret = item->data->Start();
+		if (item->data->IsEnabled())
+			ret = item->data->Start();
 		item = item->next;
 	}
 

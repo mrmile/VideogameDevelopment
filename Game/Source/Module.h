@@ -13,7 +13,7 @@ class Module
 {
 public:
 
-	Module() : active(false)
+	Module(bool start_enabled = false) : active(start_enabled)
 	{}
 
 	void Init()
@@ -32,6 +32,11 @@ public:
 	virtual bool Start()
 	{
 		return true;
+	}
+
+	bool IsEnabled() const
+	{
+		return active;
 	}
 
 	// Called each loop iteration

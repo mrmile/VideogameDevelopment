@@ -9,7 +9,7 @@
 #include "SDL/include/SDL_Scancode.h"
 
 //ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
-ModuleCollisions::ModuleCollisions()
+ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 {
 	for(uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;

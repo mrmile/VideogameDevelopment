@@ -22,7 +22,7 @@
 //ModulePlayer::ModulePlayer( bool start_enabled) : Module(start_enabled)
 
 
-ModulePlayer::ModulePlayer()
+ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 {
 	// idle left
 	idleLeftAnim.PushBack({ 0, 167, 28, 33 });
@@ -531,6 +531,8 @@ bool ModulePlayer::PostUpdate()
 
 bool ModulePlayer::CleanUp() // Implementar???
 {
+	app->tex->UnLoad(texture);
+
 	return true;
 }
 

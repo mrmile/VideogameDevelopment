@@ -12,7 +12,7 @@ public:
 	// Constructor
 	// Fills all collision matrix data
 	//ModuleCollisions(bool startEnabled);
-	ModuleCollisions();
+	ModuleCollisions(bool start_enabled = false);
 
 	// Destructor
 	~ModuleCollisions();

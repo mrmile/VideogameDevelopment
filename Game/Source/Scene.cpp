@@ -13,7 +13,7 @@
 #include "Defs.h"
 #include "Log.h"
 
-Scene::Scene() : Module()
+Scene::Scene(bool start_enabled) : Module(start_enabled)
 {
 	name.Create("scene");
 }
@@ -142,6 +142,9 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
+
+	//App->scene_game->holeSensor3->body->DestroyFixture(App->scene_game->holeSensor3->body->GetFixtureList());
+	
 
 	return true;
 }

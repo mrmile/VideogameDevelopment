@@ -19,7 +19,7 @@
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 
-ModulePhysics::ModulePhysics() 
+ModulePhysics::ModulePhysics(bool start_enabled) : Module(start_enabled)
 {
 	world = NULL;
 	ground = NULL;
@@ -164,7 +164,7 @@ PhysBody* ModulePhysics::CreatePlayerBox(int x, int y, int width, int height)
 	fixture.shape = &box;
 	fixture.density = 50.0f;
 	
-	//fixture.friction = 0.8f;
+	//fixture.friction = 0.5f;
 
 	b->CreateFixture(&fixture);
 

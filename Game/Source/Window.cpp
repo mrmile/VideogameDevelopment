@@ -7,7 +7,7 @@
 #include "SDL/include/SDL.h"
 
 
-Window::Window() : Module()
+Window::Window(bool start_enabled) : Module(start_enabled)
 {
 	window = NULL;
 	screenSurface = NULL;
