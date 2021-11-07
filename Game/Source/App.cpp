@@ -122,7 +122,7 @@ bool App::Start()
 
 	while(item != NULL && ret == true)
 	{
-		if (item->data->IsEnabled())
+		if (item->data->IsEnabled() == true)
 			ret = item->data->Start();
 		item = item->next;
 	}
@@ -133,20 +133,37 @@ bool App::Start()
 // Called each loop iteration
 bool App::Update()
 {
+	ListItem<Module*>* item = modules.start;
+
 	bool ret = true;
 	PrepareUpdate();
 
 	if(input->GetWindowEvent(WE_QUIT) == true)
 		ret = false;
 
-	if(ret == true)
-		ret = PreUpdate();
+	while (item != NULL && ret == true)
+	{
+		if (item->data->IsEnabled() == true)
+			ret = item->data->PreUpdate();
+		item = item->next;
+	}
+	
+	while (item != NULL && ret == true)
+	{
+		if (item->data->IsEnabled() == true)
+			ret = item->data->PreUpdate();
+		item = item->next;
+	}
 
 	if(ret == true)
 		ret = DoUpdate();
 
-	if(ret == true)
-		ret = PostUpdate();
+	while (item != NULL && ret == true)
+	{
+		if (item->data->IsEnabled() == true)
+			ret = item->data->PostUpdate();
+		item = item->next;
+	}
 
 	FinishUpdate();
 	return ret;
