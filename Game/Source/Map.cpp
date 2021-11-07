@@ -695,6 +695,21 @@ void Map::LoadCollidersNewer() //New Version
 	app->physics->CreateChain(1218.18, 384.727, Chains12, 38);
 	app->physics->CreateChain(-0.181818, 350.727, Chains13, 8);
 }
+void Map::LoadLavaColliders() 
+{
+	int	LavaChains1[8] = { 0,0 ,0.5,6.5, 111,7.5 ,110.5,-2 };
+	int	LavaChains2[8] = { 0,0 ,-0.5,7.5 ,478.5,7.5 ,478.5,1.5 };
+	int	LavaChains3[8] = { 0,0 ,0,7 ,63.5,7, 64.5,1 };
+	int	LavaChains4[8] = { 0,0 ,0,8.5, 49,8.5 ,49,1 };
+	int	LavaChains5[8] = { 0,0 ,- 0.5,8 ,48,7.5 ,48,-0.5 };
+
+	app->physics->CreateChainLava(512.5, 424.5, LavaChains1, 8);
+	app->physics->CreateChainLava(897.5, 423, LavaChains2, 8);
+	app->physics->CreateChainLava(1633, 423.5, LavaChains3, 8);
+	app->physics->CreateChainLava(1744, 407.5, LavaChains4, 8);
+	app->physics->CreateChainLava(1840, 392, LavaChains5, 8);
+	
+}
 
 /*
 void Map::DrawColliders()

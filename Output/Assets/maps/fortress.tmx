@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="1200" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="33">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="1200" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="44">
  <editorsettings>
   <export target="fortress..lua" format="lua"/>
  </editorsettings>
@@ -180585,6 +180585,23 @@
   </object>
   <object id="32" x="-0.181818" y="350.727">
    <polygon points="0,0 16.1818,0 16.3636,-79.0909 0.363636,-79.0909"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="10" name="Capa de Objetos 2">
+  <object id="39" x="1344.5" y="423">
+   <polygon points="0,0 -0.5,7.5 478.5,7.5 478.5,1.5"/>
+  </object>
+  <object id="40" x="2080" y="423.5">
+   <polygon points="0,0 0,7 63.5,7 64.5,1"/>
+  </object>
+  <object id="41" x="2191" y="407.5">
+   <polygon points="0,0 0,8.5 49,8.5 49,1"/>
+  </object>
+  <object id="42" x="2287" y="392">
+   <polygon points="0,0 -0.5,8 48,7.5 48,-0.5"/>
+  </object>
+  <object id="43" x="960.5" y="424.5">
+   <polygon points="0,0 0.5,6.5 111,7.5 110.5,-2"/>
   </object>
  </objectgroup>
 </map>

@@ -47,6 +47,7 @@ public:
 	PhysBody* CreateColliderRectangle(int x, int y, int width, int height);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
 	PhysBody* CreateChain(int x, int y, int* points, int size);
+	PhysBody* CreateChainLava(int x, int y, int* points, int size);
 	PhysBody* CreatePlayerBox(int x, int y, int width, int height);
 	PhysBody* CreatePlayerCircle(int x, int y, int radius);
 

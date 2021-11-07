@@ -146,6 +146,7 @@ public:
 	//void DrawColliders();
 	void LoadColliders();
 	void LoadCollidersNewer();
+	void LoadLavaColliders();
     // Called before quitting
     bool CleanUp();
 
