@@ -40,7 +40,7 @@ bool Scene::Start()
 	app->map->Load("fortress.tmx");
 	
 	// Load music
-	app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
+	//app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
 
 	sceneTimer = 0;
 
