@@ -4,6 +4,7 @@
 #include "Textures.h"
 #include "Map.h"
 #include "ModulePhysics.h"
+#include "ModuleCollisions.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -615,7 +616,7 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 }
 
 
-void Map::LoadColliders() // Old version
+void Map::LoadCollidersSensors() // Old version
 {
 	if (mapLoaded == false) return;
 
@@ -649,10 +650,10 @@ void Map::LoadColliders() // Old version
 						iPoint pos = MapToWorld(x, y);
 
 						//app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
-						if (mapLayerItem->data->properties.GetProperty("Navigation") == 1)
+						if (mapLayerItem->data->properties.GetProperty("Lava") == 1)
 						{
-							
-							app->physics->CreateColliderRectangle(pos.x + 8, pos.y + 8, 16, 16);
+							//app->physics->CreateColliderRectangle(pos.x + 8, pos.y + 8, 16, 16);
+							app->collisions->AddCollider({ pos.x, pos.y, 16, 16 }, Collider::Type::LAVA);
 						}
 					}
 
@@ -667,12 +668,12 @@ void Map::LoadColliders() // Old version
 
 void Map::LoadCollidersNewer() //New Version
 {
-	int Chains1[16] = { 0,0,350,-0, 350,16, 415,16, 415,33, 512,32, 512,128, -1,128 };
-	int Chains2[16] = { 0,0, -1,-80, 94,-79, 95,-96, 239,-96, 239,-112, 270,-112, 270,-0 };
-	int Chains3[56] = { 0,0, 351,0, 351,17, 398.5,17, 398,34 ,478,34, 478,-16, 735,-15 ,735,2 ,830,1, 830,-15 ,878,-15 ,878,-30, 1422,-32, 1422,-13, 1678,-14 ,1678.5,-30, 1774,-30, 1773,-46, 1935,-46, 1935,-30, 2031,-30 ,2031,83, 1886.5,83, 1887,211, 2078,210, 2078,-237 ,-1,-237 };
-	int Chains4[12] = { 0,0 ,-0,-80, -207,-80, -207,-96 ,-256,-96, -255,0 };
-	int Chains5[8] = { 0,0, 0,-95, -46,-94 ,-45,1 };
-	int Chains6[8] = { 0,0 ,-0,-111, 45,-111.5, 45,-1 };
+	int Chains1[16] = { -0.5,0, 351.5,0, 351.5,16, 415.5,16, 415.5,32, 511.5,32, 511.5,128, -0.5,128 };
+	int Chains2[16] = { -1.5,-0.5, - 1.5,-80.5, 94.5,-80.5, 94.5,-96.5, 238.5,-96.5, 238.5,-112.5, 270.5,-112.5, 270.5,-0.5 };
+	int Chains3[56] = { -1.5,2.5, 350.5,2.5, 350.5,18.5, 398.5,18.5, 398.5,34.5, 478.5,34.5, 478.5,-13.5, 734.5,-13.5, 734.5,2.5, 830.5,2.5, 830.5,-13.5, 878.5,-13.5, 878.5,-29.5, 1422.5,-29.5, 1422.5,-13.5, 1678.5,-13.5, 1678.5,-29.5, 1774.5,-29.5, 1774.5,-45.5, 1934.5,-45.5, 1934.5,-29.5, 2030.5,-29.5, 2030.5,82.5, 1886.5,82.5, 1886.5,210.5, 2078,210, 2078.5,-237.5, - 1.5,-237.5 };
+	int Chains4[12] = { 0.5,-0.5, 0.5,-80.5, - 207.5,-80.5, - 207.5,-96.5, -255.5,-96.5, -255.5,-0.5 };
+	int Chains5[8] = { 1,1.5, 1,-94.5, - 47,-94.5, - 47,1.5 };
+	int Chains6[8] = { -1,0, - 1,-112, 47,-112, 47,0 };
 	int Chains7[15] = { 0,0, -2.54545,-2.90909, -44.3636,-2.90909, -46.5455,-0.545455, -46.5455,1.45455 ,-44.7273,2.90909 ,-2.18182,3.45455 - 0.181818,2 };
 	int Chains8[24] = { 0,0, 1.81818,-2.72727, 13.4545,-3.09091 ,34.7273,6.54545, 45.2727,14.7273, 45.6364,18, 43.6364,19.4545, 40.5455,19.4545, 36.9091,14.7273, 14.7273,3.45455, 2.36364,3.81818, 0,1.81818 };
 	int Chains9[14] = { 0,0 ,25.4545,-28.5455, 27.6364,-28.3636, 30.3636,-26.3636 ,30.1818,-24, 4.18182,3.09091, 1.27273,2.54545 };
@@ -695,7 +696,7 @@ void Map::LoadCollidersNewer() //New Version
 	app->physics->CreateChain(1218.18, 384.727, Chains12, 38);
 	app->physics->CreateChain(-0.181818, 350.727, Chains13, 8);
 }
-void Map::LoadLavaColliders() 
+void Map::LoadLavaColliders() // Los lava colliders se tienen que hazer con los sensores del año pasado
 {
 	int	LavaChains1[8] = { 0,0 ,0.5,6.5, 111,7.5 ,110.5,-2 };
 	int	LavaChains2[8] = { 0,0 ,-0.5,7.5 ,478.5,7.5 ,478.5,1.5 };

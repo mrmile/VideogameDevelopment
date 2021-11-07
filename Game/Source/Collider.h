@@ -20,7 +20,7 @@ struct Collider
 		ENEMY_SHOT,
 		H_CB,
 		V_CB,
-		PLANT,
+		LAVA,
 
 		MAX
 	};

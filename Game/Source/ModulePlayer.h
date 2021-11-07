@@ -75,21 +75,20 @@ public:
 	Animation fallLeftAnim;
 	Animation hoverRightAnim;
 	Animation hoverLeftAnim;
+	Animation dieLeft;
+	Animation dieRight;
 
 	// Sound effects indices
 	uint jumpSound = 0;
 	uint hoverSound = 0;
 	uint hoverSoundL = 0;
+	uint dead = 0;
 
 	// The player's collider
 	Collider* collider = nullptr;
 
 	// A flag to detect when the player has been destroyed
 	bool destroyed = false;
-
-	// Sound effects indices
-	uint laserFx = 0;
-	uint explosionFx = 0;
 
 	// Font score index
 	uint score = 000;
@@ -101,6 +100,9 @@ public:
 	int playerTimer;
 	int playerIdleAnimationTimer;
 	int hoverTimer;
+	int destroyedDelay;
+
+	b2Vec2 b2VelocitySet;
 
 	//Margin of movement
 	int horizontalMargin = 45;

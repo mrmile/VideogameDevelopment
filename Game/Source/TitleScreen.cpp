@@ -70,7 +70,7 @@ bool TitleScreen::Update(float dt)
 
 	if (transition == true) delay++;
 
-	if (delay > 90)
+	if (delay > 90 && delay <= 91)
 	{
 		app->titleScreen->Disable();
 
