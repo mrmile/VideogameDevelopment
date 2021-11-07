@@ -31,6 +31,7 @@
     <ClCompile Include="Source\ModuleCollisions.cpp">
       <Filter>imported_modules</Filter>
     </ClCompile>
+    <ClCompile Include="Source\TitleScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -84,6 +85,7 @@
     <ClInclude Include="Source\ModuleCollisions.h">
       <Filter>imported_modules</Filter>
     </ClInclude>
+    <ClInclude Include="Source\TitleScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

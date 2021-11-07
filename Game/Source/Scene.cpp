@@ -86,8 +86,6 @@ bool Scene::Update(float dt)
 	sceneTimer++;
 	//app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 640;
 	//app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 160; //<-- Este es el que se aplica al final
-	
-	if(app->player->horizontalCM == false) app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 630;
 
     // L02: DONE 3: Request Load / Save when pressing L/S
 	if(app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
@@ -114,14 +112,13 @@ bool Scene::Update(float dt)
 	// Draw map
 	app->map->Draw();
 
-	 
-	
-
 	// L03: DONE 7: Set the window title with map/tileset info
+	/*
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 				   app->map->mapData.width, app->map->mapData.height,
 				   app->map->mapData.tileWidth, app->map->mapData.tileHeight,
 				   app->map->mapData.tilesets.count());
+	*/
 
 	//app->win->SetTitle(title.GetString());
 
@@ -135,6 +132,8 @@ bool Scene::PostUpdate()
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+
+	if (app->player->horizontalCM == false && sceneTimer > 1) app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 630;
 
 	return ret;
 }

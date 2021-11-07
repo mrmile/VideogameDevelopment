@@ -10,6 +10,7 @@
 #include "ModulePhysics.h"
 #include "ModulePlayer.h"
 #include "ModuleCollisions.h"
+#include "TitleScreen.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -27,12 +28,13 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render(true);
 	tex = new Textures(true);
 	audio = new Audio(true);
-	scene = new Scene(true);
+	titleScreen = new TitleScreen(true);
+	scene = new Scene(false);
 	map = new Map(true);
-	physics = new ModulePhysics(true);
+	physics = new ModulePhysics(false);
 	fade = new ModuleFadeToBlack(true);
-	player = new ModulePlayer(true);
-	collisions = new ModuleCollisions(true);
+	player = new ModulePlayer(false);
+	collisions = new ModuleCollisions(false);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -42,6 +44,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(physics);
 	AddModule(map);
+	AddModule(titleScreen);
 	AddModule(scene);
 	AddModule(player);
 	AddModule(collisions);

@@ -15,6 +15,7 @@ class Input;
 class Render;
 class Textures;
 class Audio;
+class TitleScreen;
 class Scene;
 class Map;
 class ModuleFadeToBlack;
@@ -90,6 +91,7 @@ public:
 	Render* render;
 	Textures* tex;
 	Audio* audio;
+	TitleScreen* titleScreen;
 	Scene* scene;
 	Map* map;
 	ModuleFadeToBlack* fade;
