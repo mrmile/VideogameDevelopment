@@ -9,6 +9,7 @@
 #include "ModulePhysics.h"
 #include "ModulePlayer.h"
 #include "ModuleCollisions.h"
+#include "TitleScreen.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -136,6 +137,16 @@ bool Scene::PostUpdate()
 		ret = false;
 
 	if (app->player->horizontalCM == false && sceneTimer > 1) app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 630;
+
+	if (app->player->destroyedDelay > 210 && app->player->destroyedDelay <= 211)
+	{
+		app->titleScreen->Enable();
+
+		app->player->Disable();
+		app->scene->Disable();
+		//app->collisions->Disable();
+		//app->physics->Disable();
+	}
 
 	return ret;
 }

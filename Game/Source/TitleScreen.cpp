@@ -10,6 +10,7 @@
 #include "ModulePhysics.h"
 #include "ModulePlayer.h"
 #include "ModuleCollisions.h"
+#include "ModuleFadeToBlack.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -72,12 +73,14 @@ bool TitleScreen::Update(float dt)
 
 	if (delay > 90 && delay <= 91)
 	{
+		//app->physics->Enable();
+		//app->collisions->Enable();
+		app->scene->Enable(); // Se queda pillado aquí
+		app->player->Enable();
+
 		app->titleScreen->Disable();
 
-		app->physics->Enable();
-		app->collisions->Enable();
-		app->scene->Enable();
-		app->player->Enable();
+		//app->fade->FadeToBlack(app->titleScreen, app->scene, 60);
 	}
 
 	return true;

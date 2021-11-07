@@ -537,16 +537,6 @@ bool ModulePlayer::Update(float dt)
 				currentAnimation = &dieRight;
 			}
 		}
-
-		if (destroyedDelay > 210 && destroyedDelay <= 211)
-		{
-			app->collisions->Disable();
-			app->scene->Disable();
-			app->player->Disable();
-			app->physics->Disable();
-
-			app->titleScreen->Enable();
-		}
 	}
 	
 	/*

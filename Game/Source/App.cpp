@@ -31,10 +31,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	titleScreen = new TitleScreen(true);
 	scene = new Scene(false);
 	map = new Map(true);
-	physics = new ModulePhysics(false);
+	physics = new ModulePhysics(true);
 	fade = new ModuleFadeToBlack(true);
 	player = new ModulePlayer(false);
-	collisions = new ModuleCollisions(false);
+	collisions = new ModuleCollisions(true);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
