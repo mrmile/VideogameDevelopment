@@ -145,6 +145,8 @@ public:
     void Draw();
 	//void DrawColliders();
 	void LoadCollidersSensors();
+	void DeleteCollidersSensors();
+
 	void LoadCollidersNewer();
 	void LoadLavaColliders();
     // Called before quitting

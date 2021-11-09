@@ -665,6 +665,55 @@ void Map::LoadCollidersSensors() // Old version
 	}
 }
 
+void Map::DeleteCollidersSensors() // Old version
+{
+	if (mapLoaded == false) return;
+
+	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
+	ListItem<MapLayer*>* mapLayerItem;
+	mapLayerItem = mapData.layers.start;
+
+	// L06: TODO 4: Make sure we draw all the layers and not just the first one
+	while (mapLayerItem != NULL)
+	{
+
+		if (mapLayerItem->data->properties.GetProperty("Draw") == 0)
+		{
+
+			for (int x = 0; x < mapLayerItem->data->width; x++)
+			{
+				for (int y = 0; y < mapLayerItem->data->height; y++)
+				{
+					// L04: DONE 9: Complete the draw function
+					int gid = mapLayerItem->data->Get(x, y);
+
+					if (gid > 0)
+					{
+
+						//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
+						//now we always use the firt tileset in the list
+						//TileSet* tileset = mapData.tilesets.start->data;
+						TileSet* tileset = GetTilesetFromTileId(gid);
+
+						SDL_Rect r = tileset->GetTileRect(gid);
+						iPoint pos = MapToWorld(x, y);
+
+						//app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
+						if (mapLayerItem->data->properties.GetProperty("Lava") == 1)
+						{
+							//app->physics->CreateColliderRectangle(pos.x + 8, pos.y + 8, 16, 16);
+							app->collisions->RemoveCollider(app->collisions->AddCollider({ pos.x, pos.y, 16, 16 }, Collider::Type::LAVA));
+						}
+					}
+
+				}
+			}
+		}
+
+		mapLayerItem = mapLayerItem->next;
+	}
+}
+
 
 void Map::LoadCollidersNewer() //New Version
 {
