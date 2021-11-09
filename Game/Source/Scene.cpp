@@ -13,6 +13,7 @@
 
 #include "Defs.h"
 #include "Log.h"
+#include <SDL_mixer/include/SDL_mixer.h>
 
 Scene::Scene(bool start_enabled) : Module(start_enabled)
 {
@@ -39,8 +40,10 @@ bool Scene::Start()
 	//app->map->Load("hello.tmx");
 	app->map->Load("fortress.tmx");
 	
+	Mix_ResumeMusic();
+	Mix_SetMusicPosition(0);
 	// Load music
-	//app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
+	app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
 
 	sceneTimer = 0;
 
@@ -114,6 +117,12 @@ bool Scene::Update(float dt)
 
 	// Draw map
 	app->map->Draw();
+
+	if (app->player->destroyed == true && app->player->destroyedDelay < 1)
+	{
+		Mix_PauseMusic();
+		//app->audio->PlayFx(dead);
+	}
 
 	// L03: DONE 7: Set the window title with map/tileset info
 	/*

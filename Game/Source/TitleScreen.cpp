@@ -75,10 +75,10 @@ bool TitleScreen::Update(float dt)
 	{
 		//app->physics->Enable();
 		//app->collisions->Enable();
-		app->scene->Enable(); // Se queda pillado aquí
-		app->player->Enable();
-
 		app->titleScreen->Disable();
+
+		app->scene->Enable();
+		app->player->Enable();
 
 		//app->fade->FadeToBlack(app->titleScreen, app->scene, 60);
 	}

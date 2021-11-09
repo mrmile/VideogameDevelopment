@@ -513,7 +513,7 @@ bool ModulePlayer::Update(float dt)
 	{
 		if (destroyedDelay < 1)
 		{
-			Mix_PauseMusic();
+			//Mix_PauseMusic();
 			app->audio->PlayFx(dead);
 		}
 		if (PlayerLookingPosition == 1)
