@@ -9,7 +9,7 @@ Simple platformer game created for the Game Development subject during the secon
 * If you hold the Z key you hover in the air (instead of adding a double jump we added a hover option)
 * X key to run
 ### Debug Controls
-* F1 to see the colliders
+* F9 to see the colliders
 * F2 to save the current state
 * F3 to load the previous state
 * F4 Go to the start of the level
