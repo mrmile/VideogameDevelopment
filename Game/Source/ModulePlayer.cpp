@@ -21,12 +21,16 @@
 #include <stdio.h>
 #include <time.h>
 #include <SDL_mixer/include/SDL_mixer.h>
+#include <iostream>
+using namespace std;
 
 //ModulePlayer::ModulePlayer( bool start_enabled) : Module(start_enabled)
 
 
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 {
+	name.Create("player");
+
 	// idle left
 	idleLeftAnim.PushBack({ 0, 167, 28, 33 });
 	idleLeftAnim.PushBack({ 27, 167, 28, 33 });
@@ -555,6 +559,7 @@ bool ModulePlayer::Update(float dt)
 
 	Player->GetPosition(position.x, position.y);
 	
+	cout << "PosX: " << position.x << " PosY: " << position.y << endl;
 	
 	return true;
 }
@@ -583,6 +588,34 @@ bool ModulePlayer::PostUpdate()
 bool ModulePlayer::CleanUp() // Implementar???
 {
 	app->tex->UnLoad(texture);
+
+	return true;
+}
+
+bool ModulePlayer::LoadState(pugi::xml_node& data)
+{
+	position.x = data.child("position").attribute("x").as_int();
+	position.y = data.child("position").attribute("y").as_int();
+
+	b2Vec2 playerLoadPosition;
+	playerLoadPosition.x = (position.x);
+	playerLoadPosition.y = (position.y);
+
+	Player->body->SetTransform(playerLoadPosition, 0);
+
+	//if (app->player->horizontalCM == false && app->scene->sceneTimer > 1) app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 630;
+
+	return true;
+}
+
+// L02: DONE 8: Create a method to save the state of the renderer
+// Save Game State
+bool ModulePlayer::SaveState(pugi::xml_node& data) const
+{
+	pugi::xml_node playerpos = data.append_child("position");
+
+	playerpos.append_attribute("x") = position.x;
+	playerpos.append_attribute("y") = position.y;
 
 	return true;
 }

@@ -35,6 +35,10 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Load / Save
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&) const;
+
 	//void b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 	// Collision callback, called when the player intersects with another collider
