@@ -17,6 +17,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <Optick/include/optick.h>
 
 // Constructor
 App::App(int argc, char* args[]) : argc(argc), args(args)
@@ -136,6 +137,8 @@ bool App::Start()
 // Called each loop iteration
 bool App::Update()
 {
+	OPTICK_EVENT();
+
 	ListItem<Module*>* item = modules.start;
 
 	bool ret = true;
