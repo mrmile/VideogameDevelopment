@@ -244,6 +244,7 @@ bool ModulePlayer::Start()
 	destroyedDelay = 0;
 
 	jump = false;
+	createPlayer = false;
 
 	//srand(time(NULL));
 
@@ -259,6 +260,12 @@ bool ModulePlayer::Update(float dt)
 	collider->SetPos(position.x, position.y);
 
 	playerTimer++;
+
+	if (createPlayer == true)
+	{
+		//App->audio->PlayFx(ball_spawn_sound);
+		
+	}
 	
 	//app->win->GetWindowSize()
 	
@@ -601,7 +608,13 @@ bool ModulePlayer::LoadState(pugi::xml_node& data)
 	playerLoadPosition.x = (position.x);
 	playerLoadPosition.y = (position.y);
 
-	Player->body->SetTransform(playerLoadPosition, 0);
+	Player = app->physics->CreatePlayerBox(position.x + 28 / 2, position.y + 33 / 2, 28, 33);
+	Player->listener = app->scene;
+	b2Filter b;
+	b.categoryBits = 0x0001;
+	b.maskBits = 0x0001 | 0x0002;
+	Player->body->GetFixtureList()->SetFilterData(b);
+	createPlayer = false;
 
 	//if (app->player->horizontalCM == false && app->scene->sceneTimer > 1) app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 630;
 

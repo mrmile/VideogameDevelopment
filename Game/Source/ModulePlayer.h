@@ -122,6 +122,7 @@ public:
 	bool hover = false;
 	bool horizontalCM = false;
 	bool verticalCM = false;
+	bool createPlayer;
 
 };
 
