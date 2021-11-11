@@ -1,4 +1,5 @@
 #include "ModuleCollisions.h"
+#include "Scene.h"
 
 #include "app.h"
 
@@ -187,38 +188,77 @@ void ModuleCollisions::DebugDraw()
 		if(colliders[i] == nullptr)
 			continue;
 		
-		switch(colliders[i]->type)
+		if (app->scene->godMode == false)
 		{
+			switch (colliders[i]->type)
+			{
 			case Collider::Type::NONE: // white
-			app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
-			break;
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+				break;
 			case Collider::Type::WALL: // blue
-			app->render->DrawRectangle(colliders[i]->rect, 0, 0, 255, alpha);
-			break;
+				app->render->DrawRectangle(colliders[i]->rect, 0, 0, 255, alpha);
+				break;
 			case Collider::Type::PLAYER: // green
-			app->render->DrawRectangle(colliders[i]->rect, 0, 255, 0, alpha);
-			break;
+				app->render->DrawRectangle(colliders[i]->rect, 0, 255, 0, alpha);
+				break;
 			case Collider::Type::ENEMY: // red
-			app->render->DrawRectangle(colliders[i]->rect, 255, 0, 0, alpha);
-			break;
+				app->render->DrawRectangle(colliders[i]->rect, 255, 0, 0, alpha);
+				break;
 			case Collider::Type::PLAYER_SHOT: // yellow
-			app->render->DrawRectangle(colliders[i]->rect, 255, 255, 0, alpha);
-			break;
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 0, alpha);
+				break;
 			case Collider::Type::ENEMY_SHOT: // magenta
-			app->render->DrawRectangle(colliders[i]->rect, 0, 255, 255, alpha);
-			break;
+				app->render->DrawRectangle(colliders[i]->rect, 0, 255, 255, alpha);
+				break;
 			case Collider::Type::H_CB: // orange
-			app->render->DrawRectangle(colliders[i]->rect, 255, 155, 0, alpha);
-			break;
+				app->render->DrawRectangle(colliders[i]->rect, 255, 155, 0, alpha);
+				break;
 			case Collider::Type::V_CB: // light blue
-			app->render->DrawRectangle(colliders[i]->rect, 0, 240, 255, alpha);
-			break;
+				app->render->DrawRectangle(colliders[i]->rect, 0, 240, 255, alpha);
+				break;
 			case Collider::Type::LAVA: // light green
-			app->render->DrawRectangle(colliders[i]->rect, 170, 255, 0, alpha);
-			break;
+				app->render->DrawRectangle(colliders[i]->rect, 170, 255, 0, alpha);
+				break;
 			case Collider::Type::NULL_COLLIDER: // black
-			app->render->DrawRectangle(colliders[i]->rect, 0, 0, 0, alpha);
-			break;
+				app->render->DrawRectangle(colliders[i]->rect, 0, 0, 0, alpha);
+				break;
+			}
+		}
+		if (app->scene->godMode == true)
+		{
+			switch (colliders[i]->type)
+			{
+			case Collider::Type::NONE: // white
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+				break;
+			case Collider::Type::WALL: // blue
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+				break;
+			case Collider::Type::PLAYER: // green
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+				break;
+			case Collider::Type::ENEMY: // red
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+				break;
+			case Collider::Type::PLAYER_SHOT: // yellow
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+				break;
+			case Collider::Type::ENEMY_SHOT: // magenta
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+				break;
+			case Collider::Type::H_CB: // orange
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+				break;
+			case Collider::Type::V_CB: // light blue
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+				break;
+			case Collider::Type::LAVA: // light green
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+				break;
+			case Collider::Type::NULL_COLLIDER: // black
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+				break;
+			}
 		}
 	}
 }

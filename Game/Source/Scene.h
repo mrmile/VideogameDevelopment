@@ -39,6 +39,8 @@ public:
 	PhysBody* h_CB1;
 	PhysBody* h_CB2;
 
+	bool godMode;
+
 private:
 	SDL_Texture* img;
 };
