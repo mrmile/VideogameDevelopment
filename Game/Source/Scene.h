@@ -41,6 +41,8 @@ public:
 
 	bool godMode;
 
+	bool playerRestart;
+
 private:
 	SDL_Texture* img;
 };

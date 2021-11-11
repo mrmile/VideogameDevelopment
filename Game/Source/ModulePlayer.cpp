@@ -721,6 +721,25 @@ bool ModulePlayer::PostUpdate()
 	// Draw UI (score) --------------------------------------
 	sprintf_s(scoreText, 10, "%7d", score);
 
+	if (app->scene->playerRestart == true)
+	{
+		horizontalCM = true;
+		app->scene->sceneTimer = 0;
+
+		app->render->camera.x = app->map->MapToWorld(0, -15).x;
+		app->render->camera.y = app->map->MapToWorld(0, -15).y;
+
+		position = app->map->MapToWorld(5, 21);
+		Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
+
+		Player->listener = app->scene;
+		b2Filter b;
+		b.categoryBits = 0x0001;
+		b.maskBits = 0x0001 | 0x0002;
+		Player->body->GetFixtureList()->SetFilterData(b);
+		app->scene->playerRestart = false;
+	}
+
 	// TODO 3: Blit the text of the score in at the bottom of the screen
 	//app->fonts->BlitText(58, 248, scoreFont, scoreText);
 

@@ -77,6 +77,7 @@ bool Scene::Start()
 	 //app->map->LoadLavaColliders();
 
 	 godMode = false;
+	 playerRestart = false;
 
 	return true;
 }
@@ -95,6 +96,9 @@ bool Scene::Update(float dt)
 	//app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 160; //<-- Este es el que se aplica al final
 
 	//F9 --> See colliders
+
+	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+		playerRestart = true;
 
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		godMode = !godMode;
