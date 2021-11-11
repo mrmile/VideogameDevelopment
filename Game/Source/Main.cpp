@@ -98,8 +98,10 @@ int main(int argc, char* args[])
 				break;
 
 				// Loop all modules until we are asked to leave ---------------------
+			}
 			case LOOP:
-
+			{
+				OPTICK_FRAME("Main Loop");
 				frameStart = SDL_GetTicks();
 
 				if (app->Update() == false)

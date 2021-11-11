@@ -22,6 +22,7 @@
 #include <time.h>
 #include <SDL_mixer/include/SDL_mixer.h>
 #include <iostream>
+#include <Optick/include/optick.h>
 using namespace std;
 
 //ModulePlayer::ModulePlayer( bool start_enabled) : Module(start_enabled)
@@ -257,6 +258,7 @@ bool ModulePlayer::Start()
 
 bool ModulePlayer::Update(float dt)
 {
+	//OPTICK_EVENT();
 	collider->SetPos(position.x, position.y);
 
 	playerTimer++;

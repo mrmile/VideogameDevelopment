@@ -74,11 +74,13 @@ bool TitleScreen::Update(float dt)
 	if (delay > 90 && delay <= 91)
 	{
 		//app->physics->Enable();
-		app->titleScreen->Disable();
+		
 
 		app->scene->Enable();
 		app->player->Enable();
 		app->collisions->Enable();
+
+		app->titleScreen->Disable();
 		//app->fade->FadeToBlack(app->titleScreen, app->scene, 60);
 	}
 
