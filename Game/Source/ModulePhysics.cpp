@@ -45,7 +45,7 @@ bool ModulePhysics::Start()
 
 	// needed to create joints like mouse joint
 	b2BodyDef bd;
-	ground = world->CreateBody(&bd);
+	//ground = world->CreateBody(&bd);
 
 	// big static circle as "ground" in the middle of the screen
 	
@@ -54,7 +54,7 @@ bool ModulePhysics::Start()
 	body.type = b2_staticBody;
 	body.position.Set(PIXEL_TO_METERS(10), PIXEL_TO_METERS(10));
 
-	b2Body* playZone = world->CreateBody(&body);
+	//b2Body* playZone = world->CreateBody(&body);
 	
 
 	return true;

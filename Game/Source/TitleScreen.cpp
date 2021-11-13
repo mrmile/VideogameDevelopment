@@ -48,7 +48,8 @@ bool TitleScreen::Start()
 	transition = false;
 
 	app->render->camera.x = 0;
-	app->render->camera.y = 0;
+	//app->render->camera.y = 0;
+	app->render->camera.y = -15 * 16; // Just for testing
 
 	return true;
 }

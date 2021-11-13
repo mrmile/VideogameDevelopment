@@ -183,6 +183,8 @@ bool Scene::CleanUp()
 
 	app->collisions->RemoveCollider(app->collisions->AddCollider({ app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(1200), app->map->MapToWorldSingle(100) }, Collider::Type::NULL_COLLIDER));
 
+	app->player->Player->body->DestroyFixture(app->player->Player->body->GetFixtureList());
+
 	//app->map->DeleteCollidersSensors();
 
 	return true;

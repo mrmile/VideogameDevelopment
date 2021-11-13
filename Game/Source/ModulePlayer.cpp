@@ -764,6 +764,8 @@ bool ModulePlayer::LoadState(pugi::xml_node& data)
 	playerLoadPosition.x = (position.x);
 	playerLoadPosition.y = (position.y);
 
+	app->player->Player->body->DestroyFixture(app->player->Player->body->GetFixtureList());
+
 	Player = app->physics->CreatePlayerBox(position.x + 28 / 2, position.y + 33 / 2, 28, 33);
 	Player->listener = app->scene;
 	b2Filter b;
