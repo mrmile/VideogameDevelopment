@@ -624,6 +624,8 @@ void Map::LoadCollidersSensors() // Old version
 	ListItem<MapLayer*>* mapLayerItem;
 	mapLayerItem = mapData.layers.start;
 
+	int position = 0;
+
 	// L06: TODO 4: Make sure we draw all the layers and not just the first one
 	while (mapLayerItem != NULL)
 	{
@@ -653,7 +655,8 @@ void Map::LoadCollidersSensors() // Old version
 						if (mapLayerItem->data->properties.GetProperty("Lava") == 1)
 						{
 							//app->physics->CreateColliderRectangle(pos.x + 8, pos.y + 8, 16, 16);
-							collider = app->collisions->AddCollider({ pos.x, pos.y, 16, 16 }, Collider::Type::LAVA);
+							collider[position] = app->collisions->AddCollider({ pos.x, pos.y, 16, 16 }, Collider::Type::LAVA);
+							position++;
 						}
 					}
 
@@ -672,6 +675,8 @@ void Map::DeleteCollidersSensors() // Old version
 	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
 	ListItem<MapLayer*>* mapLayerItem;
 	mapLayerItem = mapData.layers.start;
+
+	int position2 = 0;
 
 	// L06: TODO 4: Make sure we draw all the layers and not just the first one
 	while (mapLayerItem != NULL)
@@ -708,7 +713,8 @@ void Map::DeleteCollidersSensors() // Old version
 							}
 							*/
 							
-							app->collisions->RemoveCollider(app->map->collider);
+							app->collisions->RemoveCollider(app->map->collider[position2]);
+							position2++;
 						}
 					}
 

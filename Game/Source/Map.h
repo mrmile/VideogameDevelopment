@@ -190,7 +190,7 @@ public:
 
     // L03: DONE 1: Add your struct for map info
 	MapData mapData;
-	Collider* collider = nullptr;
+	Collider* collider[5000];
 	PhysBody* mapChains[13];
 
 private:
