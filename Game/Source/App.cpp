@@ -188,6 +188,26 @@ void App::FinishUpdate()
 	// L02: DONE 1: This is a good place to call Load / Save methods
 	if (loadGameRequested == true) LoadGame();
 	if (saveGameRequested == true) SaveGame();
+
+	if (app->player->deletePlayer == true) // Usar solo esto menos en el Load/Save Game
+	{
+		app->player->Player->body->DestroyFixture(app->player->Player->body->GetFixtureList());
+		app->player->deletePlayer = false;
+	}
+
+	if (app->scene->destroyScene == true) // Tiene que borrar todos los chains del box2D y los sensores de colisiones del método antiguo que están en el nivel
+	{
+		// Borra los chains
+		for (int i = 0; i < 13; i++) // Tendría que hacerse automaticamente y no manualmente como ahora
+		{
+			app->map->mapChains[i]->body->DestroyFixture(app->map->mapChains[i]->body->GetFixtureList());
+		}
+
+		// Borra los sensores
+		app->map->DeleteCollidersSensors(); // No hace caso
+
+		app->scene->destroyScene = false;
+	}
 }
 
 // Call modules before each loop iteration

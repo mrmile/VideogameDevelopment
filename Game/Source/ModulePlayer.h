@@ -123,6 +123,7 @@ public:
 	bool horizontalCM = false;
 	bool verticalCM = false;
 	bool createPlayer;
+	bool deletePlayer;
 
 };
 

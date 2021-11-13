@@ -218,6 +218,7 @@ bool ModulePlayer::Start()
 	//app->render->camera.y = app->map->MapToWorld(32, 4100).y;
 
 	destroyed = false;
+	deletePlayer = false;
 
 	collider = app->collisions->AddCollider({ position.x + 5, position.y + 3, 28, 33 }, Collider::Type::PLAYER, this);
 
@@ -751,6 +752,8 @@ bool ModulePlayer::PostUpdate()
 bool ModulePlayer::CleanUp() // Implementar???
 {
 	app->tex->UnLoad(texture);
+	deletePlayer = true;
+	app->collisions->RemoveCollider(app->player->collider);
 
 	return true;
 }
@@ -760,7 +763,7 @@ bool ModulePlayer::LoadState(pugi::xml_node& data)
 	position.x = data.child("position").attribute("x").as_int();
 	position.y = data.child("position").attribute("y").as_int();
 
-	b2Vec2 playerLoadPosition;
+	b2Vec2 playerLoadPosition; // No hace falta
 	playerLoadPosition.x = (position.x);
 	playerLoadPosition.y = (position.y);
 

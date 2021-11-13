@@ -85,6 +85,18 @@ bool TitleScreen::Update(float dt)
 		//app->fade->FadeToBlack(app->titleScreen, app->scene, 60);
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		app->render->camera.y -= 5;
+
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		app->render->camera.y += 5;
+
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		app->render->camera.x -= 5;
+
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		app->render->camera.x += 5;
+
 	return true;
 }
 

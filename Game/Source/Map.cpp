@@ -653,7 +653,7 @@ void Map::LoadCollidersSensors() // Old version
 						if (mapLayerItem->data->properties.GetProperty("Lava") == 1)
 						{
 							//app->physics->CreateColliderRectangle(pos.x + 8, pos.y + 8, 16, 16);
-							app->collisions->AddCollider({ pos.x, pos.y, 16, 16 }, Collider::Type::LAVA);
+							collider = app->collisions->AddCollider({ pos.x, pos.y, 16, 16 }, Collider::Type::LAVA);
 						}
 					}
 
@@ -701,8 +701,14 @@ void Map::DeleteCollidersSensors() // Old version
 						//app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
 						if (mapLayerItem->data->properties.GetProperty("Lava") == 1)
 						{
-							//app->physics->CreateColliderRectangle(pos.x + 8, pos.y + 8, 16, 16);
-							app->collisions->RemoveCollider(app->collisions->AddCollider({ pos.x, pos.y, 16, 16 }, Collider::Type::LAVA));
+							/*
+							if (app->collisions->RemoveCollider(app->collisions->AddCollider({ pos.x, pos.y, 16, 16 }, Collider::Type::LAVA)) != nullptr)
+							{
+								app->collisions->RemoveCollider(app->collisions->AddCollider({ pos.x, pos.y, 16, 16 }, Collider::Type::LAVA));
+							}
+							*/
+							
+							app->collisions->RemoveCollider(app->map->collider);
 						}
 					}
 
@@ -731,20 +737,22 @@ void Map::LoadCollidersNewer() //New Version
 	int Chains12[38] = { 0,0, 33.4545,0 ,40.3636,-6.36364 ,63.2727,-16.5455, 92.3636,-16.1818 ,101.273,-7.27273 ,109.091,10.1818, 109.455,21.4545 ,106.545,22.9091 ,103.818,22.7273 ,101.273,20.1818 ,101.636,10.1818 ,91.8182,-9.27273 ,63.2727,-9.63636 ,46.9091,-1.45455, 36.7273,6.90909 ,0,6.72727 ,-1.81818,5.09091 ,-2,2.18182 };
 	int Chains13[8] = { 0,0 ,16.1818,0 ,16.3636,-79.0909, 0.363636,-79.0909 };
 
-	app->physics->CreateChain(0.5, 352, Chains1, 16);
-	app->physics->CreateChain(625.5, 480.5, Chains2, 16);
-	app->physics->CreateChain(1.5, 269.5, Chains3, 56);
-	app->physics->CreateChain(1631.5, 480.5, Chains4, 12);
-	app->physics->CreateChain(1743, 478.5, Chains5, 8);
-	app->physics->CreateChain(1793, 480, Chains6, 8);
-	app->physics->CreateChain(623.091, 403.455, Chains7, 15);
-	app->physics->CreateChain(897.091, 371.455, Chains8, 24);
-	app->physics->CreateChain(993.091, 400.909, Chains9, 14);
-	app->physics->CreateChain(1040.73, 339.455, Chains10, 22);
-	app->physics->CreateChain(1153.27, 402.727, Chains11, 20);
-	app->physics->CreateChain(1218.18, 384.727, Chains12, 38);
-	app->physics->CreateChain(-0.181818, 350.727, Chains13, 8);
+	mapChains[0] = app->physics->CreateChain(0.5, 352, Chains1, 16);
+	mapChains[1] = app->physics->CreateChain(625.5, 480.5, Chains2, 16);
+	mapChains[2] = app->physics->CreateChain(1.5, 269.5, Chains3, 56);
+	mapChains[3] = app->physics->CreateChain(1631.5, 480.5, Chains4, 12);
+	mapChains[4] = app->physics->CreateChain(1743, 478.5, Chains5, 8);
+	mapChains[5] = app->physics->CreateChain(1793, 480, Chains6, 8);
+	mapChains[6] = app->physics->CreateChain(623.091, 403.455, Chains7, 15);
+	mapChains[7] = app->physics->CreateChain(897.091, 371.455, Chains8, 24);
+	mapChains[8] = app->physics->CreateChain(993.091, 400.909, Chains9, 14);
+	mapChains[9] = app->physics->CreateChain(1040.73, 339.455, Chains10, 22);
+	mapChains[10] = app->physics->CreateChain(1153.27, 402.727, Chains11, 20);
+	mapChains[11] = app->physics->CreateChain(1218.18, 384.727, Chains12, 38);
+	mapChains[12] = app->physics->CreateChain(-0.181818, 350.727, Chains13, 8);
 }
+
+/*
 void Map::LoadLavaColliders() // Los lava colliders se tienen que hazer con los sensores del año pasado
 {
 	int	LavaChains1[8] = { 0,0 ,0.5,6.5, 111,7.5 ,110.5,-2 };
@@ -758,8 +766,9 @@ void Map::LoadLavaColliders() // Los lava colliders se tienen que hazer con los 
 	app->physics->CreateChainLava(1633, 423.5, LavaChains3, 8);
 	app->physics->CreateChainLava(1744, 407.5, LavaChains4, 8);
 	app->physics->CreateChainLava(1840, 392, LavaChains5, 8);
-	
+
 }
+*/
 
 /*
 void Map::DrawColliders()

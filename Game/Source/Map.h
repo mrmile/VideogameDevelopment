@@ -148,7 +148,7 @@ public:
 	void DeleteCollidersSensors();
 
 	void LoadCollidersNewer();
-	void LoadLavaColliders();
+	//void LoadLavaColliders(); // No sirve/No hace falta
     // Called before quitting
     bool CleanUp();
 
@@ -190,6 +190,8 @@ public:
 
     // L03: DONE 1: Add your struct for map info
 	MapData mapData;
+	Collider* collider = nullptr;
+	PhysBody* mapChains[13];
 
 private:
 	List<PhysBody*> Collisions;

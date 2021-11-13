@@ -43,6 +43,8 @@ public:
 
 	bool playerRestart;
 
+	bool destroyScene;
+
 private:
 	SDL_Texture* img;
 };
