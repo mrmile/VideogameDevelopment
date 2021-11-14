@@ -289,6 +289,7 @@ Collider* ModuleCollisions::AddCollider(SDL_Rect rect, Collider::Type type, Modu
 		if(colliders[i] == nullptr)
 		{
 			ret = colliders[i] = new Collider(rect, type, listener);
+			//LOG("Added ColliderSensor");
 			break;
 		}
 	}
@@ -304,6 +305,7 @@ void ModuleCollisions::RemoveCollider(Collider* collider)
 		{
 			delete colliders[i];
 			colliders[i] = nullptr;
+			//LOG("Removed ColliderSensor");
 		}
 	}
 }

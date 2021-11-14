@@ -665,7 +665,7 @@ void Map::LoadCollidersSensors() // Old version
 	}
 }
 
-void Map::DeleteCollidersSensors() // Old version
+void Map::DeleteCollidersSensors() // En realidad no haze falta. Esto se hace automaticamente cuando le das a disable
 {
 	if (mapLoaded == false) return;
 

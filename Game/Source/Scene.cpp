@@ -73,6 +73,7 @@ bool Scene::Start()
 
 	//app->map->LoadColliders(); Old version makes the game laggy but with TMX 
 	 app->map->LoadCollidersNewer(); //New version creating the colliders by hand
+	 app->map->LoadCollidersSensors();
 	 
 	 //app->map->LoadLavaColliders();
 
@@ -123,7 +124,7 @@ bool Scene::Update(float dt)
 	if(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		app->render->camera.x += 5;
 
-	if(sceneTimer <= 1) app->map->LoadCollidersSensors();
+	//if(sceneTimer <= 1) app->map->LoadCollidersSensors();
 
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
 
@@ -166,6 +167,7 @@ bool Scene::PostUpdate()
 		app->player->Disable();
 		app->scene->Disable();
 		app->collisions->Disable();
+		app->map->Disable();
 		//app->physics->Disable();
 	}
 
