@@ -528,13 +528,14 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 		bool finish = false;
 		for (int i = 0; finish == false; i++)
 		{
-			if (CharsArray[i] == ',' || CharsArray[i] == ' ')
+			if (CharsArray[i] == ',')
 			{
 				sizeCounter++;
 			}
-			if (CharsArray[i] == 0)
+			if (CharsArray[i] == ' ')
 			{
 				CharsArray[i] = ',';
+				sizeCounter++;
 				finish = true;
 			}
 		}
@@ -542,13 +543,13 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 		int* pointsArray = new int[sizeCounter];
 		int pointsArrayPosition = 0;
 
-		for (int j = 0; CharsArray[j] != 0; j++)
+		for (int j = 0; CharsArray[j] != ' '; j++)
 		{
-			if (CharsArray[j] != ',' || CharsArray[j] != ' ')
+			if (CharsArray[j] != ',')
 			{
 				temp += CharsArray[j];
 			}
-			else
+			else if (CharsArray[j] == ',')
 			{
 				pointsArray[pointsArrayPosition] = MapToWorldSingle((int)&temp);
 				temp = "";

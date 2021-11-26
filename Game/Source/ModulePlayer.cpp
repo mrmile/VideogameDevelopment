@@ -287,7 +287,7 @@ bool ModulePlayer::Update(float dt)
 
 				if (currentAnimation != &leftAnim && hover == false)
 				{
-					leftRunAnim.Reset();
+					leftAnim.Reset();
 					currentAnimation = &leftAnim;
 				}
 			}
@@ -325,7 +325,7 @@ bool ModulePlayer::Update(float dt)
 
 				if (currentAnimation != &rightRunAnim && hover == false)
 				{
-					rightAnim.Reset();
+					rightRunAnim.Reset();
 					currentAnimation = &rightRunAnim;
 				}
 			}
