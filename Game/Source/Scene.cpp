@@ -72,8 +72,8 @@ bool Scene::Start()
 	app->collisions->AddCollider({ app->map->MapToWorldSingle(118), app->map->MapToWorldSingle(13), app->map->MapToWorldSingle(10), app->map->MapToWorldSingle(10) }, Collider::Type::H_CB);
 
 	//app->map->LoadColliders(); Old version makes the game laggy but with TMX 
-	 app->map->LoadCollidersNewer(); //New version creating the colliders by hand
-	 app->map->LoadCollidersSensors();
+	app->map->LoadCollidersNewer(); //New version creating the colliders by hand
+	app->map->LoadCollidersSensors();
 	 
 	 //app->map->LoadLavaColliders();
 

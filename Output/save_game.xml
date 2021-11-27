@@ -9,11 +9,11 @@
 	<TitleScreen />
 	<scene />
 	<player>
-		<position x="812" y="350" />
+		<position x="-49" y="4271" />
 	</player>
 	<:anonymous />
 	<:anonymous />
 	<renderer>
-		<camera x="-1022" y="-240" />
+		<camera x="699" y="-240" />
 	</renderer>
 </save_state>

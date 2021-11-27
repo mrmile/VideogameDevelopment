@@ -285,7 +285,7 @@ bool Map::Load(const char* filename)
 	}
 	if (ret == true)
 	{
-		//ret = LoadAllObjects(mapFile.child("map"));
+		ret = LoadAllObjects(mapFile.child("map"));
 	}
     if(ret == true)
     {
@@ -483,85 +483,74 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 	//L06: TODO_D 6 Call Load Properties
 	LoadProperties(node, object->properties);
 
-	/*
-	pugi::xml_node NewObject;
-	int i = 0;
-	for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
-	{
-		object->points = NewObject.child("polygon").attribute("points").as_string();
-		i++;
-		char* CharsArray =new char[i];
-		CharsArray[i] = *object->points;
-		int* array = new int[i];
-		if (isdigit(CharsArray[i]))
-		{
-			array[i] = (int)CharsArray[i];
 
-
-		}
-		// if the string has gotten to it's limit create the chain
-		app->physics->CreateChain(NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int(), array, i);
-
-		delete[] & CharsArray;
-		delete[] & array;
-	}
-
-	*/
-
-	
 	//Iterate over all the tiles and assign the values
 	pugi::xml_node NewObject;
 	//Video of how to get specific parts of a string into an int array: https://www.youtube.com/watch?v=VVaPI5RSJCM
 	for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
 	{
 		object->points = NewObject.child("polygon").attribute("points").as_string();
-
+		
 		SString line = "";
-		SString temp = "";
-		SString pointsString = object->points;
+		//SString temp = "";
+		string temp = "";
+		//pugi::char_t* temp = "";
+		//SString pointsString = object->points;
+		string pointsString = object->points;
+		
 
-		//char* CharsArray = new char[99999];
-
-		char CharsArray[] = { *object->points };
 
 		int sizeCounter = 0;
 		bool finish = false;
 		for (int i = 0; finish == false; i++)
 		{
-			if (CharsArray[i] == ',')
+
+			if (object->points[i] == ',' || object->points[i] == ' ')
 			{
 				sizeCounter++;
 			}
-			if (CharsArray[i] == ' ')
+			if (object->points[i] == '\0')
 			{
-				CharsArray[i] = ',';
-				sizeCounter++;
 				finish = true;
 			}
 		}
 
+		finish = false;
+
+		sizeCounter++;
 		int* pointsArray = new int[sizeCounter];
+		//int pointsArray[999] = { 0 };
 		int pointsArrayPosition = 0;
 
-		for (int j = 0; CharsArray[j] != ' '; j++)
+		for (int j = 0; finish == false; j++)
 		{
-			if (CharsArray[j] != ',')
+			if (pointsString[j] != ',' && pointsString[j] != ' ')
 			{
-				temp += CharsArray[j];
+				temp += pointsString[j];
 			}
-			else if (CharsArray[j] == ',')
+			else if (pointsString[j] == ',' || pointsString[j] == ' ')
 			{
-				pointsArray[pointsArrayPosition] = MapToWorldSingle((int)&temp);
+				pointsArray[pointsArrayPosition] = MapToWorldSingle(stoi(temp));
 				temp = "";
-				pointsArrayPosition;
+				pointsArrayPosition++;
 			}
+			if (pointsString[j] == '\0')
+			{
+				pointsArray[pointsArrayPosition] = MapToWorldSingle(stoi(temp));
+				temp = "";
+				finish = true;
+			}
+			cout << temp << endl;
 		}
 		// if the string has gotten to it's limit create the chain
 
 		//app->physics->CreateChain(MapToWorldSingle(NewObject.attribute("x").as_int()), MapToWorldSingle(NewObject.attribute("y").as_int()), &pointsArray[sizeCounter], sizeCounter);
 
-		delete[] & CharsArray;
-		delete[] & pointsArray;
+		app->physics->CreateChain(MapToWorldSingle(NewObject.attribute("x").as_int()), MapToWorldSingle(NewObject.attribute("y").as_int()), pointsArray/*No pilla bien el valor de los pointsArray*/, sizeCounter); // <-- El problema está aquí ahora
+
+		//app->physics->CreateChain(0.5, 352, Chains1, 16);
+		
+		delete[] pointsArray;
 	}
 	
 
