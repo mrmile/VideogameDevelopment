@@ -224,7 +224,7 @@ bool ModulePlayer::Start()
 
 	Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
 	//app->physics->CreateRectangleSensor(position.x, position.y + 16, 28, 1);
-	//Player = app->physics->CreatePlayerCircle(position.x, position.y, 16);
+	//Player = app->physics->CreatePlayerCircle(position.x, position.y -17, 20);
 	
 
 	//TestingGround = app->physics->CreateColliderRectangle(app->map->MapToWorld(5, 26).x, app->map->MapToWorld(5, 26).y, 1000, 100); // Tendria que estar en Scene.cpp

@@ -210,7 +210,7 @@ void App::FinishUpdate()
 	if (app->scene->destroyScene == true) // Tiene que borrar todos los chains del box2D y los sensores de colisiones del método antiguo que están en el nivel
 	{
 		// Borra los chains
-		for (int i = 0; i < 13; i++) // Tendría que hacerse automaticamente y no manualmente como ahora
+		for (int i = 0; i < app->map->mapChainsCounter; i++)
 		{
 			app->map->mapChains[i]->body->DestroyFixture(app->map->mapChains[i]->body->GetFixtureList());
 		}

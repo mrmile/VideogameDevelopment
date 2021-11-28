@@ -7,6 +7,8 @@
 
 #include "PugiXml\src\pugixml.hpp"
 
+#define MAX_MAP_CHAINS 99999
+
 // L03: DONE 2: Create a struct to hold information for a TileSet
 // Ignore Terrain Types and Tile Types for now, but we want the image!
 struct TileSet
@@ -141,6 +143,9 @@ public:
     // Called before render is available
     bool Awake(pugi::xml_node& conf);
 
+	// Called before the first frame
+	//bool Start();
+
     // Called each loop iteration
     void Draw();
 	//void DrawColliders();
@@ -191,7 +196,9 @@ public:
     // L03: DONE 1: Add your struct for map info
 	MapData mapData;
 	Collider* collider;
-	PhysBody* mapChains[13];
+	//PhysBody* mapChains[13];
+	PhysBody* mapChains[MAX_MAP_CHAINS];
+	int mapChainsCounter;
 
 private:
 	List<PhysBody*> Collisions;

@@ -136,27 +136,29 @@ PhysBody* ModulePhysics::CreatePlayerBox(int x, int y, int width, int height)
 	b2Body* b = world->CreateBody(&body);
 	b2PolygonShape box;
 
+	/*
 	b2Vec2 playerBoxPolyPoints[6];
 
-	playerBoxPolyPoints[0].x = 0;
-	playerBoxPolyPoints[0].y = 0;
+	playerBoxPolyPoints[0].x = -(PIXEL_TO_METERS(width) * 0.5f);
+	playerBoxPolyPoints[0].y = -(PIXEL_TO_METERS(height) * 0.5f);
 
-	playerBoxPolyPoints[1].x = (PIXEL_TO_METERS(width) * 0.5f) * 2;
-	playerBoxPolyPoints[1].y = 0;
+	playerBoxPolyPoints[1].x = (PIXEL_TO_METERS(width) * 0.5f) * 2 - (PIXEL_TO_METERS(width) * 0.5f);
+	playerBoxPolyPoints[1].y = -(PIXEL_TO_METERS(height) * 0.5f);
 
-	playerBoxPolyPoints[2].x = (PIXEL_TO_METERS(width) * 0.5f) * 2;
-	playerBoxPolyPoints[2].y = ((PIXEL_TO_METERS(height) * 0.5f) - PIXEL_TO_METERS(4) ) * 2;
+	playerBoxPolyPoints[2].x = (PIXEL_TO_METERS(width) * 0.5f) * 2 - (PIXEL_TO_METERS(width) * 0.5f);
+	playerBoxPolyPoints[2].y = ((PIXEL_TO_METERS(height) * 0.5f) - PIXEL_TO_METERS(4) ) * 2 - (PIXEL_TO_METERS(height) * 0.5f);;
 
-	playerBoxPolyPoints[3].x = ((PIXEL_TO_METERS(width) * 0.5f) - PIXEL_TO_METERS(2)) * 2;
-	playerBoxPolyPoints[3].y = (PIXEL_TO_METERS(height) * 0.5f) * 2;
+	playerBoxPolyPoints[3].x = ((PIXEL_TO_METERS(width) * 0.5f) - PIXEL_TO_METERS(2)) * 2 - (PIXEL_TO_METERS(width) * 0.5f);
+	playerBoxPolyPoints[3].y = (PIXEL_TO_METERS(height) * 0.5f) * 2 - (PIXEL_TO_METERS(height) * 0.5f);;
 
-	playerBoxPolyPoints[4].x = 0 + PIXEL_TO_METERS(2) * 2;
-	playerBoxPolyPoints[4].y = (PIXEL_TO_METERS(height) * 0.5f) * 2;
+	playerBoxPolyPoints[4].x = 0 + PIXEL_TO_METERS(2) * 2 - (PIXEL_TO_METERS(width) * 0.5f);
+	playerBoxPolyPoints[4].y = (PIXEL_TO_METERS(height) * 0.5f) * 2 - (PIXEL_TO_METERS(height) * 0.5f);;
 
-	playerBoxPolyPoints[5].x = 0;
-	playerBoxPolyPoints[5].y = ((PIXEL_TO_METERS(height) * 0.5f) - PIXEL_TO_METERS(4)) * 2;
+	playerBoxPolyPoints[5].x = -(PIXEL_TO_METERS(width) * 0.5f);
+	playerBoxPolyPoints[5].y = ((PIXEL_TO_METERS(height) * 0.5f) - PIXEL_TO_METERS(4)) * 2 - (PIXEL_TO_METERS(height) * 0.5f);;
 
 	box.Set(playerBoxPolyPoints, 6);
+	*/
 
 	box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
 
@@ -192,11 +194,16 @@ PhysBody* ModulePhysics::CreatePlayerCircle(int x, int y, int radius)
 
 	b2CircleShape shape;
 	shape.m_radius = PIXEL_TO_METERS(radius);
+
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
-	fixture.density = 50.0f;
+	fixture.density = 35.0f;
 
 	b->CreateFixture(&fixture);
+
+	b2Vec2 colliderPosPoint;
+	colliderPosPoint.x = 0;
+	colliderPosPoint.y = 0;
 
 	PhysBody* pbody = new PhysBody();
 	pbody->body = b;

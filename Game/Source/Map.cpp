@@ -57,6 +57,15 @@ bool Map::Awake(pugi::xml_node& config)
     return ret;
 }
 
+/*
+bool Map::Start()
+{
+	mapChainsCounter = 0;
+
+	return true;
+}
+*/
+
 // Draw the map (all requried layers)
 void Map::Draw()
 {
@@ -483,6 +492,7 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 	//L06: TODO_D 6 Call Load Properties
 	LoadProperties(node, object->properties);
 
+	mapChainsCounter = 0;
 
 	//Iterate over all the tiles and assign the values
 	pugi::xml_node NewObject;
@@ -530,27 +540,26 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 			}
 			else if (pointsString[j] == ',' || pointsString[j] == ' ')
 			{
-				pointsArray[pointsArrayPosition] = MapToWorldSingle(stoi(temp));
+				pointsArray[pointsArrayPosition] = stoi(temp);
 				temp = "";
 				pointsArrayPosition++;
 			}
 			if (pointsString[j] == '\0')
 			{
-				pointsArray[pointsArrayPosition] = MapToWorldSingle(stoi(temp));
+				pointsArray[pointsArrayPosition] = stoi(temp);
 				temp = "";
 				finish = true;
 			}
-			cout << temp << endl;
+			//cout << temp << endl;
 		}
 		// if the string has gotten to it's limit create the chain
 
-		//app->physics->CreateChain(MapToWorldSingle(NewObject.attribute("x").as_int()), MapToWorldSingle(NewObject.attribute("y").as_int()), &pointsArray[sizeCounter], sizeCounter);
+		mapChains[mapChainsCounter] = app->physics->CreateChain(NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int(), pointsArray, sizeCounter);
 
-		app->physics->CreateChain(MapToWorldSingle(NewObject.attribute("x").as_int()), MapToWorldSingle(NewObject.attribute("y").as_int()), pointsArray/*No pilla bien el valor de los pointsArray*/, sizeCounter); // <-- El problema está aquí ahora
-
-		//app->physics->CreateChain(0.5, 352, Chains1, 16);
 		
 		delete[] pointsArray;
+
+		mapChainsCounter++;
 	}
 	
 
@@ -711,7 +720,7 @@ void Map::DeleteCollidersSensors() // En realidad no haze falta. Esto se hace au
 }
 
 
-void Map::LoadCollidersNewer() //New Version
+void Map::LoadCollidersNewer() //New Version (not needed any more)
 {
 	int Chains1[16] = { -0.5,0, 351.5,0, 351.5,16, 415.5,16, 415.5,32, 511.5,32, 511.5,128, -0.5,128 };
 	int Chains2[16] = { -1.5,-0.5, - 1.5,-80.5, 94.5,-80.5, 94.5,-96.5, 238.5,-96.5, 238.5,-112.5, 270.5,-112.5, 270.5,-0.5 };
