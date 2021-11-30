@@ -489,79 +489,100 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 	object->id = node.attribute("id").as_int();
 	object->name = node.attribute("name").as_string();
 
-	//L06: TODO_D 6 Call Load Properties
-	LoadProperties(node, object->properties);
-
-	mapChainsCounter = 0;
-
-	//Iterate over all the tiles and assign the values
-	pugi::xml_node NewObject;
-	//Video of how to get specific parts of a string into an int array: https://www.youtube.com/watch?v=VVaPI5RSJCM
-	for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
+	if (object->name == "collisions")
 	{
-		object->points = NewObject.child("polygon").attribute("points").as_string();
-		
-		SString line = "";
-		//SString temp = "";
-		string temp = "";
-		//pugi::char_t* temp = "";
-		//SString pointsString = object->points;
-		string pointsString = object->points;
-		
+		//L06: TODO_D 6 Call Load Properties
+		LoadProperties(node, object->properties);
 
+		mapChainsCounter = 0;
 
-		int sizeCounter = 0;
-		bool finish = false;
-		for (int i = 0; finish == false; i++)
+		//Iterate over all the tiles and assign the values
+		pugi::xml_node NewObject;
+
+		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
 		{
+			object->points = NewObject.child("polygon").attribute("points").as_string();
 
-			if (object->points[i] == ',' || object->points[i] == ' ')
+			SString line = "";
+			//SString temp = "";
+			string temp = "";
+			//pugi::char_t* temp = "";
+			//SString pointsString = object->points;
+			string pointsString = object->points;
+
+
+
+			int sizeCounter = 0;
+			bool finish = false;
+			for (int i = 0; finish == false; i++)
 			{
-				sizeCounter++;
+
+				if (object->points[i] == ',' || object->points[i] == ' ')
+				{
+					sizeCounter++;
+				}
+				if (object->points[i] == '\0')
+				{
+					finish = true;
+				}
 			}
-			if (object->points[i] == '\0')
+
+			finish = false;
+
+			sizeCounter++;
+			int* pointsArray = new int[sizeCounter];
+			//int pointsArray[999] = { 0 };
+			int pointsArrayPosition = 0;
+
+			for (int j = 0; finish == false; j++)
 			{
-				finish = true;
+				if (pointsString[j] != ',' && pointsString[j] != ' ')
+				{
+					temp += pointsString[j];
+				}
+				else if (pointsString[j] == ',' || pointsString[j] == ' ')
+				{
+					pointsArray[pointsArrayPosition] = stoi(temp);
+					temp = "";
+					pointsArrayPosition++;
+				}
+				if (pointsString[j] == '\0')
+				{
+					pointsArray[pointsArrayPosition] = stoi(temp);
+					temp = "";
+					finish = true;
+				}
+				//cout << temp << endl;
 			}
+			// if the string has gotten to it's limit create the chain
+
+			mapChains[mapChainsCounter] = app->physics->CreateChain(NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int(), pointsArray, sizeCounter);
+
+
+			delete[] pointsArray;
+
+			mapChainsCounter++;
 		}
-
-		finish = false;
-
-		sizeCounter++;
-		int* pointsArray = new int[sizeCounter];
-		//int pointsArray[999] = { 0 };
-		int pointsArrayPosition = 0;
-
-		for (int j = 0; finish == false; j++)
-		{
-			if (pointsString[j] != ',' && pointsString[j] != ' ')
-			{
-				temp += pointsString[j];
-			}
-			else if (pointsString[j] == ',' || pointsString[j] == ' ')
-			{
-				pointsArray[pointsArrayPosition] = stoi(temp);
-				temp = "";
-				pointsArrayPosition++;
-			}
-			if (pointsString[j] == '\0')
-			{
-				pointsArray[pointsArrayPosition] = stoi(temp);
-				temp = "";
-				finish = true;
-			}
-			//cout << temp << endl;
-		}
-		// if the string has gotten to it's limit create the chain
-
-		mapChains[mapChainsCounter] = app->physics->CreateChain(NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int(), pointsArray, sizeCounter);
-
-		
-		delete[] pointsArray;
-
-		mapChainsCounter++;
 	}
 	
+	if (object->name == "sensors")
+	{
+		if (node.child("properties").child("property").attribute("name").as_string() == "Instant_Death"
+			&& node.child("properties").child("property").attribute("value").as_int() == 1)
+		{
+			app->collisions->AddCollider({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("width").as_int(), node.attribute("height").as_int() }, Collider::Type::LAVA);
+		}
+		if (node.child("properties").child("property").attribute("name").as_string() == "H_CB"
+			&& node.child("properties").child("property").attribute("value").as_int() == 1)
+		{
+			app->collisions->AddCollider({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("width").as_int(), node.attribute("height").as_int() }, Collider::Type::H_CB);
+		}
+		if (node.child("properties").child("property").attribute("name").as_string() == "V_CB"
+			&& node.child("properties").child("property").attribute("value").as_int() == 1)
+		{
+			app->collisions->AddCollider({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("width").as_int(), node.attribute("height").as_int() }, Collider::Type::V_CB);
+		}
+	}
 
 	return ret;
 }
@@ -588,8 +609,9 @@ bool Map::LoadAllObjects(pugi::xml_node mapNode) {
 	{
 		//Load the layer
 		MapObjects* objectLayer = new MapObjects();
+		//if (layerNode.attribute("name").as_string == "collisions")ret = LoadObject(layerNode, objectLayer);
 		ret = LoadObject(layerNode, objectLayer);
-
+		
 		//add the layer to the map
 		mapData.objects.add(objectLayer);
 	}
