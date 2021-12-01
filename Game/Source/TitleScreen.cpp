@@ -5,7 +5,7 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
-#include "Scene.h"
+#include "SceneCastle.h"
 #include "Map.h"
 #include "ModulePhysics.h"
 #include "ModulePlayer.h"
@@ -76,12 +76,12 @@ bool TitleScreen::Update(float dt)
 		//app->physics->Enable();
 		
 		app->map->Enable();
-		app->scene->Enable();
+		app->sceneCastle->Enable();
 		app->player->Enable();
 		app->collisions->Enable();
 
 		app->titleScreen->Disable();
-		//app->fade->FadeToBlack(app->titleScreen, app->scene, 60);
+		//app->fade->FadeToBlack(app->titleScreen, app->sceneCastle, 60);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)

@@ -37,9 +37,6 @@
     <ClCompile Include="Source\Textures.cpp">
       <Filter>General</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene.cpp">
-      <Filter>General</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Render.cpp">
       <Filter>General</Filter>
     </ClCompile>
@@ -56,6 +53,12 @@
       <Filter>General</Filter>
     </ClCompile>
     <ClCompile Include="Source\App.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneCastle.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneForest.cpp">
       <Filter>General</Filter>
     </ClCompile>
   </ItemGroup>
@@ -123,9 +126,6 @@
     <ClInclude Include="Source\Textures.h">
       <Filter>General</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene.h">
-      <Filter>General</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Render.h">
       <Filter>General</Filter>
     </ClInclude>
@@ -142,6 +142,12 @@
       <Filter>General</Filter>
     </ClInclude>
     <ClInclude Include="Source\App.h">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneCastle.h">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneForest.h">
       <Filter>General</Filter>
     </ClInclude>
   </ItemGroup>

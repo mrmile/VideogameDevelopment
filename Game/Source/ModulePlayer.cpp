@@ -11,7 +11,8 @@
 //#include "ModuleFonts.h"
 #include "Log.h"
 
-#include "Scene.h"
+#include "SceneForest.h"
+#include "SceneCastle.h"
 #include "Map.h"
 #include "ModulePhysics.h"
 #include "ModuleCollisions.h"
@@ -200,7 +201,7 @@ bool ModulePlayer::Start()
 	//laserFx = app->audio->LoadFx("Assets/Fx/laser.wav");
 	//explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");
 
-	position = app->map->MapToWorld(5, 21);
+	//position = app->map->MapToWorld(5, 21); // En el load objects
 	b2VelocitySet.x = 0;
 	b2VelocitySet.y = -0.5f;
 	//position.x = 0;
@@ -248,6 +249,8 @@ bool ModulePlayer::Start()
 	jump = false;
 	createPlayer = false;
 
+	layerZeroReveal = false;
+
 	//srand(time(NULL));
 
 	uint winWidth, winHeight;
@@ -276,7 +279,7 @@ bool ModulePlayer::Update(float dt)
 	//LOG("Camera %s", app->render->camera.x);
 
 	//------------------------------------------------------------------------------------------------------------------------------------------
-	if (destroyed == false && app->scene->godMode == false)
+	if (destroyed == false && app->sceneCastle->godMode == false)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
 		{
@@ -525,7 +528,7 @@ bool ModulePlayer::Update(float dt)
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------------------------------------
-	if (destroyed == false && app->scene->godMode == true)
+	if (destroyed == false && app->sceneCastle->godMode == true)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
 		{
@@ -722,23 +725,32 @@ bool ModulePlayer::PostUpdate()
 	// Draw UI (score) --------------------------------------
 	sprintf_s(scoreText, 10, "%7d", score);
 
-	if (app->scene->playerRestart == true)
+	if (app->sceneCastle->playerRestart == true)
 	{
-		horizontalCM = true;
-		app->scene->sceneTimer = 0;
+		horizontalCB = true;
+		app->sceneCastle->sceneTimer = 0;
 
-		app->render->camera.x = app->map->MapToWorld(0, -15).x;
-		app->render->camera.y = app->map->MapToWorld(0, -15).y;
+		if (app->sceneCastle->sceneCastle == true)
+		{
+			position = app->map->MapToWorld(5, 21);
+			app->render->camera.x = app->map->MapToWorld(0, -15).x;
+			app->render->camera.y = app->map->MapToWorld(0, -15).y;
+		}
+		if (app->sceneForest->sceneForest == true)
+		{
+			position = app->map->MapToWorld(32, 14);
+			app->render->camera.x = app->map->MapToWorld(29, -4).x;
+			app->render->camera.y = app->map->MapToWorld(29, -4).y;
+		}
 
-		position = app->map->MapToWorld(5, 21);
 		Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
 
-		Player->listener = app->scene;
+		Player->listener = app->sceneCastle;
 		b2Filter b;
 		b.categoryBits = 0x0001;
 		b.maskBits = 0x0001 | 0x0002;
 		Player->body->GetFixtureList()->SetFilterData(b);
-		app->scene->playerRestart = false;
+		app->sceneCastle->playerRestart = false;
 	}
 
 	// TODO 3: Blit the text of the score in at the bottom of the screen
@@ -770,14 +782,14 @@ bool ModulePlayer::LoadState(pugi::xml_node& data)
 	app->player->Player->body->DestroyFixture(app->player->Player->body->GetFixtureList());
 
 	Player = app->physics->CreatePlayerBox(position.x + 28 / 2, position.y + 33 / 2, 28, 33);
-	Player->listener = app->scene;
+	Player->listener = app->sceneCastle;
 	b2Filter b;
 	b.categoryBits = 0x0001;
 	b.maskBits = 0x0001 | 0x0002;
 	Player->body->GetFixtureList()->SetFilterData(b);
 	createPlayer = false;
 
-	//if (app->player->horizontalCM == false && app->scene->sceneTimer > 1) app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 630;
+	//if (app->player->horizontalCB == false && app->sceneCastle->sceneTimer > 1) app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 630;
 
 	return true;
 }
@@ -803,24 +815,62 @@ void ModulePlayer::b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
-	if (app->scene->godMode == false)
+	if (app->sceneCastle->godMode == false)
 	{
 		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::H_CB) // HORIZONTAL_CAMERA_BOUND = H_CB
 		{
-			if (horizontalCM == false)
+			if (horizontalCB == false)
 			{
-				horizontalCM = true;
+				horizontalCB = true;
 			}
 		}
 		else if (c1->type == Collider::Type::PLAYER && c2->type != Collider::Type::H_CB)
 		{
-			if (horizontalCM == true)
+			if (horizontalCB == true)
 			{
-				horizontalCM = false;
+				horizontalCB = false;
+			}
+		}
+
+		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::V_CB) // VERTICAL_CAMERA_BOUND = V_CB
+		{
+			if (verticalCB == false)
+			{
+				verticalCB = true;
+			}
+		}
+		else if (c1->type == Collider::Type::PLAYER && c2->type != Collider::Type::V_CB)
+		{
+			if (verticalCB == true)
+			{
+				verticalCB = false;
+			}
+		}
+
+		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::LAYER_ZERO)
+		{
+			if (layerZeroReveal == false)
+			{
+				layerZeroReveal = true;
+			}
+		}
+		else if (c1->type == Collider::Type::PLAYER && c2->type != Collider::Type::LAYER_ZERO)
+		{
+			if (layerZeroReveal == true)
+			{
+				layerZeroReveal = false;
 			}
 		}
 
 		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::LAVA)
+		{
+			if (destroyed == false)
+			{
+				destroyed = true;
+			}
+		}
+
+		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::INSTANT_DEATH)
 		{
 			if (destroyed == false)
 			{

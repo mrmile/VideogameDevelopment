@@ -1,5 +1,5 @@
 #include "ModuleCollisions.h"
-#include "Scene.h"
+#include "SceneCastle.h"
 
 #include "app.h"
 
@@ -15,90 +15,90 @@ ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 	for(uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
-	matrix[Collider::Type::WALL][Collider::Type::WALL] = false;
-	matrix[Collider::Type::WALL][Collider::Type::PLAYER] = true;
-	matrix[Collider::Type::WALL][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::WALL][Collider::Type::PLAYER_SHOT] = true;
-	matrix[Collider::Type::WALL][Collider::Type::ENEMY_SHOT] = true;
-	matrix[Collider::Type::WALL][Collider::Type::H_CB] = false;
-	matrix[Collider::Type::WALL][Collider::Type::V_CB] = false;
-	matrix[Collider::Type::WALL][Collider::Type::LAVA] = false;
-	matrix[Collider::Type::WALL][Collider::Type::NULL_COLLIDER] = false;
+	matrix[Collider::Type::LAYER_ZERO][Collider::Type::LAYER_ZERO] = false;
+	matrix[Collider::Type::LAYER_ZERO][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::LAYER_ZERO][Collider::Type::ENEMY] = true;
+	matrix[Collider::Type::LAYER_ZERO][Collider::Type::INSTANT_DEATH] = true;
+	matrix[Collider::Type::LAYER_ZERO][Collider::Type::ENEMY_SHOT] = true;
+	matrix[Collider::Type::LAYER_ZERO][Collider::Type::H_CB] = false;
+	matrix[Collider::Type::LAYER_ZERO][Collider::Type::V_CB] = false;
+	matrix[Collider::Type::LAYER_ZERO][Collider::Type::LAVA] = false;
+	matrix[Collider::Type::LAYER_ZERO][Collider::Type::NULL_COLLIDER] = false;
 
-	matrix[Collider::Type::PLAYER][Collider::Type::WALL] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::LAYER_ZERO] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
 	matrix[Collider::Type::PLAYER][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER_SHOT] = false;
+	matrix[Collider::Type::PLAYER][Collider::Type::INSTANT_DEATH] = false;
 	matrix[Collider::Type::PLAYER][Collider::Type::ENEMY_SHOT] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::H_CB] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::V_CB] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::LAVA] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::NULL_COLLIDER] = true;
 
-	matrix[Collider::Type::ENEMY][Collider::Type::WALL] = true;
+	matrix[Collider::Type::ENEMY][Collider::Type::LAYER_ZERO] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY] = false;
-	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER_SHOT] = true;
+	matrix[Collider::Type::ENEMY][Collider::Type::INSTANT_DEATH] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY_SHOT] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::H_CB] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::V_CB] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::LAVA] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::NULL_COLLIDER] = false;
 
-	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::WALL] = true;
-	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::PLAYER] = false;
-	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::PLAYER_SHOT] = false;
-	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::ENEMY_SHOT] = false;
-	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::H_CB] = true;
-	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::V_CB] = true;
-	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::LAVA] = false;
-	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::NULL_COLLIDER] = false;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::LAYER_ZERO] = true;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::PLAYER] = false;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::ENEMY] = true;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::INSTANT_DEATH] = false;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::ENEMY_SHOT] = false;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::H_CB] = true;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::V_CB] = true;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::LAVA] = false;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::NULL_COLLIDER] = false;
 
-	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::WALL] = true;
+	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::LAYER_ZERO] = true;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ENEMY] = false;
-	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::PLAYER_SHOT] = false;
+	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::INSTANT_DEATH] = false;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ENEMY_SHOT] = false;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::H_CB] = true;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::V_CB] = true;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::NULL_COLLIDER] = false;
 
-	matrix[Collider::Type::H_CB][Collider::Type::WALL] = false;
+	matrix[Collider::Type::H_CB][Collider::Type::LAYER_ZERO] = false;
 	matrix[Collider::Type::H_CB][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::H_CB][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::H_CB][Collider::Type::PLAYER_SHOT] = true;
+	matrix[Collider::Type::H_CB][Collider::Type::INSTANT_DEATH] = true;
 	matrix[Collider::Type::H_CB][Collider::Type::ENEMY_SHOT] = true;
 	matrix[Collider::Type::H_CB][Collider::Type::H_CB] = true;
 	matrix[Collider::Type::H_CB][Collider::Type::V_CB] = true;
 	matrix[Collider::Type::H_CB][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::H_CB][Collider::Type::NULL_COLLIDER] = false;
 
-	matrix[Collider::Type::V_CB][Collider::Type::WALL] = false;
+	matrix[Collider::Type::V_CB][Collider::Type::LAYER_ZERO] = false;
 	matrix[Collider::Type::V_CB][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::V_CB][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::V_CB][Collider::Type::PLAYER_SHOT] = true;
+	matrix[Collider::Type::V_CB][Collider::Type::INSTANT_DEATH] = true;
 	matrix[Collider::Type::V_CB][Collider::Type::ENEMY_SHOT] = true;
 	matrix[Collider::Type::V_CB][Collider::Type::H_CB] = true;
 	matrix[Collider::Type::V_CB][Collider::Type::V_CB] = true;
 	matrix[Collider::Type::V_CB][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::V_CB][Collider::Type::NULL_COLLIDER] = false;
 
-	matrix[Collider::Type::LAVA][Collider::Type::WALL] = false;
+	matrix[Collider::Type::LAVA][Collider::Type::LAYER_ZERO] = false;
 	matrix[Collider::Type::LAVA][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::LAVA][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::LAVA][Collider::Type::PLAYER_SHOT] = false;
+	matrix[Collider::Type::LAVA][Collider::Type::INSTANT_DEATH] = false;
 	matrix[Collider::Type::LAVA][Collider::Type::ENEMY_SHOT] = false;
 	matrix[Collider::Type::LAVA][Collider::Type::H_CB] = false;
 	matrix[Collider::Type::LAVA][Collider::Type::V_CB] = false;
 	matrix[Collider::Type::LAVA][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::LAVA][Collider::Type::NULL_COLLIDER] = false;
 
-	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::WALL] = false;
+	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::LAYER_ZERO] = false;
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::ENEMY] = false;
-	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::PLAYER_SHOT] = false;
+	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::INSTANT_DEATH] = false;
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::ENEMY_SHOT] = false;
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::H_CB] = false;
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::V_CB] = false;
@@ -188,24 +188,24 @@ void ModuleCollisions::DebugDraw()
 		if(colliders[i] == nullptr)
 			continue;
 		
-		if (app->scene->godMode == false)
+		if (app->sceneCastle->godMode == false)
 		{
 			switch (colliders[i]->type)
 			{
 			case Collider::Type::NONE: // white
 				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
 				break;
-			case Collider::Type::WALL: // blue
+			case Collider::Type::LAYER_ZERO: // blue
 				app->render->DrawRectangle(colliders[i]->rect, 0, 0, 255, alpha);
 				break;
 			case Collider::Type::PLAYER: // green
 				app->render->DrawRectangle(colliders[i]->rect, 0, 255, 0, alpha);
 				break;
-			case Collider::Type::ENEMY: // red
-				app->render->DrawRectangle(colliders[i]->rect, 255, 0, 0, alpha);
-				break;
-			case Collider::Type::PLAYER_SHOT: // yellow
+			case Collider::Type::ENEMY: // yellow
 				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 0, alpha);
+				break;
+			case Collider::Type::INSTANT_DEATH: // red
+				app->render->DrawRectangle(colliders[i]->rect, 170, 255, 0, alpha);
 				break;
 			case Collider::Type::ENEMY_SHOT: // magenta
 				app->render->DrawRectangle(colliders[i]->rect, 0, 255, 255, alpha);
@@ -216,7 +216,7 @@ void ModuleCollisions::DebugDraw()
 			case Collider::Type::V_CB: // light blue
 				app->render->DrawRectangle(colliders[i]->rect, 0, 240, 255, alpha);
 				break;
-			case Collider::Type::LAVA: // light green
+			case Collider::Type::LAVA: // red
 				app->render->DrawRectangle(colliders[i]->rect, 170, 255, 0, alpha);
 				break;
 			case Collider::Type::NULL_COLLIDER: // black
@@ -224,14 +224,14 @@ void ModuleCollisions::DebugDraw()
 				break;
 			}
 		}
-		if (app->scene->godMode == true)
+		if (app->sceneCastle->godMode == true)
 		{
 			switch (colliders[i]->type)
 			{
 			case Collider::Type::NONE: // white
 				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
 				break;
-			case Collider::Type::WALL: // blue
+			case Collider::Type::LAYER_ZERO: // blue
 				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
 				break;
 			case Collider::Type::PLAYER: // green
@@ -240,7 +240,7 @@ void ModuleCollisions::DebugDraw()
 			case Collider::Type::ENEMY: // red
 				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
 				break;
-			case Collider::Type::PLAYER_SHOT: // yellow
+			case Collider::Type::INSTANT_DEATH: // yellow
 				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
 				break;
 			case Collider::Type::ENEMY_SHOT: // magenta

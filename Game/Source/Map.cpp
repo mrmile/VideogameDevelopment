@@ -5,6 +5,8 @@
 #include "Map.h"
 #include "ModulePhysics.h"
 #include "ModuleCollisions.h"
+#include "ModulePlayer.h"
+#include "Window.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -103,7 +105,14 @@ void Map::Draw()
 						//app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
 						if (mapLayerItem->data->properties.GetProperty("Parallax") == 1)
 						{
-							app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r, 1);
+							if (mapLayerItem->data->properties.GetProperty("Reveal") == 1)
+							{
+								if(app->player->layerZeroReveal == true) app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r, 1);
+							}
+							if (mapLayerItem->data->properties.GetProperty("Reveal") == 0)
+							{
+								app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r, 1);
+							}
 						}
 						
 						if (mapLayerItem->data->properties.GetProperty("Parallax") == 2)
@@ -489,8 +498,10 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 	object->id = node.attribute("id").as_int();
 	object->name = node.attribute("name").as_string();
 
-	if (object->name == "collisions")
+	if (object->name == "collisionChains")
 	{
+		app->collisions->AddCollider({ app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(1200), app->map->MapToWorldSingle(100) }, Collider::Type::NULL_COLLIDER); // No tiene sentido que esté aquí pero tiene que estarlo
+
 		//L06: TODO_D 6 Call Load Properties
 		LoadProperties(node, object->properties);
 
@@ -565,22 +576,61 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 		}
 	}
 	
-	if (object->name == "sensors")
+
+	if (object->name == "startPos")
 	{
-		if (node.child("properties").child("property").attribute("name").as_string() == "Instant_Death"
-			&& node.child("properties").child("property").attribute("value").as_int() == 1)
+		pugi::xml_node NewObject;
+		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
 		{
-			app->collisions->AddCollider({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("width").as_int(), node.attribute("height").as_int() }, Collider::Type::LAVA);
+			//app->player->position = app->map->MapToWorld(NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int());
+
+			app->player->position.x = NewObject.attribute("x").as_int();
+			app->player->position.y = NewObject.attribute("y").as_int();
 		}
-		if (node.child("properties").child("property").attribute("name").as_string() == "H_CB"
-			&& node.child("properties").child("property").attribute("value").as_int() == 1)
+	}
+
+	if (object->name == "sensors_H_CB")
+	{
+		pugi::xml_node NewObject;
+		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
 		{
-			app->collisions->AddCollider({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("width").as_int(), node.attribute("height").as_int() }, Collider::Type::H_CB);
+			app->collisions->AddCollider({ NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int(), NewObject.attribute("width").as_int(), NewObject.attribute("height").as_int() }, Collider::Type::H_CB);
 		}
-		if (node.child("properties").child("property").attribute("name").as_string() == "V_CB"
-			&& node.child("properties").child("property").attribute("value").as_int() == 1)
+	}
+
+	if (object->name == "sensors_V_CB")
+	{
+		pugi::xml_node NewObject;
+		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
 		{
-			app->collisions->AddCollider({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("width").as_int(), node.attribute("height").as_int() }, Collider::Type::V_CB);
+			app->collisions->AddCollider({ NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int(), NewObject.attribute("width").as_int(), NewObject.attribute("height").as_int() }, Collider::Type::V_CB);
+		}
+	}
+
+	if (object->name == "sensors_LAVA")
+	{
+		pugi::xml_node NewObject;
+		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
+		{
+			app->collisions->AddCollider({ NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int(), NewObject.attribute("width").as_int(), NewObject.attribute("height").as_int() }, Collider::Type::LAVA);
+		}
+	}
+
+	if (object->name == "sensors_LAYER_ZERO")
+	{
+		pugi::xml_node NewObject;
+		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
+		{
+			app->collisions->AddCollider({ NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int(), NewObject.attribute("width").as_int(), NewObject.attribute("height").as_int() }, Collider::Type::LAYER_ZERO);
+		}
+	}
+
+	if (object->name == "sensors_INSTANT_DEATH")
+	{
+		pugi::xml_node NewObject;
+		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
+		{
+			app->collisions->AddCollider({ NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int(), NewObject.attribute("width").as_int(), NewObject.attribute("height").as_int() }, Collider::Type::INSTANT_DEATH);
 		}
 	}
 

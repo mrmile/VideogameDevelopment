@@ -120,10 +120,11 @@ public:
 	bool doubleJump;
 	bool inTheAir = false;
 	bool hover = false;
-	bool horizontalCM = false;
-	bool verticalCM = false;
+	bool horizontalCB = false;
+	bool verticalCB = false;
 	bool createPlayer;
 	bool deletePlayer;
+	bool layerZeroReveal;
 
 };
 

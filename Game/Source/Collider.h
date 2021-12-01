@@ -13,10 +13,10 @@ struct Collider
 	{
 		NONE = -1,
 		NULL_COLLIDER,
-		WALL,
+		LAYER_ZERO,
 		PLAYER,
 		ENEMY,
-		PLAYER_SHOT,
+		INSTANT_DEATH,
 		ENEMY_SHOT,
 		H_CB,
 		V_CB,

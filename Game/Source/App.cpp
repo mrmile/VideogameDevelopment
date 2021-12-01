@@ -4,7 +4,8 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Audio.h"
-#include "Scene.h"
+#include "SceneForest.h"
+#include "SceneCastle.h"
 #include "Map.h"
 #include "ModuleFadeToBlack.h"
 #include "ModulePhysics.h"
@@ -32,7 +33,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures(true);
 	audio = new Audio(true);
 	titleScreen = new TitleScreen(true);
-	scene = new Scene(false);
+	sceneForest = new SceneForest(false);
+	sceneCastle = new SceneCastle(false);
 	map = new Map(true);
 	physics = new ModulePhysics(true);
 	fade = new ModuleFadeToBlack(true);
@@ -48,7 +50,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(physics);
 	AddModule(map);
 	AddModule(titleScreen);
-	AddModule(scene);
+	AddModule(sceneForest);
+	AddModule(sceneCastle);
 	AddModule(player);
 	AddModule(collisions);
 	AddModule(fade);
@@ -207,7 +210,7 @@ void App::FinishUpdate()
 		app->player->deletePlayer = false;
 	}
 
-	if (app->scene->destroyScene == true) // Tiene que borrar todos los chains del box2D y los sensores de colisiones del método antiguo que están en el nivel
+	if (app->sceneCastle->destroyScene == true) // Tiene que borrar todos los chains del box2D y los sensores de colisiones del método antiguo que están en el nivel
 	{
 		// Borra los chains
 		for (int i = 0; i < app->map->mapChainsCounter; i++)
@@ -218,7 +221,7 @@ void App::FinishUpdate()
 		// Borra los sensores
 		app->map->DeleteCollidersSensors();
 
-		app->scene->destroyScene = false;
+		app->sceneCastle->destroyScene = false;
 	}
 
 
