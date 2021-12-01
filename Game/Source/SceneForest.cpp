@@ -4,6 +4,7 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
+#include "SceneCastle.h"
 #include "SceneForest.h"
 #include "Map.h"
 #include "ModulePhysics.h"
@@ -62,8 +63,8 @@ bool SceneForest::Start()
 	//h_CB2->listener = this;
 	//h_CB2->body->GetFixtureList()->SetFilterData(filter);
 
-	app->render->camera.x = app->map->MapToWorld(29, -4).x;
-	app->render->camera.y = app->map->MapToWorld(29, -4).y;
+	//app->render->camera.x = app->map->MapToWorld(29, 5).x;
+	//app->render->camera.y = app->map->MapToWorld(29, 5).y;
 
 	//NULL COLLIDER --> (experimental test for camera functions and other mechanical stuff related with old type colliders
 	//app->collisions->AddCollider({ app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(1200), app->map->MapToWorldSingle(100) }, Collider::Type::NULL_COLLIDER);
@@ -81,6 +82,7 @@ bool SceneForest::Start()
 	 playerRestart = false;
 	 destroyScene = false;
 	 sceneForest = true;
+	 app->sceneCastle->sceneCastle = false;
 
 	return true;
 }
@@ -97,7 +99,6 @@ bool SceneForest::Update(float dt)
 	sceneTimer++;
 	//app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 640;
 	//app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 160; //<-- Este es el que se aplica al final
-
 	//F9 --> See colliders
 
 	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
@@ -124,8 +125,6 @@ bool SceneForest::Update(float dt)
 
 	if(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		app->render->camera.x += 5;
-
-	//if(sceneTimer <= 1) app->map->LoadCollidersSensors();
 
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
 
@@ -159,8 +158,8 @@ bool SceneForest::PostUpdate()
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-	if (app->player->horizontalCB == false && sceneTimer > 1) app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 630;
-	if (app->player->verticalCB == false && sceneTimer > 1) app->render->camera.y = -(app->player->Player->body->GetPosition().y * 100) + 450;
+	if (app->player->horizontalCB == false && app->player->bidimensionalCB == false && sceneTimer > 1) app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 630;
+	if (app->player->verticalCB == false && app->player->bidimensionalCB == false && sceneTimer > 1) app->render->camera.y = -(app->player->Player->body->GetPosition().y * 100) + 450;
 
 	if (app->player->destroyedDelay > 210 && app->player->destroyedDelay <= 211)
 	{

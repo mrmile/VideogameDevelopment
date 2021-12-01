@@ -122,6 +122,7 @@ public:
 	bool hover = false;
 	bool horizontalCB = false;
 	bool verticalCB = false;
+	bool bidimensionalCB = false;
 	bool createPlayer;
 	bool deletePlayer;
 	bool layerZeroReveal;

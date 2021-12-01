@@ -739,8 +739,8 @@ bool ModulePlayer::PostUpdate()
 		if (app->sceneForest->sceneForest == true)
 		{
 			position = app->map->MapToWorld(32, 14);
-			app->render->camera.x = app->map->MapToWorld(29, -4).x;
-			app->render->camera.y = app->map->MapToWorld(29, -4).y;
+			app->render->camera.x = app->map->MapToWorld(29, 5).x;
+			app->render->camera.y = app->map->MapToWorld(29, 5).y;
 		}
 
 		Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
@@ -844,6 +844,21 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			if (verticalCB == true)
 			{
 				verticalCB = false;
+			}
+		}
+
+		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::B_CB) // BIDIMENSIONAL_CAMERA_BOUND = B_CB
+		{
+			if (bidimensionalCB == false)
+			{
+				bidimensionalCB = true;
+			}
+		}
+		else if (c1->type == Collider::Type::PLAYER && c2->type != Collider::Type::B_CB)
+		{
+			if (bidimensionalCB == true)
+			{
+				bidimensionalCB = false;
 			}
 		}
 

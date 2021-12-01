@@ -4,6 +4,7 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
+#include "SceneForest.h"
 #include "SceneCastle.h"
 #include "Map.h"
 #include "ModulePhysics.h"
@@ -81,6 +82,7 @@ bool SceneCastle::Start()
 	 playerRestart = false;
 	 destroyScene = false;
 	 sceneCastle = true;
+	 app->sceneForest->sceneForest = false;
 
 	return true;
 }

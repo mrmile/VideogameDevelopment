@@ -17,7 +17,7 @@ struct Collider
 		PLAYER,
 		ENEMY,
 		INSTANT_DEATH,
-		ENEMY_SHOT,
+		B_CB,
 		H_CB,
 		V_CB,
 		LAVA,

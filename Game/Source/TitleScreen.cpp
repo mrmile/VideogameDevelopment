@@ -5,6 +5,7 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
+#include "SceneForest.h"
 #include "SceneCastle.h"
 #include "Map.h"
 #include "ModulePhysics.h"
