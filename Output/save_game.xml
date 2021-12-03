@@ -7,13 +7,14 @@
 	<:anonymous />
 	<map />
 	<TitleScreen />
-	<scene />
+	<SceneForest />
+	<SceneCastle />
 	<player>
-		<position x="-49" y="4271" />
+		<position x="1031" y="2822" />
 	</player>
 	<:anonymous />
 	<:anonymous />
 	<renderer>
-		<camera x="699" y="-240" />
+		<camera x="-1460" y="-5227" />
 	</renderer>
 </save_state>
