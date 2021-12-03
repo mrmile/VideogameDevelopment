@@ -107,7 +107,7 @@ void Map::Draw()
 						{
 							if (mapLayerItem->data->properties.GetProperty("Reveal") == 1)
 							{
-								if(app->player->layerZeroReveal == true) app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r, 1);
+								if(app->player->layerZeroReveal == false) app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r, 1);
 							}
 							if (mapLayerItem->data->properties.GetProperty("Reveal") == 0)
 							{

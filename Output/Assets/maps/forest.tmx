@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="1200" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="69">
+<map version="1.2" tiledversion="1.3.5" orientation="orthogonal" renderorder="right-down" width="1200" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="83">
  <tileset firstgid="1" name="forest_tileset" tilewidth="16" tileheight="16" spacing="1" tilecount="518" columns="37">
   <image source="forest_tileset.png" width="628" height="237"/>
  </tileset>
@@ -12,7 +12,7 @@
  <tileset firstgid="2567" name="clouds_bg" tilewidth="16" tileheight="16" spacing="1" tilecount="660" columns="30">
   <image source="clouds_bg.png" width="512" height="384"/>
  </tileset>
- <layer id="3" name="bg_C" width="1200" height="25" parallaxx="0.3" parallaxy="0.3">
+ <layer id="3" name="bg_C" width="1200" height="25">
   <properties>
    <property name="Draw" value="1"/>
    <property name="Parallax" value="4"/>
@@ -30020,7 +30020,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="7" name="bg_B" width="1200" height="25" parallaxx="0.4" parallaxy="0.4">
+ <layer id="7" name="bg_B" width="1200" height="25">
   <properties>
    <property name="Draw" value="1"/>
    <property name="Parallax" value="3"/>
@@ -60028,7 +60028,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="6" name="bg_A" width="1200" height="25" parallaxx="0.5" parallaxy="0.5">
+ <layer id="6" name="bg_A" width="1200" height="25">
   <properties>
    <property name="Draw" value="1"/>
    <property name="Parallax" value="2"/>
@@ -100086,7 +100086,7 @@
    <tile gid="142"/>
    <tile gid="143"/>
    <tile/>
-   <tile gid="29"/>
+   <tile/>
    <tile gid="30"/>
    <tile gid="31"/>
    <tile gid="32"/>
@@ -101286,7 +101286,7 @@
    <tile gid="251"/>
    <tile gid="252"/>
    <tile/>
-   <tile gid="66"/>
+   <tile/>
    <tile gid="67"/>
    <tile gid="68"/>
    <tile gid="69"/>
@@ -104790,9 +104790,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
    <tile/>
    <tile/>
    <tile/>
@@ -134799,9 +134799,9 @@
    <tile gid="298"/>
    <tile gid="298"/>
    <tile gid="298"/>
-   <tile gid="375"/>
-   <tile gid="376"/>
-   <tile gid="377"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="298"/>
    <tile gid="298"/>
    <tile gid="261"/>
@@ -135999,9 +135999,9 @@
    <tile gid="298"/>
    <tile gid="298"/>
    <tile gid="298"/>
-   <tile gid="298"/>
-   <tile gid="298"/>
-   <tile gid="298"/>
+   <tile gid="375"/>
+   <tile gid="376"/>
+   <tile gid="377"/>
    <tile gid="298"/>
    <tile gid="298"/>
    <tile gid="298"/>
@@ -142083,12 +142083,12 @@
    <tile gid="190"/>
    <tile/>
    <tile/>
-   <tile gid="375"/>
-   <tile gid="376"/>
-   <tile gid="377"/>
-   <tile gid="375"/>
-   <tile gid="376"/>
-   <tile gid="377"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile gid="187"/>
@@ -143283,12 +143283,12 @@
    <tile gid="153"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="375"/>
+   <tile gid="376"/>
+   <tile gid="377"/>
+   <tile gid="375"/>
+   <tile gid="376"/>
+   <tile gid="377"/>
    <tile/>
    <tile/>
    <tile gid="150"/>
@@ -180097,7 +180097,7 @@
    <polygon points="0,0 144,0 176,-16 288,-16 288,80 0,80"/>
   </object>
   <object id="14" x="4576" y="208">
-   <polygon points="0,0 16,0 48,16 96,16 96,64 160,64 160,16 208,16 208,64 256,64 256,16 304,16 304,64 384,64 384,0 464,0 496,16 512,32 544,48 592,48 592,112 0,112"/>
+   <polygon points="0,0 16,0 48,16 96,16 96,48 160,48 160,16 208,16 208,48 256,48 256,16 304,16 304,48 384,48 384,0 464,0 496,16 512,32 544,48 592,48 592,112 0,112"/>
   </object>
   <object id="16" x="5216" y="272">
    <polygon points="0,0 48,0 64,-16 96,-32 352,-32 416,0 480,0 512,-16 528,-32 528,-48 512,-64 480,-80 416,-80 400,-96 416,-112 464,-112 528,-80 560,-80 592,-64 688,-64 752,-32 832,-32 832,48 0,48"/>
@@ -180118,7 +180118,7 @@
    <polygon points="0,0 160,0 160,48 256,48 288,32 336,32 336,112 112,112 112,48 0,48"/>
   </object>
   <object id="22" x="7296" y="256">
-   <polygon points="0,0 48,0 48,-48 112,-48 112,0 160,0 160,-48 176,-48 208,-32 256,-32 256,16 352,16 384,0 432,0 432,64 0,64"/>
+   <polygon points="0,0 48,0 48,-48 112,-48 112,-16 160,-16 160,-48 176,-48 208,-32 256,-32 256,16 352,16 384,0 432,0 432,64 0,64"/>
   </object>
   <object id="23" x="6688" y="272">
    <polygon points="0,0 0,-16 -32,-16 -32,0"/>
@@ -180144,6 +180144,48 @@
   <object id="31" x="8416" y="240">
    <polygon points="0,0 48,0 80,16 96,16 96,-16 112,-16 112,0 128,0 128,16 400,16 400,-240 416,-240 416,80 0,80"/>
   </object>
+  <object id="69" x="2720" y="208">
+   <polygon points="0,0 48,0 46,2 3.33333,2"/>
+  </object>
+  <object id="70" x="2672" y="160">
+   <polygon points="0,0 48,0 46.6667,2.66667 3.33333,2.33333"/>
+  </object>
+  <object id="71" x="2704" y="112">
+   <polygon points="0,0 48,0 45.6667,2.33333 2.66667,1.66667"/>
+  </object>
+  <object id="72" x="3440" y="208">
+   <polygon points="0,0 48,0 45.3333,2.33333 3.66667,2"/>
+  </object>
+  <object id="73" x="3552" y="176">
+   <polygon points="0,0 48,0 43.6667,2 4.66667,2"/>
+  </object>
+  <object id="74" x="3520" y="240">
+   <polygon points="0,0 48,0 43.3333,2.33333 6.66667,2"/>
+  </object>
+  <object id="75" x="3568" y="288">
+   <polygon points="0,0 48,0 43.6667,1.66667 3.33333,1.33333"/>
+  </object>
+  <object id="76" x="3632" y="240">
+   <polygon points="0,0 48,0 44,2.33333 6,2.66667"/>
+  </object>
+  <object id="77" x="3712" y="208">
+   <polygon points="0,0 48,0 44.3333,1.66667 2.66667,2.33333"/>
+  </object>
+  <object id="78" x="3936" y="208">
+   <polygon points="0,0 48,0 44,2.66667 4,2.66667"/>
+  </object>
+  <object id="79" x="4016" y="192">
+   <polygon points="0,0 48,0 44,2.66667 3,2.66667"/>
+  </object>
+  <object id="80" x="4096" y="224">
+   <polygon points="0,0 48,0 43.3333,3.33333 2.66667,2.66667"/>
+  </object>
+  <object id="81" x="5552" y="208">
+   <polygon points="0,0 48,0 44.3333,3.33333 3.66667,3.66667"/>
+  </object>
+  <object id="82" x="6896" y="304">
+   <polygon points="0,0 96,0 92.6667,2.66667 4,3.33333"/>
+  </object>
  </objectgroup>
  <objectgroup color="#ffaa00" id="5" name="sensors_H_CB">
   <properties>
@@ -180152,7 +180194,7 @@
    <property name="Parallax" value="1"/>
   </properties>
   <object id="33" x="448" y="0" width="320" height="256"/>
-  <object id="36" x="8528" y="0" width="304" height="272"/>
+  <object id="36" x="8480" y="0" width="352" height="272"/>
  </objectgroup>
  <objectgroup color="#00aaff" id="10" name="sensors_V_CB">
   <properties>
@@ -180160,12 +180202,8 @@
    <property name="Draw" value="0"/>
    <property name="Parallax" value="1"/>
   </properties>
-  <object id="48" x="768" y="176" width="8064" height="192"/>
-  <object id="49" x="768" y="0" width="8064" height="96"/>
  </objectgroup>
- <objectgroup color="#aa007f" id="15" name="sensors_B_CB">
-  <object id="53" x="8080" y="176" width="304" height="96"/>
- </objectgroup>
+ <objectgroup color="#aa007f" id="15" name="sensors_B_CB"/>
  <objectgroup color="#ff0000" id="11" name="sensors_LAVA">
   <properties>
    <property name="Collision" value="1"/>

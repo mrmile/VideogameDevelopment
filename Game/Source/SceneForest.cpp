@@ -63,8 +63,8 @@ bool SceneForest::Start()
 	//h_CB2->listener = this;
 	//h_CB2->body->GetFixtureList()->SetFilterData(filter);
 
-	//app->render->camera.x = app->map->MapToWorld(29, 5).x;
-	//app->render->camera.y = app->map->MapToWorld(29, 5).y;
+	app->render->camera.x = app->map->MapToWorld(-58, -5).x;
+	app->render->camera.y = app->map->MapToWorld(-58, -5).y;
 
 	//NULL COLLIDER --> (experimental test for camera functions and other mechanical stuff related with old type colliders
 	//app->collisions->AddCollider({ app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(1200), app->map->MapToWorldSingle(100) }, Collider::Type::NULL_COLLIDER);

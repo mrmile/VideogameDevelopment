@@ -77,7 +77,7 @@ bool TitleScreen::Update(float dt)
 		//app->physics->Enable();
 		
 		app->map->Enable();
-		app->sceneCastle->Enable();
+		app->sceneForest->Enable();
 		app->player->Enable();
 		app->collisions->Enable();
 
