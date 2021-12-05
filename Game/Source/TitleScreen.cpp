@@ -37,9 +37,9 @@ bool TitleScreen::Awake()
 
 bool TitleScreen::Start()
 {
-	titleScreen = app->tex->Load("Assets/textures/titleScreen.png");
-	startButton = app->tex->Load("Assets/textures/startButton.png");
-	loading = app->tex->Load("Assets/textures/loadingScreen.png");
+	titleScreen = app->tex->Load("Assets/textures/titleScreen3.png");
+	startButton = app->tex->Load("Assets/textures/startButton3.png");
+	loading = app->tex->Load("Assets/textures/loadingScreen3.png");
 
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
@@ -108,7 +108,7 @@ bool TitleScreen::PostUpdate()
 		ret = false;
 
 	app->render->DrawTexture(titleScreen, 0, 0, NULL);
-	if ((sceneTimer / 30) % 2 == 0) app->render->DrawTexture(startButton, 165, 240, NULL);
+	if ((sceneTimer / 30) % 2 == 0) app->render->DrawTexture(startButton, 85, 118, NULL);
 
 	if (transition == true) app->render->DrawTexture(loading, 0, 0, NULL);
 

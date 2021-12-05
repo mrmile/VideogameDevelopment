@@ -63,8 +63,8 @@ bool SceneForest::Start()
 	//h_CB2->listener = this;
 	//h_CB2->body->GetFixtureList()->SetFilterData(filter);
 
-	app->render->camera.x = app->map->MapToWorld(-58, 5).x;
-	app->render->camera.y = app->map->MapToWorld(-58, 5).y;
+	app->render->camera.x = app->map->MapToWorld(-87, -12).x;
+	app->render->camera.y = app->map->MapToWorld(-87, -12).y;
 
 	//NULL COLLIDER --> (experimental test for camera functions and other mechanical stuff related with old type colliders
 	//app->collisions->AddCollider({ app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(1200), app->map->MapToWorldSingle(100) }, Collider::Type::NULL_COLLIDER);
@@ -158,9 +158,14 @@ bool SceneForest::PostUpdate()
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-	if (app->player->horizontalCB == false && app->player->bidimensionalCB == false && sceneTimer > 1) app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 630;
-	//if (app->player->verticalCB == false && app->player->bidimensionalCB == false && sceneTimer > 1) app->render->camera.y = -(app->player->Player->body->GetPosition().y * 100) + 450;
-	if (app->render->camera.y - 820 > -app->map->MapToWorldSingle(38)) app->render->camera.y = app->map->MapToWorldSingle(5);
+	if (app->player->horizontalCB == false && app->player->bidimensionalCB == false && sceneTimer > 1) app->render->camera.x = (-(app->player->Player->body->GetPosition().x * 150) + 630);
+	//if (app->player->verticalCB == false && app->player->bidimensionalCB == false && sceneTimer > 1) app->render->camera.y = -(app->player->Player->body->GetPosition().y * 150) + 380; //450
+	//if (app->player->verticalCB == false && app->player->bidimensionalCB == false && sceneTimer > 1) app->render->camera.y -= app->player->Player->body->GetLinearVelocity().y * 3;
+	if (-app->player->position.y > app->render->camera.y / 2 + -52) app->render->camera.y += 10;
+	if (-app->player->position.y < app->render->camera.y / 2 + -92) app->render->camera.y -= 10;
+
+	if (app->render->camera.y < app->map->MapToWorldSingle(-12)) app->render->camera.y = app->map->MapToWorldSingle(-12);
+	if (app->render->camera.y > app->map->MapToWorldSingle(0)) app->render->camera.y = app->map->MapToWorldSingle(0);
 
 	if (app->player->destroyedDelay > 210 && app->player->destroyedDelay <= 211)
 	{
