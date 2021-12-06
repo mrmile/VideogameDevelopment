@@ -15,6 +15,7 @@
 #include "Enemies.h"
 #include "Defs.h"
 #include "Log.h"
+#include "Enemy.h"
 
 #include <iostream>
 #include <sstream>
@@ -41,6 +42,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	player = new ModulePlayer(false);
 	collisions = new ModuleCollisions(true);
 	enemies = new Enemies(false);
+	enemy = new Enemy(false);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -57,6 +59,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(collisions);
 	AddModule(fade);
 	AddModule(enemies);
+	AddModule(enemy);
+
 	// Render last to swap buffer
 	AddModule(render);
 

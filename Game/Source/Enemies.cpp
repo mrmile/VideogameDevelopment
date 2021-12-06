@@ -11,15 +11,6 @@
 #include "Window.h"
 #include "Enemy.h"
 
-#include <stdio.h>
-#include <time.h>
-#include <SDL_mixer/include/SDL_mixer.h>
-#include <iostream>
-#include <Optick/include/optick.h>
-using namespace std;
-
-
-
 #define SPAWN_MARGIN 50
 
 
@@ -36,7 +27,7 @@ Enemies::~Enemies()
 
 bool Enemies::Start()
 {
-	texture = app->tex->Load("Assets/Art/Sprites/soldier.png");
+	texture = app->tex->Load("Assets/textures/enemies.png");
 	
 	//enemyDestroyedFx = App->audio->LoadFx("Assets/FX/22.wav");
 
@@ -130,7 +121,7 @@ void Enemies::HandleEnemiesSpawn()
 		if (spawnQueue[i].type != Enemy_Type::NO_TYPE)
 		{
 			// Spawn a new enemy if the screen has reached a spawn position
-			if ((spawnQueue[i].x * SCREEN_SIZE < app->render->camera.x + (app->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN) || (spawnQueue[i].x * SCREEN_SIZE > app->render->camera.x - (app->render->camera.w * SCREEN_SIZE) - SPAWN_MARGIN) || (spawnQueue[i].y * SCREEN_SIZE < app->render->camera.y - (app->render->camera.h * SCREEN_SIZE) - SPAWN_MARGIN))
+			if ((spawnQueue[i].x * 1 < app->render->camera.x + (app->render->camera.w * 1) + SPAWN_MARGIN) || (spawnQueue[i].x * 1 > app->render->camera.x - (app->render->camera.w * 1) - SPAWN_MARGIN) || (spawnQueue[i].y * 1 < app->render->camera.y - (app->render->camera.h * 1) - SPAWN_MARGIN))
 			{
 				SpawnEnemy(spawnQueue[i]);
 				spawnQueue[i].type = Enemy_Type::NO_TYPE; // Removing the newly spawned enemy from the queue
@@ -147,7 +138,7 @@ void Enemies::HandleEnemiesDespawn()
 		if (enemies[i] != nullptr)
 		{
 			// Delete the enemy when it has reached the end of the screen
-			if (enemies[i]->position.y * SCREEN_SIZE > (app->render->camera.y + SCREEN_HEIGHT * SCREEN_SIZE) + SPAWN_MARGIN)
+			if (enemies[i]->position.y * 1 > (app->render->camera.y + app->win->screenSurface->h * 1) + SPAWN_MARGIN)
 			{
 				enemies[i]->SetToDelete();
 			}
@@ -167,10 +158,10 @@ void Enemies::SpawnEnemy(const EnemySpawnpoint& info)
 			switch (info.type)
 			{
 			case Enemy_Type::FLYING_TYPE:
-				enemies[i] = new Enemy_Soldier(info.x, info.y);
+				//enemies[i] = new Enemy_Soldier(info.x, info.y);
 				break;
 			case Enemy_Type::WALKING_TYPE:
-				enemies[i] = new Enemy_Soldier_Standing(info.x, info.y);
+				//enemies[i] = new Enemy_Soldier_Standing(info.x, info.y);
 				break;
 
 			}
@@ -187,7 +178,7 @@ void Enemies::OnCollision(Collider* c1, Collider* c2)
 	{
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
-			enemies[i]->OnCollision(c2); //Notify the enemy of a collision
+			enemies[i]->OnCollision(c1, c2); //Notify the enemy of a collision
 			break;
 		}
 	}

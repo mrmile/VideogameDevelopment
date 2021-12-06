@@ -20,7 +20,7 @@ struct EnemySpawnpoint
 	int x, y;
 };
 
-class Enemy;
+
 struct SDL_Texture;
 
 class Enemies : public Module, public Enemy
@@ -28,7 +28,7 @@ class Enemies : public Module, public Enemy
 public:
 	// Constructor
 	Enemies(bool startEnabled);
-
+	
 	// Destructor
 	~Enemies();
 

@@ -1,20 +1,21 @@
 #ifndef __ENEMY_H__
 #define __ENEMY_H__
 
+#include "Module.h"
 #include "Point.h"
 #include "Animation.h"
 
 struct SDL_Texture;
 struct Collider;
 
-class Enemy
+class Enemy : public Module
 {
 public:
 	// Constructor
 	// Saves the spawn position for later movement calculations
-	Enemy() {};
+	Enemy(bool startEnabled);	
 	Enemy(int x, int y);
-
+	Enemy();
 	// Destructor
 	virtual ~Enemy();
 
@@ -77,4 +78,4 @@ protected:
 	iPoint spawnPos;
 };
 
-#endif __Enemy_H__
+#endif //__ENEMY_H__

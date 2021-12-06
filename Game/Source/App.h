@@ -26,6 +26,7 @@ class ModulePhysics;
 class ModulePlayer;
 class ModuleCollisions;
 class Enemies;
+class Enemy;
 
 class App
 {
@@ -104,6 +105,7 @@ public:
 	ModulePlayer* player;
 	ModuleCollisions* collisions;
 	Enemies* enemies;
+	Enemy* enemy;
 
 private:
 

@@ -6,7 +6,13 @@
 #include"Enemies.h"
 #include "ModulePhysics.h"
 #include "Enemy.h"
+#include "App.h"
 
+
+Enemy::Enemy(bool startEnabled) : Module(startEnabled)
+{
+	
+}
 Enemy::Enemy(int x, int y) : position(x, y)
 {
 
