@@ -158,6 +158,8 @@ bool SceneForest::PostUpdate()
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
+	// L08: TODO 6: Make the camera movement independent of framerate
+
 	if (app->player->horizontalCB == false && app->player->bidimensionalCB == false && sceneTimer > 1) app->render->camera.x = (-(app->player->Player->body->GetPosition().x * 150) + 630);
 	//if (app->player->verticalCB == false && app->player->bidimensionalCB == false && sceneTimer > 1) app->render->camera.y = -(app->player->Player->body->GetPosition().y * 150) + 380; //450
 	//if (app->player->verticalCB == false && app->player->bidimensionalCB == false && sceneTimer > 1) app->render->camera.y -= app->player->Player->body->GetLinearVelocity().y * 3;

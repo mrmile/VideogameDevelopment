@@ -127,13 +127,16 @@ private:
 	// L07: DONE 4: Calculate some timing measures
 	// required variables are provided:
 	PerfTimer ptimer;
-	uint64 frameCount = 0;
 
 	Timer startupTime;
 	Timer frameTime;
 	Timer lastSecFrameTime;
+
+	uint64 frameCount = 0;
+	uint32 framesPerSecond = 0;
 	uint32 lastSecFrameCount = 0;
-	uint32 prevLastSecFrameCount = 0;
+
+	float averageFps = 0.0f;
 	float dt = 0.0f;
 };
 

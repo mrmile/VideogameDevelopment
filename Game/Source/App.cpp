@@ -105,6 +105,9 @@ bool App::Awake()
 		// L01: DONE 4: Read the title from the config file
 		title.Create(configApp.child("title").child_value());
 		organization.Create(configApp.child("organization").child_value());
+
+		// L08: TODO 1: Read from config file your framerate cap
+
 	}
 
 	if (ret == true)
@@ -132,6 +135,9 @@ bool App::Awake()
 bool App::Start()
 {
 	PERF_START(ptimer);
+
+	startupTime.Start();
+	lastSecFrameTime.Start();
 
 	bool ret = true;
 	ListItem<Module*>* item;
@@ -195,6 +201,11 @@ pugi::xml_node App::LoadConfig(pugi::xml_document& configFile) const
 // ---------------------------------------------
 void App::PrepareUpdate()
 {
+	frameCount++;
+	lastSecFrameCount++;
+
+	// L08: TODO 4: Calculate the dt: differential time since last frame
+
 }
 
 // ---------------------------------------------
@@ -233,21 +244,24 @@ void App::FinishUpdate()
    // Average FPS for the whole game life
    // Amount of ms took the last update
    // Amount of frames during the last second
-	if (lastSecFrameTime.Read() > 1000)
-	{
+	float secondsSinceStartup = startupTime.ReadSec();
+
+	if (lastSecFrameTime.Read() > 1000) {
 		lastSecFrameTime.Start();
-		prevLastSecFrameCount = lastSecFrameCount;
+		framesPerSecond = lastSecFrameCount;
 		lastSecFrameCount = 0;
+		averageFps = (averageFps + framesPerSecond) / 2;
 	}
 
-	float averageFps = float(frameCount) / startupTime.ReadSec();
-	float secondsSinceStartup = startupTime.ReadSec();
-	uint32 lastFrameMs = frameTime.Read();
-	uint32 framesOnLastUpdate = prevLastSecFrameCount;
-
 	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
-		averageFps, lastFrameMs, framesOnLastUpdate, dt, secondsSinceStartup, frameCount);
+	sprintf_s(title, 256, "Av.FPS: %.2f Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
+		averageFps, framesPerSecond, dt, secondsSinceStartup, frameCount);
+
+	// L08: TODO 2: Use SDL_Delay to make sure you get your capped framerate
+
+	// L08: TODO 3: Measure accurately the amount of time SDL_Delay() actually waits compared to what was expected
+
+	//app->win->SetTitle(title);
 }
 
 // Call modules before each loop iteration
@@ -288,6 +302,7 @@ bool App::DoUpdate()
 			continue;
 		}
 
+		// L08: TODO 5: Send dt as an argument to all updates (DONE?)
 		ret = item->data->Update(dt);
 	}
 
