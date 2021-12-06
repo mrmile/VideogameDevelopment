@@ -92,6 +92,7 @@
     <ClCompile Include="Source\Collider.cpp" />
     <ClCompile Include="Source\Enemies.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
+    <ClCompile Include="Source\Flying_Enemy.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Audio.cpp" />
@@ -108,11 +109,13 @@
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\TitleScreen.cpp" />
+    <ClCompile Include="Source\Walking_Enemy.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Collider.h" />
     <ClInclude Include="Source\Enemies.h" />
     <ClInclude Include="Source\Enemy.h" />
+    <ClInclude Include="Source\Flying_Enemy.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\ModuleCollisions.h" />
     <ClInclude Include="Source\ModuleFadeToBlack.h" />
@@ -131,6 +134,7 @@
     <ClInclude Include="Source\Textures.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\TitleScreen.h" />
+    <ClInclude Include="Source\Walking_Enemy.h" />
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Defs.h" />
     <ClInclude Include="Source\List.h" />

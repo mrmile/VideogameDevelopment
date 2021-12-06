@@ -67,6 +67,12 @@
     <ClCompile Include="Source\Enemy.cpp">
       <Filter>imported_modules</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Flying_Enemy.cpp">
+      <Filter>imported_modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Walking_Enemy.cpp">
+      <Filter>imported_modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -160,6 +166,12 @@
       <Filter>imported_modules</Filter>
     </ClInclude>
     <ClInclude Include="Source\Enemy.h">
+      <Filter>imported_modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Flying_Enemy.h">
+      <Filter>imported_modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Walking_Enemy.h">
       <Filter>imported_modules</Filter>
     </ClInclude>
   </ItemGroup>
