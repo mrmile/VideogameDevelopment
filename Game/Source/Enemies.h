@@ -28,7 +28,6 @@ class Enemies : public Module, public Enemy
 public:
 	// Constructor
 	Enemies(bool startEnabled);
-	
 	// Destructor
 	~Enemies();
 

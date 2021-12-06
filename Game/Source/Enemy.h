@@ -13,8 +13,8 @@ class Enemy : public Module
 public:
 	// Constructor
 	// Saves the spawn position for later movement calculations
-	Enemy(bool startEnabled);	
-	Enemy(int x, int y);
+	Enemy(bool startEnabled) {};
+	Enemy(int x, int y) : position(x, y) {};
 	Enemy();
 	// Destructor
 	virtual ~Enemy();
