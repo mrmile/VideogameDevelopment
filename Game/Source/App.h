@@ -25,6 +25,7 @@ class ModuleFadeToBlack;
 class ModulePhysics;
 class ModulePlayer;
 class ModuleCollisions;
+class Enemies;
 
 class App
 {
@@ -102,6 +103,7 @@ public:
 	ModulePhysics* physics;
 	ModulePlayer* player;
 	ModuleCollisions* collisions;
+	Enemies* enemies;
 
 private:
 

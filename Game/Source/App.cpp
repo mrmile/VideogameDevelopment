@@ -12,7 +12,7 @@
 #include "ModulePlayer.h"
 #include "ModuleCollisions.h"
 #include "TitleScreen.h"
-
+#include "Enemies.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -40,6 +40,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fade = new ModuleFadeToBlack(true);
 	player = new ModulePlayer(false);
 	collisions = new ModuleCollisions(true);
+	enemies = new Enemies(false);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -55,7 +56,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player);
 	AddModule(collisions);
 	AddModule(fade);
-
+	AddModule(enemies);
 	// Render last to swap buffer
 	AddModule(render);
 
