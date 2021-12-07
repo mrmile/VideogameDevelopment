@@ -55,6 +55,9 @@ public:
 	int EnemyHP;
 	//BossHits
 
+	//LIST OF ENEMY BODIES
+	List<PhysBody*> Flying_Enemy_List;
+	List<PhysBody*> Walking_Enemy_List;
 	bool enemyHit = false;
 
 	//Test for hp implementing

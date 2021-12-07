@@ -136,29 +136,7 @@ PhysBody* ModulePhysics::CreatePlayerBox(int x, int y, int width, int height)
 	b2Body* b = world->CreateBody(&body);
 	b2PolygonShape box;
 
-	/*
-	b2Vec2 playerBoxPolyPoints[6];
-
-	playerBoxPolyPoints[0].x = -(PIXEL_TO_METERS(width) * 0.5f);
-	playerBoxPolyPoints[0].y = -(PIXEL_TO_METERS(height) * 0.5f);
-
-	playerBoxPolyPoints[1].x = (PIXEL_TO_METERS(width) * 0.5f) * 2 - (PIXEL_TO_METERS(width) * 0.5f);
-	playerBoxPolyPoints[1].y = -(PIXEL_TO_METERS(height) * 0.5f);
-
-	playerBoxPolyPoints[2].x = (PIXEL_TO_METERS(width) * 0.5f) * 2 - (PIXEL_TO_METERS(width) * 0.5f);
-	playerBoxPolyPoints[2].y = ((PIXEL_TO_METERS(height) * 0.5f) - PIXEL_TO_METERS(4) ) * 2 - (PIXEL_TO_METERS(height) * 0.5f);;
-
-	playerBoxPolyPoints[3].x = ((PIXEL_TO_METERS(width) * 0.5f) - PIXEL_TO_METERS(2)) * 2 - (PIXEL_TO_METERS(width) * 0.5f);
-	playerBoxPolyPoints[3].y = (PIXEL_TO_METERS(height) * 0.5f) * 2 - (PIXEL_TO_METERS(height) * 0.5f);;
-
-	playerBoxPolyPoints[4].x = 0 + PIXEL_TO_METERS(2) * 2 - (PIXEL_TO_METERS(width) * 0.5f);
-	playerBoxPolyPoints[4].y = (PIXEL_TO_METERS(height) * 0.5f) * 2 - (PIXEL_TO_METERS(height) * 0.5f);;
-
-	playerBoxPolyPoints[5].x = -(PIXEL_TO_METERS(width) * 0.5f);
-	playerBoxPolyPoints[5].y = ((PIXEL_TO_METERS(height) * 0.5f) - PIXEL_TO_METERS(4)) * 2 - (PIXEL_TO_METERS(height) * 0.5f);;
-
-	box.Set(playerBoxPolyPoints, 6);
-	*/
+	
 
 	box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
 
@@ -181,6 +159,78 @@ PhysBody* ModulePhysics::CreatePlayerBox(int x, int y, int width, int height)
 	pbody->height = height * 0.5f;
 	pbody->body->SetFixedRotation(true);
 	
+	return pbody;
+}
+
+PhysBody* ModulePhysics::CreateWalkingEnemyBox(int x, int y, int width, int height)
+{
+	b2BodyDef body;
+	body.type = b2_dynamicBody;
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+	
+
+	b2Body* b = world->CreateBody(&body);
+	b2PolygonShape box;
+	
+
+
+	box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
+
+	b2FixtureDef fixture;
+	fixture.shape = &box;
+	fixture.density = 50.0f;
+	
+	//fixture.friction = 0.5f;
+
+	b->CreateFixture(&fixture);
+
+	b2Vec2 colliderPosPoint;
+	colliderPosPoint.x = PIXEL_TO_METERS(-14);
+	colliderPosPoint.y = PIXEL_TO_METERS(-17);
+
+	PhysBody* pbody = new PhysBody();
+	pbody->body = b;
+	b->SetUserData(pbody);
+	pbody->width = width * 0.5f;
+	pbody->height = height * 0.5f;
+	pbody->body->SetFixedRotation(true);
+	
+
+	return pbody;
+}
+
+PhysBody* ModulePhysics::CreateFlyingEnemyBox(int x, int y, int width, int height)
+{
+	b2BodyDef body;
+	body.type = b2_dynamicBody;
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+	body.gravityScale = 0.0f;
+	b2Body* b = world->CreateBody(&body);
+	b2PolygonShape box;
+
+
+	box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
+
+	b2FixtureDef fixture;
+	fixture.shape = &box;
+	fixture.density = 0.05f;
+
+	//fixture.friction = 0.5f;
+
+	b->CreateFixture(&fixture);
+
+	b2Vec2 colliderPosPoint;
+	colliderPosPoint.x = PIXEL_TO_METERS(-14);
+	colliderPosPoint.y = PIXEL_TO_METERS(-17);
+
+	PhysBody* pbody = new PhysBody();
+	pbody->body = b;
+	b->SetUserData(pbody);
+	pbody->width = width * 0.5f;
+	pbody->height = height * 0.5f;
+	pbody->body->SetFixedRotation(true);
+	
+
 	return pbody;
 }
 

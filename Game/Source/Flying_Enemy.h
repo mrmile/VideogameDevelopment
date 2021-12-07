@@ -3,6 +3,7 @@
 
 #include "Enemy.h"
 
+
 class Flying_Enemy : public Enemy
 {
 public:
@@ -15,8 +16,7 @@ public:
 	void Update() override;
 
 	
-	int counter;
-	int explosionDelay;
+	
 	
 
 private:
