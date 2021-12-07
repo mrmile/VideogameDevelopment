@@ -18,7 +18,20 @@ Walking_Enemy::Walking_Enemy(int x, int y) : Enemy(x, y)
 	//HERE WE ADD THE ANIMATIONS WITH GIMP
 	
 	//Have the Soldiers describe a path in the screen taking into account the collisions
-	
+	Walking_Enemy_Right->PushBack({64,449,16,18});
+	Walking_Enemy_Right->PushBack({93,447,17,20});
+	Walking_Enemy_Right->PushBack({123,449,18,18});
+	Walking_Enemy_Right->PushBack({151,449,20,18});
+	Walking_Enemy_Right->PushBack({181,449,20,19});
+	Walking_Enemy_Right->PushBack({213,449,17,19});
+
+
+	Walking_Enemy_Left->PushBack({1179,448,17,19});
+	Walking_Enemy_Left->PushBack({1150,448,17,19});
+	Walking_Enemy_Left->PushBack({1119,448,18,19});
+	Walking_Enemy_Left->PushBack({1089,448,20,19});
+	Walking_Enemy_Left->PushBack({1060,448,18,20});
+	Walking_Enemy_Left->PushBack({1030,448,17,20});
 
 	collider = app->collisions->AddCollider({ position.x, position.y, 20, 30 }, Collider::Type::ENEMY, (Module*)app->enemies);
 	//ALSO NEED TO ADD THE BOX2D PHYSICS

@@ -29,7 +29,7 @@ Enemies::~Enemies()
 
 bool Enemies::Start()
 {
-	texture = app->tex->Load("Assets/textures/enemies_final.png");
+	texture = app->tex->Load("Assets/textures/enemies.png");
 	
 	enemyDestroyedFx = app->audio->LoadFx("Assets/audio/fx/Durp.wav");
 
@@ -168,7 +168,7 @@ void Enemies::SpawnEnemy(const EnemySpawnpoint& info)
 
 			}
 			enemies[i]->texture = texture;
-			//enemies[i]->destroyedFx = enemyDestroyedFx;
+			enemies[i]->destroyedFx = enemyDestroyedFx;
 			break;
 		}
 	}

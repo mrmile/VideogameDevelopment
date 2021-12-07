@@ -16,24 +16,24 @@ Flying_Enemy::Flying_Enemy(int x, int y) : Enemy(x, y)
 {
 	Enemy::EnemyHP = 2;
 	//HERE WE ADD THE ANIMATIONS WITH GIMP
-	Flying_Enemy_Left->PushBack({});
-	Flying_Enemy_Left->PushBack({});
-	Flying_Enemy_Left->PushBack({});
-	Flying_Enemy_Left->PushBack({});
-	Flying_Enemy_Left->PushBack({});
+	Flying_Enemy_Left->PushBack({890,248,38,35});
+	Flying_Enemy_Left->PushBack({841,248,38,35});
+	Flying_Enemy_Left->PushBack({791,248,38,35});
+	Flying_Enemy_Left->PushBack({741,248,38,35});
+	Flying_Enemy_Left->PushBack({700,248,38.35});
 
-	Flying_Enemy_Right->PushBack({});
-	Flying_Enemy_Right->PushBack({});
-	Flying_Enemy_Right->PushBack({});
-	Flying_Enemy_Right->PushBack({});
-	Flying_Enemy_Right->PushBack({});
-	//Have the Soldiers describe a path in the screen taking into account the collisions
+	Flying_Enemy_Right->PushBack({334,248,38,35});
+	Flying_Enemy_Right->PushBack({381,248,38,35});
+	Flying_Enemy_Right->PushBack({431,248,38,35});
+	Flying_Enemy_Right->PushBack({482,248,38,43});
+	Flying_Enemy_Right->PushBack({522,248,38,35});
 
 
-	collider = app->collisions->AddCollider({ position.x, position.y, 20, 30 }, Collider::Type::ENEMY, (Module*)app->enemies);
+
+	collider = app->collisions->AddCollider({ position.x, position.y, 38, 35 }, Collider::Type::ENEMY, (Module*)app->enemies);
 	//ALSO NEED TO ADD THE BOX2D PHYSICS
 	
-	Flying_Enemy_List.add(app->physics->CreateFlyingEnemyBox(position.x, position.y, 30, 30));
+	Flying_Enemy_List.add(app->physics->CreateFlyingEnemyBox(position.x, position.y, 38, 35));
 	Flying_Enemy_List.end->data->listener = this;
 	
 	if (app->map->Load("forest_walkable.tmx") == true)
