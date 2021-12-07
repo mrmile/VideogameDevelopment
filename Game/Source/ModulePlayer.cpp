@@ -259,11 +259,18 @@ bool ModulePlayer::Start()
 
 	app->win->GetWindowSize(winWidth, winHeight);
 
+	playerHP = 100;
+	invincibleDelay = 120;
+	playerFPS = 0;
+
 	return ret;
 }
 
 bool ModulePlayer::Update(float dt)
 {
+	playerFPS++;
+	invincibleDelay++;
+
 	//OPTICK_EVENT();
 	collider->SetPos(position.x, position.y);
 
@@ -721,11 +728,59 @@ bool ModulePlayer::PostUpdate()
 		destroyedDelay++;
 	}
 
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, &rect);
+	if (invincibleDelay <= 120)
+	{
+		if ((playerFPS / 5) % 2 == 0)
+		{
+			SDL_Rect rect = currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(texture, position.x, position.y, &rect);
+		}
+	}
+	else
+	{
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x, position.y, &rect);
+	}
 
 	// Draw UI (score) --------------------------------------
 	sprintf_s(scoreText, 10, "%7d", score);
+
+	SDL_Rect quad;
+	quad = { 5, 10, playerHP, 10 };
+
+	SDL_Rect quad2;
+	quad2 = { 5, 10, 100, 10 };
+
+	SDL_Rect bgquad;
+	bgquad = { 3, 8, 104, 14 };
+	app->render->DrawRectangle2(bgquad, 255, 255, 255, 255, 0.0f, true);
+	app->render->DrawRectangle2(quad2, 200, 200, 200, 255, 0.0f, true);
+	//app->render->DrawRectangle(bgquad, 255, 255, 255, 165, true, true);
+	if (playerHP >= 100)
+	{
+		playerHP = 100;
+		app->render->DrawRectangle2(quad, 0, 255, 0, 255, 0.0f, true);
+	}
+	else if (playerHP > 50)
+	{
+		app->render->DrawRectangle2(quad, 120, 255, 0, 255, 0.0f, true);
+	}
+	else if (playerHP > 20 && playerHP <= 50)
+	{
+		app->render->DrawRectangle2(quad, 255, 255, 0, 255, 0.0f, true);
+	}
+	else
+	{
+		if ((playerFPS / 5) % 2 == 0)
+		{
+			app->render->DrawRectangle2(quad, 255, 0, 0, 255, 0.0f, true);
+		}
+		else
+		{
+			app->render->DrawRectangle2(quad, 255, 150, 0, 255, 0.0f, true);
+		}
+
+	}
 
 	if (app->sceneCastle->playerRestart == true)
 	{
@@ -779,7 +834,7 @@ bool ModulePlayer::PostUpdate()
 	return true;
 }
 
-bool ModulePlayer::CleanUp() // Implementar???
+bool ModulePlayer::CleanUp()
 {
 	app->tex->UnLoad(texture);
 	deletePlayer = true;
@@ -833,8 +888,28 @@ void ModulePlayer::b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
-	if (app->sceneCastle->godMode == false && app->sceneForest->godMode == false)
+	if (app->sceneCastle->godMode == false && app->sceneForest->godMode == false && destroyed == false)
 	{
+		if ((c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::ENEMY) && destroyed == false && invincibleDelay >= 120)
+		{
+
+			playerHP -= 10;
+			if (playerHP < 0) playerHP = 0;
+			invincibleDelay = 0;
+			if (playerHP != 0) app->audio->PlayFx(damaged);
+
+			if (playerHP <= 0)
+			{
+				invincibleDelay = 121;
+				playerHP = 0;
+				//app->audio->PlayFx(dead);
+				destroyed = true;
+
+			}
+
+
+		}
+
 		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::H_CB) // HORIZONTAL_CAMERA_BOUND = H_CB
 		{
 			if (horizontalCB == false)
@@ -897,17 +972,35 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::LAVA)
 		{
-			if (destroyed == false)
+			playerHP -= 100;
+			if (playerHP < 0) playerHP = 0;
+			invincibleDelay = 0;
+			if (playerHP != 0) app->audio->PlayFx(damaged);
+
+			if (playerHP <= 0)
 			{
+				invincibleDelay = 121;
+				playerHP = 0;
+				//app->audio->PlayFx(dead);
 				destroyed = true;
+
 			}
 		}
 		
 		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::INSTANT_DEATH)
 		{
-			if (destroyed == false)
+			playerHP -= 100;
+			if (playerHP < 0) playerHP = 0;
+			invincibleDelay = 0;
+			if (playerHP != 0) app->audio->PlayFx(damaged);
+
+			if (playerHP <= 0)
 			{
+				invincibleDelay = 121;
+				playerHP = 0;
+				//app->audio->PlayFx(dead);
 				destroyed = true;
+
 			}
 		}
 	}

@@ -195,6 +195,31 @@ bool Render::DrawRectangle(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint
 	return ret;
 }
 
+bool Render::DrawRectangle2(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, float speed, bool useCamera) const
+{
+	bool ret = true;
+	uint scale = app->win->GetScale();
+
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawColor(renderer, r, g, b, a);
+
+	SDL_Rect dstRect{ rect.x * scale, rect.y * scale, rect.w * scale, rect.h * scale };
+
+	if (useCamera)
+	{
+		dstRect.x -= (camera.x * speed);
+		dstRect.y -= (camera.y * speed);
+	}
+
+	if (SDL_RenderFillRect(renderer, &dstRect) != 0)
+	{
+		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
+		ret = false;
+	}
+
+	return ret;
+}
+
 bool Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera) const
 {
 	bool ret = true;

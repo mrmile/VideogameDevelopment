@@ -107,6 +107,9 @@ public:
 	int playerIdleAnimationTimer;
 	int hoverTimer;
 	int destroyedDelay;
+	int playerHP;
+	int invincibleDelay;
+	int playerFPS;
 
 	b2Vec2 b2VelocitySet;
 
