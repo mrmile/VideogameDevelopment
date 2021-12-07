@@ -16,17 +16,21 @@ Flying_Enemy::Flying_Enemy(int x, int y) : Enemy(x, y)
 {
 	Enemy::EnemyHP = 2;
 	//HERE WE ADD THE ANIMATIONS WITH GIMP
-	Flying_Enemy_Left->PushBack({890,248,38,35});
-	Flying_Enemy_Left->PushBack({841,248,38,35});
-	Flying_Enemy_Left->PushBack({791,248,38,35});
-	Flying_Enemy_Left->PushBack({741,248,38,35});
-	Flying_Enemy_Left->PushBack({700,248,38.35});
+	Flying_Enemy_Left.PushBack({890,248,38,35});
+	Flying_Enemy_Left.PushBack({841,248,38,35});
+	Flying_Enemy_Left.PushBack({791,248,38,35});
+	Flying_Enemy_Left.PushBack({741,248,38,35});
+	Flying_Enemy_Left.PushBack({700,248,38,35});
+	Flying_Enemy_Left.loop = true;
+	Flying_Enemy_Left.speed = 0.3f;
 
-	Flying_Enemy_Right->PushBack({334,248,38,35});
-	Flying_Enemy_Right->PushBack({381,248,38,35});
-	Flying_Enemy_Right->PushBack({431,248,38,35});
-	Flying_Enemy_Right->PushBack({482,248,38,43});
-	Flying_Enemy_Right->PushBack({522,248,38,35});
+	Flying_Enemy_Right.PushBack({334,248,38,35});
+	Flying_Enemy_Right.PushBack({381,248,38,35});
+	Flying_Enemy_Right.PushBack({431,248,38,35});
+	Flying_Enemy_Right.PushBack({482,248,38,43});
+	Flying_Enemy_Right.PushBack({522,248,38,35});
+	Flying_Enemy_Right.loop = true;
+	Flying_Enemy_Right.speed = 0.3f;
 
 
 

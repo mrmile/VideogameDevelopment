@@ -5,6 +5,7 @@
 #include "Map.h"
 #include "ModulePhysics.h"
 #include "ModuleCollisions.h"
+#include "Enemies.h"
 #include "ModulePlayer.h"
 #include "Window.h"
 
@@ -417,7 +418,7 @@ bool Map::LoadTileSets(pugi::xml_node mapFile) {
 		mapData.tilesets.add(set);
 	}
 
-	return ret;
+	return true; //<-- Tiene que ser true para que funcionen el resto de cosas asi que se pone fijo
 }
 
 // L03: DONE 4: Load Tileset attributes
@@ -640,6 +641,24 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
 		{
 			app->collisions->AddCollider({ NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int(), NewObject.attribute("width").as_int(), NewObject.attribute("height").as_int() }, Collider::Type::INSTANT_DEATH);
+		}
+	}
+
+	if (object->name == "goombas")
+	{
+		pugi::xml_node NewObject;
+		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
+		{
+			app->enemies->AddEnemy(Enemy_Type::GOOMBA, NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int());
+		}
+	}
+
+	if (object->name == "flying_shyguis")
+	{
+		pugi::xml_node NewObject;
+		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
+		{
+			app->enemies->AddEnemy(Enemy_Type::FLYING_SHYGUI, NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int());
 		}
 	}
 

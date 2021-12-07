@@ -6,13 +6,13 @@
 #include "Walking_Enemy.h"
 #include "Flying_Enemy.h"
 
-#define MAX_ENEMIES 300
+#define MAX_ENEMIES 1000
 
 enum class Enemy_Type
 {
 	NO_TYPE,
-	FLYING_TYPE,
-	WALKING_TYPE,
+	FLYING_SHYGUI,
+	GOOMBA,
 
 };
 

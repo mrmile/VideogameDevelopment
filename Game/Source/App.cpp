@@ -58,10 +58,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneForest);
 	AddModule(sceneCastle);
 	AddModule(player);
+	AddModule(enemy); //Esto no. Solo hace falta poner el enemies aquí, no el enemy (que yo sepa, no estoy seguro)
+	AddModule(enemies); //Este si
 	AddModule(collisions);
 	AddModule(fade);
-	AddModule(enemy);
-	AddModule(enemies);
 	AddModule(pathfinding);
 	// Render last to swap buffer
 	AddModule(render);

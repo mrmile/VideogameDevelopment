@@ -159,10 +159,10 @@ void Enemies::SpawnEnemy(const EnemySpawnpoint& info)
 		{
 			switch (info.type)
 			{
-			case Enemy_Type::FLYING_TYPE:
+			case Enemy_Type::FLYING_SHYGUI:
 				//enemies[i] = new Flying_Enemy(info.x, info.y);
 				break;
-			case Enemy_Type::WALKING_TYPE:
+			case Enemy_Type::GOOMBA:
 				//enemies[i] = new Walking_Enemy(info.x, info.y);
 				break;
 
