@@ -44,7 +44,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	collisions = new ModuleCollisions(true);
 	enemies = new Enemies(false);
 	enemy = new Enemy(false);
-	//pathfinding = new Pathfinding(false);
+	pathfinding = new PathFinding(false);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -62,7 +62,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fade);
 	AddModule(enemies);
 	AddModule(enemy);
-	//AddModule(pathfinding);
+	AddModule(pathfinding);
 	// Render last to swap buffer
 	AddModule(render);
 
