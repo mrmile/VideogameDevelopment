@@ -27,6 +27,7 @@ class ModulePlayer;
 class ModuleCollisions;
 class Enemies;
 class Enemy;
+class Pathfinding;
 
 class App
 {
@@ -106,7 +107,7 @@ public:
 	ModuleCollisions* collisions;
 	Enemies* enemies;
 	Enemy* enemy;
-
+	Pathfinding* pathfinding;
 private:
 
 	int argc;
