@@ -11,6 +11,7 @@
 #include "ModulePlayer.h"
 #include "ModuleCollisions.h"
 #include "TitleScreen.h"
+#include "Enemies.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -45,7 +46,7 @@ bool SceneForest::Start()
 	Mix_SetMusicPosition(0);
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/jungle.ogg");
-
+	app->enemies->AddEnemy(Enemy_Type::FLYING_TYPE)
 	sceneTimer = 0;
 
 	//b2Filter filter;
