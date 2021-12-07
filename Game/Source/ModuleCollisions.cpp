@@ -1,5 +1,6 @@
 #include "ModuleCollisions.h"
 #include "SceneCastle.h"
+#include "SceneForest.h"
 
 #include "app.h"
 
@@ -188,7 +189,7 @@ void ModuleCollisions::DebugDraw()
 		if(colliders[i] == nullptr)
 			continue;
 		
-		if (app->sceneCastle->godMode == false)
+		if (app->sceneCastle->godMode == false && app->sceneForest->godMode == false)
 		{
 			switch (colliders[i]->type)
 			{
@@ -224,7 +225,7 @@ void ModuleCollisions::DebugDraw()
 				break;
 			}
 		}
-		if (app->sceneCastle->godMode == true)
+		if (app->sceneCastle->godMode == true || app->sceneForest->godMode == true)
 		{
 			switch (colliders[i]->type)
 			{

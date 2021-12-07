@@ -281,7 +281,7 @@ bool ModulePlayer::Update(float dt)
 	//LOG("Camera %s", app->render->camera.x);
 
 	//------------------------------------------------------------------------------------------------------------------------------------------
-	if (destroyed == false && app->sceneCastle->godMode == false)
+	if (destroyed == false && app->sceneCastle->godMode == false && app->sceneForest->godMode == false)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
 		{
@@ -530,7 +530,7 @@ bool ModulePlayer::Update(float dt)
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------------------------------------
-	if (destroyed == false && app->sceneCastle->godMode == true)
+	if (destroyed == false && (app->sceneCastle->godMode == true || app->sceneForest->godMode == true))
 	{
 		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
 		{
@@ -737,22 +737,38 @@ bool ModulePlayer::PostUpdate()
 			position = app->map->MapToWorld(5, 21);
 			app->render->camera.x = app->map->MapToWorld(0, -15).x;
 			app->render->camera.y = app->map->MapToWorld(0, -15).y;
+
+			Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
+
+			Player->listener = app->sceneCastle;
+			b2Filter b;
+			b.categoryBits = 0x0001;
+			b.maskBits = 0x0001 | 0x0002;
+			Player->body->GetFixtureList()->SetFilterData(b);
+			app->sceneCastle->playerRestart = false;
 		}
+	}
+
+	if (app->sceneForest->playerRestart == true)
+	{
+		horizontalCB = true;
+		app->sceneCastle->sceneTimer = 0;
+
 		if (app->sceneForest->sceneForest == true)
 		{
 			position = app->map->MapToWorld(32, 14);
-			app->render->camera.x = app->map->MapToWorld(29, 5).x;
-			app->render->camera.y = app->map->MapToWorld(29, 5).y;
+			app->render->camera.x = app->map->MapToWorld(-87, -12).x;
+			app->render->camera.y = app->map->MapToWorld(-87, -12).y;
+
+			Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
+
+			Player->listener = app->sceneForest;
+			b2Filter b;
+			b.categoryBits = 0x0001;
+			b.maskBits = 0x0001 | 0x0002;
+			Player->body->GetFixtureList()->SetFilterData(b);
+			app->sceneForest->playerRestart = false;
 		}
-
-		Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
-
-		Player->listener = app->sceneCastle;
-		b2Filter b;
-		b.categoryBits = 0x0001;
-		b.maskBits = 0x0001 | 0x0002;
-		Player->body->GetFixtureList()->SetFilterData(b);
-		app->sceneCastle->playerRestart = false;
 	}
 
 	// TODO 3: Blit the text of the score in at the bottom of the screen
@@ -817,7 +833,7 @@ void ModulePlayer::b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
-	if (app->sceneCastle->godMode == false)
+	if (app->sceneCastle->godMode == false && app->sceneForest->godMode == false)
 	{
 		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::H_CB) // HORIZONTAL_CAMERA_BOUND = H_CB
 		{
