@@ -16,9 +16,6 @@ public:
 	void Update() override;
 
 	
-	int counter;
-	int explosionDelay;
-	
 
 private:
 	// A set of steps that define the position in the screen

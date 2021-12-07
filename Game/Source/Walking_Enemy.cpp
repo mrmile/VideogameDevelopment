@@ -8,16 +8,33 @@
 #include "Audio.h"
 #include "Point.h"
 #include "Input.h"
+#include "Map.h"
+#include "ModulePhysics.h"
+#include "Pathfinding.h"
 
 Walking_Enemy::Walking_Enemy(int x, int y) : Enemy(x, y)
 {	
-	Enemy::EnemyHP = 2;
+	Enemy::EnemyHP = 1;
 	//HERE WE ADD THE ANIMATIONS WITH GIMP
 	
 	//Have the Soldiers describe a path in the screen taking into account the collisions
 	
 
-	collider = app->collisions->AddCollider({position.x, position.y, 20, 30}, Collider::Type::ENEMY, (Module*)app->enemies);
+	collider = app->collisions->AddCollider({ position.x, position.y, 20, 30 }, Collider::Type::ENEMY, (Module*)app->enemies);
+	//ALSO NEED TO ADD THE BOX2D PHYSICS
+
+	Walking_Enemy_List.add(app->physics->CreateFlyingEnemyBox(position.x, position.y, 30, 30));
+	Walking_Enemy_List.end->data->listener = this;
+
+	if (app->map->Load("forest_walkable.tmx") == true)
+	{
+		int w, h;
+		uchar* data = NULL;
+
+		if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+	}
 	
 	
 	
@@ -27,7 +44,27 @@ void Walking_Enemy::Update()
 {
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
 	
-	
+	app->pathfinding->CreatePath(position, app->player->position);
+
+	for (int i = 0; app->pathfinding->GetLastPath()->GetCapacity(); i++)
+	{
+		if (position.x < app->pathfinding->GetLastPath()->At(i)->x)
+		{
+			Walking_Enemy_List.end->data->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
+		}
+		if (position.x > app->pathfinding->GetLastPath()->At(i)->x)
+		{
+			Walking_Enemy_List.end->data->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
+		}
+		if (position.y > app->pathfinding->GetLastPath()->At(i)->y)
+		{
+			Walking_Enemy_List.end->data->body->ApplyLinearImpulse({ 0,0 }, { 5.0f,0 }, true);
+		}
+		if (position.y < app->pathfinding->GetLastPath()->At(i)->y)
+		{
+			Walking_Enemy_List.end->data->body->ApplyLinearImpulse({ 0,0 }, { -5.0f,0 }, true);
+		}
+	}
 	
 	
 

@@ -3,7 +3,8 @@
 
 #include "Module.h"
 #include "Enemy.h"
-
+#include "Walking_Enemy.h"
+#include "Flying_Enemy.h"
 
 #define MAX_ENEMIES 300
 
@@ -23,6 +24,8 @@ struct EnemySpawnpoint
 
 
 class Enemy;
+class Flying_Enemy;
+class Walking_Enemy;
 struct SDL_Texture;
 
 class Enemies : public Module, public Enemy
