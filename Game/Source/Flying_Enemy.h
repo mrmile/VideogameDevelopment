@@ -24,7 +24,10 @@ private:
 	// And an animation for each step
 	
 	//NEED TO ADD ANIMATIONS
-
+	Animation* Flying_Enemy_Idle;
+	Animation* Flying_Enemy_Right;
+	Animation* Flying_Enemy_Left;
+	Animation* Flyng_Enemy_Down;
 
 
 	

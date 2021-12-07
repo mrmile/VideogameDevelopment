@@ -24,7 +24,7 @@ Flying_Enemy::Flying_Enemy(int x, int y) : Enemy(x, y)
 	//ALSO NEED TO ADD THE BOX2D PHYSICS
 	
 	Flying_Enemy_List.add(app->physics->CreateFlyingEnemyBox(position.x, position.y, 30, 30));
-	Flying_Enemy_List.end->data->listener = this;
+	//Flying_Enemy_List.end->data->listener = this;
 	
 	if (app->map->Load("forest_walkable.tmx") == true)
 	{
@@ -43,7 +43,7 @@ void Flying_Enemy::Update()
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
 
 	app->pathfinding->CreatePath(position, app->player->position);
-
+	/*
 	for (int i = 0; app->pathfinding->GetLastPath()->GetCapacity(); i++)
 	{
 		if (position.x < app->pathfinding->GetLastPath()->At(i)->x)
@@ -63,7 +63,7 @@ void Flying_Enemy::Update()
 			Flying_Enemy_List.end->data->body->ApplyLinearImpulse({ 0,0 }, { -5.0f,0 }, true);
 		}
 	}
-
+	*/
 
 
 

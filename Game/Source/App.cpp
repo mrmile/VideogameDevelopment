@@ -42,8 +42,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fade = new ModuleFadeToBlack(true);
 	player = new ModulePlayer(false);
 	collisions = new ModuleCollisions(true);
-	enemies = new Enemies(false);
 	enemy = new Enemy(false);
+	enemies = new Enemies(false);
 	pathfinding = new PathFinding(false);
 
 	// Ordered for awake / Start / Update
@@ -60,8 +60,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player);
 	AddModule(collisions);
 	AddModule(fade);
-	AddModule(enemies);
 	AddModule(enemy);
+	AddModule(enemies);
 	AddModule(pathfinding);
 	// Render last to swap buffer
 	AddModule(render);

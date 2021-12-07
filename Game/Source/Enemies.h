@@ -22,6 +22,7 @@ struct EnemySpawnpoint
 };
 
 
+class Enemy;
 struct SDL_Texture;
 
 class Enemies : public Module, public Enemy
