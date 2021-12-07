@@ -831,7 +831,48 @@ void Map::LoadCollidersNewer() //New Version (not needed any more)
 	mapChains[11] = app->physics->CreateChain(1218.18, 384.727, Chains12, 38);
 	mapChains[12] = app->physics->CreateChain(-0.181818, 350.727, Chains13, 8);
 }
+bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
+{
+	bool ret = false;
+	ListItem<MapLayer*>* item;
+	item = mapData.layers.start;
 
+	for (item = mapData.layers.start; item != NULL; item = item->next)
+	{
+		MapLayer* layer = item->data;
+
+		if (layer->properties.GetProperty("Navigation", 0) == 1)
+			continue;
+
+		uchar* map = new uchar[layer->width * layer->height];
+		memset(map, 1, layer->width * layer->height);
+
+		for (int y = 0; y < mapData.height; ++y)
+		{
+			for (int x = 0; x < mapData.width; ++x)
+			{
+				int i = (y * layer->width) + x;
+
+				int tileId = layer->Get(x, y);
+				TileSet* tileset = (tileId > 0) ? GetTilesetFromTileId(tileId) : NULL;
+
+				if (tileset != NULL)
+				{
+					map[i] = (tileId - tileset->firstgid) > 0 ? 0 : 1;
+				}
+			}
+		}
+		
+		*buffer = map;
+		width = mapData.width;
+		height = mapData.height;
+		ret = true;
+
+		break;
+	}
+
+	return ret;
+}
 /*
 void Map::LoadLavaColliders() // Los lava colliders se tienen que hazer con los sensores del año pasado
 {

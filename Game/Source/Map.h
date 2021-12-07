@@ -168,7 +168,7 @@ public:
 
 	int MapToWorldSingle(int x) const; // Just for orthogonal
 
-	
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 private:
 
 	// L03: Methods to load all required map data
