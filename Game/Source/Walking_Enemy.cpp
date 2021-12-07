@@ -56,14 +56,6 @@ void Walking_Enemy::Update()
 		{
 			Walking_Enemy_List.end->data->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
 		}
-		if (position.y > app->pathfinding->GetLastPath()->At(i)->y)
-		{
-			Walking_Enemy_List.end->data->body->ApplyLinearImpulse({ 0,0 }, { 5.0f,0 }, true);
-		}
-		if (position.y < app->pathfinding->GetLastPath()->At(i)->y)
-		{
-			Walking_Enemy_List.end->data->body->ApplyLinearImpulse({ 0,0 }, { -5.0f,0 }, true);
-		}
 	}
 	
 	
