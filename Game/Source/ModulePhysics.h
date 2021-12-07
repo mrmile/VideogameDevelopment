@@ -50,7 +50,8 @@ public:
 	PhysBody* CreateChainLava(int x, int y, int* points, int size);
 	PhysBody* CreatePlayerBox(int x, int y, int width, int height);
 	PhysBody* CreatePlayerCircle(int x, int y, int radius);
-
+	PhysBody* CreateFlyingEnemyBox(int x, int y, int width, int height);
+	PhysBody* CreateWalkingEnemyBox(int x, int y, int width, int height);
 
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
