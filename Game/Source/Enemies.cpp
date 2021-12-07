@@ -27,9 +27,9 @@ Enemies::~Enemies()
 
 bool Enemies::Start()
 {
-	texture = app->tex->Load("Assets/textures/enemies.png");
+	texture = app->tex->Load("Assets/textures/enemies_final.png");
 	
-	//enemyDestroyedFx = App->audio->LoadFx("Assets/FX/22.wav");
+	enemyDestroyedFx = app->audio->LoadFx("Assets/audio/fx/Durp.wav");
 
 	return true;
 }

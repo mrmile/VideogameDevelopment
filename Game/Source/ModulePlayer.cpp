@@ -197,6 +197,8 @@ bool ModulePlayer::Start()
 	hoverSound = app->audio->LoadFx("Assets/audio/fx/Flutter_s.wav");
 	hoverSoundL = app->audio->LoadFx("Assets/audio/fx/Flutter_l.wav");
 	dead = app->audio->LoadFx("Assets/audio/fx/dead.wav");
+	damaged = app->audio->LoadFx("Assets/audio/fx/Whsiup.wav");
+	halfWayPoint = app->audio->LoadFx("Assets/audio/fx/Advice.wav");
 
 	//laserFx = app->audio->LoadFx("Assets/Fx/laser.wav");
 	//explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");

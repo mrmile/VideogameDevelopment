@@ -87,6 +87,8 @@ public:
 	uint hoverSound = 0;
 	uint hoverSoundL = 0;
 	uint dead = 0;
+	uint damaged = 0;
+	uint halfWayPoint = 0;
 
 	// The player's collider
 	Collider* collider = nullptr;

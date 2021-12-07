@@ -10,11 +10,14 @@
 	<SceneForest />
 	<SceneCastle />
 	<player>
-		<position x="1031" y="2822" />
+		<position x="708" y="206" />
 	</player>
 	<:anonymous />
 	<:anonymous />
+	<:anonymous />
+	<:anonymous />
+	<pathfinding />
 	<renderer>
-		<camera x="-1460" y="-5227" />
+		<camera x="-1537" y="-192" />
 	</renderer>
 </save_state>
