@@ -223,8 +223,8 @@ bool ModulePlayer::Start()
 	destroyed = false;
 	deletePlayer = false;
 
-	collider = app->collisions->AddCollider({ position.x + 5, position.y + 3, 28, 30 }, Collider::Type::PLAYER, this); //{ position.x + 5, position.y + 3, 28, 33 
-	colliderFeet = app->collisions->AddCollider({ position.x + 5, position.y + 30, 28, 3 }, Collider::Type::PLAYER_FEET, this);
+	collider = app->collisions->AddCollider({ position.x + 5, position.y + 3, 28, 28 }, Collider::Type::PLAYER, this); //{ position.x + 5, position.y + 3, 28, 33 
+	colliderFeet = app->collisions->AddCollider({ position.x + 5, position.y + 28, 18, 5 }, Collider::Type::PLAYER_FEET, this);
 
 	Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
 	//app->physics->CreateRectangleSensor(position.x, position.y + 16, 28, 1);
@@ -274,7 +274,7 @@ bool ModulePlayer::Update(float dt)
 
 	//OPTICK_EVENT();
 	collider->SetPos(position.x, position.y);
-	colliderFeet->SetPos(position.x, position.y + 30);
+	colliderFeet->SetPos(position.x + 5, position.y + 28);
 
 	playerTimer++;
 

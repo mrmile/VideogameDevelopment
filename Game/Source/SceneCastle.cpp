@@ -171,8 +171,14 @@ bool SceneCastle::PostUpdate()
 	if (-app->player->position.y > app->render->camera.y / 2 + 15) app->render->camera.y += 10;
 	if (-app->player->position.y < app->render->camera.y / 2 + -40) app->render->camera.y -= 10;
 
-	if (app->render->camera.y < app->map->MapToWorldSingle(-45)) app->render->camera.y = app->map->MapToWorldSingle(-45);
-	if (app->render->camera.y > app->map->MapToWorldSingle(0)) app->render->camera.y = app->map->MapToWorldSingle(0);
+	//if (app->render->camera.y < app->map->MapToWorldSingle(-45)) app->render->camera.y = app->map->MapToWorldSingle(-45);
+	//if (app->render->camera.y > app->map->MapToWorldSingle(0)) app->render->camera.y = app->map->MapToWorldSingle(0);
+
+	if (app->render->camera.y < -app->map->levelAreaLowerBound * 3 + 720) app->render->camera.y = -app->map->levelAreaLowerBound * 3 + 720; //720 * 3
+	if (app->render->camera.y > -app->map->levelAreaUpperBound * 3) app->render->camera.y = -app->map->levelAreaUpperBound * 3;
+
+	if (app->render->camera.x < -app->map->levelAreaRightBound * 3 + 1280) app->render->camera.x = -app->map->levelAreaRightBound * 3 + 1280;
+	if (app->render->camera.x > -app->map->levelAreaLeftBound * 3) app->render->camera.x = -app->map->levelAreaLeftBound * 3;
 
 	if (app->player->destroyedDelay > 210 && app->player->destroyedDelay <= 211)
 	{

@@ -200,6 +200,11 @@ public:
 	PhysBody* mapChains[MAX_MAP_CHAINS];
 	int mapChainsCounter;
 
+	int levelAreaUpperBound = 0;
+	int levelAreaLowerBound = 0;
+	int levelAreaLeftBound = 0;
+	int levelAreaRightBound = 0;
+
 private:
 	List<PhysBody*> Collisions;
     SString folder;

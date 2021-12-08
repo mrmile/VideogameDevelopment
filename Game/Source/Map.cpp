@@ -662,6 +662,21 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 		}
 	}
 
+
+
+	// Deffine level boundaries
+	if (object->name == "LEVEL_AREA")
+	{
+		pugi::xml_node NewObject;
+		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
+		{
+			levelAreaUpperBound = NewObject.attribute("y").as_int();
+			levelAreaLowerBound = NewObject.attribute("y").as_int() + NewObject.attribute("height").as_int();
+			levelAreaLeftBound = NewObject.attribute("x").as_int();
+			levelAreaRightBound = NewObject.attribute("x").as_int() + NewObject.attribute("width").as_int();
+		}
+	}
+
 	return ret;
 }
 
