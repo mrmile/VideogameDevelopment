@@ -101,7 +101,7 @@ bool Enemies::AddEnemy(Enemy_Type type, int x, int y)
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
-		if (spawnQueue[i].type == Enemy_Type::NO_TYPE)
+		if (spawnQueue[i].type != Enemy_Type::NO_TYPE)
 		{
 			spawnQueue[i].type = type;
 			spawnQueue[i].x = x;
@@ -160,10 +160,10 @@ void Enemies::SpawnEnemy(const EnemySpawnpoint& info)
 			switch (info.type)
 			{
 			case Enemy_Type::FLYING_SHYGUI:
-				//enemies[i] = new Flying_Enemy(info.x, info.y);
+				enemies[i] = (Enemies*)new Flying_Enemy(info.x, info.y);
 				break;
 			case Enemy_Type::GOOMBA:
-				//enemies[i] = new Walking_Enemy(info.x, info.y);
+				enemies[i] = (Enemies*)new Walking_Enemy(info.x, info.y);
 				break;
 
 			}

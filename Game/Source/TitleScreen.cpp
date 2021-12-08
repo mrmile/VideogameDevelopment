@@ -12,6 +12,7 @@
 #include "ModulePlayer.h"
 #include "ModuleCollisions.h"
 #include "ModuleFadeToBlack.h"
+#include "Enemies.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -79,6 +80,7 @@ bool TitleScreen::Update(float dt)
 		app->map->Enable();
 		app->sceneForest->Enable();
 		app->player->Enable();
+		//app->enemies->Enable();
 		app->collisions->Enable();
 
 		app->titleScreen->Disable();
