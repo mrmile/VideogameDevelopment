@@ -28,11 +28,11 @@ class Flying_Enemy;
 class Walking_Enemy;
 struct SDL_Texture;
 
-class Enemies : public Module, public Enemy
+class Enemies : public Module, public Enemies
 {
 public:
 	// Constructor
-	Enemies(bool startEnabled);
+	Enemies(bool startEnabled= true);
 	// Destructor
 	~Enemies();
 
