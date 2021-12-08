@@ -42,7 +42,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fade = new ModuleFadeToBlack(true);
 	player = new ModulePlayer(false);
 	collisions = new ModuleCollisions(true);
-	enemy = new Enemy(true);
+	//enemy = new Enemy(true);
 	enemies = new Enemies(true);
 	pathfinding = new PathFinding(false);
 
@@ -58,7 +58,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneForest);
 	AddModule(sceneCastle);
 	AddModule(player);
-	AddModule(enemy); //Esto no. Solo hace falta poner el enemies aquí, no el enemy (que yo sepa, no estoy seguro)
+	//AddModule(enemy); //Esto no. Solo hace falta poner el enemies aquí, no el enemy (que yo sepa, no estoy seguro)
 	AddModule(enemies); //Este si
 	AddModule(collisions);
 	AddModule(fade);

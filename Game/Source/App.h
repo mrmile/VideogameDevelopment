@@ -26,7 +26,7 @@ class ModulePhysics;
 class ModulePlayer;
 class ModuleCollisions;
 class Enemies;
-class Enemy;
+//class Enemy;
 class PathFinding;
 
 class App
@@ -106,7 +106,7 @@ public:
 	ModulePlayer* player;
 	ModuleCollisions* collisions;
 	Enemies* enemies;
-	Enemy* enemy;
+	//Enemy* enemy;
 	PathFinding* pathfinding;
 private:
 

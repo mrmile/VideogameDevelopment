@@ -12,6 +12,7 @@
 #include "ModuleCollisions.h"
 #include "TitleScreen.h"
 #include "Enemies.h"
+#include "Enemy.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -185,6 +186,7 @@ bool SceneForest::PostUpdate()
 		app->sceneForest->Disable();
 		app->collisions->Disable();
 		app->map->Disable();
+		app->enemies->Disable();
 		//app->physics->Disable();
 	}
 
