@@ -38,7 +38,7 @@ Flying_Enemy::Flying_Enemy(int x, int y) : Enemy(x, y)
 	//ALSO NEED TO ADD THE BOX2D PHYSICS
 	
 	Flying_Enemy_List.add(app->physics->CreateFlyingEnemyBox(position.x, position.y, 38, 35));
-	//Flying_Enemy_List.end->data->listener = this;
+	Flying_Enemy_List.end->data->listener = this;
 	
 	if (app->map->Load("forest_walkable.tmx") == true)
 	{
@@ -52,7 +52,7 @@ Flying_Enemy::Flying_Enemy(int x, int y) : Enemy(x, y)
 	
 }
 
-void Flying_Enemy::Update(float dt)
+void Flying_Enemy::Update()
 {
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
 	currentAnim = &Flying_Enemy_Right;
@@ -84,5 +84,5 @@ void Flying_Enemy::Update(float dt)
 
 	// Call to the base class. It must be called at the end
 	// It will update the collider depending on the position
-	Enemy::Update(dt);
+	Enemy::Update();
 }

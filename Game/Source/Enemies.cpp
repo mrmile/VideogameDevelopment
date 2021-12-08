@@ -5,8 +5,10 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Audio.h"
+#include "Collider.h"
+#include "ModuleCollisions.h"
+#include "ModuleFadeToBlack.h"
 #include "Window.h"
-
 #include "Enemy.h"
 #include "Flying_Enemy.h"
 #include "Walking_Enemy.h"
@@ -158,10 +160,10 @@ void Enemies::SpawnEnemy(const EnemySpawnpoint& info)
 			switch (info.type)
 			{
 			case Enemy_Type::FLYING_SHYGUI:
-				enemies[i] = new Flying_Enemy(info.x, info.y);
+				enemies[i] = (Enemies*)new Flying_Enemy(info.x, info.y);
 				break;
 			case Enemy_Type::GOOMBA:
-				enemies[i] = new Walking_Enemy(info.x, info.y);
+				enemies[i] = (Enemies*)new Walking_Enemy(info.x, info.y);
 				break;
 
 			}
@@ -178,7 +180,7 @@ void Enemies::OnCollision(Collider* c1, Collider* c2)
 	{
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
-			enemies[i]->OnCollision(c2); //Notify the enemy of a collision
+			enemies[i]->OnCollision(c1, c2); //Notify the enemy of a collision
 			break;
 		}
 	}

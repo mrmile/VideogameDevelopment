@@ -3,14 +3,14 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Audio.h"
-#include "Enemies.h"
+#include"Enemies.h"
 #include "ModulePhysics.h"
 #include "Enemy.h"
 #include "App.h"
 
 
 
-Enemy::Enemy(int x, int y) : position(x, y)
+Enemy::Enemy()
 {
 
 }
@@ -26,7 +26,7 @@ const Collider* Enemy::GetCollider() const
 	return collider;
 }
 
-void Enemy::Update(float dt)
+void Enemy::Update()
 {
 	if (currentAnim != nullptr)
 		currentAnim->Update();
