@@ -60,8 +60,8 @@ void Walking_Enemy::Update()
 {
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
 	
-	//app->pathfinding->CreatePath(position, app->player->position);
-	/*
+	app->pathfinding->CreatePath(position, app->player->position);
+
 	for (int i = 0; app->pathfinding->GetLastPath()->GetCapacity(); i++)
 	{
 		if (position.x < app->pathfinding->GetLastPath()->At(i)->x)
@@ -73,7 +73,7 @@ void Walking_Enemy::Update()
 			Walking_Enemy_List.end->data->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
 		}
 	}
-	*/
+	
 	
 
 	

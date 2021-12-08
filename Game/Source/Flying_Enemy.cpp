@@ -56,7 +56,6 @@ void Flying_Enemy::Update()
 {
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
 	currentAnim = &Flying_Enemy_Right;
-	/*
 	app->pathfinding->CreatePath(position, app->player->position);
 	
 	for (int i = 0; app->pathfinding->GetLastPath()->GetCapacity(); i++)
@@ -78,7 +77,7 @@ void Flying_Enemy::Update()
 			Flying_Enemy_List.end->data->body->ApplyLinearImpulse({ 0,0 }, { -5.0f,0 }, true);
 		}
 	}
-	*/
+	
 
 
 
