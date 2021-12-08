@@ -42,6 +42,7 @@ Walking_Enemy::Walking_Enemy(int x, int y) : Enemy(x, y)
 	Walking_Enemy_List.add(app->physics->CreateFlyingEnemyBox(position.x, position.y, 30, 30));
 	//Walking_Enemy_List.end->data->listener = this;
 
+	/*
 	if (app->map->Load("forest_walkable.tmx") == true)
 	{
 		int w, h;
@@ -51,6 +52,7 @@ Walking_Enemy::Walking_Enemy(int x, int y) : Enemy(x, y)
 
 		RELEASE_ARRAY(data);
 	}
+	*/
 	
 	
 	
@@ -60,6 +62,7 @@ void Walking_Enemy::Update(float dt)
 {
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
 	
+	/*
 	app->pathfinding->CreatePath(position, app->player->position);
 
 	for (int i = 0; app->pathfinding->GetLastPath()->GetCapacity(); i++)
@@ -73,9 +76,10 @@ void Walking_Enemy::Update(float dt)
 			Walking_Enemy_List.end->data->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
 		}
 	}
+	*/
 	
 	
-
+	currentAnim = &Walking_Enemy_Left;
 	
 		
 	

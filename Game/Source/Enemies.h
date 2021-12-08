@@ -8,7 +8,7 @@
 enum class Enemy_Type
 {
 	NO_TYPE,
-	FLYING_SHYGUI,
+	FLYING_KOOPA,
 	GOOMBA,
 
 };

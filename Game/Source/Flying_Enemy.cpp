@@ -22,7 +22,7 @@ Flying_Enemy::Flying_Enemy(int x, int y) : Enemy(x, y)
 	Flying_Enemy_Left.PushBack({741,248,38,35});
 	Flying_Enemy_Left.PushBack({700,248,38,35});
 	Flying_Enemy_Left.loop = true;
-	Flying_Enemy_Left.speed = 0.3f;
+	Flying_Enemy_Left.speed = 0.2f;
 
 	Flying_Enemy_Right.PushBack({334,248,38,35});
 	Flying_Enemy_Right.PushBack({381,248,38,35});
@@ -30,7 +30,7 @@ Flying_Enemy::Flying_Enemy(int x, int y) : Enemy(x, y)
 	Flying_Enemy_Right.PushBack({482,248,38,43});
 	Flying_Enemy_Right.PushBack({522,248,38,35});
 	Flying_Enemy_Right.loop = true;
-	Flying_Enemy_Right.speed = 0.3f;
+	Flying_Enemy_Right.speed = 0.2f;
 
 
 
@@ -40,6 +40,7 @@ Flying_Enemy::Flying_Enemy(int x, int y) : Enemy(x, y)
 	Flying_Enemy_List.add(app->physics->CreateFlyingEnemyBox(position.x, position.y, 38, 35));
 	//Flying_Enemy_List.end->data->listener = this;
 	
+	/*
 	if (app->map->Load("forest_walkable.tmx") == true)
 	{
 		int w, h;
@@ -49,12 +50,14 @@ Flying_Enemy::Flying_Enemy(int x, int y) : Enemy(x, y)
 
 		RELEASE_ARRAY(data);
 	}
+	*/
 	
 }
 
 void Flying_Enemy::Update(float dt)
 {
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
+	/*
 	currentAnim = &Flying_Enemy_Right;
 	app->pathfinding->CreatePath(position, app->player->position);
 	
@@ -77,8 +80,9 @@ void Flying_Enemy::Update(float dt)
 			Flying_Enemy_List.end->data->body->ApplyLinearImpulse({ 0,0 }, { -5.0f,0 }, true);
 		}
 	}
+	*/
 	
-
+	currentAnim = &Flying_Enemy_Right;
 
 
 	// Call to the base class. It must be called at the end

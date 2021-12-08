@@ -649,16 +649,16 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 		pugi::xml_node NewObject;
 		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
 		{
-			app->enemies->AddEnemy(Enemy_Type::GOOMBA, NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int());
+			app->enemies->AddEnemy(Enemy_Type::GOOMBA, NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int() - NewObject.attribute("height").as_int());
 		}
 	}
 
-	if (object->name == "flying_shyguis")
+	if (object->name == "flying_koopas")
 	{
 		pugi::xml_node NewObject;
 		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
 		{
-			app->enemies->AddEnemy(Enemy_Type::FLYING_SHYGUI, NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int());
+			app->enemies->AddEnemy(Enemy_Type::FLYING_KOOPA, NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int() - NewObject.attribute("height").as_int());
 		}
 	}
 

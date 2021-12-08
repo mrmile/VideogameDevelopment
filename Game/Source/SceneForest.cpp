@@ -47,7 +47,7 @@ bool SceneForest::Start()
 	Mix_SetMusicPosition(0);
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/jungle.ogg");
-	app->enemies->AddEnemy(Enemy_Type::FLYING_SHYGUI, app->player->position.x+20, app->player->position.y-20);
+	//app->enemies->AddEnemy(Enemy_Type::FLYING_KOOPA, app->player->position.x+20, app->player->position.y-20);
 	sceneTimer = 0;
 
 	//b2Filter filter;
