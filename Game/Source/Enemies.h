@@ -2,9 +2,6 @@
 #define __ENEMIES_H__
 
 #include "Module.h"
-#include "Enemy.h"
-#include "Walking_Enemy.h"
-#include "Flying_Enemy.h"
 
 #define MAX_ENEMIES 1000
 
@@ -24,15 +21,13 @@ struct EnemySpawnpoint
 
 
 class Enemy;
-class Flying_Enemy;
-class Walking_Enemy;
 struct SDL_Texture;
 
-class Enemies : public Module, public Enemy
+class Enemies : public Module
 {
 public:
 	// Constructor
-	Enemies(bool startEnabled= true);
+	Enemies(bool startEnabled = false);
 	// Destructor
 	~Enemies();
 
@@ -80,7 +75,7 @@ private:
 	EnemySpawnpoint spawnQueue[MAX_ENEMIES];
 
 	// All spawned enemies in the scene
-	Enemies* enemies[MAX_ENEMIES] = { nullptr };
+	Enemy* enemies[MAX_ENEMIES] = { nullptr };
 
 	// The enemies sprite sheet
 	SDL_Texture* texture = nullptr;
