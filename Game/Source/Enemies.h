@@ -28,7 +28,7 @@ class Flying_Enemy;
 class Walking_Enemy;
 struct SDL_Texture;
 
-class Enemies : public Module, public Enemies
+class Enemies : public Module, public Enemy
 {
 public:
 	// Constructor

@@ -60,7 +60,7 @@ bool Enemies::Update(float dt)
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (enemies[i] != nullptr)
-			enemies[i]->Update(60);
+			enemies[i]->Update(dt);
 	}
 
 	HandleEnemiesDespawn();
@@ -101,7 +101,7 @@ bool Enemies::AddEnemy(Enemy_Type type, int x, int y)
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
-		if (spawnQueue[i].type != Enemy_Type::NO_TYPE)
+		if (spawnQueue[i].type == Enemy_Type::NO_TYPE)
 		{
 			spawnQueue[i].type = type;
 			spawnQueue[i].x = x;

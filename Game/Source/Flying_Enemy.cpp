@@ -55,7 +55,7 @@ Flying_Enemy::Flying_Enemy(int x, int y) : Enemy(x, y)
 void Flying_Enemy::Update()
 {
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
-
+	currentAnim = &Flying_Enemy_Right;
 	app->pathfinding->CreatePath(position, app->player->position);
 	
 	for (int i = 0; app->pathfinding->GetLastPath()->GetCapacity(); i++)
