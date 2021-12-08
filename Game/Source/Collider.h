@@ -15,6 +15,7 @@ struct Collider
 		NULL_COLLIDER,
 		LAYER_ZERO,
 		PLAYER,
+		PLAYER_FEET,
 		ENEMY,
 		INSTANT_DEATH,
 		B_CB,

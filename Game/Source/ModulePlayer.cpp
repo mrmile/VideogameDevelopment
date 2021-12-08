@@ -223,7 +223,8 @@ bool ModulePlayer::Start()
 	destroyed = false;
 	deletePlayer = false;
 
-	collider = app->collisions->AddCollider({ position.x + 5, position.y + 3, 28, 33 }, Collider::Type::PLAYER, this);
+	collider = app->collisions->AddCollider({ position.x + 5, position.y + 3, 28, 30 }, Collider::Type::PLAYER, this); //{ position.x + 5, position.y + 3, 28, 33 
+	colliderFeet = app->collisions->AddCollider({ position.x + 5, position.y + 30, 28, 3 }, Collider::Type::PLAYER_FEET, this);
 
 	Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
 	//app->physics->CreateRectangleSensor(position.x, position.y + 16, 28, 1);
@@ -273,6 +274,7 @@ bool ModulePlayer::Update(float dt)
 
 	//OPTICK_EVENT();
 	collider->SetPos(position.x, position.y);
+	colliderFeet->SetPos(position.x, position.y + 30);
 
 	playerTimer++;
 
@@ -839,6 +841,7 @@ bool ModulePlayer::CleanUp()
 	app->tex->UnLoad(texture);
 	deletePlayer = true;
 	app->collisions->RemoveCollider(app->player->collider);
+	app->collisions->RemoveCollider(app->player->colliderFeet);
 
 	return true;
 }
@@ -910,14 +913,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 		}
 
-		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::H_CB) // HORIZONTAL_CAMERA_BOUND = H_CB
+		if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type == Collider::Type::H_CB) // HORIZONTAL_CAMERA_BOUND = H_CB
 		{
 			if (horizontalCB == false)
 			{
 				horizontalCB = true;
 			}
 		}
-		else if (c1->type == Collider::Type::PLAYER && c2->type != Collider::Type::H_CB)
+		else if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type != Collider::Type::H_CB)
 		{
 			if (horizontalCB == true)
 			{
@@ -925,14 +928,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			}
 		}
 
-		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::V_CB) // VERTICAL_CAMERA_BOUND = V_CB
+		if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type == Collider::Type::V_CB) // VERTICAL_CAMERA_BOUND = V_CB
 		{
 			if (verticalCB == false)
 			{
 				verticalCB = true;
 			}
 		}
-		else if (c1->type == Collider::Type::PLAYER && c2->type != Collider::Type::V_CB)
+		else if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type != Collider::Type::V_CB)
 		{
 			if (verticalCB == true)
 			{
@@ -940,14 +943,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			}
 		}
 
-		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::B_CB) // BIDIMENSIONAL_CAMERA_BOUND = B_CB
+		if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type == Collider::Type::B_CB) // BIDIMENSIONAL_CAMERA_BOUND = B_CB
 		{
 			if (bidimensionalCB == false)
 			{
 				bidimensionalCB = true;
 			}
 		}
-		else if (c1->type == Collider::Type::PLAYER && c2->type != Collider::Type::B_CB)
+		else if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type != Collider::Type::B_CB)
 		{
 			if (bidimensionalCB == true)
 			{
@@ -955,14 +958,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			}
 		}
 
-		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::LAYER_ZERO)
+		if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type == Collider::Type::LAYER_ZERO)
 		{
 			if (layerZeroReveal == false)
 			{
 				layerZeroReveal = true;
 			}
 		}
-		else if (c1->type == Collider::Type::PLAYER && c2->type != Collider::Type::LAYER_ZERO)
+		else if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type != Collider::Type::LAYER_ZERO)
 		{
 			if (layerZeroReveal == true)
 			{
@@ -970,7 +973,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			}
 		}
 
-		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::LAVA)
+		if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type == Collider::Type::LAVA)
 		{
 			playerHP -= 100;
 			if (playerHP < 0) playerHP = 0;
@@ -987,7 +990,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			}
 		}
 		
-		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::INSTANT_DEATH)
+		if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type == Collider::Type::INSTANT_DEATH)
 		{
 			playerHP -= 100;
 			if (playerHP < 0) playerHP = 0;

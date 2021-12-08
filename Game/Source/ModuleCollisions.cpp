@@ -19,72 +19,79 @@ ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 	matrix[Collider::Type::LAYER_ZERO][Collider::Type::LAYER_ZERO] = false;
 	matrix[Collider::Type::LAYER_ZERO][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::LAYER_ZERO][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::LAYER_ZERO][Collider::Type::INSTANT_DEATH] = true;
-	matrix[Collider::Type::LAYER_ZERO][Collider::Type::B_CB] = true;
+	matrix[Collider::Type::LAYER_ZERO][Collider::Type::INSTANT_DEATH] = false;
+	matrix[Collider::Type::LAYER_ZERO][Collider::Type::B_CB] = false;
 	matrix[Collider::Type::LAYER_ZERO][Collider::Type::H_CB] = false;
 	matrix[Collider::Type::LAYER_ZERO][Collider::Type::V_CB] = false;
 	matrix[Collider::Type::LAYER_ZERO][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::LAYER_ZERO][Collider::Type::NULL_COLLIDER] = false;
+	matrix[Collider::Type::LAYER_ZERO][Collider::Type::PLAYER_FEET] = true;
 
 	matrix[Collider::Type::PLAYER][Collider::Type::LAYER_ZERO] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
 	matrix[Collider::Type::PLAYER][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::PLAYER][Collider::Type::INSTANT_DEATH] = false;
+	matrix[Collider::Type::PLAYER][Collider::Type::INSTANT_DEATH] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::B_CB] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::H_CB] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::V_CB] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::LAVA] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::NULL_COLLIDER] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER_FEET] = false;
 
 	matrix[Collider::Type::ENEMY][Collider::Type::LAYER_ZERO] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::INSTANT_DEATH] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::B_CB] = false;
-	matrix[Collider::Type::ENEMY][Collider::Type::H_CB] = true;
-	matrix[Collider::Type::ENEMY][Collider::Type::V_CB] = true;
+	matrix[Collider::Type::ENEMY][Collider::Type::H_CB] = false;
+	matrix[Collider::Type::ENEMY][Collider::Type::V_CB] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::LAVA] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::NULL_COLLIDER] = false;
+	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER_FEET] = true;
 
 	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::LAYER_ZERO] = true;
-	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::PLAYER] = false;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::ENEMY] = true;
 	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::INSTANT_DEATH] = false;
 	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::B_CB] = false;
-	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::H_CB] = true;
-	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::V_CB] = true;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::H_CB] = false;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::V_CB] = false;
 	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::NULL_COLLIDER] = false;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::PLAYER_FEET] = true;
 
-	matrix[Collider::Type::B_CB][Collider::Type::LAYER_ZERO] = true;
+	matrix[Collider::Type::B_CB][Collider::Type::LAYER_ZERO] = false;
 	matrix[Collider::Type::B_CB][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::B_CB][Collider::Type::ENEMY] = false;
 	matrix[Collider::Type::B_CB][Collider::Type::INSTANT_DEATH] = false;
 	matrix[Collider::Type::B_CB][Collider::Type::B_CB] = false;
-	matrix[Collider::Type::B_CB][Collider::Type::H_CB] = true;
-	matrix[Collider::Type::B_CB][Collider::Type::V_CB] = true;
+	matrix[Collider::Type::B_CB][Collider::Type::H_CB] = false;
+	matrix[Collider::Type::B_CB][Collider::Type::V_CB] = false;
 	matrix[Collider::Type::B_CB][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::B_CB][Collider::Type::NULL_COLLIDER] = false;
+	matrix[Collider::Type::B_CB][Collider::Type::PLAYER_FEET] = true;
 
 	matrix[Collider::Type::H_CB][Collider::Type::LAYER_ZERO] = false;
 	matrix[Collider::Type::H_CB][Collider::Type::PLAYER] = true;
-	matrix[Collider::Type::H_CB][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::H_CB][Collider::Type::INSTANT_DEATH] = true;
-	matrix[Collider::Type::H_CB][Collider::Type::B_CB] = true;
-	matrix[Collider::Type::H_CB][Collider::Type::H_CB] = true;
-	matrix[Collider::Type::H_CB][Collider::Type::V_CB] = true;
+	matrix[Collider::Type::H_CB][Collider::Type::ENEMY] = false;
+	matrix[Collider::Type::H_CB][Collider::Type::INSTANT_DEATH] = false;
+	matrix[Collider::Type::H_CB][Collider::Type::B_CB] = false;
+	matrix[Collider::Type::H_CB][Collider::Type::H_CB] = false;
+	matrix[Collider::Type::H_CB][Collider::Type::V_CB] = false;
 	matrix[Collider::Type::H_CB][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::H_CB][Collider::Type::NULL_COLLIDER] = false;
+	matrix[Collider::Type::H_CB][Collider::Type::PLAYER_FEET] = true;
 
 	matrix[Collider::Type::V_CB][Collider::Type::LAYER_ZERO] = false;
 	matrix[Collider::Type::V_CB][Collider::Type::PLAYER] = true;
-	matrix[Collider::Type::V_CB][Collider::Type::ENEMY] = true;
+	matrix[Collider::Type::V_CB][Collider::Type::ENEMY] = false;
 	matrix[Collider::Type::V_CB][Collider::Type::INSTANT_DEATH] = true;
-	matrix[Collider::Type::V_CB][Collider::Type::B_CB] = true;
-	matrix[Collider::Type::V_CB][Collider::Type::H_CB] = true;
-	matrix[Collider::Type::V_CB][Collider::Type::V_CB] = true;
+	matrix[Collider::Type::V_CB][Collider::Type::B_CB] = false;
+	matrix[Collider::Type::V_CB][Collider::Type::H_CB] = false;
+	matrix[Collider::Type::V_CB][Collider::Type::V_CB] = false;
 	matrix[Collider::Type::V_CB][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::V_CB][Collider::Type::NULL_COLLIDER] = false;
+	matrix[Collider::Type::V_CB][Collider::Type::PLAYER_FEET] = true;
 
 	matrix[Collider::Type::LAVA][Collider::Type::LAYER_ZERO] = false;
 	matrix[Collider::Type::LAVA][Collider::Type::PLAYER] = true;
@@ -95,6 +102,7 @@ ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 	matrix[Collider::Type::LAVA][Collider::Type::V_CB] = false;
 	matrix[Collider::Type::LAVA][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::LAVA][Collider::Type::NULL_COLLIDER] = false;
+	matrix[Collider::Type::LAVA][Collider::Type::PLAYER_FEET] = true;
 
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::LAYER_ZERO] = false;
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::PLAYER] = true;
@@ -105,6 +113,18 @@ ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::V_CB] = false;
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::NULL_COLLIDER] = false;
+	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::PLAYER_FEET] = true;
+
+	matrix[Collider::Type::PLAYER_FEET][Collider::Type::LAYER_ZERO] = true;
+	matrix[Collider::Type::PLAYER_FEET][Collider::Type::PLAYER] = false;
+	matrix[Collider::Type::PLAYER_FEET][Collider::Type::ENEMY] = true;
+	matrix[Collider::Type::PLAYER_FEET][Collider::Type::INSTANT_DEATH] = true;
+	matrix[Collider::Type::PLAYER_FEET][Collider::Type::B_CB] = true;
+	matrix[Collider::Type::PLAYER_FEET][Collider::Type::H_CB] = true;
+	matrix[Collider::Type::PLAYER_FEET][Collider::Type::V_CB] = true;
+	matrix[Collider::Type::PLAYER_FEET][Collider::Type::LAVA] = true;
+	matrix[Collider::Type::PLAYER_FEET][Collider::Type::NULL_COLLIDER] = true;
+	matrix[Collider::Type::PLAYER_FEET][Collider::Type::PLAYER_FEET] = false;
 
 }
 
@@ -202,6 +222,9 @@ void ModuleCollisions::DebugDraw()
 			case Collider::Type::PLAYER: // green
 				app->render->DrawRectangle(colliders[i]->rect, 0, 255, 0, alpha);
 				break;
+			case Collider::Type::PLAYER_FEET: //orange
+				app->render->DrawRectangle(colliders[i]->rect, 255, 100, 0, alpha);
+				break;
 			case Collider::Type::ENEMY: // yellow
 				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 0, alpha);
 				break;
@@ -236,6 +259,9 @@ void ModuleCollisions::DebugDraw()
 				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
 				break;
 			case Collider::Type::PLAYER: // green
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+				break;
+			case Collider::Type::PLAYER_FEET: //orange
 				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
 				break;
 			case Collider::Type::ENEMY: // red

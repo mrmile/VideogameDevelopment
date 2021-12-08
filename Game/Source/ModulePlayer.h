@@ -90,8 +90,9 @@ public:
 	uint damaged = 0;
 	uint halfWayPoint = 0;
 
-	// The player's collider
+	// The player's colliders
 	Collider* collider = nullptr;
+	Collider* colliderFeet = nullptr;
 
 	// A flag to detect when the player has been destroyed
 	bool destroyed = false;
