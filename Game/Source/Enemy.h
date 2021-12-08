@@ -9,14 +9,14 @@
 struct SDL_Texture;
 struct Collider;
 
-class Enemy : public Module
+class Enemy
 {
 public:
 	// Constructor
 	// Saves the spawn position for later movement calculations
-	Enemy(bool startEnabled) {};
-	Enemy(int x, int y) : position(x, y) {};
-	Enemy();
+	//Enemy(bool startEnabled) {};
+	Enemy(int x, int y);
+	//Enemy();
 	// Destructor
 	virtual ~Enemy();
 
@@ -25,7 +25,7 @@ public:
 
 	// Called from inhering enemies' Udpate
 	// Updates animation and collider position
-	virtual void Update();
+	virtual void Update(float dt);
 
 	// Called from ModuleEnemies' Update
 	virtual void Draw();
