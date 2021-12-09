@@ -14,7 +14,7 @@
 
 Walking_Enemy::Walking_Enemy(int x, int y) : Enemy(x, y)
 {	
-	Enemy::EnemyHP = 2;
+	Enemy::EnemyHP = 1;
 	//HERE WE ADD THE ANIMATIONS WITH GIMP
 	
 	//Have the Soldiers describe a path in the screen taking into account the collisions

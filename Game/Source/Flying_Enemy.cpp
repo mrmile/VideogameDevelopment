@@ -14,7 +14,7 @@
 
 Flying_Enemy::Flying_Enemy(int x, int y) : Enemy(x, y)
 {
-	Enemy::EnemyHP = 2;
+	Enemy::EnemyHP = 1;
 	//HERE WE ADD THE ANIMATIONS WITH GIMP
 	Flying_Enemy_Left.PushBack({890,248,38,35});
 	Flying_Enemy_Left.PushBack({841,248,38,35});

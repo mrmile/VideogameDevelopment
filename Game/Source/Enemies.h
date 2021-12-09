@@ -72,6 +72,8 @@ public:
 	bool KoopaLoading = false;
 	bool GoombaLoading = false;
 
+	// The audio fx for destroying an enemy
+	int enemyDestroyedFx = 0;
 
 private:
 	// Spawns a new enemy using the data from the queue
@@ -88,9 +90,6 @@ private:
 
 	// The enemies sprite sheet
 	SDL_Texture* texture = nullptr;
-
-	// The audio fx for destroying an enemy
-	int enemyDestroyedFx = 0;
 };
 
 #endif // __MODULE_ENEMIES_H__

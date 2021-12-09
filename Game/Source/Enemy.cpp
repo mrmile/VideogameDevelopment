@@ -57,6 +57,7 @@ void Enemy::OnCollision(Collider* c2)
 		{
 			app->player->Player->body->ApplyLinearImpulse({ 0.0f,-150.0f }, { 0.0f,0.0f }, true);
 			enemyHit = true;
+			app->audio->PlayFx(app->enemies->enemyDestroyedFx);
 			EnemyCounter = 0;
 			EnemyHP -= 1;
 		}
