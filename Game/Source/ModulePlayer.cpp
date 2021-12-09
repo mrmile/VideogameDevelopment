@@ -4,6 +4,8 @@
 #include "Textures.h"
 #include "Input.h"
 #include "Render.h"
+#include "Enemies.h"
+#include "Enemy.h"
 //#include "ModuleParticles.h"
 #include "Audio.h"
 #include "ModuleFadeToBlack.h"
@@ -288,7 +290,6 @@ bool ModulePlayer::Update(float dt)
 	
 	//LOG("Player %s", Player->body->GetPosition().x);
 	//LOG("Camera %s", app->render->camera.x);
-
 	//------------------------------------------------------------------------------------------------------------------------------------------
 	if (destroyed == false && app->sceneCastle->godMode == false && app->sceneForest->godMode == false)
 	{

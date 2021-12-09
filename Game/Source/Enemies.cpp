@@ -16,6 +16,7 @@
 
 Enemies::Enemies(bool startEnabled) : Module(startEnabled) 
 {
+	name.Create("enemies");
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		enemies[i] = nullptr;
 }
@@ -42,7 +43,6 @@ bool Enemies::PreUpdate()
 	{
 		if (enemies[i] != nullptr && enemies[i]->pendingToDelete)
 		{
-			
 			delete enemies[i];
 			enemies[i] = nullptr;
 		}
@@ -170,6 +170,38 @@ void Enemies::SpawnEnemy(const EnemySpawnpoint& info)
 			break;
 		}
 	}
+}
+
+bool Enemies::LoadState(pugi::xml_node& data)
+{
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	{
+		if (enemies[i] != nullptr)
+		{
+			enemies[i]->position.x = data.child("position").attribute("x").as_int();
+			enemies[i]->position.y = data.child("position").attribute("y").as_int();
+
+			return true;
+		}
+	}
+	
+}
+
+bool Enemies::SaveState(pugi::xml_node& data) const
+{
+	pugi::xml_node enemypos = data.append_child("position");
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	{
+		if (enemies[i] != nullptr)
+		{
+			enemypos.append_attribute("x") = enemies[i]->position.x;
+			enemypos.append_attribute("y") = enemies[i]->position.y;
+			enemypos.next_sibling("position");
+		}
+	}
+	
+
+	return true;
 }
 
 void Enemies::OnCollision(Collider* c1, Collider* c2)

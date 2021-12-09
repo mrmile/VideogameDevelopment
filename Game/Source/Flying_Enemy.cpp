@@ -38,52 +38,54 @@ Flying_Enemy::Flying_Enemy(int x, int y) : Enemy(x, y)
 	//ALSO NEED TO ADD THE BOX2D PHYSICS
 	
 	Flying_Enemy_List.add(app->physics->CreateFlyingEnemyBox(position.x, position.y, 38, 35));
-	//Flying_Enemy_List.end->data->listener = this;
 	
-	/*
-	if (app->map->Load("forest_walkable.tmx") == true)
-	{
-		int w, h;
-		uchar* data = NULL;
 
-		if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
-
-		RELEASE_ARRAY(data);
-	}
-	*/
+	
 	
 }
 
 void Flying_Enemy::Update(float dt)
 {
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
-	/*
-	currentAnim = &Flying_Enemy_Right;
-	app->pathfinding->CreatePath(position, app->player->position);
+	FlyingTimer++;
 	
-	for (int i = 0; app->pathfinding->GetLastPath()->GetCapacity(); i++)
+	Flying_Enemy_List.end->data->GetPosition(position.x, position.y);
+
+	if (position.DistanceTo(app->player->position) < 500)
 	{
-		if (position.x < app->pathfinding->GetLastPath()->At(i)->x)
+		if (position.x < app->player->position.x)
 		{
-			Flying_Enemy_List.end->data->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
+			currentAnim = &Flying_Enemy_Right;
+
 		}
-		if (position.x > app->pathfinding->GetLastPath()->At(i)->x)
+		if (position.x > app->player->position.x)
 		{
-			Flying_Enemy_List.end->data->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
+			currentAnim = &Flying_Enemy_Left;
+
 		}
-		if (position.y > app->pathfinding->GetLastPath()->At(i)->y)
+		if (FlyingTimer>=0 && FlyingTimer<120)
 		{
-			Flying_Enemy_List.end->data->body->ApplyLinearImpulse({ 0,0 }, { 5.0f,0 }, true);
+			Flying_Enemy_List.end->data->body->SetLinearVelocity({ 0.0f,-1.0f });
 		}
-		if (position.y < app->pathfinding->GetLastPath()->At(i)->y)
+		if (FlyingTimer>=120 && FlyingTimer<240)
 		{
-			Flying_Enemy_List.end->data->body->ApplyLinearImpulse({ 0,0 }, { -5.0f,0 }, true);
+			Flying_Enemy_List.end->data->body->SetLinearVelocity({ 0.0f,1.0f });
 		}
 	}
-	*/
-	
-	currentAnim = &Flying_Enemy_Right;
+	if (FlyingTimer == 240)
+	{
+		FlyingTimer = 0;
+	}
 
+
+
+
+	if ((EnemyHP == 0)|| (app->enemies->active==false))
+	{
+		Flying_Enemy_List.end->data->body->DestroyFixture(Flying_Enemy_List.end->data->body->GetFixtureList());
+		SetToDelete();
+	}
+	
 
 	// Call to the base class. It must be called at the end
 	// It will update the collider depending on the position

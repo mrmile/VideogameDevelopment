@@ -60,7 +60,7 @@ public:
 	List<PhysBody*> Flying_Enemy_List;
 	List<PhysBody*> Walking_Enemy_List;
 	bool enemyHit = false;
-
+	int EnemyCounter = 0;
 	//Test for hp implementing
 
 	//wall Collision

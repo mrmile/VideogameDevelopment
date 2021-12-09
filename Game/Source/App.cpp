@@ -221,7 +221,7 @@ void App::FinishUpdate()
 	// L02: DONE 1: This is a good place to call Load / Save methods
 	if (loadGameRequested == true) LoadGame();
 	if (saveGameRequested == true) SaveGame();
-
+	
 	if (app->player->deletePlayer == true) // Usar solo esto menos en el Load/Save Game
 	{
 		app->player->Player->body->DestroyFixture(app->player->Player->body->GetFixtureList());

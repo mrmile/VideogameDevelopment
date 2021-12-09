@@ -24,6 +24,7 @@ private:
 	// And an animation for each step
 	
 	//NEED TO ADD ANIMATIONS
+	int FlyingTimer = 0;
 	Animation Flying_Enemy_Right;
 	Animation Flying_Enemy_Left;
 

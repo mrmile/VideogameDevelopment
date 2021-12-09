@@ -58,6 +58,9 @@ public:
 	// Add an enemy into the queue to be spawned later
 	bool AddEnemy(Enemy_Type type, int x, int y);
 
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&) const;
+
 	// Iterates the queue and checks for camera position
 	void HandleEnemiesSpawn();
 
@@ -65,6 +68,7 @@ public:
 	void HandleEnemiesDespawn();
 
 	bool AlreadySpawned = false;
+
 
 private:
 	// Spawns a new enemy using the data from the queue

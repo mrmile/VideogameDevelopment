@@ -1,4 +1,5 @@
 #include "ModuleCollisions.h"
+#include "ModulePlayer.h"
 #include "Collider.h"
 #include "Render.h"
 #include "Textures.h"
@@ -34,7 +35,7 @@ void Enemy::Update(float dt)
 	if (collider != nullptr)
 		collider->SetPos(position.x, position.y);
 
-
+	EnemyCounter++;
 
 }
 
@@ -50,7 +51,17 @@ void Enemy::Draw()
 
 void Enemy::OnCollision(Collider* c2)
 {
-
+	if (enemyHit == false && EnemyCounter>2)
+	{
+		if (c2->type == Collider::Type::PLAYER_FEET)
+		{
+			app->player->Player->body->ApplyLinearImpulse({ 0.0f,-150.0f }, { 0.0f,0.0f }, true);
+			enemyHit = true;
+			EnemyCounter = 0;
+			EnemyHP -= 1;
+		}
+	}
+	enemyHit = false;
 }
 
 void Enemy::SetToDelete()
