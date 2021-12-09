@@ -36,7 +36,7 @@ Walking_Enemy::Walking_Enemy(int x, int y) : Enemy(x, y)
 	Walking_Enemy_Left.loop = true;
 	Walking_Enemy_Left.speed = 0.3f;
 
-	collider = app->collisions->AddCollider({ position.x, position.y-10, 20, 10 }, Collider::Type::ENEMY, (Module*)app->enemies);
+	collider = app->collisions->AddCollider({ position.x, position.y, 20, 20 }, Collider::Type::ENEMY, (Module*)app->enemies);
 	//ALSO NEED TO ADD THE BOX2D PHYSICS
 
 	Walking_Enemy_List.add(app->physics->CreateWalkingEnemyBox(position.x, position.y, 20, 20));
@@ -49,7 +49,7 @@ Walking_Enemy::Walking_Enemy(int x, int y) : Enemy(x, y)
 void Walking_Enemy::Update(float dt)
 {
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
-	collider->SetPos(position.x, position.y - 12);
+	collider->SetPos(position.x, position.y);
 	Walking_Enemy_List.end->data->GetPosition(position.x, position.y);
 	
 		if (position.DistanceTo(app->player->position) < 500)
