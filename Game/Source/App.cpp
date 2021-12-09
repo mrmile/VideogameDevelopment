@@ -11,6 +11,7 @@
 #include "ModulePhysics.h"
 #include "ModulePlayer.h"
 #include "ModuleCollisions.h"
+#include "ModuleParticles.h"
 #include "TitleScreen.h"
 #include "Enemies.h"
 #include "Defs.h"
@@ -42,6 +43,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fade = new ModuleFadeToBlack(true);
 	player = new ModulePlayer(false);
 	collisions = new ModuleCollisions(true);
+	particles = new ModuleParticles(false);
 	//enemy = new Enemy(true);
 	enemies = new Enemies(true);
 	pathfinding = new PathFinding(false);
@@ -60,6 +62,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player);
 	//AddModule(enemy); //Esto no. Solo hace falta poner el enemies aquí, no el enemy (que yo sepa, no estoy seguro)
 	AddModule(enemies); //Este si
+	AddModule(particles);
 	AddModule(collisions);
 	AddModule(fade);
 	AddModule(pathfinding);

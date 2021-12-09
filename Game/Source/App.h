@@ -25,6 +25,7 @@ class ModuleFadeToBlack;
 class ModulePhysics;
 class ModulePlayer;
 class ModuleCollisions;
+class ModuleParticles;
 class Enemies;
 //class Enemy;
 class PathFinding;
@@ -105,6 +106,7 @@ public:
 	ModulePhysics* physics;
 	ModulePlayer* player;
 	ModuleCollisions* collisions;
+	ModuleParticles* particles;
 	Enemies* enemies;
 	//Enemy* enemy;
 	PathFinding* pathfinding;

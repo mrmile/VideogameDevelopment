@@ -100,8 +100,10 @@
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\ModuleCollisions.cpp" />
     <ClCompile Include="Source\ModuleFadeToBlack.cpp" />
+    <ClCompile Include="Source\ModuleParticles.cpp" />
     <ClCompile Include="Source\ModulePhysics.cpp" />
     <ClCompile Include="Source\ModulePlayer.cpp" />
+    <ClCompile Include="Source\Particle.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\SceneCastle.cpp" />
@@ -120,8 +122,10 @@
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\ModuleCollisions.h" />
     <ClInclude Include="Source\ModuleFadeToBlack.h" />
+    <ClInclude Include="Source\ModuleParticles.h" />
     <ClInclude Include="Source\ModulePhysics.h" />
     <ClInclude Include="Source\ModulePlayer.h" />
+    <ClInclude Include="Source\Particle.h" />
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\PQueue.h" />
