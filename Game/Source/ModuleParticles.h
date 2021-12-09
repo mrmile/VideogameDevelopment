@@ -56,7 +56,7 @@ public:
 public:
 
 	//Template particle for explosion (example)
-	Particle explosion;
+	Particle enemyDefeat;
 
 private:
 	// Particles spritesheet loaded into an SDL Texture

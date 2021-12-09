@@ -22,17 +22,18 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	texture = app->tex->Load("Assets/Art/Sprites/items.png");
+	texture = app->tex->Load("Assets/textures/particles.png");
 
 	// Explosion particle (example)
-	explosion.anim.PushBack({ 201, 152, 32, 30 });
-	explosion.anim.PushBack({ 251, 152, 32, 30 });
-	explosion.anim.PushBack({ 306, 152, 32, 30 });
-	explosion.anim.PushBack({ 360, 152, 32, 30 });
-	explosion.speed.x = 0;
-	explosion.speed.y = 0;
-	explosion.anim.loop = false;
-	explosion.anim.speed = 0.15f;
+	enemyDefeat.anim.PushBack({ 8, 16, 20, 20 });
+	enemyDefeat.anim.PushBack({ 29, 16, 20, 20 });
+	enemyDefeat.anim.PushBack({ 49, 16, 20, 20 });
+	enemyDefeat.anim.PushBack({ 76, 16, 20, 20 });
+	enemyDefeat.anim.PushBack({ 102, 16, 20, 20 });
+	enemyDefeat.speed.x = 0;
+	enemyDefeat.speed.y = 0;
+	enemyDefeat.anim.loop = false;
+	enemyDefeat.anim.speed = 0.15f;
 
 	return true;
 }

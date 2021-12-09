@@ -1,4 +1,5 @@
 #include "ModuleCollisions.h"
+#include "ModuleParticles.h"
 #include "ModulePlayer.h"
 #include "Collider.h"
 #include "Render.h"
@@ -58,6 +59,7 @@ void Enemy::OnCollision(Collider* c2)
 			app->player->Player->body->ApplyLinearImpulse({ 0.0f,-150.0f }, { 0.0f,0.0f }, true);
 			enemyHit = true;
 			app->audio->PlayFx(app->enemies->enemyDestroyedFx);
+			app->particles->AddParticle(app->particles->enemyDefeat, position.x + 4, position.y + 4);
 			EnemyCounter = 0;
 			EnemyHP -= 1;
 		}

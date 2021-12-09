@@ -14,6 +14,7 @@
 #include "ModuleFadeToBlack.h"
 #include "Enemies.h"
 #include "Enemy.h"
+#include "ModuleParticles.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -82,6 +83,7 @@ bool TitleScreen::Update(float dt)
 		app->sceneForest->Enable();
 		app->player->Enable();
 		app->enemies->Enable();
+		app->particles->Enable();
 		app->collisions->Enable();
 
 		app->titleScreen->Disable();
