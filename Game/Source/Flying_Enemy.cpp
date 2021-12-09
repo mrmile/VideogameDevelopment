@@ -50,9 +50,9 @@ void Flying_Enemy::Update(float dt)
 	FlyingTimer++;
 	collider->SetPos(position.x, position.y);
 	Flying_Enemy_List.end->data->GetPosition(position.x, position.y);
+	
 
-	if (position.DistanceTo(app->player->position) < 500)
-	{
+	
 		if (position.x < app->player->position.x)
 		{
 			currentAnim = &Flying_Enemy_Right;
@@ -71,7 +71,7 @@ void Flying_Enemy::Update(float dt)
 		{
 			Flying_Enemy_List.end->data->body->SetLinearVelocity({ 0.0f,1.0f });
 		}
-	}
+	
 	if (FlyingTimer == 240)
 	{
 		FlyingTimer = 0;
