@@ -26,6 +26,9 @@ ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 	matrix[Collider::Type::LAYER_ZERO][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::LAYER_ZERO][Collider::Type::NULL_COLLIDER] = false;
 	matrix[Collider::Type::LAYER_ZERO][Collider::Type::PLAYER_FEET] = true;
+	matrix[Collider::Type::LAYER_ZERO][Collider::Type::RECOVER_LIFE_POWER_UP] = false;
+	matrix[Collider::Type::LAYER_ZERO][Collider::Type::COIN] = false;
+	matrix[Collider::Type::LAYER_ZERO][Collider::Type::CHECKPOINT] = false;
 
 	matrix[Collider::Type::PLAYER][Collider::Type::LAYER_ZERO] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
@@ -37,6 +40,9 @@ ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 	matrix[Collider::Type::PLAYER][Collider::Type::LAVA] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::NULL_COLLIDER] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER_FEET] = false;
+	matrix[Collider::Type::PLAYER][Collider::Type::RECOVER_LIFE_POWER_UP] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::COIN] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::CHECKPOINT] = true;
 
 	matrix[Collider::Type::ENEMY][Collider::Type::LAYER_ZERO] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER] = true;
@@ -48,6 +54,9 @@ ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 	matrix[Collider::Type::ENEMY][Collider::Type::LAVA] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::NULL_COLLIDER] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER_FEET] = true;
+	matrix[Collider::Type::ENEMY][Collider::Type::RECOVER_LIFE_POWER_UP] = false;
+	matrix[Collider::Type::ENEMY][Collider::Type::COIN] = false;
+	matrix[Collider::Type::ENEMY][Collider::Type::CHECKPOINT] = false;
 
 	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::LAYER_ZERO] = true;
 	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::PLAYER] = true;
@@ -59,6 +68,9 @@ ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::NULL_COLLIDER] = false;
 	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::PLAYER_FEET] = true;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::RECOVER_LIFE_POWER_UP] = false;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::COIN] = false;
+	matrix[Collider::Type::INSTANT_DEATH][Collider::Type::CHECKPOINT] = false;
 
 	matrix[Collider::Type::B_CB][Collider::Type::LAYER_ZERO] = false;
 	matrix[Collider::Type::B_CB][Collider::Type::PLAYER] = true;
@@ -70,6 +82,9 @@ ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 	matrix[Collider::Type::B_CB][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::B_CB][Collider::Type::NULL_COLLIDER] = false;
 	matrix[Collider::Type::B_CB][Collider::Type::PLAYER_FEET] = true;
+	matrix[Collider::Type::B_CB][Collider::Type::RECOVER_LIFE_POWER_UP] = false;
+	matrix[Collider::Type::B_CB][Collider::Type::COIN] = false;
+	matrix[Collider::Type::B_CB][Collider::Type::CHECKPOINT] = false;
 
 	matrix[Collider::Type::H_CB][Collider::Type::LAYER_ZERO] = false;
 	matrix[Collider::Type::H_CB][Collider::Type::PLAYER] = true;
@@ -81,6 +96,9 @@ ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 	matrix[Collider::Type::H_CB][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::H_CB][Collider::Type::NULL_COLLIDER] = false;
 	matrix[Collider::Type::H_CB][Collider::Type::PLAYER_FEET] = true;
+	matrix[Collider::Type::H_CB][Collider::Type::RECOVER_LIFE_POWER_UP] = false;
+	matrix[Collider::Type::H_CB][Collider::Type::COIN] = false;
+	matrix[Collider::Type::H_CB][Collider::Type::CHECKPOINT] = false;
 
 	matrix[Collider::Type::V_CB][Collider::Type::LAYER_ZERO] = false;
 	matrix[Collider::Type::V_CB][Collider::Type::PLAYER] = true;
@@ -92,6 +110,9 @@ ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 	matrix[Collider::Type::V_CB][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::V_CB][Collider::Type::NULL_COLLIDER] = false;
 	matrix[Collider::Type::V_CB][Collider::Type::PLAYER_FEET] = true;
+	matrix[Collider::Type::V_CB][Collider::Type::RECOVER_LIFE_POWER_UP] = false;
+	matrix[Collider::Type::V_CB][Collider::Type::COIN] = false;
+	matrix[Collider::Type::V_CB][Collider::Type::CHECKPOINT] = false;
 
 	matrix[Collider::Type::LAVA][Collider::Type::LAYER_ZERO] = false;
 	matrix[Collider::Type::LAVA][Collider::Type::PLAYER] = true;
@@ -103,6 +124,9 @@ ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 	matrix[Collider::Type::LAVA][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::LAVA][Collider::Type::NULL_COLLIDER] = false;
 	matrix[Collider::Type::LAVA][Collider::Type::PLAYER_FEET] = true;
+	matrix[Collider::Type::LAVA][Collider::Type::RECOVER_LIFE_POWER_UP] = false;
+	matrix[Collider::Type::LAVA][Collider::Type::COIN] = false;
+	matrix[Collider::Type::LAVA][Collider::Type::CHECKPOINT] = false;
 
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::LAYER_ZERO] = false;
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::PLAYER] = true;
@@ -114,6 +138,9 @@ ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::LAVA] = false;
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::NULL_COLLIDER] = false;
 	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::PLAYER_FEET] = true;
+	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::RECOVER_LIFE_POWER_UP] = false;
+	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::COIN] = false;
+	matrix[Collider::Type::NULL_COLLIDER][Collider::Type::CHECKPOINT] = false;
 
 	matrix[Collider::Type::PLAYER_FEET][Collider::Type::LAYER_ZERO] = true;
 	matrix[Collider::Type::PLAYER_FEET][Collider::Type::PLAYER] = false;
@@ -125,6 +152,51 @@ ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 	matrix[Collider::Type::PLAYER_FEET][Collider::Type::LAVA] = true;
 	matrix[Collider::Type::PLAYER_FEET][Collider::Type::NULL_COLLIDER] = true;
 	matrix[Collider::Type::PLAYER_FEET][Collider::Type::PLAYER_FEET] = false;
+	matrix[Collider::Type::PLAYER_FEET][Collider::Type::RECOVER_LIFE_POWER_UP] = true;
+	matrix[Collider::Type::PLAYER_FEET][Collider::Type::COIN] = true;
+	matrix[Collider::Type::PLAYER_FEET][Collider::Type::CHECKPOINT] = true;
+
+	matrix[Collider::Type::RECOVER_LIFE_POWER_UP][Collider::Type::LAYER_ZERO] = false;
+	matrix[Collider::Type::RECOVER_LIFE_POWER_UP][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::RECOVER_LIFE_POWER_UP][Collider::Type::ENEMY] = false;
+	matrix[Collider::Type::RECOVER_LIFE_POWER_UP][Collider::Type::INSTANT_DEATH] = false;
+	matrix[Collider::Type::RECOVER_LIFE_POWER_UP][Collider::Type::B_CB] = false;
+	matrix[Collider::Type::RECOVER_LIFE_POWER_UP][Collider::Type::H_CB] = false;
+	matrix[Collider::Type::RECOVER_LIFE_POWER_UP][Collider::Type::V_CB] = false;
+	matrix[Collider::Type::RECOVER_LIFE_POWER_UP][Collider::Type::LAVA] = false;
+	matrix[Collider::Type::RECOVER_LIFE_POWER_UP][Collider::Type::NULL_COLLIDER] = false;
+	matrix[Collider::Type::RECOVER_LIFE_POWER_UP][Collider::Type::PLAYER_FEET] = true;
+	matrix[Collider::Type::RECOVER_LIFE_POWER_UP][Collider::Type::RECOVER_LIFE_POWER_UP] = false;
+	matrix[Collider::Type::RECOVER_LIFE_POWER_UP][Collider::Type::COIN] = false;
+	matrix[Collider::Type::RECOVER_LIFE_POWER_UP][Collider::Type::CHECKPOINT] = false;
+
+	matrix[Collider::Type::COIN][Collider::Type::LAYER_ZERO] = false;
+	matrix[Collider::Type::COIN][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::COIN][Collider::Type::ENEMY] = false;
+	matrix[Collider::Type::COIN][Collider::Type::INSTANT_DEATH] = false;
+	matrix[Collider::Type::COIN][Collider::Type::B_CB] = false;
+	matrix[Collider::Type::COIN][Collider::Type::H_CB] = false;
+	matrix[Collider::Type::COIN][Collider::Type::V_CB] = false;
+	matrix[Collider::Type::COIN][Collider::Type::LAVA] = false;
+	matrix[Collider::Type::COIN][Collider::Type::NULL_COLLIDER] = false;
+	matrix[Collider::Type::COIN][Collider::Type::PLAYER_FEET] = true;
+	matrix[Collider::Type::COIN][Collider::Type::RECOVER_LIFE_POWER_UP] = false;
+	matrix[Collider::Type::COIN][Collider::Type::COIN] = false;
+	matrix[Collider::Type::COIN][Collider::Type::CHECKPOINT] = false;
+
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::LAYER_ZERO] = false;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::ENEMY] = false;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::INSTANT_DEATH] = false;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::B_CB] = false;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::H_CB] = false;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::V_CB] = false;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::LAVA] = false;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::NULL_COLLIDER] = false;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::PLAYER_FEET] = true;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::RECOVER_LIFE_POWER_UP] = false;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::COIN] = false;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::CHECKPOINT] = false;
 
 }
 
@@ -246,6 +318,15 @@ void ModuleCollisions::DebugDraw()
 			case Collider::Type::NULL_COLLIDER: // black
 				app->render->DrawRectangle(colliders[i]->rect, 0, 0, 0, alpha);
 				break;
+			case Collider::Type::RECOVER_LIFE_POWER_UP: // purple
+				app->render->DrawRectangle(colliders[i]->rect, 128, 0, 255, alpha);
+				break;
+			case Collider::Type::COIN: // light yellow
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 172, alpha);
+				break;
+			case Collider::Type::CHECKPOINT: // light green
+				app->render->DrawRectangle(colliders[i]->rect, 172, 255, 200, alpha);
+				break;
 			}
 		}
 		if (app->sceneCastle->godMode == true || app->sceneForest->godMode == true)
@@ -283,6 +364,15 @@ void ModuleCollisions::DebugDraw()
 				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
 				break;
 			case Collider::Type::NULL_COLLIDER: // black
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+				break;
+			case Collider::Type::RECOVER_LIFE_POWER_UP: // purple
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+				break;
+			case Collider::Type::COIN: // light yellow
+				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+				break;
+			case Collider::Type::CHECKPOINT: // light green
 				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
 				break;
 			}

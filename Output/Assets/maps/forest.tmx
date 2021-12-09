@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="1200" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="19" nextobjectid="94">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="1200" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="22" nextobjectid="194">
  <tileset firstgid="1" name="forest_tileset" tilewidth="16" tileheight="16" spacing="1" tilecount="518" columns="37">
   <image source="forest_tileset.png" width="628" height="237"/>
  </tileset>
@@ -28,6 +28,18 @@
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image width="36" height="36" source="object_img_data/flying_koopa.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="3230" name="lifeRecoverPowerUp" tilewidth="19" tileheight="18" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="19" height="18" source="object_img_data/lifeRecoverPowerUp.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="3231" name="coin" tilewidth="12" tileheight="16" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="12" height="16" source="object_img_data/coin.png"/>
   </tile>
  </tileset>
  <layer id="3" name="bg_C" width="1200" height="25">
@@ -180081,6 +180093,89 @@
    <tile/>
   </data>
  </layer>
+ <objectgroup id="19" name="coins">
+  <object id="94" gid="3231" x="897.5" y="199.167" width="12" height="16"/>
+  <object id="95" gid="3231" x="919.333" y="183.667" width="12" height="16"/>
+  <object id="96" gid="3231" x="942.5" y="178.5" width="12" height="16"/>
+  <object id="98" gid="3231" x="1543.5" y="158" width="12" height="16"/>
+  <object id="99" gid="3231" x="1564" y="146" width="12" height="16"/>
+  <object id="100" gid="3231" x="1585" y="165" width="12" height="16"/>
+  <object id="102" gid="3231" x="1266" y="148" width="12" height="16"/>
+  <object id="103" gid="3231" x="1283.5" y="126.5" width="12" height="16"/>
+  <object id="106" gid="3231" x="1989.5" y="175" width="12" height="16"/>
+  <object id="107" gid="3231" x="2011" y="187" width="12" height="16"/>
+  <object id="108" gid="3231" x="2034" y="209.5" width="12" height="16"/>
+  <object id="109" gid="3231" x="2477" y="214.5" width="12" height="16"/>
+  <object id="110" gid="3231" x="2498.5" y="198.5" width="12" height="16"/>
+  <object id="111" gid="3231" x="2525.5" y="191.5" width="12" height="16"/>
+  <object id="112" gid="3231" x="2395" y="179" width="12" height="16"/>
+  <object id="113" gid="3231" x="2376" y="161.5" width="12" height="16"/>
+  <object id="116" gid="3231" x="2722.5" y="109" width="12" height="16"/>
+  <object id="117" gid="3231" x="3177.5" y="161" width="12" height="16"/>
+  <object id="118" gid="3231" x="3200.5" y="146" width="12" height="16"/>
+  <object id="122" gid="3231" x="3568" y="288" width="12" height="16"/>
+  <object id="123" gid="3231" x="3584" y="288" width="12" height="16"/>
+  <object id="124" gid="3231" x="3600" y="288" width="12" height="16"/>
+  <object id="128" gid="3231" x="3584" y="272" width="12" height="16"/>
+  <object id="130" gid="3231" x="3456" y="208" width="12" height="16"/>
+  <object id="131" gid="3231" x="3536" y="240" width="12" height="16"/>
+  <object id="132" gid="3231" x="3568" y="176" width="12" height="16"/>
+  <object id="133" gid="3231" x="3648" y="240" width="12" height="16"/>
+  <object id="134" gid="3231" x="3728" y="208" width="12" height="16"/>
+  <object id="135" gid="3231" x="3980.5" y="180" width="12" height="16"/>
+  <object id="136" gid="3231" x="3999.5" y="163.5" width="12" height="16"/>
+  <object id="137" gid="3231" x="4092" y="192.5" width="12" height="16"/>
+  <object id="138" gid="3231" x="4076.5" y="174.5" width="12" height="16"/>
+  <object id="139" gid="3231" x="4161.5" y="194.5" width="12" height="16"/>
+  <object id="140" gid="3231" x="4182" y="181.5" width="12" height="16"/>
+  <object id="141" gid="3231" x="4204" y="182.5" width="12" height="16"/>
+  <object id="142" gid="3231" x="4225" y="200.5" width="12" height="16"/>
+  <object id="145" gid="3231" x="4669" y="190" width="12" height="16"/>
+  <object id="146" gid="3231" x="4691.5" y="173.5" width="12" height="16"/>
+  <object id="147" gid="3231" x="4708.5" y="173" width="12" height="16"/>
+  <object id="148" gid="3231" x="4728.5" y="190.5" width="12" height="16"/>
+  <object id="149" gid="3231" x="4803" y="194" width="12" height="16"/>
+  <object id="150" gid="3231" x="4803.5" y="176" width="12" height="16"/>
+  <object id="151" gid="3231" x="4896" y="191.5" width="12" height="16"/>
+  <object id="152" gid="3231" x="4918" y="176.5" width="12" height="16"/>
+  <object id="153" gid="3231" x="4945" y="172" width="12" height="16"/>
+  <object id="154" gid="3231" x="5912" y="202" width="12" height="16"/>
+  <object id="155" gid="3231" x="5934" y="214" width="12" height="16"/>
+  <object id="156" gid="3231" x="5957" y="227" width="12" height="16"/>
+  <object id="157" gid="3231" x="6240" y="192" width="12" height="16"/>
+  <object id="158" gid="3231" x="6256" y="208" width="12" height="16"/>
+  <object id="159" gid="3231" x="6224" y="208" width="12" height="16"/>
+  <object id="160" gid="3231" x="6335" y="211.5" width="12" height="16"/>
+  <object id="161" gid="3231" x="6352.5" y="195" width="12" height="16"/>
+  <object id="162" gid="3231" x="6374" y="183.5" width="12" height="16"/>
+  <object id="163" gid="3231" x="6912" y="304" width="12" height="16"/>
+  <object id="164" gid="3231" x="6896" y="304" width="12" height="16"/>
+  <object id="165" gid="3231" x="6928" y="304" width="12" height="16"/>
+  <object id="166" gid="3231" x="6944" y="304" width="12" height="16"/>
+  <object id="174" gid="3231" x="6722.5" y="217" width="12" height="16"/>
+  <object id="175" gid="3231" x="6708" y="198.5" width="12" height="16"/>
+  <object id="176" gid="3231" x="6690.5" y="182.5" width="12" height="16"/>
+  <object id="177" gid="3231" x="7299" y="253.5" width="12" height="16"/>
+  <object id="178" gid="3231" x="7315" y="254" width="12" height="16"/>
+  <object id="179" gid="3231" x="7329.5" y="255" width="12" height="16"/>
+  <object id="180" gid="3231" x="7426" y="177.5" width="12" height="16"/>
+  <object id="181" gid="3231" x="7425.5" y="159.5" width="12" height="16"/>
+  <object id="182" gid="3231" x="8196.5" y="165" width="12" height="16"/>
+  <object id="183" gid="3231" x="8219" y="153.5" width="12" height="16"/>
+  <object id="184" gid="3231" x="8241.5" y="152.5" width="12" height="16"/>
+  <object id="185" gid="3231" x="8264.5" y="163.5" width="12" height="16"/>
+  <object id="186" gid="3231" x="8284" y="187.5" width="12" height="16"/>
+  <object id="187" gid="3231" x="7730" y="216.5" width="12" height="16"/>
+  <object id="188" gid="3231" x="7752" y="202.5" width="12" height="16"/>
+  <object id="189" gid="3231" x="7775" y="196.5" width="12" height="16"/>
+ </objectgroup>
+ <objectgroup id="20" name="lifeRecoverPowerUps">
+  <object id="97" gid="3230" x="2734" y="206.5" width="19" height="18"/>
+  <object id="191" gid="3230" x="4496" y="224" width="19" height="18"/>
+  <object id="192" gid="3230" x="3847.5" y="190" width="19" height="18"/>
+  <object id="193" gid="3230" x="6966.5" y="302.5" width="19" height="18"/>
+ </objectgroup>
+ <objectgroup id="21" name="checkPoint"/>
  <objectgroup id="16" name="goombas">
   <properties>
    <property name="Collision" value="1"/>

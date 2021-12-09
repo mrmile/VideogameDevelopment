@@ -5,6 +5,7 @@
 #include "Map.h"
 #include "ModulePhysics.h"
 #include "ModuleCollisions.h"
+#include "ModuleParticles.h"
 #include "Enemies.h"
 #include "ModulePlayer.h"
 #include "Window.h"
@@ -649,7 +650,7 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 		pugi::xml_node NewObject;
 		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
 		{
-			app->enemies->AddEnemy(Enemy_Type::GOOMBA, NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int() - NewObject.attribute("height").as_int());
+			app->enemies->AddEnemy(Enemy_Type::GOOMBA, NewObject.attribute("x").as_int() + NewObject.attribute("width").as_int() / 2, NewObject.attribute("y").as_int() - NewObject.attribute("height").as_int() / 2);
 		}
 	}
 
@@ -658,7 +659,34 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 		pugi::xml_node NewObject;
 		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
 		{
-			app->enemies->AddEnemy(Enemy_Type::FLYING_KOOPA, NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int() - NewObject.attribute("height").as_int());
+			app->enemies->AddEnemy(Enemy_Type::FLYING_KOOPA, NewObject.attribute("x").as_int() + NewObject.attribute("width").as_int() / 2, NewObject.attribute("y").as_int() - NewObject.attribute("height").as_int() / 2);
+		}
+	}
+
+	if (object->name == "coins")
+	{
+		pugi::xml_node NewObject;
+		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
+		{
+			app->particles->AddParticle(app->particles->coin, NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int() - NewObject.attribute("height").as_int(), Collider::COIN);
+		}
+	}
+
+	if (object->name == "lifeRecoverPowerUps")
+	{
+		pugi::xml_node NewObject;
+		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
+		{
+			app->particles->AddParticle(app->particles->lifeRecoverPowerUp, NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int() - NewObject.attribute("height").as_int(), Collider::RECOVER_LIFE_POWER_UP);
+		}
+	}
+
+	if (object->name == "checkPoint")
+	{
+		pugi::xml_node NewObject;
+		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
+		{
+			app->particles->AddParticle(app->particles->checkPoint, NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int() - NewObject.attribute("height").as_int(), Collider::CHECKPOINT);
 		}
 	}
 

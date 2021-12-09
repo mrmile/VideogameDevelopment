@@ -57,6 +57,9 @@ public:
 
 	//Template particle for explosion (example)
 	Particle enemyDefeat;
+	Particle coin;
+	Particle lifeRecoverPowerUp;
+	Particle checkPoint;
 
 private:
 	// Particles spritesheet loaded into an SDL Texture

@@ -89,6 +89,8 @@ public:
 	uint dead = 0;
 	uint damaged = 0;
 	uint halfWayPoint = 0;
+	uint coin = 0;
+	uint recoverLifePowerUp = 0;
 
 	// The player's colliders
 	Collider* collider = nullptr;
@@ -111,6 +113,7 @@ public:
 	int playerHP;
 	int invincibleDelay;
 	int playerFPS;
+	int playerScore = 0;
 
 	b2Vec2 b2VelocitySet;
 

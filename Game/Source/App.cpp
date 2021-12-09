@@ -43,9 +43,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fade = new ModuleFadeToBlack(true);
 	player = new ModulePlayer(false);
 	collisions = new ModuleCollisions(true);
-	particles = new ModuleParticles(false);
 	//enemy = new Enemy(true);
 	enemies = new Enemies(true);
+	particles = new ModuleParticles(false);
 	pathfinding = new PathFinding(false);
 
 	// Ordered for awake / Start / Update

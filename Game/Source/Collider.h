@@ -22,6 +22,9 @@ struct Collider
 		H_CB,
 		V_CB,
 		LAVA,
+		COIN,
+		RECOVER_LIFE_POWER_UP,
+		CHECKPOINT,
 
 		MAX
 	};

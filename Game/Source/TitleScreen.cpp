@@ -80,10 +80,10 @@ bool TitleScreen::Update(float dt)
 		//app->physics->Enable();
 		
 		app->map->Enable();
+		app->particles->Enable();
 		app->sceneForest->Enable();
 		app->player->Enable();
 		app->enemies->Enable();
-		app->particles->Enable();
 		app->collisions->Enable();
 
 		app->titleScreen->Disable();

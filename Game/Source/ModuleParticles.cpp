@@ -24,7 +24,6 @@ bool ModuleParticles::Start()
 	LOG("Loading particles");
 	texture = app->tex->Load("Assets/textures/particles.png");
 
-	// Explosion particle (example)
 	enemyDefeat.anim.PushBack({ 8, 16, 20, 20 });
 	enemyDefeat.anim.PushBack({ 29, 16, 20, 20 });
 	enemyDefeat.anim.PushBack({ 49, 16, 20, 20 });
@@ -34,6 +33,21 @@ bool ModuleParticles::Start()
 	enemyDefeat.speed.y = 0;
 	enemyDefeat.anim.loop = false;
 	enemyDefeat.anim.speed = 0.15f;
+
+	coin.anim.PushBack({ 13, 51, 12, 16 });
+	coin.anim.PushBack({ 33, 51, 12, 16 });
+	coin.anim.PushBack({ 53, 51, 12, 16 });
+	coin.anim.PushBack({ 73, 51, 12, 16 });
+	coin.speed.x = 0;
+	coin.speed.y = 0;
+	coin.anim.loop = true;
+	coin.anim.speed = 0.15f;
+
+	lifeRecoverPowerUp.anim.PushBack({ 51, 81, 19, 18 });
+	lifeRecoverPowerUp.speed.x = 0;
+	lifeRecoverPowerUp.speed.y = 0;
+	lifeRecoverPowerUp.anim.loop = true;
+	lifeRecoverPowerUp.anim.speed = 0.15f;
 
 	return true;
 }

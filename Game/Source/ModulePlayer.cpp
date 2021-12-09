@@ -201,6 +201,8 @@ bool ModulePlayer::Start()
 	dead = app->audio->LoadFx("Assets/audio/fx/dead.wav");
 	damaged = app->audio->LoadFx("Assets/audio/fx/Whsiup.wav");
 	halfWayPoint = app->audio->LoadFx("Assets/audio/fx/Advice.wav");
+	coin = app->audio->LoadFx("Assets/audio/fx/Coin.wav");
+	recoverLifePowerUp = app->audio->LoadFx("Assets/audio/fx/itemGet.wav");
 
 	//laserFx = app->audio->LoadFx("Assets/Fx/laser.wav");
 	//explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");
@@ -291,10 +293,6 @@ bool ModulePlayer::Update(float dt)
 	//LOG("Player %s", Player->body->GetPosition().x);
 	//LOG("Camera %s", app->render->camera.x);
 	//------------------------------------------------------------------------------------------------------------------------------------------
-	if (Player->body->GetLinearVelocity().y != 0)
-	{
-		inTheAir = true;
-	}
 	if (destroyed == false && app->sceneCastle->godMode == false && app->sceneForest->godMode == false)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
@@ -1010,6 +1008,28 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 				destroyed = true;
 
 			}
+		}
+
+		if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type == Collider::Type::RECOVER_LIFE_POWER_UP)
+		{
+			playerHP += 10;
+			if (playerHP > 100) playerHP = 100;
+			app->audio->PlayFx(recoverLifePowerUp);
+		}
+
+		if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type == Collider::Type::COIN)
+		{
+			playerScore += 5;
+			//if (playerScore > 1000) playerScore = 1000;
+			app->audio->PlayFx(coin);
+		}
+
+		if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type == Collider::Type::CHECKPOINT)
+		{
+			playerScore += 10;
+			//if (playerScore > 1000) playerScore = 1000;
+			app->audio->PlayFx(halfWayPoint);
+			app->SaveGameRequest();
 		}
 	}
 }
