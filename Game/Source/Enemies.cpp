@@ -88,6 +88,9 @@ bool Enemies::CleanUp()
 	{
 		if (enemies[i] != nullptr)
 		{
+			if (HelperQueue[i] == Enemy_Type::FLYING_KOOPA)  enemies[i]->Flying_Enemy_List.end->data->body->DestroyFixture(enemies[i]->Flying_Enemy_List.end->data->body->GetFixtureList());
+			if (HelperQueue[i] == Enemy_Type::GOOMBA)  enemies[i]->Walking_Enemy_List.end->data->body->DestroyFixture(enemies[i]->Walking_Enemy_List.end->data->body->GetFixtureList());
+
 			delete enemies[i];
 			enemies[i] = nullptr;
 		}

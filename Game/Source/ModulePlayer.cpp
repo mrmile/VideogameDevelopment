@@ -291,6 +291,10 @@ bool ModulePlayer::Update(float dt)
 	//LOG("Player %s", Player->body->GetPosition().x);
 	//LOG("Camera %s", app->render->camera.x);
 	//------------------------------------------------------------------------------------------------------------------------------------------
+	if (Player->body->GetLinearVelocity().y != 0)
+	{
+		inTheAir = true;
+	}
 	if (destroyed == false && app->sceneCastle->godMode == false && app->sceneForest->godMode == false)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)

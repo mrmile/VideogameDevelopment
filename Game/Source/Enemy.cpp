@@ -54,15 +54,22 @@ void Enemy::OnCollision(Collider* c2)
 {
 	if (enemyHit == false && EnemyCounter>2)
 	{
-		if (c2->type == Collider::Type::PLAYER_FEET)
+		if (app->player->jump == true || app->player->hover==true || app->player->inTheAir==true)
 		{
-			app->player->Player->body->ApplyLinearImpulse({ 0.0f,-150.0f }, { 0.0f,0.0f }, true);
-			enemyHit = true;
-			app->audio->PlayFx(app->enemies->enemyDestroyedFx);
-			app->particles->AddParticle(app->particles->enemyDefeat, position.x + 4, position.y + 4);
-			EnemyCounter = 0;
-			EnemyHP -= 1;
+			if (c2->type == Collider::Type::PLAYER_FEET)
+			{
+				app->player->Player->body->SetLinearVelocity({ 0.0f,0.0f });
+				if (app->player->PlayerLookingPosition == 1) app->player->currentAnimation = &app->player->jumpLeftAnim;
+				if (app->player->PlayerLookingPosition == 2) app->player->currentAnimation = &app->player->jumpRightAnim;
+				app->player->Player->body->ApplyLinearImpulse({ 0.0f,-150.0f }, { 0.0f,0.0f }, true);
+				enemyHit = true;
+				app->audio->PlayFx(app->enemies->enemyDestroyedFx);
+				app->particles->AddParticle(app->particles->enemyDefeat, position.x + 4, position.y + 4);
+				EnemyCounter = 0;
+				EnemyHP -= 1;
+			}
 		}
+		
 	}
 	enemyHit = false;
 }
