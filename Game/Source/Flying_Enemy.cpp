@@ -85,6 +85,10 @@ void Flying_Enemy::Update(float dt)
 		Flying_Enemy_List.end->data->body->DestroyFixture(Flying_Enemy_List.end->data->body->GetFixtureList());
 		SetToDelete();
 	}
+	if (app->enemies->KoopaLoading == true)
+	{
+		Flying_Enemy_List.end->data->body->DestroyFixture(Flying_Enemy_List.end->data->body->GetFixtureList());
+	}
 	
 
 	// Call to the base class. It must be called at the end

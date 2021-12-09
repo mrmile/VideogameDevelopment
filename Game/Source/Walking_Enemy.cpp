@@ -79,7 +79,10 @@ void Walking_Enemy::Update(float dt)
 		Walking_Enemy_List.end->data->body->DestroyFixture(Walking_Enemy_List.end->data->body->GetFixtureList());
 		SetToDelete();
 	}
-		
+	if (app->enemies->GoombaLoading == true)
+	{
+		Walking_Enemy_List.end->data->body->DestroyFixture(Walking_Enemy_List.end->data->body->GetFixtureList());
+	}
 	
 	// Call to the base class. It must be called at the end
 	// It will update the collider depending on the position

@@ -69,6 +69,9 @@ public:
 
 	bool AlreadySpawned = false;
 
+	bool KoopaLoading = false;
+	bool GoombaLoading = false;
+
 
 private:
 	// Spawns a new enemy using the data from the queue
@@ -77,6 +80,8 @@ private:
 private:
 	// A queue with all spawn points information
 	EnemySpawnpoint spawnQueue[MAX_ENEMIES];
+
+	Enemy_Type HelperQueue[MAX_ENEMIES];
 
 	// All spawned enemies in the scene
 	Enemy* enemies[MAX_ENEMIES] = { nullptr };

@@ -6,6 +6,9 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "Window.h"
+#include "ModuleCollisions.h"
+#include "Collider.h"
+#include "ModulePhysics.h"
 
 #include "Enemy.h"
 #include "Flying_Enemy.h"
@@ -124,6 +127,7 @@ void Enemies::HandleEnemiesSpawn()
 			if ((spawnQueue[i].x * 1 < app->render->camera.x + (app->render->camera.w * 1) + SPAWN_MARGIN) || (spawnQueue[i].x * 1 > app->render->camera.x - (app->render->camera.w * 1) - SPAWN_MARGIN) || (spawnQueue[i].y * 1 < app->render->camera.y - (app->render->camera.h * 1) - SPAWN_MARGIN))
 			{
 				SpawnEnemy(spawnQueue[i]);
+				HelperQueue[i] = spawnQueue[i].type;
 				spawnQueue[i].type = Enemy_Type::NO_TYPE; // Removing the newly spawned enemy from the queue
 			}
 		}
@@ -174,26 +178,39 @@ void Enemies::SpawnEnemy(const EnemySpawnpoint& info)
 
 bool Enemies::LoadState(pugi::xml_node& data)
 {
+	pugi::xml_node enemypos = data.child("position");
+
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (enemies[i] != nullptr)
 		{
-			enemies[i]->position.x = data.child("position").attribute("x").as_int();
-			enemies[i]->position.y = data.child("position").attribute("y").as_int();
+			enemies[i]->position.x = enemypos.attribute("x").as_int();
+			enemies[i]->position.y = enemypos.attribute("y").as_int();
+			
 
-			return true;
+			enemies[i]->SetToDelete();
+			
+			if (HelperQueue[i] == Enemy_Type::FLYING_KOOPA)  enemies[i]->Flying_Enemy_List.end->data->body->DestroyFixture(enemies[i]->Flying_Enemy_List.end->data->body->GetFixtureList());
+			if (HelperQueue[i] == Enemy_Type::GOOMBA)  enemies[i]->Walking_Enemy_List.end->data->body->DestroyFixture(enemies[i]->Walking_Enemy_List.end->data->body->GetFixtureList());
+
+			enemies[i]->GetCollider();
+			AddEnemy(HelperQueue[i], enemies[i]->position.x+28/2,enemies[i]->position.y+33/2);
+			
+			enemypos=enemypos.next_sibling();
 		}
 	}
-	
+
+	return true;
 }
 
 bool Enemies::SaveState(pugi::xml_node& data) const
 {
-	pugi::xml_node enemypos = data.append_child("position");
+	//pugi::xml_node enemypos = data.append_child("position");
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (enemies[i] != nullptr)
 		{
+			pugi::xml_node enemypos = data.append_child("position");
 			enemypos.append_attribute("x") = enemies[i]->position.x;
 			enemypos.append_attribute("y") = enemies[i]->position.y;
 			enemypos.next_sibling("position");
