@@ -194,6 +194,8 @@ bool SceneCastle::PostUpdate()
 		app->enemies->Disable();
 		app->particles->Disable();
 		//app->physics->Disable();
+
+		//playerRestart = true;
 	}
 
 	return ret;

@@ -799,9 +799,10 @@ bool ModulePlayer::PostUpdate()
 
 		if (app->sceneCastle->sceneCastle == true)
 		{
-			position = app->map->MapToWorld(5, 21);
-			app->render->camera.x = app->map->MapToWorld(0, -15).x;
-			app->render->camera.y = app->map->MapToWorld(0, -15).y;
+			if (checkPointReached == false) position = position = app->map->MapToWorld(5, 21); //Change values (later)
+			if (checkPointReached == true) position = position = app->map->MapToWorld(5, 21); //Change values (later)
+			//app->render->camera.x = app->map->MapToWorld(0, -15).x;
+			//app->render->camera.y = app->map->MapToWorld(0, -15).y;
 
 			Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
 
@@ -821,9 +822,11 @@ bool ModulePlayer::PostUpdate()
 
 		if (app->sceneForest->sceneForest == true)
 		{
-			position = app->map->MapToWorld(32, 14);
-			app->render->camera.x = app->map->MapToWorld(-87, -12).x;
-			app->render->camera.y = app->map->MapToWorld(-87, -12).y;
+			if (checkPointReached == false) position = app->map->MapToWorld(32, 14); //Change values (later)
+			if (checkPointReached == true) position = app->map->MapToWorld(32, 14); //Change values (later)
+
+			//app->render->camera.x = app->map->MapToWorld(-87, -12).x;
+			//app->render->camera.y = app->map->MapToWorld(-87, -12).y;
 
 			Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
 
