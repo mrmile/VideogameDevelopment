@@ -13,6 +13,7 @@
 #include "Enemy.h"
 #include "Flying_Enemy.h"
 #include "Walking_Enemy.h"
+#include "Flying_Enemy_2.h"
 
 #define SPAWN_MARGIN 50
 
@@ -89,6 +90,7 @@ bool Enemies::CleanUp()
 		if (enemies[i] != nullptr)
 		{
 			if (HelperQueue[i] == Enemy_Type::FLYING_KOOPA)  enemies[i]->Flying_Enemy_List.end->data->body->DestroyFixture(enemies[i]->Flying_Enemy_List.end->data->body->GetFixtureList());
+			if (HelperQueue[i] == Enemy_Type::SHYGUY)  enemies[i]->Flying_Enemy_2_List.end->data->body->DestroyFixture(enemies[i]->Flying_Enemy_2_List.end->data->body->GetFixtureList());
 			if (HelperQueue[i] == Enemy_Type::GOOMBA)  enemies[i]->Walking_Enemy_List.end->data->body->DestroyFixture(enemies[i]->Walking_Enemy_List.end->data->body->GetFixtureList());
 
 			delete enemies[i];
@@ -170,6 +172,8 @@ void Enemies::SpawnEnemy(const EnemySpawnpoint& info)
 			case Enemy_Type::GOOMBA:
 				enemies[i] = new Walking_Enemy(info.x, info.y);
 				break;
+			case Enemy_Type::SHYGUY:
+				enemies[i] = new Flying_Enemy_2(info.x, info.y);
 
 			}
 			enemies[i]->texture = texture;
@@ -182,6 +186,7 @@ void Enemies::SpawnEnemy(const EnemySpawnpoint& info)
 bool Enemies::LoadState(pugi::xml_node& data)
 {
 	pugi::xml_node enemypos = data.child("position");
+	pugi::xml_node enemyAtributes = data.child("FlyingTimer");
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
@@ -189,17 +194,20 @@ bool Enemies::LoadState(pugi::xml_node& data)
 		{
 			enemies[i]->position.x = enemypos.attribute("x").as_int();
 			enemies[i]->position.y = enemypos.attribute("y").as_int();
-			
+			enemies[i]->FlyingTimer = enemyAtributes.attribute("timer").as_int();
+			enemies[i]->EnemyHP = enemyAtributes.attribute("enemyHp").as_int();
 
 			enemies[i]->SetToDelete();
 			
-			if (HelperQueue[i] == Enemy_Type::FLYING_KOOPA)  enemies[i]->Flying_Enemy_List.end->data->body->DestroyFixture(enemies[i]->Flying_Enemy_List.end->data->body->GetFixtureList());
-			if (HelperQueue[i] == Enemy_Type::GOOMBA)  enemies[i]->Walking_Enemy_List.end->data->body->DestroyFixture(enemies[i]->Walking_Enemy_List.end->data->body->GetFixtureList());
+			if (HelperQueue[i] == Enemy_Type::FLYING_KOOPA)  	enemies[i]->Flying_Enemy_List.end->data->body->DestroyFixture(enemies[i]->Flying_Enemy_List.end->data->body->GetFixtureList());
+			if (HelperQueue[i] == Enemy_Type::SHYGUY)  	enemies[i]->Flying_Enemy_2_List.end->data->body->DestroyFixture(enemies[i]->Flying_Enemy_2_List.end->data->body->GetFixtureList());
+			if (HelperQueue[i] == Enemy_Type::GOOMBA)  	enemies[i]->Walking_Enemy_List.end->data->body->DestroyFixture(enemies[i]->Walking_Enemy_List.end->data->body->GetFixtureList());
 
 			enemies[i]->GetCollider();
 			AddEnemy(HelperQueue[i], enemies[i]->position.x+28/2,enemies[i]->position.y+33/2);
 			
 			enemypos=enemypos.next_sibling();
+			enemyAtributes = enemyAtributes.next_sibling();
 		}
 	}
 
@@ -213,9 +221,14 @@ bool Enemies::SaveState(pugi::xml_node& data) const
 	{
 		if (enemies[i] != nullptr)
 		{
+			
 			pugi::xml_node enemypos = data.append_child("position");
+			pugi::xml_node enemyAtributes = data.append_child("atributes");
 			enemypos.append_attribute("x") = enemies[i]->position.x;
 			enemypos.append_attribute("y") = enemies[i]->position.y;
+			enemyAtributes.append_attribute("timer") = enemies[i]->FlyingTimer;
+			enemyAtributes.append_attribute("enemyHp") = enemies[i]->EnemyHP;
+			enemyAtributes.next_sibling("atributes");
 			enemypos.next_sibling("position");
 		}
 	}

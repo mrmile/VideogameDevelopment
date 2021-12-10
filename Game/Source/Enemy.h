@@ -58,9 +58,12 @@ public:
 
 	//LIST OF ENEMY BODIES
 	List<PhysBody*> Flying_Enemy_List;
+	List<PhysBody*> Flying_Enemy_2_List;
 	List<PhysBody*> Walking_Enemy_List;
 	bool enemyHit = false;
 	int EnemyCounter = 0;
+
+	int FlyingTimer = 0;
 	//Test for hp implementing
 
 	//wall Collision

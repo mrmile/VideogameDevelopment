@@ -854,6 +854,9 @@ bool ModulePlayer::LoadState(pugi::xml_node& data)
 	position.x = data.child("position").attribute("x").as_int();
 	position.y = data.child("position").attribute("y").as_int();
 
+	score = data.child("atributes").attribute("score").as_int();
+	playerHP = data.child("atributes").attribute("hp").as_int();
+
 	b2Vec2 playerLoadPosition; // No hace falta
 	playerLoadPosition.x = (position.x);
 	playerLoadPosition.y = (position.y);
@@ -878,9 +881,12 @@ bool ModulePlayer::LoadState(pugi::xml_node& data)
 bool ModulePlayer::SaveState(pugi::xml_node& data) const
 {
 	pugi::xml_node playerpos = data.append_child("position");
+	pugi::xml_node playerAtributes = data.append_child("atributes");
 
 	playerpos.append_attribute("x") = position.x;
 	playerpos.append_attribute("y") = position.y;
+	playerAtributes.append_attribute("score") = score;
+	playerAtributes.append_attribute("hp") = playerHP;
 
 	return true;
 }

@@ -10,6 +10,7 @@ enum class Enemy_Type
 	NO_TYPE,
 	FLYING_KOOPA,
 	GOOMBA,
+	SHYGUY,
 
 };
 
@@ -71,6 +72,7 @@ public:
 
 	bool KoopaLoading = false;
 	bool GoombaLoading = false;
+
 
 	// The audio fx for destroying an enemy
 	int enemyDestroyedFx = 0;

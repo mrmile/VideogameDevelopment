@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="1200" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="22" nextobjectid="205">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="1200" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="23" nextobjectid="217">
  <tileset firstgid="1" name="forest_tileset" tilewidth="16" tileheight="16" spacing="1" tilecount="518" columns="37">
   <image source="forest_tileset.png" width="628" height="237"/>
  </tileset>
@@ -180206,6 +180206,23 @@
   <object id="202" gid="3229" x="7964.67" y="246.667" width="36" height="36"/>
   <object id="203" gid="3229" x="7084.67" y="242" width="36" height="36"/>
   <object id="204" gid="3229" x="5175.33" y="282" width="36" height="36"/>
+ </objectgroup>
+ <objectgroup id="22" name="Shy_guys">
+  <properties>
+   <property name="Collision" value="1"/>
+   <property name="Draw" value="0"/>
+   <property name="Parallax" value="1"/>
+  </properties>
+  <object id="205" gid="3227" x="822" y="148.667" width="16" height="27"/>
+  <object id="206" gid="3227" x="1085.33" y="147.333" width="16" height="27"/>
+  <object id="207" gid="3227" x="1706" y="137.333" width="16" height="27"/>
+  <object id="208" gid="3227" x="2193.33" y="123.333" width="16" height="27"/>
+  <object id="209" gid="3227" x="2968.67" y="100" width="16" height="27"/>
+  <object id="210" gid="3227" x="3614" y="132.667" width="16" height="27"/>
+  <object id="211" gid="3227" x="3859.33" y="139.333" width="16" height="27"/>
+  <object id="212" gid="3227" x="4185.33" y="114" width="16" height="27"/>
+  <object id="213" gid="3227" x="4544" y="176.667" width="16" height="27"/>
+  <object id="214" gid="3227" x="4834.67" y="133.333" width="16" height="27"/>
  </objectgroup>
  <objectgroup id="4" name="collisionChains">
   <properties>

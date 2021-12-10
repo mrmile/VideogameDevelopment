@@ -82,6 +82,9 @@
     <ClCompile Include="Source\Particle.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Flying_Enemy_2.cpp">
+      <Filter>imported_modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -191,6 +194,9 @@
     </ClInclude>
     <ClInclude Include="Source\Particle.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Flying_Enemy_2.h">
+      <Filter>imported_modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
