@@ -39,7 +39,6 @@ Flying_Enemy_2::Flying_Enemy_2(int x, int y) : Enemy(x, y)
 	
 
 	
-	
 }
 
 void Flying_Enemy_2::Update(float dt)

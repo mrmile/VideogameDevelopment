@@ -42,7 +42,7 @@ Walking_Enemy::Walking_Enemy(int x, int y) : Enemy(x, y)
 	Walking_Enemy_List.add(app->physics->CreateWalkingEnemyBox(position.x, position.y, 20, 20));
 	//Walking_Enemy_List.end->data->listener = this;
 
-	
+;
 	
 }
 

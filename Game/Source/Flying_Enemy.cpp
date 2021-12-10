@@ -40,7 +40,7 @@ Flying_Enemy::Flying_Enemy(int x, int y) : Enemy(x, y)
 	Flying_Enemy_List.add(app->physics->CreateFlyingEnemyBox(position.x, position.y, 38, 35));
 	
 
-	
+
 	
 }
 

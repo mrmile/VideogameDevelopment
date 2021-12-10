@@ -64,9 +64,7 @@ public:
 	int EnemyCounter = 0;
 
 	int FlyingTimer = 0;
-	//Test for hp implementing
-
-	//wall Collision
+	
 
 	// A flag for the enemy removal. Important! We do not delete objects instantly
 	bool pendingToDelete = false;
@@ -81,6 +79,7 @@ protected:
 	// The enemy's collider
 	Collider* collider = nullptr;
 
+	
 	// Original spawn position. Stored for movement calculations
 	iPoint spawnPos;
 };
