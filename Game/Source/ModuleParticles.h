@@ -60,6 +60,7 @@ public:
 	Particle coin;
 	Particle lifeRecoverPowerUp;
 	Particle checkPoint;
+	Particle checkPointGrabbed;
 
 private:
 	// Particles spritesheet loaded into an SDL Texture

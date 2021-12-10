@@ -49,6 +49,23 @@ bool ModuleParticles::Start()
 	lifeRecoverPowerUp.anim.loop = true;
 	lifeRecoverPowerUp.anim.speed = 0.15f;
 
+	checkPoint.anim.PushBack({ 14, 128, 22, 30 });
+	checkPoint.anim.PushBack({ 36, 128, 22, 30 });
+	checkPoint.anim.PushBack({ 58, 128, 22, 30 });
+	checkPoint.anim.PushBack({ 80, 128, 22, 30 });
+	checkPoint.anim.PushBack({ 103, 128, 22, 30 });
+	checkPoint.speed.x = 0;
+	checkPoint.speed.y = 0;
+	checkPoint.anim.loop = true;
+	checkPoint.anim.speed = 0.15f;
+
+	checkPointGrabbed.anim.PushBack({ 137, 129, 22, 30 });
+	checkPointGrabbed.anim.PushBack({ 157, 129, 22, 30 });
+	checkPointGrabbed.speed.x = 0;
+	checkPointGrabbed.speed.y = 0;
+	checkPointGrabbed.anim.loop = true;
+	checkPointGrabbed.anim.speed = 0.15f;
+
 	return true;
 }
 
