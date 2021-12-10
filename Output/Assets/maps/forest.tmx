@@ -134769,8 +134769,8 @@
    <tile/>
    <tile gid="179"/>
    <tile gid="180"/>
-   <tile/>
-   <tile/>
+   <tile gid="17"/>
+   <tile gid="18"/>
    <tile/>
    <tile/>
    <tile gid="1"/>
@@ -135960,8 +135960,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="17"/>
-   <tile gid="18"/>
+   <tile/>
+   <tile/>
    <tile gid="9"/>
    <tile gid="10"/>
    <tile gid="3"/>
@@ -135969,8 +135969,8 @@
    <tile gid="3"/>
    <tile gid="364"/>
    <tile gid="3"/>
-   <tile gid="4"/>
-   <tile gid="5"/>
+   <tile gid="91"/>
+   <tile gid="92"/>
    <tile gid="6"/>
    <tile/>
    <tile gid="38"/>
@@ -137160,8 +137160,8 @@
    <tile gid="4"/>
    <tile gid="3"/>
    <tile gid="364"/>
-   <tile gid="91"/>
-   <tile gid="92"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
    <tile gid="46"/>
    <tile gid="47"/>
    <tile gid="40"/>
@@ -180177,12 +180177,12 @@
  </objectgroup>
  <objectgroup id="20" name="lifeRecoverPowerUps">
   <object id="97" gid="3230" x="2734" y="206.5" width="19" height="18"/>
-  <object id="191" gid="3230" x="4496" y="224" width="19" height="18"/>
+  <object id="191" gid="3230" x="4310" y="238.5" width="19" height="18"/>
   <object id="192" gid="3230" x="3847.5" y="190" width="19" height="18"/>
   <object id="193" gid="3230" x="6966.5" y="302.5" width="19" height="18"/>
  </objectgroup>
  <objectgroup id="21" name="checkPoint">
-  <object id="217" gid="3232" x="4313.5" y="233" width="22" height="30"/>
+  <object id="217" gid="3232" x="4435.5" y="220" width="22" height="30"/>
  </objectgroup>
  <objectgroup id="16" name="goombas">
   <properties>
@@ -180227,10 +180227,9 @@
   <object id="208" gid="3227" x="2193.33" y="123.333" width="16" height="27"/>
   <object id="209" gid="3227" x="2968.67" y="100" width="16" height="27"/>
   <object id="210" gid="3227" x="3614" y="132.667" width="16" height="27"/>
-  <object id="211" gid="3227" x="3859.33" y="139.333" width="16" height="27"/>
-  <object id="212" gid="3227" x="4185.33" y="114" width="16" height="27"/>
-  <object id="213" gid="3227" x="4544" y="176.667" width="16" height="27"/>
-  <object id="214" gid="3227" x="4834.67" y="133.333" width="16" height="27"/>
+  <object id="211" gid="3227" x="3791.33" y="279.833" width="16" height="27"/>
+  <object id="212" gid="3227" x="4140.83" y="216" width="16" height="27"/>
+  <object id="214" gid="3227" x="4927.67" y="215.333" width="16" height="27"/>
  </objectgroup>
  <objectgroup id="4" name="collisionChains">
   <properties>

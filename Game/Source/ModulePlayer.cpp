@@ -226,6 +226,7 @@ bool ModulePlayer::Start()
 
 	destroyed = false;
 	deletePlayer = false;
+	checkPointReached = false;
 
 	collider = app->collisions->AddCollider({ position.x + 5, position.y + 3, 28, 28 }, Collider::Type::PLAYER, this); //{ position.x + 5, position.y + 3, 28, 33 
 	colliderFeet = app->collisions->AddCollider({ position.x + 5, position.y + 28, 18, 5 }, Collider::Type::PLAYER_FEET, this);
@@ -1040,6 +1041,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			//if (playerScore > 1000) playerScore = 1000;
 			app->audio->PlayFx(halfWayPoint);
 			app->SaveGameRequest();
+			checkPointReached = true;
 		}
 	}
 }

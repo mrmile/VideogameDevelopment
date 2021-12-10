@@ -114,6 +114,8 @@ public:
 	int invincibleDelay;
 	int playerFPS;
 	int playerScore = 0;
+	bool playerWin;
+	bool checkPointReached;
 
 	b2Vec2 b2VelocitySet;
 
