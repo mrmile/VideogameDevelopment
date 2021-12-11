@@ -66,6 +66,51 @@ bool ModuleParticles::Start()
 	checkPointGrabbed.anim.loop = true;
 	checkPointGrabbed.anim.speed = 0.15f;
 
+	goalPool.anim.PushBack({ 11, 170, 34, 62 });
+	goalPool.anim.PushBack({ 46, 170, 34, 62 });
+	goalPool.anim.PushBack({ 81, 170, 34, 62 });
+	goalPool.anim.PushBack({ 116, 170, 34, 62 });
+	goalPool.anim.PushBack({ 151, 170, 34, 62 });
+	goalPool.anim.PushBack({ 186, 170, 34, 62 });
+	goalPool.anim.PushBack({ 221, 170, 34, 62 });
+	goalPool.speed.x = 0;
+	goalPool.speed.y = 0;
+	goalPool.anim.loop = true;
+	goalPool.anim.speed = 0.15f;
+
+	firework1.anim.PushBack({ 350, 17, 40, 35 });
+	firework1.anim.PushBack({ 351, 48, 39, 30 });
+	firework1.anim.PushBack({ 354, 70, 32, 35 });
+	firework1.anim.PushBack({ 380, 70, 40, 35 });
+	firework1.anim.PushBack({ 420, 70, 40, 35 });
+	firework1.anim.PushBack({ 420, 70, 40, 35 });
+	firework1.speed.x = 0;
+	firework1.speed.y = 0;
+	firework1.anim.loop = false;
+	firework1.anim.speed = 0.15f;
+
+	firework2.anim.PushBack({ 350, 17, 40, 35 });
+	firework2.anim.PushBack({ 351, 48, 39, 30 });
+	firework2.anim.PushBack({ 354, 104, 32, 35 });
+	firework2.anim.PushBack({ 380, 104, 40, 35 });
+	firework2.anim.PushBack({ 420, 104, 40, 35 });
+	firework2.anim.PushBack({ 460, 104, 40, 35 });
+	firework2.speed.x = 0;
+	firework2.speed.y = 0;
+	firework2.anim.loop = false;
+	firework2.anim.speed = 0.15f;
+
+	firework3.anim.PushBack({ 350, 17, 40, 35 });
+	firework3.anim.PushBack({ 351, 48, 39, 30 });
+	firework3.anim.PushBack({ 354, 138, 32, 35 });
+	firework3.anim.PushBack({ 380, 138, 40, 35 });
+	firework3.anim.PushBack({ 420, 138, 40, 35 });
+	firework3.anim.PushBack({ 460, 138, 40, 35 });
+	firework3.speed.x = 0;
+	firework3.speed.y = 0;
+	firework3.anim.loop = false;
+	firework3.anim.speed = 0.15f;
+
 	return true;
 }
 

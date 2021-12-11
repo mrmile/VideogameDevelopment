@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.5" orientation="orthogonal" renderorder="right-down" width="1200" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="23" nextobjectid="218">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="1200" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="24" nextobjectid="219">
  <tileset firstgid="1" name="forest_tileset" tilewidth="16" tileheight="16" spacing="1" tilecount="518" columns="37">
   <image source="forest_tileset.png" width="628" height="237"/>
  </tileset>
@@ -46,6 +46,12 @@
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image width="22" height="30" source="object_img_data/checkPoint.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="3233" name="goalPool" tilewidth="34" tileheight="62" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="34" height="62" source="object_img_data/goalPool.png"/>
   </tile>
  </tileset>
  <layer id="3" name="bg_C" width="1200" height="25">
@@ -136214,8 +136220,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="17"/>
+   <tile gid="18"/>
    <tile gid="179"/>
    <tile gid="180"/>
    <tile/>
@@ -137414,8 +137420,8 @@
    <tile/>
    <tile/>
    <tile gid="1"/>
-   <tile gid="2"/>
-   <tile gid="3"/>
+   <tile gid="91"/>
+   <tile gid="92"/>
    <tile gid="364"/>
    <tile gid="11"/>
    <tile gid="12"/>
@@ -180184,6 +180190,9 @@
  <objectgroup id="21" name="checkPoint">
   <object id="217" gid="3232" x="4435.5" y="220" width="22" height="30"/>
  </objectgroup>
+ <objectgroup id="23" name="flagPool">
+  <object id="218" gid="3233" x="8659.34" y="211.667" width="34" height="62"/>
+ </objectgroup>
  <objectgroup id="16" name="goombas">
   <properties>
    <property name="Collision" value="1"/>
@@ -180221,15 +180230,12 @@
    <property name="Draw" value="0"/>
    <property name="Parallax" value="1"/>
   </properties>
-  <object id="205" gid="3227" x="822" y="148.667" width="16" height="27"/>
-  <object id="206" gid="3227" x="1085.33" y="147.333" width="16" height="27"/>
-  <object id="207" gid="3227" x="1706" y="137.333" width="16" height="27"/>
-  <object id="208" gid="3227" x="2193.33" y="123.333" width="16" height="27"/>
-  <object id="209" gid="3227" x="2968.67" y="100" width="16" height="27"/>
-  <object id="210" gid="3227" x="3614" y="132.667" width="16" height="27"/>
-  <object id="211" gid="3227" x="3791.33" y="279.833" width="16" height="27"/>
-  <object id="212" gid="3227" x="4140.83" y="216" width="16" height="27"/>
-  <object id="214" gid="3227" x="4927.67" y="215.333" width="16" height="27"/>
+  <object id="206" gid="3227" x="1224.66" y="95.333" width="16" height="27"/>
+  <object id="207" gid="3227" x="1814" y="122" width="16" height="27"/>
+  <object id="208" gid="3227" x="2240.66" y="138" width="16" height="27"/>
+  <object id="209" gid="3227" x="2987.34" y="149.333" width="16" height="27"/>
+  <object id="210" gid="3227" x="3690.67" y="198.667" width="16" height="27"/>
+  <object id="212" gid="3227" x="4112.16" y="223.333" width="16" height="27"/>
  </objectgroup>
  <objectgroup id="4" name="collisionChains">
   <properties>

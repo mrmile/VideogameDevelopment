@@ -194,7 +194,7 @@ bool SceneForest::PostUpdate()
 		playerRestart = true;
 	}
 
-	if (app->player->winDelay > 210 && app->player->winDelay <= 211)
+	if (app->player->winDelay > 270 && app->player->winDelay <= 271)
 	{
 		app->titleScreen->Enable();
 

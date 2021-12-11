@@ -706,6 +706,18 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 		}
 	}
 
+	if (object->name == "flagPool")
+	{
+		pugi::xml_node NewObject;
+		for (NewObject = node.child("object"); NewObject && ret; NewObject = NewObject.next_sibling("object"))
+		{
+			app->particles->AddParticle(app->particles->goalPool, NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int() - NewObject.attribute("height").as_int(), Collider::GOAL_POINT);
+
+			goalPoolPos.x = NewObject.attribute("x").as_int();
+			goalPoolPos.y = NewObject.attribute("y").as_int();
+		}
+	}
+
 
 
 	// Deffine level boundaries

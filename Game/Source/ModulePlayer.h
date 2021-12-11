@@ -92,6 +92,7 @@ public:
 	uint coin = 0;
 	uint recoverLifePowerUp = 0;
 	uint levelClear = 0;
+	uint firework = 0;
 
 	// The player's colliders
 	Collider* collider = nullptr;

@@ -205,6 +205,7 @@ bool ModulePlayer::Start()
 	coin = app->audio->LoadFx("Assets/audio/fx/Coin.wav");
 	recoverLifePowerUp = app->audio->LoadFx("Assets/audio/fx/itemGet.wav");
 	levelClear = app->audio->LoadFx("Assets/audio/fx/levelClear.wav");
+	firework = app->audio->LoadFx("Assets/audio/fx/fireworks.wav");
 
 	//laserFx = app->audio->LoadFx("Assets/Fx/laser.wav");
 	//explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");
@@ -259,6 +260,8 @@ bool ModulePlayer::Start()
 
 	jump = false;
 	createPlayer = false;
+
+	playerWin = false;
 
 	layerZeroReveal = false;
 
@@ -717,7 +720,7 @@ bool ModulePlayer::Update(float dt)
 		if (winDelay < 1)
 		{
 			//Mix_PauseMusic();
-			app->audio->PlayFx(levelClear);
+			app->audio->PlayFx(firework);
 		}
 		if (PlayerLookingPosition == 1)
 		{
@@ -1075,6 +1078,21 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			app->audio->PlayFx(halfWayPoint);
 			app->SaveGameRequest();
 			checkPointReached = true;
+		}
+
+		if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type == Collider::Type::GOAL_POINT)
+		{
+			//playerScore += 10;
+			//if (playerScore > 1000) playerScore = 1000;
+			app->audio->PlayFx(levelClear);
+			app->SaveGameRequest();
+			playerWin = true;
+
+			app->particles->AddParticle(app->particles->enemyDefeat, app->map->goalPoolPos.x, app->map->goalPoolPos.y - 5, Collider::NONE);
+			app->particles->AddParticle(app->particles->firework1, app->map->goalPoolPos.x + 6, app->map->goalPoolPos.y - 8, Collider::NONE, 6);
+			app->particles->AddParticle(app->particles->firework2, app->map->goalPoolPos.x - 10, app->map->goalPoolPos.y + 4, Collider::NONE, 12);
+			app->particles->AddParticle(app->particles->firework3, app->map->goalPoolPos.x + 2, app->map->goalPoolPos.y - 6, Collider::NONE, 18);
+
 		}
 	}
 }

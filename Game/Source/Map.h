@@ -207,6 +207,7 @@ public:
 
 	iPoint playerStartPos;
 	iPoint playerCheckPointPos;
+	iPoint goalPoolPos;
 
 private:
 	List<PhysBody*> Collisions;

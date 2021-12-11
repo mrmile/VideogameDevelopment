@@ -61,6 +61,10 @@ public:
 	Particle lifeRecoverPowerUp;
 	Particle checkPoint;
 	Particle checkPointGrabbed;
+	Particle goalPool;
+	Particle firework1;
+	Particle firework2;
+	Particle firework3;
 
 private:
 	// Particles spritesheet loaded into an SDL Texture

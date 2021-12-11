@@ -25,6 +25,7 @@ struct Collider
 		COIN,
 		RECOVER_LIFE_POWER_UP,
 		CHECKPOINT,
+		GOAL_POINT,
 
 		MAX
 	};
