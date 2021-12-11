@@ -140,6 +140,12 @@ bool SceneForest::Update(float dt)
 		//app->audio->PlayFx(dead);
 	}
 
+	if (app->player->playerWin == true && app->player->winDelay < 1)
+	{
+		Mix_PauseMusic();
+		//app->audio->PlayFx(levelClear);
+	}
+
 	// L03: DONE 7: Set the window title with map/tileset info
 	/*
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
@@ -179,6 +185,16 @@ bool SceneForest::PostUpdate()
 	if (app->render->camera.x > -app->map->levelAreaLeftBound * 3) app->render->camera.x = -app->map->levelAreaLeftBound * 3;
 
 	if (app->player->destroyedDelay > 210 && app->player->destroyedDelay <= 211)
+	{
+		//Mix_ResumeMusic();
+		//Mix_SetMusicPosition(0);
+		// Load music
+		//app->audio->PlayMusic("Assets/audio/music/jungle.ogg");
+
+		playerRestart = true;
+	}
+
+	if (app->player->winDelay > 210 && app->player->winDelay <= 211)
 	{
 		app->titleScreen->Enable();
 

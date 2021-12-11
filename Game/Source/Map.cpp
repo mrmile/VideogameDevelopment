@@ -586,8 +586,11 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 		{
 			//app->player->position = app->map->MapToWorld(NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int());
 
-			app->player->position.x = NewObject.attribute("x").as_int();
-			app->player->position.y = NewObject.attribute("y").as_int();
+			playerStartPos.x = NewObject.attribute("x").as_int();
+			playerStartPos.y = NewObject.attribute("y").as_int();
+
+			app->player->position.x = playerStartPos.x;
+			app->player->position.y = playerStartPos.y;
 		}
 	}
 
@@ -697,6 +700,9 @@ bool Map::LoadObject(pugi::xml_node& node, MapObjects* object)
 		{
 			app->particles->AddParticle(app->particles->checkPointGrabbed, NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int() - NewObject.attribute("height").as_int(), Collider::NONE);
 			app->particles->AddParticle(app->particles->checkPoint, NewObject.attribute("x").as_int(), NewObject.attribute("y").as_int() - NewObject.attribute("height").as_int(), Collider::CHECKPOINT);
+
+			playerCheckPointPos.x = NewObject.attribute("x").as_int();
+			playerCheckPointPos.y = NewObject.attribute("y").as_int();
 		}
 	}
 

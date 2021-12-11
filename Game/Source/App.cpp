@@ -228,6 +228,9 @@ void App::FinishUpdate()
 	if (app->player->deletePlayer == true) // Usar solo esto menos en el Load/Save Game
 	{
 		app->player->Player->body->DestroyFixture(app->player->Player->body->GetFixtureList());
+
+		if(app->sceneCastle->playerRestart == true || app->sceneForest->playerRestart == true) app->player->Player = app->physics->CreatePlayerBox(app->player->position.x, app->player->position.y, 28, 33);
+
 		app->player->deletePlayer = false;
 	}
 

@@ -205,6 +205,9 @@ public:
 	int levelAreaLeftBound = 0;
 	int levelAreaRightBound = 0;
 
+	iPoint playerStartPos;
+	iPoint playerCheckPointPos;
+
 private:
 	List<PhysBody*> Collisions;
     SString folder;

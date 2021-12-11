@@ -91,6 +91,7 @@ public:
 	uint halfWayPoint = 0;
 	uint coin = 0;
 	uint recoverLifePowerUp = 0;
+	uint levelClear = 0;
 
 	// The player's colliders
 	Collider* collider = nullptr;
@@ -115,6 +116,7 @@ public:
 	int playerFPS;
 	int playerScore = 0;
 	bool playerWin;
+	int winDelay;
 	bool checkPointReached;
 
 	b2Vec2 b2VelocitySet;

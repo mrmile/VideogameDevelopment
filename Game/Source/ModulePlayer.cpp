@@ -18,6 +18,7 @@
 #include "Map.h"
 #include "ModulePhysics.h"
 #include "ModuleCollisions.h"
+#include "ModuleParticles.h"
 #include "Audio.h"
 #include "TitleScreen.h"
 
@@ -203,6 +204,7 @@ bool ModulePlayer::Start()
 	halfWayPoint = app->audio->LoadFx("Assets/audio/fx/Advice.wav");
 	coin = app->audio->LoadFx("Assets/audio/fx/Coin.wav");
 	recoverLifePowerUp = app->audio->LoadFx("Assets/audio/fx/itemGet.wav");
+	levelClear = app->audio->LoadFx("Assets/audio/fx/levelClear.wav");
 
 	//laserFx = app->audio->LoadFx("Assets/Fx/laser.wav");
 	//explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");
@@ -253,6 +255,7 @@ bool ModulePlayer::Start()
 	playerIdleAnimationTimer = 0;
 	hoverTimer = 0;
 	destroyedDelay = 0;
+	winDelay = 0;
 
 	jump = false;
 	createPlayer = false;
@@ -296,9 +299,9 @@ bool ModulePlayer::Update(float dt)
 	//------------------------------------------------------------------------------------------------------------------------------------------
 	if (Player->body->GetLinearVelocity().y != 0) //To make so the player can drop onto enemies without needing to jump
 	{
-		inTheAir = true;
+		//inTheAir = true; //Removed because if not player cannot jump while going up/down slopes
 	}
-	if (destroyed == false && app->sceneCastle->godMode == false && app->sceneForest->godMode == false)
+	if (destroyed == false && playerWin == false && app->sceneCastle->godMode == false && app->sceneForest->godMode == false)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
 		{
@@ -547,7 +550,7 @@ bool ModulePlayer::Update(float dt)
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------------------------------------
-	if (destroyed == false && (app->sceneCastle->godMode == true || app->sceneForest->godMode == true))
+	if (destroyed == false && playerWin == false && (app->sceneCastle->godMode == true || app->sceneForest->godMode == true))
 	{
 		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
 		{
@@ -709,7 +712,22 @@ bool ModulePlayer::Update(float dt)
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------------------------------------
-	
+	if (playerWin == true)
+	{
+		if (winDelay < 1)
+		{
+			//Mix_PauseMusic();
+			app->audio->PlayFx(levelClear);
+		}
+		if (PlayerLookingPosition == 1)
+		{
+
+		}
+		if (PlayerLookingPosition == 2)
+		{
+
+		}
+	}
 	/*
 	if ((PlayerLookingPosition == 1) && (position.x < app->render->camera.x / app->win->GetScale() + 190))
 	{
@@ -736,6 +754,11 @@ bool ModulePlayer::PostUpdate()
 	if (destroyed == true)
 	{
 		destroyedDelay++;
+	}
+
+	if (playerWin == true)
+	{
+		winDelay++;
 	}
 
 	if (invincibleDelay <= 120)
@@ -794,49 +817,56 @@ bool ModulePlayer::PostUpdate()
 
 	if (app->sceneCastle->playerRestart == true)
 	{
-		horizontalCB = true;
+		//horizontalCB = true;
 		app->sceneCastle->sceneTimer = 0;
 
-		if (app->sceneCastle->sceneCastle == true)
-		{
-			if (checkPointReached == false) position = position = app->map->MapToWorld(5, 21); //Change values (later)
-			if (checkPointReached == true) position = position = app->map->MapToWorld(5, 21); //Change values (later)
-			//app->render->camera.x = app->map->MapToWorld(0, -15).x;
-			//app->render->camera.y = app->map->MapToWorld(0, -15).y;
+		//if (checkPointReached == false) position = app->map->MapToWorld(32, 14);
+			//if (checkPointReached == true) position = app->map->MapToWorld(32, 14);
+		app->player->Disable();
+		app->sceneCastle->Disable();
+		app->collisions->Disable();
+		app->map->Disable();
+		app->enemies->Disable();
+		app->particles->Disable();
 
-			Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
+		if (checkPointReached == false) position = app->map->playerStartPos;
+		if (checkPointReached == true) position = app->map->playerCheckPointPos;
 
-			Player->listener = app->sceneCastle;
-			b2Filter b;
-			b.categoryBits = 0x0001;
-			b.maskBits = 0x0001 | 0x0002;
-			Player->body->GetFixtureList()->SetFilterData(b);
-			app->sceneCastle->playerRestart = false;
-		}
+		app->player->Enable();
+		app->sceneCastle->Enable();
+		app->collisions->Enable();
+		app->map->Enable();
+		app->enemies->Enable();
+		app->particles->Enable();
+
+		app->sceneCastle->playerRestart = false;
 	}
 
 	if (app->sceneForest->playerRestart == true)
 	{
-		horizontalCB = true;
-		app->sceneCastle->sceneTimer = 0;
+		//horizontalCB = true;
+		app->sceneForest->sceneTimer = 0;
 
-		if (app->sceneForest->sceneForest == true)
-		{
-			if (checkPointReached == false) position = app->map->MapToWorld(32, 14); //Change values (later)
-			if (checkPointReached == true) position = app->map->MapToWorld(32, 14); //Change values (later)
+		//if (checkPointReached == false) position = app->map->MapToWorld(32, 14);
+			//if (checkPointReached == true) position = app->map->MapToWorld(32, 14);
+		app->player->Disable();
+		app->sceneForest->Disable();
+		app->collisions->Disable();
+		app->map->Disable();
+		app->enemies->Disable();
+		app->particles->Disable();
 
-			//app->render->camera.x = app->map->MapToWorld(-87, -12).x;
-			//app->render->camera.y = app->map->MapToWorld(-87, -12).y;
+		if (checkPointReached == false) position = app->map->playerStartPos;
+		if (checkPointReached == true) position = app->map->playerCheckPointPos;
 
-			Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
+		app->player->Enable();
+		app->sceneForest->Enable();
+		app->collisions->Enable();
+		app->map->Enable();
+		app->enemies->Enable();
+		app->particles->Enable();
 
-			Player->listener = app->sceneForest;
-			b2Filter b;
-			b.categoryBits = 0x0001;
-			b.maskBits = 0x0001 | 0x0002;
-			Player->body->GetFixtureList()->SetFilterData(b);
-			app->sceneForest->playerRestart = false;
-		}
+		app->sceneForest->playerRestart = false;
 	}
 
 	// TODO 3: Blit the text of the score in at the bottom of the screen
