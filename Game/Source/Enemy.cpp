@@ -65,6 +65,7 @@ void Enemy::OnCollision(Collider* c2)
 				enemyHit = true;
 				app->audio->PlayFx(app->enemies->enemyDestroyedFx);
 				app->particles->AddParticle(app->particles->enemyDefeat, position.x + 4, position.y + 4, Collider::NONE);
+				//LOG("Enemy particle test");
 				EnemyCounter = 0;
 				EnemyHP -= 1;
 			}

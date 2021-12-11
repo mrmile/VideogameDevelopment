@@ -306,7 +306,7 @@ bool ModulePlayer::Update(float dt)
 	}
 	if (destroyed == false && playerWin == false && app->sceneCastle->godMode == false && app->sceneForest->godMode == false)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_A) == KeyState::KEY_REPEAT)
 		{
 
 			if (run == false)
@@ -334,7 +334,7 @@ bool ModulePlayer::Update(float dt)
 
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT)
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_D) == KeyState::KEY_REPEAT)
 		{
 
 			if (run == false)
@@ -364,19 +364,19 @@ bool ModulePlayer::Update(float dt)
 
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN && jump == false && inTheAir == false)
+		if ((app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN) && jump == false && inTheAir == false)
 		{
 			Player->body->ApplyLinearImpulse({ 0,-160 }, { 0,0 }, true);
 			app->audio->PlayFx(jumpSound);
 			//jump = true;
 		}
 
-		if (Player->body->GetLinearVelocity().y < 0 && app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN)
+		if (Player->body->GetLinearVelocity().y < 0 && (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN))
 		{
 			jump = true;
 		}
 
-		if (Player->body->GetLinearVelocity().y == 0 && app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_IDLE)
+		if (Player->body->GetLinearVelocity().y == 0 && app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_IDLE && app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_IDLE)
 		{
 			jump = false;
 			inTheAir = false;
@@ -386,7 +386,7 @@ bool ModulePlayer::Update(float dt)
 
 
 
-		if (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_REPEAT && Player->body->GetLinearVelocity().y > 0) // <--
+		if ((app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_REPEAT) && Player->body->GetLinearVelocity().y > 0) // <--
 		{
 			hover = true;
 			run = false;
@@ -417,7 +417,7 @@ bool ModulePlayer::Update(float dt)
 				}
 			}
 		}
-		if (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_UP)
+		if (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_UP && app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_UP)
 		{
 			hover = false;
 		}
@@ -555,7 +555,7 @@ bool ModulePlayer::Update(float dt)
 	//------------------------------------------------------------------------------------------------------------------------------------------
 	if (destroyed == false && playerWin == false && (app->sceneCastle->godMode == true || app->sceneForest->godMode == true))
 	{
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_A))
 		{
 
 			if (run == false)
@@ -583,7 +583,7 @@ bool ModulePlayer::Update(float dt)
 
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT)
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_D))
 		{
 
 			if (run == false)
@@ -613,7 +613,7 @@ bool ModulePlayer::Update(float dt)
 
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_REPEAT && Player->body->GetLinearVelocity().y >= -2)
+		if ((app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN) && Player->body->GetLinearVelocity().y >= -2)
 		{
 			Player->body->ApplyLinearImpulse({ 0,-160 }, { 0,0 }, true);
 			app->audio->PlayFx(jumpSound);

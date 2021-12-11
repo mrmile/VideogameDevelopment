@@ -45,7 +45,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	collisions = new ModuleCollisions(true);
 	//enemy = new Enemy(true);
 	enemies = new Enemies(true);
-	particles = new ModuleParticles(false);
+	particles = new ModuleParticles(true);
 	pathfinding = new PathFinding(false);
 
 	// Ordered for awake / Start / Update
@@ -229,7 +229,7 @@ void App::FinishUpdate()
 	{
 		app->player->Player->body->DestroyFixture(app->player->Player->body->GetFixtureList());
 
-		if(app->sceneCastle->playerRestart == true || app->sceneForest->playerRestart == true) app->player->Player = app->physics->CreatePlayerBox(app->player->position.x, app->player->position.y, 28, 33);
+		//if(app->sceneCastle->playerRestart == true || app->sceneForest->playerRestart == true) app->player->Player = app->physics->CreatePlayerBox(app->player->position.x, app->player->position.y, 28, 33);
 
 		app->player->deletePlayer = false;
 	}

@@ -208,7 +208,7 @@ Particle* ModuleParticles::AddParticle(const Particle& particle, int x, int y, C
 			newParticle->frameCount = -(int)delay;			// We start the frameCount as the negative delay
 			newParticle->position.x = x;						// so when frameCount reaches 0 the particle will be activated
 			newParticle->position.y = y;
-
+			//LOG("Added particle");
 			//Adding the particle's collider
 			if (colliderType != Collider::Type::NONE)
 				newParticle->collider = app->collisions->AddCollider(newParticle->anim.GetCurrentFrame(), colliderType, this);
