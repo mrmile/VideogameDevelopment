@@ -12,17 +12,6 @@ ModuleParticles::ModuleParticles(bool start_enabled) : Module(start_enabled)
 {
 	for(uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		particles[i] = nullptr;
-}
-
-ModuleParticles::~ModuleParticles()
-{
-
-}
-
-bool ModuleParticles::Start()
-{
-	LOG("Loading particles");
-	texture = app->tex->Load("Assets/textures/particles.png");
 
 	enemyDefeat.anim.PushBack({ 8, 16, 20, 20 });
 	enemyDefeat.anim.PushBack({ 29, 16, 20, 20 });
@@ -110,6 +99,19 @@ bool ModuleParticles::Start()
 	firework3.speed.y = 0;
 	firework3.anim.loop = false;
 	firework3.anim.speed = 0.15f;
+}
+
+ModuleParticles::~ModuleParticles()
+{
+
+}
+
+bool ModuleParticles::Start()
+{
+	LOG("Loading particles");
+	texture = app->tex->Load("Assets/textures/particles.png");
+
+	
 
 	return true;
 }
