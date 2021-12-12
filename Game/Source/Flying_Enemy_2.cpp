@@ -102,6 +102,7 @@ void Flying_Enemy_2::Update(float dt)
 
 	if ((EnemyHP == 0)|| (app->enemies->active==false))
 	{
+		app->player->score += 10;
 		Flying_Enemy_2_List.end->data->body->DestroyFixture(Flying_Enemy_2_List.end->data->body->GetFixtureList());
 		SetToDelete();
 	}

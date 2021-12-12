@@ -930,13 +930,6 @@ bool ModulePlayer::SaveState(pugi::xml_node& data) const
 	return true;
 }
 
-/*
-void ModulePlayer::b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB)
-{
-	
-}
-*/
-
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
 	if (app->sceneCastle->godMode == false && app->sceneForest->godMode == false && destroyed == false)
@@ -1064,14 +1057,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 		if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type == Collider::Type::COIN)
 		{
-			playerScore += 5;
+			score += 5;
 			//if (playerScore > 1000) playerScore = 1000;
 			app->audio->PlayFx(coin);
 		}
 
 		if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type == Collider::Type::CHECKPOINT)
 		{
-			playerScore += 10;
+			score += 10;
 			//if (playerScore > 1000) playerScore = 1000;
 			app->audio->PlayFx(halfWayPoint);
 			app->SaveGameRequest();

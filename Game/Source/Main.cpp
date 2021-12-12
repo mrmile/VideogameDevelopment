@@ -14,9 +14,35 @@
 
 #ifdef _DEBUG
 #pragma comment( lib, "../Game/Source/External/Optick/lib/Debug/OptickCore.lib" )
-#else
+#else 
 #pragma comment( lib, "../Game/Source/External/Optick/lib/Release/OptickCore.lib" )
 #endif
+
+#ifdef _DEBUG
+#pragma comment( lib, "../Game/Source/External/SDL/libx86/SDL2.lib" )
+#else 
+#pragma comment( lib, "../Game/Source/External/SDL/libx86/SDL2.lib" )
+#endif
+
+#ifdef _DEBUG
+#pragma comment( lib, "../Game/Source/External/SDL/libx86/SDL2main.lib" )
+#else 
+#pragma comment( lib, "../Game/Source/External/SDL/libx86/SDL2main.lib" )
+#endif
+
+#ifdef _DEBUG
+#pragma comment( lib, "../Game/Source/External/SDL_image/libx86/SDL2_image.lib" )
+#else 
+#pragma comment( lib, "../Game/Source/External/SDL_image/libx86/SDL2_image.lib" )
+#endif
+
+
+#ifdef _DEBUG
+#pragma comment( lib, "../Game/Source/External/SDL_mixer/libx86/SDL2_mixer.lib" )
+#else 
+#pragma comment( lib, "../Game/Source/External/SDL_mixer/libx86/SDL2_mixer.lib" )
+#endif
+
 
 #include <stdlib.h>
 

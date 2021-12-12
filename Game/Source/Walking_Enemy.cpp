@@ -76,6 +76,7 @@ void Walking_Enemy::Update(float dt)
 
 	if ((EnemyHP == 0) || (app->enemies->active == false))
 	{
+		app->player->score += 10;
 		Walking_Enemy_List.end->data->body->DestroyFixture(Walking_Enemy_List.end->data->body->GetFixtureList());
 		SetToDelete();
 	}
