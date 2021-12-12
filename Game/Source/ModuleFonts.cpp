@@ -7,7 +7,7 @@
 
 #include<string.h>
 
-ModuleFonts::ModuleFonts(bool isEnabled) : Module(isEnabled)
+ModuleFonts::ModuleFonts(bool start_enabled) : Module(start_enabled)
 {
 
 }

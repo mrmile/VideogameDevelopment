@@ -32,10 +32,10 @@ Flying_Enemy::Flying_Enemy(int x, int y) : Enemy(x, y)
 	Flying_Enemy_Right.loop = true;
 	Flying_Enemy_Right.speed = 0.2f;
 
+	
 
 
 	collider = app->collisions->AddCollider({ position.x, position.y, 38, 35 }, Collider::Type::ENEMY, (Module*)app->enemies);
-	//ALSO NEED TO ADD THE BOX2D PHYSICS
 	
 	Flying_Enemy_List.add(app->physics->CreateFlyingEnemyBox(position.x, position.y, 38, 35));
 	
@@ -48,8 +48,8 @@ void Flying_Enemy::Update(float dt)
 {
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
 	FlyingTimer++;
-	collider->SetPos(position.x, position.y);
 	Flying_Enemy_List.end->data->GetPosition(position.x, position.y);
+	collider->SetPos(position.x, position.y);
 	
 
 	
@@ -91,7 +91,6 @@ void Flying_Enemy::Update(float dt)
 		Flying_Enemy_List.end->data->body->DestroyFixture(Flying_Enemy_List.end->data->body->GetFixtureList());
 	}
 	
-
 	// Call to the base class. It must be called at the end
 	// It will update the collider depending on the position
 	Enemy::Update(dt);

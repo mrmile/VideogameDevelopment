@@ -14,6 +14,7 @@
 #include "Enemies.h"
 #include "Enemy.h"
 #include "ModuleParticles.h"
+#include "ModuleFonts.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -204,6 +205,7 @@ bool SceneForest::PostUpdate()
 		app->map->Disable();
 		app->enemies->Disable();
 		app->particles->Disable();
+		app->fonts->Disable();
 		//app->physics->Disable();
 
 		//playerRestart = true;

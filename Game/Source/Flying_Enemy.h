@@ -16,7 +16,7 @@ public:
 	void Update(float dt) override;
 
 	
-	
+	int NewPos = 0;
 	
 
 private:

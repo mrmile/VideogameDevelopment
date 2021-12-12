@@ -28,7 +28,7 @@ class ModuleFonts : public Module
 public:
 
 	// Constructor
-	ModuleFonts(bool isEnabled);
+	ModuleFonts(bool start_enabled = false);
 
 	// Destructor
 	~ModuleFonts();
