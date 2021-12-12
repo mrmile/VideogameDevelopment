@@ -33,13 +33,14 @@ Flying_Enemy::Flying_Enemy(int x, int y) : Enemy(x, y)
 	Flying_Enemy_Right.speed = 0.2f;
 
 	
-
+	spawnPos.x = position.x;
+	spawnPos.y = position.y;
 
 	collider = app->collisions->AddCollider({ position.x, position.y, 38, 35 }, Collider::Type::ENEMY, (Module*)app->enemies);
 	
 	Flying_Enemy_List.add(app->physics->CreateFlyingEnemyBox(position.x, position.y, 38, 35));
 	
-
+	startingKoopaPosition = spawnPos;
 
 	
 }
@@ -49,6 +50,7 @@ void Flying_Enemy::Update(float dt)
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
 	FlyingTimer++;
 	Flying_Enemy_List.end->data->GetPosition(position.x, position.y);
+	
 	collider->SetPos(position.x, position.y);
 	
 

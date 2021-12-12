@@ -477,7 +477,7 @@ bool ModulePlayer::Update(float dt)
 			}
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_X) == KeyState::KEY_REPEAT)
+		if ((app->input->GetKey(SDL_SCANCODE_X) == KeyState::KEY_REPEAT)||(app->input->GetKey(SDL_SCANCODE_LSHIFT)== KeyState::KEY_REPEAT))
 		{
 			if (hover == false) run = true;
 		}

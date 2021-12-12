@@ -65,7 +65,7 @@ public:
 
 	int FlyingTimer = 0;
 	
-
+	iPoint startingKoopaPosition;
 	// A flag for the enemy removal. Important! We do not delete objects instantly
 	bool pendingToDelete = false;
 
