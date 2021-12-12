@@ -180112,8 +180112,8 @@
   <object id="98" gid="3231" x="1543.5" y="158" width="12" height="16"/>
   <object id="99" gid="3231" x="1564" y="146" width="12" height="16"/>
   <object id="100" gid="3231" x="1585" y="165" width="12" height="16"/>
-  <object id="102" gid="3231" x="1266" y="148" width="12" height="16"/>
-  <object id="103" gid="3231" x="1283.5" y="126.5" width="12" height="16"/>
+  <object id="102" gid="3231" x="1279.5" y="148.5" width="12" height="16"/>
+  <object id="103" gid="3231" x="1301" y="129.5" width="12" height="16"/>
   <object id="106" gid="3231" x="1989.5" y="175" width="12" height="16"/>
   <object id="107" gid="3231" x="2011" y="187" width="12" height="16"/>
   <object id="108" gid="3231" x="2034" y="209.5" width="12" height="16"/>
@@ -180201,7 +180201,7 @@
   </properties>
   <object id="84" gid="3228" x="1417.5" y="236" width="16" height="18"/>
   <object id="90" gid="3228" x="1376" y="237" width="16" height="18"/>
-  <object id="91" gid="3228" x="790" y="237.667" width="16" height="18"/>
+  <object id="91" gid="3228" x="826.5" y="237.167" width="16" height="18"/>
   <object id="194" gid="3228" x="1917.33" y="220.333" width="16" height="18"/>
   <object id="195" gid="3228" x="3364" y="189.667" width="16" height="18"/>
   <object id="196" gid="3228" x="6843.33" y="253" width="16" height="18"/>
@@ -180216,7 +180216,6 @@
    <property name="Parallax" value="1"/>
   </properties>
   <object id="88" gid="3229" x="1549.33" y="220.667" width="36" height="36"/>
-  <object id="92" gid="3229" x="917.333" y="273.333" width="36" height="36"/>
   <object id="93" gid="3229" x="2366" y="230.667" width="36" height="36"/>
   <object id="200" gid="3229" x="6067.33" y="268" width="36" height="36"/>
   <object id="201" gid="3229" x="8236.67" y="267.333" width="36" height="36"/>
@@ -180230,9 +180229,9 @@
    <property name="Draw" value="0"/>
    <property name="Parallax" value="1"/>
   </properties>
-  <object id="206" gid="3227" x="1224.66" y="95.333" width="16" height="27"/>
-  <object id="207" gid="3227" x="1814" y="122" width="16" height="27"/>
-  <object id="208" gid="3227" x="2240.66" y="138" width="16" height="27"/>
+  <object id="206" gid="3227" x="1114.16" y="146.833" width="16" height="27"/>
+  <object id="207" gid="3227" x="1783" y="197.5" width="16" height="27"/>
+  <object id="208" gid="3227" x="7663.16" y="188.5" width="16" height="27"/>
   <object id="209" gid="3227" x="2987.34" y="149.333" width="16" height="27"/>
   <object id="210" gid="3227" x="3690.67" y="198.667" width="16" height="27"/>
   <object id="212" gid="3227" x="4112.16" y="223.333" width="16" height="27"/>
