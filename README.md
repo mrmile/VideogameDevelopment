@@ -1,6 +1,8 @@
 ## Game Development Assignment 1
 Simple platformer game created for the Game Development subject during the second year of Videogame design and development in TTC.
 
+Project link: https://github.com/mrmile/VideogameDevelopment
+
 # Members
 * Álvaro Milla: https://github.com/mrmile
 * Alejandro Martin: https://github.com/Alejandromo125
