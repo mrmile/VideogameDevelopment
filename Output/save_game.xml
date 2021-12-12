@@ -10,55 +10,51 @@
 	<SceneForest />
 	<SceneCastle />
 	<player>
-		<position x="8639" y="183" />
-		<atributes score="0" hp="80" />
+		<position x="786" y="206" />
+		<atributes score="0" hp="100" />
 	</player>
 	<enemies>
-		<position x="185" y="30" />
+		<position x="1423" y="221" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="181" y="30" />
+		<position x="1382" y="221" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="178" y="30" />
+		<position x="1922" y="205" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="175" y="30" />
+		<position x="3369" y="173" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="173" y="30" />
+		<position x="6848" y="237" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="171" y="30" />
+		<position x="6637" y="205" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="169" y="30" />
+		<position x="7233" y="221" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="167" y="30" />
+		<position x="7696" y="113" />
+		<atributes timer="24" enemyHp="1" />
+		<position x="1538" y="48" />
+		<atributes timer="24" enemyHp="1" />
+		<position x="905" y="101" />
+		<atributes timer="24" enemyHp="1" />
+		<position x="2355" y="58" />
+		<atributes timer="24" enemyHp="1" />
+		<position x="6056" y="96" />
+		<atributes timer="24" enemyHp="1" />
+		<position x="8224" y="95" />
+		<atributes timer="24" enemyHp="1" />
+		<position x="7952" y="74" />
+		<atributes timer="24" enemyHp="1" />
+		<position x="7071" y="70" />
+		<atributes timer="24" enemyHp="1" />
+		<position x="5185" y="228" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="165" y="30" />
+		<position x="1236" y="75" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="154" y="22" />
-		<atributes timer="2" enemyHp="1" />
-		<position x="149" y="22" />
-		<atributes timer="2" enemyHp="1" />
-		<position x="145" y="22" />
-		<atributes timer="2" enemyHp="1" />
-		<position x="141" y="22" />
-		<atributes timer="2" enemyHp="1" />
-		<position x="137" y="22" />
-		<atributes timer="2" enemyHp="1" />
-		<position x="133" y="22" />
-		<atributes timer="2" enemyHp="1" />
-		<position x="130" y="22" />
-		<atributes timer="2" enemyHp="1" />
-		<position x="126" y="22" />
-		<atributes timer="2" enemyHp="1" />
-		<position x="137" y="26" />
+		<position x="1825" y="102" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="136" y="26" />
+		<position x="2252" y="118" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="136" y="26" />
+		<position x="2999" y="129" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="136" y="26" />
-		<atributes timer="0" enemyHp="1" />
-		<position x="135" y="26" />
-		<atributes timer="0" enemyHp="1" />
-		<position x="135" y="26" />
+		<position x="3701" y="177" />
 		<atributes timer="0" enemyHp="1" />
 	</enemies>
 	<:anonymous />
@@ -66,6 +62,6 @@
 	<:anonymous />
 	<pathfinding />
 	<renderer>
-		<camera x="-25168" y="-100" />
+		<camera x="-1770" y="-192" />
 	</renderer>
 </save_state>

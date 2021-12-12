@@ -199,41 +199,40 @@ bool Enemies::LoadState(pugi::xml_node& data)
 			enemies[i]->FlyingTimer = enemyAtributes.attribute("timer").as_int();
 			enemies[i]->EnemyHP = enemyAtributes.attribute("enemyHp").as_int();
 
+			if (enemies[i] != nullptr)
+			{
+				enemies[i]->SetToDelete();
+
+				if (HelperQueue[i] == Enemy_Type::GOOMBA)  	enemies[i]->Walking_Enemy_List.end->data->body->DestroyFixture(enemies[i]->Walking_Enemy_List.end->data->body->GetFixtureList());
+				if (HelperQueue[i] == Enemy_Type::SHYGUY)  	enemies[i]->Flying_Enemy_2_List.end->data->body->DestroyFixture(enemies[i]->Flying_Enemy_2_List.end->data->body->GetFixtureList());
+				if (HelperQueue[i] == Enemy_Type::FLYING_KOOPA)  	enemies[i]->Flying_Enemy_List.end->data->body->DestroyFixture(enemies[i]->Flying_Enemy_List.end->data->body->GetFixtureList());
+
+				enemypos = enemypos.next_sibling();
+				enemyAtributes = enemyAtributes.next_sibling();
+			}
+
+
+			if (enemies[i] != nullptr)
+			{
+
+
+				enemies[i]->GetCollider();
+
+				//AddEnemy(HelperQueue[i], enemies[i]->position.x + 28 / 2, enemies[i]->position.y + 33 / 2);
+				if (HelperQueue[i] == Enemy_Type::GOOMBA)  	AddEnemy(Enemy_Type::GOOMBA, enemies[i]->position.x + 28 / 2, enemies[i]->position.y + 33 / 2);
+				if (HelperQueue[i] == Enemy_Type::SHYGUY)  	AddEnemy(Enemy_Type::SHYGUY, enemies[i]->position.x + 28 / 2, enemies[i]->position.y + 33 / 2);
+				if (HelperQueue[i] == Enemy_Type::FLYING_KOOPA)		AddEnemy(Enemy_Type::FLYING_KOOPA, enemies[i]->position.x + 28 / 2, enemies[i]->position.y + 33 / 2);
+
+				enemypos = enemypos.next_sibling();
+				enemyAtributes = enemyAtributes.next_sibling();
+			}
 			
 		}
 	}
 
-	for (uint i = 0; i < MAX_ENEMIES; ++i)
-	{
-		if (enemies[i] != nullptr)
-		{
-			enemies[i]->SetToDelete();
-
-			if (HelperQueue[i] == Enemy_Type::GOOMBA)  	enemies[i]->Walking_Enemy_List.end->data->body->DestroyFixture(enemies[i]->Walking_Enemy_List.end->data->body->GetFixtureList());
-			if (HelperQueue[i] == Enemy_Type::SHYGUY)  	enemies[i]->Flying_Enemy_2_List.end->data->body->DestroyFixture(enemies[i]->Flying_Enemy_2_List.end->data->body->GetFixtureList());
-			if (HelperQueue[i] == Enemy_Type::FLYING_KOOPA)  	enemies[i]->Flying_Enemy_List.end->data->body->DestroyFixture(enemies[i]->Flying_Enemy_List.end->data->body->GetFixtureList());
-
-			enemypos = enemypos.next_sibling();
-			enemyAtributes = enemyAtributes.next_sibling();
-		}
-	}
-	for (uint i = 0; i < MAX_ENEMIES; ++i)
-	{
-		if (enemies[i] != nullptr)
-		{
-			
-
-			enemies[i]->GetCollider();
-
-			//AddEnemy(HelperQueue[i], enemies[i]->position.x + 28 / 2, enemies[i]->position.y + 33 / 2);
-			if (HelperQueue[i] == Enemy_Type::GOOMBA)  	AddEnemy(Enemy_Type::GOOMBA, enemies[i]->position.x + 28 / 2, enemies[i]->position.y + 33 / 2);
-			if (HelperQueue[i] == Enemy_Type::SHYGUY)  	AddEnemy(Enemy_Type::SHYGUY, enemies[i]->position.x + 28 / 2, enemies[i]->position.y + 33 / 2);
-			if (HelperQueue[i] == Enemy_Type::FLYING_KOOPA)		AddEnemy(Enemy_Type::FLYING_KOOPA, enemies[i]->position.x + 28 / 2, enemies[i]->position.y + 33 / 2);
-			
-			enemypos=enemypos.next_sibling();
-			enemyAtributes = enemyAtributes.next_sibling();
-		}
-	}
+	
+		
+	
 
 	return true;
 }
