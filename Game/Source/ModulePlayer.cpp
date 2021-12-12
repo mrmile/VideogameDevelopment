@@ -29,9 +29,6 @@
 #include <Optick/include/optick.h>
 using namespace std;
 
-//ModulePlayer::ModulePlayer( bool start_enabled) : Module(start_enabled)
-
-
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 {
 	name.Create("player");
@@ -231,8 +228,8 @@ bool ModulePlayer::Start()
 	deletePlayer = false;
 	checkPointReached = false;
 
-	collider = app->collisions->AddCollider({ position.x + 5, position.y + 3, 28, 28 }, Collider::Type::PLAYER, this); //{ position.x + 5, position.y + 3, 28, 33 
-	colliderFeet = app->collisions->AddCollider({ position.x + 5, position.y + 28, 18, 5 }, Collider::Type::PLAYER_FEET, this);
+	collider = app->collisions->AddCollider({ position.x + 5, position.y + 3, 28, 23 }, Collider::Type::PLAYER, this); //{ position.x + 5, position.y + 3, 28, 33 
+	colliderFeet = app->collisions->AddCollider({ position.x + 5, position.y + 23, 18, 10 }, Collider::Type::PLAYER_FEET, this);
 
 	Player = app->physics->CreatePlayerBox(position.x, position.y, 28, 33);
 	//app->physics->CreateRectangleSensor(position.x, position.y + 16, 28, 1);
@@ -285,7 +282,7 @@ bool ModulePlayer::Update(float dt)
 
 	//OPTICK_EVENT();
 	collider->SetPos(position.x, position.y);
-	colliderFeet->SetPos(position.x + 5, position.y + 28);
+	colliderFeet->SetPos(position.x + 5, position.y + 23);
 
 	playerTimer++;
 
