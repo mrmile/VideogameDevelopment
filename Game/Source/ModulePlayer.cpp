@@ -880,9 +880,10 @@ bool ModulePlayer::PostUpdate()
 bool ModulePlayer::CleanUp()
 {
 	app->tex->UnLoad(texture);
-	deletePlayer = true;
-	app->collisions->RemoveCollider(app->player->collider);
-	app->collisions->RemoveCollider(app->player->colliderFeet);
+	//deletePlayer = true;
+	app->player->Player->body->DestroyFixture(app->player->Player->body->GetFixtureList());
+	//app->collisions->RemoveCollider(app->player->collider);
+	//app->collisions->RemoveCollider(app->player->colliderFeet);
 
 	return true;
 }
