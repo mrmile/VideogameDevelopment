@@ -8,6 +8,7 @@
 #include "SceneCastle.h"
 #include "Map.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleFonts.h"
 #include "ModulePhysics.h"
 #include "ModulePlayer.h"
 #include "ModuleCollisions.h"
@@ -47,6 +48,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	enemies = new Enemies(true);
 	particles = new ModuleParticles(true);
 	pathfinding = new PathFinding(false);
+	fonts = new ModuleFonts(false);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -59,6 +61,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(titleScreen);
 	AddModule(sceneForest);
 	AddModule(sceneCastle);
+	AddModule(fonts);
 	AddModule(player);
 	//AddModule(enemy); //Esto no. Solo hace falta poner el enemies aquí, no el enemy (que yo sepa, no estoy seguro)
 	AddModule(enemies); //Este si

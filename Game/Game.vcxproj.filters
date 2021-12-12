@@ -85,6 +85,9 @@
     <ClCompile Include="Source\Flying_Enemy_2.cpp">
       <Filter>imported_modules</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ModuleFonts.cpp">
+      <Filter>imported_modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -196,6 +199,9 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\Flying_Enemy_2.h">
+      <Filter>imported_modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModuleFonts.h">
       <Filter>imported_modules</Filter>
     </ClInclude>
   </ItemGroup>
