@@ -105,30 +105,34 @@ bool SceneCastle::Update(float dt)
 
 	//F9 --> See colliders
 
-	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	if ((app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_F1 == KEY_DOWN) && app->player->destroyed == false && app->player->playerWin == false))
+	{
+		app->player->checkPointReached = false;
 		playerRestart = true;
+	}
 
-	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+
+	if (app->input->GetKey(SDL_SCANCODE_F10 == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false))
 		godMode = !godMode;
 
-    // L02: DONE 3: Request Load / Save when pressing L/S
-	if(app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	// L02: DONE 3: Request Load / Save when pressing L/S
+	if (app->input->GetKey(SDL_SCANCODE_F6 == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false))
 		app->LoadGameRequest();
 
-	if(app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F5 == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false))
 		app->SaveGameRequest();
 
-	if(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		app->render->camera.y -= 5;
+	//if(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		//app->render->camera.y -= 5;
 
-	if(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		app->render->camera.y += 5;
+	//if(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		//app->render->camera.y += 5;
 
-	if(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		app->render->camera.x -= 5;
+	//if(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		//app->render->camera.x -= 5;
 
-	if(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		app->render->camera.x += 5;
+	//if(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		//app->render->camera.x += 5;
 
 	//if(sceneTimer <= 1) app->map->LoadCollidersSensors();
 
@@ -199,7 +203,7 @@ bool SceneCastle::PostUpdate()
 		playerRestart = true;
 	}
 
-	if (app->player->winDelay > 270 && app->player->winDelay <= 271)
+	if (app->player->winDelay > 300 && app->player->winDelay <= 301)
 	{
 		app->titleScreen->Enable();
 

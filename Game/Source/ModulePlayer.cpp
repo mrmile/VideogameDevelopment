@@ -948,7 +948,7 @@ bool ModulePlayer::SaveState(pugi::xml_node& data) const
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
-	if (app->sceneCastle->godMode == false && app->sceneForest->godMode == false && destroyed == false)
+	if (app->sceneCastle->godMode == false && app->sceneForest->godMode == false && destroyed == false && playerWin == false)
 	{
 		if ((c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::ENEMY) && destroyed == false && invincibleDelay >= 120)
 		{
