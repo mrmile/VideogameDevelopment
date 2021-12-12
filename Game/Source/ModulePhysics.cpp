@@ -159,6 +159,11 @@ PhysBody* ModulePhysics::CreatePlayerBox(int x, int y, int width, int height)
 	pbody->width = width * 0.5f;
 	pbody->height = height * 0.5f;
 	pbody->body->SetFixedRotation(true);
+
+	fixture.filter.groupIndex = 11111011;
+
+	fixture.filter.categoryBits = 1;
+	fixture.filter.maskBits = 2;
 	
 	return pbody;
 }
@@ -196,6 +201,10 @@ PhysBody* ModulePhysics::CreateWalkingEnemyBox(int x, int y, int width, int heig
 	pbody->height = height * 0.5f;
 	pbody->body->SetFixedRotation(true);
 	
+	fixture.filter.groupIndex = 11111011;
+
+	fixture.filter.categoryBits = 3;
+	fixture.filter.maskBits = 2;
 
 	return pbody;
 }
@@ -231,6 +240,10 @@ PhysBody* ModulePhysics::CreateFlyingEnemyBox(int x, int y, int width, int heigh
 	pbody->height = height * 0.5f;
 	pbody->body->SetFixedRotation(true);
 	
+	fixture.filter.groupIndex = 11111011;
+
+	fixture.filter.categoryBits = 3;
+	fixture.filter.maskBits = 2;
 
 	return pbody;
 }
@@ -324,6 +337,10 @@ PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size)
 	pbody->width = pbody->height = 0;
 
 
+	fixture.filter.groupIndex = 0;
+
+	fixture.filter.categoryBits = 2;
+	fixture.filter.maskBits = 1;
 
 	return pbody;
 }

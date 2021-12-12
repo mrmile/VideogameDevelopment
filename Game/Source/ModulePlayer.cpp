@@ -920,10 +920,10 @@ bool ModulePlayer::LoadState(pugi::xml_node& data)
 
 	Player = app->physics->CreatePlayerBox(position.x + 28 / 2, position.y + 33 / 2, 28, 33);
 	Player->listener = app->sceneCastle;
-	b2Filter b;
-	b.categoryBits = 0x0001;
-	b.maskBits = 0x0001 | 0x0002;
-	Player->body->GetFixtureList()->SetFilterData(b);
+	//b2Filter b;
+	//b.categoryBits = 0x0001;
+	//b.maskBits = 0x0001 | 0x0002;
+	//Player->body->GetFixtureList()->SetFilterData(b);
 	createPlayer = false;
 
 	//if (app->player->horizontalCB == false && app->sceneCastle->sceneTimer > 1) app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 630;
