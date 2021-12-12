@@ -13,7 +13,9 @@ Simple platformer game created for the Game Development subject during the secon
 * Z key to jump
 * Hold Z to hover in the air (instead of adding a double jump we added a hover option)
 * X key to run
+* 
 /Class assignment (may be uncomfortable)/
+
 * ENTER to start the game
 * A/D Keys for movement
 * SPACEBAR key to jump
