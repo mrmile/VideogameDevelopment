@@ -21,6 +21,7 @@
 #include "ModuleParticles.h"
 #include "Audio.h"
 #include "TitleScreen.h"
+#include "ModuleFonts.h"
 
 #include <stdio.h>
 #include <time.h>
@@ -245,7 +246,7 @@ bool ModulePlayer::Start()
 
 	// TODO 4: Try loading "rtype_font3.png" that has two rows to test if all calculations are correct
 	char lookupTable[] = { "! @,_./0123456789$;< ?abcdefghijklmnopqrstuvwxyz" };
-	//scoreFont = app->fonts->Load("Assets/Fonts/rtype_font3.png", lookupTable, 2);
+	scoreFont = app->fonts->Load("Assets/textures/numbers.png", lookupTable, 2);
 
 	PlayerLookingPosition = 2;
 
