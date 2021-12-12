@@ -106,17 +106,21 @@ bool SceneForest::Update(float dt)
 	//app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 160; //<-- Este es el que se aplica al final
 	//F9 --> See colliders
 
-	//if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
-		//playerRestart = true;
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		app->player->checkPointReached = false;
+		playerRestart = true;
+	}
+		
 
-	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		godMode = !godMode;
 
     // L02: DONE 3: Request Load / Save when pressing L/S
-	if(app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	if(app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		app->LoadGameRequest();
 
-	if(app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if(app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		app->SaveGameRequest();
 
 	//if(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
