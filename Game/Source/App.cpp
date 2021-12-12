@@ -277,7 +277,7 @@ void App::FinishUpdate()
 
 	// L08: TODO 3: Measure accurately the amount of time SDL_Delay() actually waits compared to what was expected
 
-	//app->win->SetTitle(title);
+	app->win->SetTitle(title);
 }
 
 // Call modules before each loop iteration
