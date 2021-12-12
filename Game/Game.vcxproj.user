@@ -8,4 +8,8 @@
     <LocalDebuggerWorkingDirectory>$(SolutionDir)\Output</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Releasev2|Win32'">
+    <LocalDebuggerWorkingDirectory>$(SolutionDir)\Output</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
 </Project>
