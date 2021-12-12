@@ -39,7 +39,7 @@ public:
 	PhysBody* h_CB1;
 	PhysBody* h_CB2;
 
-	bool godMode;
+	bool godMode = false;
 
 	bool playerRestart;
 
