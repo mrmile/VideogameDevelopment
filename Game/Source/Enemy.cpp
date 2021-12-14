@@ -63,8 +63,6 @@ void Enemy::OnCollision(Collider* c2)
 				if (app->player->PlayerLookingPosition == 2) app->player->currentAnimation = &app->player->jumpRightAnim;
 				app->player->Player->body->ApplyLinearImpulse({ 0.0f,-150.0f }, { 0.0f,0.0f }, true);
 				enemyHit = true;
-				app->audio->PlayFx(app->enemies->enemyDestroyedFx);
-				app->particles->AddParticle(app->particles->enemyDefeat, position.x + 4, position.y + 4, Collider::NONE);
 				//LOG("Enemy particle test");
 				EnemyCounter = 0;
 				EnemyHP -= 1;
@@ -78,6 +76,8 @@ void Enemy::OnCollision(Collider* c2)
 void Enemy::SetToDelete()
 {
 	pendingToDelete = true;
+	app->audio->PlayFx(app->enemies->enemyDestroyedFx);
+	app->particles->AddParticle(app->particles->enemyDefeat, position.x + 4, position.y + 4, Collider::NONE);
 	if(collider != nullptr)
 	{
 		collider->pendingToDelete = true; 
