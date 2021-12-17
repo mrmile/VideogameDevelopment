@@ -30,6 +30,7 @@ class ModuleParticles;
 //class Enemy;
 class PathFinding;
 class ModuleFonts;
+class GuiManager;
 
 class App
 {
@@ -112,6 +113,8 @@ public:
 	//Enemy* enemy;
 	PathFinding* pathfinding;
 	ModuleFonts* fonts;
+	GuiManager* guiManager;
+
 private:
 
 	int argc;

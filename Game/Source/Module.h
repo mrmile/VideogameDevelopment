@@ -63,6 +63,7 @@ public:
 	{
 		return true;
 	}
+	
 
     // L02: DONE 2: Create new virtual methods to Load / Save state
 	virtual bool LoadState(pugi::xml_node&)
@@ -74,6 +75,13 @@ public:
 	{
 		return true;
 	}
+
+	/*
+	virtual bool OnGuiMouseClickEvent(GuiControl* control)
+	{
+		return true;
+	}
+	*/
 
 	bool IsActive() const
 	{

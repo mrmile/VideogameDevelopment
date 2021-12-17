@@ -19,6 +19,7 @@
 #include "Log.h"
 #include "Enemy.h"
 #include "Pathfinding.h"
+#include "GuiManager.h"
 
 #include <iostream>
 #include <sstream>
@@ -49,6 +50,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	particles = new ModuleParticles(true);
 	pathfinding = new PathFinding(false);
 	fonts = new ModuleFonts(false);
+	guiManager = new GuiManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -69,6 +71,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(collisions);
 	AddModule(fade);
 	AddModule(pathfinding);
+	AddModule(guiManager);
 	// Render last to swap buffer
 	AddModule(render);
 

@@ -16,6 +16,7 @@
 #include "Enemy.h"
 #include "ModuleParticles.h"
 #include "ModuleFonts.h"
+#include "GuiManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -47,6 +48,10 @@ bool TitleScreen::Start()
 
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
+
+	// L14: TODO 2_D: Declare a GUI Button and create it using the GuiManager
+	button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "TestButton", { 100, 50, 100, 40 }, this); //Observer (this): Class that will receive the event
+
 
 	sceneTimer = 0;
 	delay = 0;
@@ -128,6 +133,33 @@ bool TitleScreen::CleanUp()
 	app->tex->UnLoad(titleScreen);
 	app->tex->UnLoad(startButton);
 	app->tex->UnLoad(loading);
+
+	return true;
+}
+
+bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
+{
+
+	switch (control->type)
+	{
+	case GuiControlType::BUTTON:
+	{
+		//Checks the GUI element ID
+		if (control->id == 1)
+		{
+			LOG("Click on button 1");
+		}
+
+		if (control->id == 2)
+		{
+			LOG("Click on button 2");
+		}
+
+	}
+	//Other cases here
+
+	default: break;
+	}
 
 	return true;
 }
