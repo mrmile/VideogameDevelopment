@@ -30,14 +30,13 @@ bool GuiButton::Update(float dt)
 		{
 			state = GuiControlState::FOCUSED;
 
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP)
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
 			{
 				state = GuiControlState::PRESSED;
-				NotifyObserver();
+				
 			}
 			else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
 			{
-				state = GuiControlState::SELECTED;
 				NotifyObserver();
 			}
 			else
@@ -58,7 +57,7 @@ bool GuiButton::Draw(Render* render)
 	switch (state)
 	{
 
-	case GuiControlState::DISABLED: 
+	case GuiControlState::DISABLED:
 	{
 		render->DrawRectangle(bounds, 0, 0, 0, 0);
 	} break;
@@ -69,10 +68,14 @@ bool GuiButton::Draw(Render* render)
 
 	} break;
 
-	//L14: TODO 4_D: Draw the button according the GuiControl State
+	//L14: TODO 4: Draw the button according the GuiControl State
 	case GuiControlState::FOCUSED:
 	{
-		render->DrawRectangle(bounds, 255, 0, 0, 200);
+		render->DrawRectangle(bounds, 255, 255, 255, 160);
+	} break;
+	case GuiControlState::PRESSED:
+	{
+		render->DrawRectangle(bounds, 255, 255, 255, 255);
 	} break;
 
 	/******/

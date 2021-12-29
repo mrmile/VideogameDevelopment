@@ -46,7 +46,7 @@ public:
 		text(text)
 	{
 		color.r = 255; color.g = 255; color.b = 255;
-		texture = NULL;
+		texture=nullptr;
 	}
 
 	virtual bool Update(float dt)
@@ -62,7 +62,7 @@ public:
 	void SetTexture(SDL_Texture* tex)
 	{
 		texture = tex;
-		section = { 0, 0, 0, 0 };
+		section = { 0, 0, 100, 100 };
 	}
 
 	void SetObserver(Module* module)
@@ -72,7 +72,7 @@ public:
 
 	void NotifyObserver()
 	{
-		//observer->OnGuiMouseClickEvent(this);
+		observer->OnGuiMouseClickEvent(this);
 	}
 
 public:

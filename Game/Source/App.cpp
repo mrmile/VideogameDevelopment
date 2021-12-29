@@ -50,7 +50,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	particles = new ModuleParticles(true);
 	pathfinding = new PathFinding(false);
 	fonts = new ModuleFonts(false);
-	guiManager = new GuiManager();
+	guiManager = new GuiManager(true);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -65,8 +65,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneCastle);
 	AddModule(fonts);
 	AddModule(player);
-	//AddModule(enemy); //Esto no. Solo hace falta poner el enemies aquí, no el enemy (que yo sepa, no estoy seguro)
-	AddModule(enemies); //Este si
+	AddModule(enemies); 
 	AddModule(particles);
 	AddModule(collisions);
 	AddModule(fade);

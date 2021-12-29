@@ -29,6 +29,7 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 	case GuiControlType::BUTTON:
 		control = new GuiButton(id, bounds, text);
 		break;
+	/*
 	case GuiControlType::TOGGLE:
 		break;
 	case GuiControlType::CHECKBOX:
@@ -47,14 +48,15 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 		break;
 	case GuiControlType::SPINNER:
 		break;
-	//default:
-		//break;
+	*/
+	default:
+		break;
 	}
 	//Set the observer
 	control->SetObserver(observer);
 
 	// Created GuiControls are added to the list of controls
-	controls.add(control);
+	if (control != nullptr) controls.add(control);
 
 	return control;
 }
@@ -92,7 +94,8 @@ bool GuiManager::UpdateAll(float dt, bool doLogic) {
 
 }
 
-bool GuiManager::Draw() {
+bool GuiManager::Draw() 
+{
 
 	ListItem<GuiControl*>* control = controls.start;
 

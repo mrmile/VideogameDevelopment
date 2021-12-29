@@ -833,6 +833,7 @@ bool ModulePlayer::PostUpdate()
 
 		//if (checkPointReached == false) position = app->map->MapToWorld(32, 14);
 			//if (checkPointReached == true) position = app->map->MapToWorld(32, 14);
+		app->player->score = 0;
 		app->player->Disable();
 		app->sceneCastle->Disable();
 		app->collisions->Disable();

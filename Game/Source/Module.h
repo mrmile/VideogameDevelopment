@@ -8,6 +8,7 @@
 class App;
 class PhysBody;
 struct Collider;
+class GuiControl;
 
 class Module
 {
@@ -76,12 +77,12 @@ public:
 		return true;
 	}
 
-	/*
+	
 	virtual bool OnGuiMouseClickEvent(GuiControl* control)
 	{
 		return true;
 	}
-	*/
+	
 
 	bool IsActive() const
 	{

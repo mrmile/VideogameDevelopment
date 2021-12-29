@@ -50,9 +50,11 @@ bool TitleScreen::Start()
 	//app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
 
 	// L14: TODO 2_D: Declare a GUI Button and create it using the GuiManager
-	button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "TestButton", { 100, 50, 100, 40 }, this); //Observer (this): Class that will receive the event
-
-
+	button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "TestButton", { 115, 120, 100, 40 }, this); //Observer (this): Class that will receive the event
+	button1->SetTexture(startButton);
+	
+	
+	
 	sceneTimer = 0;
 	delay = 0;
 	transition = false;
@@ -66,14 +68,14 @@ bool TitleScreen::Start()
 bool TitleScreen::PreUpdate()
 {
 
-
+	
 	return true;
 }
 
 bool TitleScreen::Update(float dt)
 {
 	sceneTimer++;
-
+	
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	{
 		transition = true;
@@ -108,6 +110,11 @@ bool TitleScreen::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		app->render->camera.x += 5;
 
+	if (button1->state == GuiControlState::PRESSED)
+	{
+		transition = true;
+	}
+
 	return true;
 }
 
@@ -119,12 +126,15 @@ bool TitleScreen::PostUpdate()
 		ret = false;
 
 	app->render->DrawTexture(titleScreen, 0, 0, NULL);
-	if ((sceneTimer / 30) % 2 == 0) app->render->DrawTexture(startButton, 85, 118, NULL);
+	//if ((sceneTimer / 30) % 2 == 0) 
+	
+	//button1->Draw(app->render,startButton);//app->render->DrawTexture(startButton, 85, 118, NULL);
+	app->guiManager->Draw();
 
 	if (transition == true) app->render->DrawTexture(loading, 0, 0, NULL);
 
 	return ret;
-
+	
 	return true;
 }
 
