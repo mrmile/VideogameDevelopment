@@ -5,7 +5,6 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "SceneForest.h"
-#include "PauseMenu.h"
 #include "SceneCastle.h"
 #include "Map.h"
 #include "ModuleFadeToBlack.h"
@@ -39,7 +38,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures(true);
 	audio = new Audio(true);
 	titleScreen = new TitleScreen(true);
-	pauseMenu = new PauseMenu(false);
 	sceneForest = new SceneForest(false);
 	sceneCastle = new SceneCastle(false);
 	map = new Map(true);
@@ -63,7 +61,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(physics);
 	AddModule(map);
 	AddModule(titleScreen);
-	AddModule(pauseMenu);
 	AddModule(sceneForest);
 	AddModule(sceneCastle);
 	AddModule(fonts);

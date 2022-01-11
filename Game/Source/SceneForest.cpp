@@ -15,7 +15,7 @@
 #include "Enemy.h"
 #include "ModuleParticles.h"
 #include "ModuleFonts.h"
-#include "PauseMenu.h"
+
 
 #include "Defs.h"
 #include "Log.h"
@@ -214,9 +214,6 @@ bool SceneForest::PostUpdate()
 
 	if (PauseDelay > 30 && PauseDelay <= 31)
 	{
-		
-
-		app->pauseMenu->Enable();
 
 		app->player->Disable();
 		app->sceneForest->Disable();

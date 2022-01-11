@@ -7,12 +7,11 @@
 	<:anonymous />
 	<map />
 	<TitleScreen />
-	<Pause menu />
 	<SceneForest />
 	<SceneCastle />
 	<:anonymous />
 	<player>
-		<position x="498" y="206" />
+		<position x="541" y="206" />
 		<atributes score="0" hp="100" />
 	</player>
 	<enemies>
