@@ -62,7 +62,7 @@ public:
 	void SetTexture(SDL_Texture* tex)
 	{
 		texture = tex;
-		section = { 0, 0, 100, 100 };
+		//section = { 0, 0, 100, 100 };
 	}
 
 	void SetObserver(Module* module)

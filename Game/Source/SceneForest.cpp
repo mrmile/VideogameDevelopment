@@ -15,6 +15,7 @@
 #include "Enemy.h"
 #include "ModuleParticles.h"
 #include "ModuleFonts.h"
+#include "PauseMenu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -105,7 +106,11 @@ bool SceneForest::Update(float dt)
 	//app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 640;
 	//app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 160; //<-- Este es el que se aplica al final
 	//F9 --> See colliders
-
+	if (app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+	{
+		app->SaveGameRequest();
+		PauseMenu = true;
+	}
 	if ((app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false))
 	{
 		app->player->checkPointReached = false;
@@ -151,15 +156,7 @@ bool SceneForest::Update(float dt)
 		//app->audio->PlayFx(levelClear);
 	}
 
-	// L03: DONE 7: Set the window title with map/tileset info
-	/*
-	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
-				   app->map->mapData.width, app->map->mapData.height,
-				   app->map->mapData.tileWidth, app->map->mapData.tileHeight,
-				   app->map->mapData.tilesets.count());
-	*/
-
-	//app->win->SetTitle(title.GetString());
+	
 
 	return true;
 }
@@ -175,13 +172,11 @@ bool SceneForest::PostUpdate()
 	// L08: TODO 6: Make the camera movement independent of framerate
 
 	if (app->player->horizontalCB == false && app->player->bidimensionalCB == false && sceneTimer > 1) app->render->camera.x = (-(app->player->Player->body->GetPosition().x * 150) + 630);
-	//if (app->player->verticalCB == false && app->player->bidimensionalCB == false && sceneTimer > 1) app->render->camera.y = -(app->player->Player->body->GetPosition().y * 150) + 380; //450
-	//if (app->player->verticalCB == false && app->player->bidimensionalCB == false && sceneTimer > 1) app->render->camera.y -= app->player->Player->body->GetLinearVelocity().y * 3;
+	
 	if (-app->player->position.y > app->render->camera.y / 2 + -52) app->render->camera.y += 10;
 	if (-app->player->position.y < app->render->camera.y / 2 + -92) app->render->camera.y -= 10;
 
-	//if (app->render->camera.y < app->map->MapToWorldSingle(-12)) app->render->camera.y = app->map->MapToWorldSingle(-12);
-	//if (app->render->camera.y > app->map->MapToWorldSingle(0)) app->render->camera.y = app->map->MapToWorldSingle(0);
+	
 
 	if (app->render->camera.y < -app->map->levelAreaLowerBound * 3 + 720) app->render->camera.y = -app->map->levelAreaLowerBound * 3 + 720; //720 * 3
 	if (app->render->camera.y > -app->map->levelAreaUpperBound * 3) app->render->camera.y = -app->map->levelAreaUpperBound * 3;
@@ -215,6 +210,22 @@ bool SceneForest::PostUpdate()
 		//playerRestart = true;
 	}
 
+	if (PauseMenu == true) PauseDelay++; 
+
+	if (PauseDelay > 30 && PauseDelay <= 31)
+	{
+		
+
+		app->pauseMenu->Enable();
+
+		app->player->Disable();
+		app->sceneForest->Disable();
+		app->collisions->Disable();
+		app->map->Disable();
+		app->enemies->Disable();
+		app->particles->Disable();
+		app->fonts->Disable();
+	}
 	return ret;
 }
 
@@ -222,57 +233,8 @@ bool SceneForest::PostUpdate()
 bool SceneForest::CleanUp()
 {
 	LOG("Freeing scene");
-
-	//app->sceneCastle_game->holeSensor3->body->DestroyFixture(app->sceneCastle_game->holeSensor3->body->GetFixtureList());
-	//app->collisions->RemoveCollider(app->collisions->AddCollider({ app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(1200), app->map->MapToWorldSingle(100) }, Collider::Type::NULL_COLLIDER));
-	//app->collisions->RemoveCollider(app->collisions->AddCollider({ app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(16), app->map->MapToWorldSingle(19), app->map->MapToWorldSingle(7) }, Collider::Type::H_CB));
-	//app->collisions->RemoveCollider(app->collisions->AddCollider({ app->map->MapToWorldSingle(118), app->map->MapToWorldSingle(13), app->map->MapToWorldSingle(10), app->map->MapToWorldSingle(10) }, Collider::Type::H_CB));
-
-	//app->collisions->RemoveCollider(app->collisions->AddCollider({ app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(1200), app->map->MapToWorldSingle(100) }, Collider::Type::NULL_COLLIDER));
-
-	//app->map->DeleteCollidersSensors();
 	destroyScene = true;
 	sceneForest = false;
 
 	return true;
 }
-
-/*
-void Scene::b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB)
-{
-	if (bodyA != nullptr && bodyB != nullptr)
-	{
-		b2Filter filter;
-		filter.categoryBits = 0x0001;
-		filter.maskBits = 0x0001;
-
-		if (bodyB->body == app->player->Player->body && bodyA->body == app->sceneCastle->h_CB1->body)
-		{
-
-			filter.categoryBits = 0x0002;
-			filter.maskBits = 0x0002 | 0x0001;
-
-			//b2Vec2 position;
-			//position.x = 688;
-			//position.y = 820;
-
-			LOG("Player Collision");
-			//app->player->Player->body->GetFixtureList()->SetFilterData(filter);
-			//app->player->player->body->DestroyFixture();
-
-			if (app->player->horizontalCB == false)
-			{
-				app->player->horizontalCB = true;
-			}
-			
-		}
-		else if (bodyB->body == app->player->Player->body && bodyA->body != app->sceneCastle->h_CB1->body)
-		{
-			if (app->player->horizontalCB == true)
-			{
-				app->player->horizontalCB = false;
-			}
-		}
-	}
-}
-*/

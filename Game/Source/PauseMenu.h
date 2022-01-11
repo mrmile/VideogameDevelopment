@@ -1,19 +1,20 @@
-#ifndef __TITLE_SCREEN_H__
-#define __TITLE_SCREEN_H__
+#ifndef __PAUSE_MENU_H__
+#define __PAUSE_MENU_H__
 
 #include "Module.h"
 #include "GuiButton.h"
 
 struct SDL_Texture;
 
-class TitleScreen : public Module
+
+class PauseMenu : public Module
 {
 public:
 
-	TitleScreen(bool start_enabled = false);
+	PauseMenu(bool start_enabled = false);
 
 	// Destructor
-	virtual ~TitleScreen();
+	virtual ~PauseMenu();
 
 	// Called before render is available
 	bool Awake();
@@ -36,35 +37,29 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
-	//void b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB);
+	bool transitionToGameplay;
+	bool transitionToMenu;
 
-	int sceneTimer;
-	int delay;
-	int delayToCredits;
-	bool transition;
-	bool transitionCredits;
 private:
+	int delayGameplay;
+	int delayMainMenu;
+	bool GeneralMenu = true;
+	bool OptionsMenu=false;
 
-	bool MainMenu = true;
-	bool OptionsMenu = false;
-
-	SDL_Texture* titleScreen;
-	SDL_Texture* startButton;
-	SDL_Texture* loading;
+	SDL_Texture* PauseScreen;
 	SDL_Texture* continueButton;
 	SDL_Texture* optionsButton;
-	SDL_Texture* creditsButton;
-	SDL_Texture* returnButton;
+	SDL_Texture* backToTitleButton;
 	SDL_Texture* exitButton;
+	SDL_Texture* returnButton;
+	SDL_Texture* loading;
 
 	// L14: TODO 2_D: Declare a GUI Button and create it using the GuiManager
-	GuiButton* startButton_;
 	GuiButton* continueButton_;
 	GuiButton* optionsButton_;
-	GuiButton* creditsButton_;
-	GuiButton* returnButton_;
+	GuiButton* backToTitleButton_;
 	GuiButton* exitButton_;
-
+	GuiButton* returnButton_;
 };
 
-#endif // __TITLE_SCREEN_H__
+#endif // __WINDOW_H__

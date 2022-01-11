@@ -47,6 +47,10 @@ public:
 
 	bool sceneForest;
 
+	bool PauseMenu	= false;
+
+	int PauseDelay=0;
+
 private:
 	SDL_Texture* img;
 };

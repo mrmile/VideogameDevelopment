@@ -45,13 +45,13 @@ bool TitleScreen::Start()
 	titleScreen = app->tex->Load("Assets/textures/titleScreen3.png");
 	startButton = app->tex->Load("Assets/textures/startButton3.png");
 	loading = app->tex->Load("Assets/textures/loadingScreen3.png");
-
+	
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
 
 	// L14: TODO 2_D: Declare a GUI Button and create it using the GuiManager
-	button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "TestButton", { 115, 120, 100, 40 }, this); //Observer (this): Class that will receive the event
-	button1->SetTexture(startButton);
+	startButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start Button", { 110, 170, 265, 15 }, this); //Observer (this): Class that will receive the event
+	
 	
 	
 	
@@ -75,28 +75,8 @@ bool TitleScreen::PreUpdate()
 bool TitleScreen::Update(float dt)
 {
 	sceneTimer++;
+
 	
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-	{
-		transition = true;
-	}
-
-	if (transition == true) delay++;
-
-	if (delay > 90 && delay <= 91)
-	{
-		//app->physics->Enable();
-		app->collisions->Enable();
-		app->map->Enable();
-		app->particles->Enable();
-		app->sceneForest->Enable();
-		app->player->Enable();
-		app->enemies->Enable();
-		app->fonts->Enable();
-
-		app->titleScreen->Disable();
-		//app->fade->FadeToBlack(app->titleScreen, app->sceneCastle, 60);
-	}
 
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 		app->render->camera.y -= 5;
@@ -109,12 +89,78 @@ bool TitleScreen::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		app->render->camera.x += 5;
+	
 
-	if (button1->state == GuiControlState::PRESSED)
+
+	if (MainMenu == true)
 	{
-		transition = true;
+		//START BUTTON
+		if (startButton_->state == GuiControlState::PRESSED)
+		{
+			transition = true;
+		}
+		//CONTINUE BUTTON
+		if (continueButton_->state == GuiControlState::PRESSED)
+		{
+			app->LoadGameRequest();
+			transition = true;
+		}
+		//SETTINGS BUTTON
+		if (optionsButton_->state == GuiControlState::PRESSED)
+		{
+			MainMenu = false;
+			OptionsMenu = true;
+		}
+		//CREDITS BUTTON
+		if (creditsButton_->state == GuiControlState::PRESSED)
+		{
+			transitionCredits = true;
+		}
+		//EXIT BUTTON
+		if (exitButton_->state == GuiControlState::PRESSED)
+		{
+			return false;
+		}
+		if (transitionCredits == true) delayToCredits++;
+
+		if (delayToCredits > 90 && delayToCredits <= 91)
+		{
+			//app->credits->Enable();    NEED TO ADD THE CREDITS SCENE
+			app->player->Enable();
+			app->fonts->Enable();
+
+			app->titleScreen->Disable();
+		}
+		
+
+		if (transition == true) delay++;
+
+		if (delay > 90 && delay <= 91)
+		{
+			//app->physics->Enable();
+			app->collisions->Enable();
+			app->map->Enable();
+			app->particles->Enable();
+			app->sceneForest->Enable();
+			app->player->Enable();
+			app->enemies->Enable();
+			app->fonts->Enable();
+
+			app->titleScreen->Disable();
+			//app->fade->FadeToBlack(app->titleScreen, app->sceneCastle, 60);
+		}
 	}
 
+	if (OptionsMenu == true)
+	{
+		//RETURN TO MAIN MENU BUTTON
+		if (returnButton_->state == GuiControlState::PRESSED)
+		{
+			OptionsMenu = false;
+			MainMenu = true;
+		}
+	}
+	
 	return true;
 }
 
@@ -126,10 +172,14 @@ bool TitleScreen::PostUpdate()
 		ret = false;
 
 	app->render->DrawTexture(titleScreen, 0, 0, NULL);
-	//if ((sceneTimer / 30) % 2 == 0) 
+
+	//if (((sceneTimer / 30) % 2 == 0)&& button1->state==GuiControlState::PRESSED) button1->Draw(app->render);
 	
-	//button1->Draw(app->render,startButton);//app->render->DrawTexture(startButton, 85, 118, NULL);
-	app->guiManager->Draw();
+	
+	startButton_->SetTexture(startButton);
+	
+
+	app->guiManager->Draw();  //used to draw the whole GUI 
 
 	if (transition == true) app->render->DrawTexture(loading, 0, 0, NULL);
 

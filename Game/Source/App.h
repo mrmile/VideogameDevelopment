@@ -18,6 +18,7 @@ class Render;
 class Textures;
 class Audio;
 class TitleScreen;
+class PauseMenu;
 class SceneForest;
 class SceneCastle;
 class Map;
@@ -101,6 +102,7 @@ public:
 	Textures* tex;
 	Audio* audio;
 	TitleScreen* titleScreen;
+	PauseMenu* pauseMenu;
 	SceneForest* sceneForest;
 	SceneCastle* sceneCastle;
 	Map* map;

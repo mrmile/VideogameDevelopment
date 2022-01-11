@@ -59,28 +59,28 @@ bool GuiButton::Draw(Render* render)
 
 	case GuiControlState::DISABLED:
 	{
-		render->DrawRectangle(bounds, 0, 0, 0, 0);
+		render->DrawTexture(texture, bounds.x, bounds.y,NULL);
 	} break;
 
 	case GuiControlState::NORMAL:
 	{
-		render->DrawRectangle(bounds, 255, 0, 0, 255);
+		render->DrawTexture(texture, bounds.x, bounds.y, NULL);
 
 	} break;
 
 	//L14: TODO 4: Draw the button according the GuiControl State
 	case GuiControlState::FOCUSED:
 	{
-		render->DrawRectangle(bounds, 255, 255, 255, 160);
+		render->DrawTexture(texture, bounds.x, bounds.y, NULL);
 	} break;
 	case GuiControlState::PRESSED:
 	{
-		render->DrawRectangle(bounds, 255, 255, 255, 255);
+		render->DrawTexture(texture, bounds.x, bounds.y, NULL);
 	} break;
 
 	/******/
 
-	case GuiControlState::SELECTED: render->DrawRectangle(bounds, 0, 255, 0, 255);
+	case GuiControlState::SELECTED:render->DrawTexture(texture, bounds.x, bounds.y, NULL);
 		break;
 
 	default:

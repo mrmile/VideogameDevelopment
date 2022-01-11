@@ -10,6 +10,7 @@
 #include "Audio.h"
 #include "ModuleFadeToBlack.h"
 #include "Window.h"
+#include "PauseMenu.h"
 //#include "ModuleFonts.h"
 #include "Log.h"
 
@@ -199,7 +200,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 
 	bool ret = true;
-
+	
 	texture = app->tex->Load("Assets/textures/player.png");
 	texture2 = app->tex->Load("Assets/textures/scores_images.png");
 	currentAnimation = &idleRightAnim;
@@ -303,6 +304,8 @@ bool ModulePlayer::Update(float dt)
 		
 	}
 	
+	
+
 	//app->win->GetWindowSize()
 	
 	//LOG("Player %s", Player->body->GetPosition().x);
