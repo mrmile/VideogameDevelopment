@@ -170,6 +170,7 @@ bool TitleScreen::Update(float dt)
 			app->enemies->Enable();
 			app->fonts->Enable();
 
+			app->guiManager->Disable();
 			app->titleScreen->Disable();
 			//app->fade->FadeToBlack(app->titleScreen, app->sceneCastle, 60);
 		}

@@ -125,7 +125,7 @@ public:
 	int invincibleDelay;
 	int playerFPS;
 	int playerScore = 0;
-	bool playerWin;
+	bool playerWin= false;
 	int winDelay;
 	bool checkPointReached;
 
