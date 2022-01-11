@@ -89,7 +89,19 @@ bool TitleScreen::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		app->render->camera.x += 5;
-	
+
+	if (MainMenu == true)
+	{
+		startButton_->canClick = true;
+		continueButton_->canClick = true;
+		optionsButton_->canClick = true;
+		creditsButton_->canClick = true;
+		exitButton_->canClick = true;
+	}
+	if (OptionsMenu == true)
+	{
+
+	}
 
 
 	if (MainMenu == true)
@@ -178,8 +190,19 @@ bool TitleScreen::PostUpdate()
 	
 	startButton_->SetTexture(startButton);
 	
-
-	app->guiManager->Draw();  //used to draw the whole GUI 
+	if (MainMenu == true)
+	{
+		startButton_->Draw(app->render);
+		continueButton_->Draw(app->render);
+		optionsButton_->Draw(app->render);
+		creditsButton_->Draw(app->render);
+		exitButton_->Draw(app->render);
+	}
+	if (OptionsMenu == true)
+	{
+		returnButton_->Draw(app->render);
+	}
+	
 
 	if (transition == true) app->render->DrawTexture(loading, 0, 0, NULL);
 
