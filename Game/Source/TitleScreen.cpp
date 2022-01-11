@@ -98,7 +98,10 @@ bool TitleScreen::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		app->render->camera.x += 5;
-
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		transition = true;
+	}
 	if (MainMenu == true)
 	{
 		startButton_->canClick = true;
@@ -231,6 +234,12 @@ bool TitleScreen::CleanUp()
 {
 	app->tex->UnLoad(titleScreen);
 	app->tex->UnLoad(startButton);
+	app->tex->UnLoad(titleScreen2);
+	app->tex->UnLoad(continueButton);
+	app->tex->UnLoad(optionsButton);
+	app->tex->UnLoad(creditsButton);
+	app->tex->UnLoad(exitButton);
+	app->tex->UnLoad(returnButton);
 	app->tex->UnLoad(loading);
 
 	return true;
@@ -247,22 +256,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 1)
 		{
 			transition = true;
-			if (transition == true) delay++;
-
-			if (delay > 90 && delay <= 91)
-			{
-				//app->physics->Enable();
-				app->collisions->Enable();
-				app->map->Enable();
-				app->particles->Enable();
-				app->sceneForest->Enable();
-				app->player->Enable();
-				app->enemies->Enable();
-				app->fonts->Enable();
-
-				app->titleScreen->Disable();
-				//app->fade->FadeToBlack(app->titleScreen, app->sceneCastle, 60);
-			}
+			
 		}
 
 		if (control->id == 2)
