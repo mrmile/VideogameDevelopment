@@ -12,13 +12,15 @@
 	<SceneCastle />
 	<:anonymous />
 	<player>
-		<position x="996" y="190" />
-		<atributes score="25" hp="90" />
+		<position x="507" y="206" />
+		<atributes score="0" hp="100" />
 	</player>
 	<enemies>
-		<position x="1299" y="221" />
+		<position x="1415" y="221" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="1290" y="221" />
+		<position x="1374" y="221" />
+		<atributes timer="0" enemyHp="1" />
+		<position x="766" y="221" />
 		<atributes timer="0" enemyHp="1" />
 		<position x="1915" y="205" />
 		<atributes timer="0" enemyHp="1" />
@@ -32,21 +34,21 @@
 		<atributes timer="0" enemyHp="1" />
 		<position x="7707" y="237" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="1548" y="103" />
-		<atributes timer="103" enemyHp="1" />
-		<position x="2365" y="113" />
-		<atributes timer="103" enemyHp="1" />
-		<position x="6066" y="151" />
-		<atributes timer="103" enemyHp="1" />
-		<position x="8235" y="150" />
-		<atributes timer="103" enemyHp="1" />
-		<position x="7963" y="129" />
-		<atributes timer="103" enemyHp="1" />
-		<position x="7082" y="125" />
-		<atributes timer="103" enemyHp="1" />
-		<position x="5174" y="165" />
-		<atributes timer="103" enemyHp="1" />
-		<position x="1020" y="187" />
+		<position x="1548" y="121" />
+		<atributes timer="77" enemyHp="1" />
+		<position x="2365" y="131" />
+		<atributes timer="77" enemyHp="1" />
+		<position x="6066" y="169" />
+		<atributes timer="77" enemyHp="1" />
+		<position x="8235" y="168" />
+		<atributes timer="77" enemyHp="1" />
+		<position x="7963" y="147" />
+		<atributes timer="77" enemyHp="1" />
+		<position x="7082" y="143" />
+		<atributes timer="77" enemyHp="1" />
+		<position x="5174" y="183" />
+		<atributes timer="77" enemyHp="1" />
+		<position x="1113" y="120" />
 		<atributes timer="0" enemyHp="1" />
 		<position x="1783" y="170" />
 		<atributes timer="0" enemyHp="1" />
@@ -65,6 +67,6 @@
 	<pathfinding />
 	<guiManager />
 	<renderer>
-		<camera x="-2401" y="-192" />
+		<camera x="-1392" y="-192" />
 	</renderer>
 </save_state>

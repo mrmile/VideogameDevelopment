@@ -49,6 +49,7 @@ private:
 	bool OptionsMenu = false;
 
 	SDL_Texture* titleScreen;
+	SDL_Texture* titleScreen2;
 	SDL_Texture* startButton;
 	SDL_Texture* loading;
 	SDL_Texture* continueButton;

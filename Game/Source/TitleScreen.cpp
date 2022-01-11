@@ -43,17 +43,26 @@ bool TitleScreen::Awake()
 bool TitleScreen::Start()
 {
 	titleScreen = app->tex->Load("Assets/textures/titleScreen3.png");
-	startButton = app->tex->Load("Assets/textures/startButton3.png");
+	titleScreen2 = app->tex->Load("Assets/textures/island.png");
 	loading = app->tex->Load("Assets/textures/loadingScreen3.png");
-	
+	startButton = app->tex->Load("Assets/textures/GUI/startButton.png");
+	continueButton = app->tex->Load("Assets/textures/GUI/continueButton.png");
+	optionsButton = app->tex->Load("Assets/textures/GUI/optionsButton.png");
+	creditsButton = app->tex->Load("Assets/textures/GUI/creditsButton.png");
+	exitButton = app->tex->Load("Assets/textures/GUI/exitButton.png");
+	returnButton = app->tex->Load("Assets/textures/GUI/returnButton.png");
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
 
 	// L14: TODO 2_D: Declare a GUI Button and create it using the GuiManager
-	startButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start Button", { 110, 170, 265, 15 }, this); //Observer (this): Class that will receive the event
+	startButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start Button", { 105, 120, 108, 35 }, this); //Observer (this): Class that will receive the event
+	continueButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue Button", { 105, 160, 108, 35 }, this);
+	optionsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Options Button", { 105, 200, 108, 35 }, this);
+	creditsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits Button", { 215, 120, 108, 35 }, this);
+	exitButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Exit Button", { 215, 160, 108, 35 }, this);
+	returnButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Return Button", { 10, 10, 71, 35 }, this);
 	
-	
-	
+
 	
 	sceneTimer = 0;
 	delay = 0;
@@ -100,39 +109,39 @@ bool TitleScreen::Update(float dt)
 	}
 	if (OptionsMenu == true)
 	{
-
+		returnButton_->canClick = true;
 	}
 
 
 	if (MainMenu == true)
 	{
+		
 		//START BUTTON
 		if (startButton_->state == GuiControlState::PRESSED)
 		{
-			transition = true;
+			OnGuiMouseClickEvent(startButton_);
 		}
 		//CONTINUE BUTTON
 		if (continueButton_->state == GuiControlState::PRESSED)
 		{
-			app->LoadGameRequest();
-			transition = true;
+			OnGuiMouseClickEvent(continueButton_);
 		}
 		//SETTINGS BUTTON
 		if (optionsButton_->state == GuiControlState::PRESSED)
 		{
-			MainMenu = false;
-			OptionsMenu = true;
+			OnGuiMouseClickEvent(optionsButton_);
 		}
 		//CREDITS BUTTON
 		if (creditsButton_->state == GuiControlState::PRESSED)
 		{
-			transitionCredits = true;
+			OnGuiMouseClickEvent(creditsButton_);
 		}
 		//EXIT BUTTON
 		if (exitButton_->state == GuiControlState::PRESSED)
 		{
-			return false;
+			OnGuiMouseClickEvent(exitButton_);
 		}
+		
 		if (transitionCredits == true) delayToCredits++;
 
 		if (delayToCredits > 90 && delayToCredits <= 91)
@@ -166,11 +175,12 @@ bool TitleScreen::Update(float dt)
 	if (OptionsMenu == true)
 	{
 		//RETURN TO MAIN MENU BUTTON
+		
 		if (returnButton_->state == GuiControlState::PRESSED)
 		{
-			OptionsMenu = false;
-			MainMenu = true;
+			OnGuiMouseClickEvent(returnButton_);
 		}
+		
 	}
 	
 	return true;
@@ -189,7 +199,12 @@ bool TitleScreen::PostUpdate()
 	
 	
 	startButton_->SetTexture(startButton);
-	
+	continueButton_->SetTexture(continueButton);
+	optionsButton_->SetTexture(optionsButton);
+	creditsButton_->SetTexture(creditsButton);
+	exitButton_->SetTexture(exitButton);
+	returnButton_->SetTexture(returnButton);
+
 	if (MainMenu == true)
 	{
 		startButton_->Draw(app->render);
@@ -200,6 +215,7 @@ bool TitleScreen::PostUpdate()
 	}
 	if (OptionsMenu == true)
 	{
+		//app->render->DrawTexture(titleScreen2, 0, 0, NULL);
 		returnButton_->Draw(app->render);
 	}
 	
@@ -230,13 +246,57 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		//Checks the GUI element ID
 		if (control->id == 1)
 		{
-			LOG("Click on button 1");
+			transition = true;
+			if (transition == true) delay++;
+
+			if (delay > 90 && delay <= 91)
+			{
+				//app->physics->Enable();
+				app->collisions->Enable();
+				app->map->Enable();
+				app->particles->Enable();
+				app->sceneForest->Enable();
+				app->player->Enable();
+				app->enemies->Enable();
+				app->fonts->Enable();
+
+				app->titleScreen->Disable();
+				//app->fade->FadeToBlack(app->titleScreen, app->sceneCastle, 60);
+			}
 		}
 
 		if (control->id == 2)
 		{
-			LOG("Click on button 2");
+			//app->LoadGameRequest();
+			transition = true;
 		}
+		if (control->id == 3)
+		{
+			MainMenu = false;
+			OptionsMenu = true;
+		}
+
+		if (control->id == 4)
+		{
+			transitionCredits = true;
+			if (transitionCredits == true) delayToCredits++;
+
+			if (delayToCredits > 90 && delayToCredits <= 91)
+			{
+				//app->credits->Enable();    //NEED TO ADD THE CREDITS SCEN
+				app->titleScreen->Disable();
+			}
+		}
+		if (control->id == 5)
+		{
+			exit(0);
+		}
+		if (control->id == 6)
+		{
+			OptionsMenu = false;
+			MainMenu = true;
+		}
+
 
 	}
 	//Other cases here
