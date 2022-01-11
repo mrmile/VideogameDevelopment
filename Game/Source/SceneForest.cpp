@@ -106,11 +106,7 @@ bool SceneForest::Update(float dt)
 	//app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 640;
 	//app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 160; //<-- Este es el que se aplica al final
 	//F9 --> See colliders
-	if (app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
-	{
-		app->SaveGameRequest();
-		PauseMenu = true;
-	}
+
 	if ((app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false))
 	{
 		app->player->checkPointReached = false;
@@ -210,19 +206,7 @@ bool SceneForest::PostUpdate()
 		//playerRestart = true;
 	}
 
-	if (PauseMenu == true) PauseDelay++; 
-
-	if (PauseDelay > 30 && PauseDelay <= 31)
-	{
-
-		app->player->Disable();
-		app->sceneForest->Disable();
-		app->collisions->Disable();
-		app->map->Disable();
-		app->enemies->Disable();
-		app->particles->Disable();
-		app->fonts->Disable();
-	}
+	
 	return ret;
 }
 

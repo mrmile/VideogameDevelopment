@@ -145,6 +145,7 @@ bool TitleScreen::Update(float dt)
 			OnGuiMouseClickEvent(exitButton_);
 		}
 		
+		//FOR CREDITS BUTTOn
 		if (transitionCredits == true) delayToCredits++;
 
 		if (delayToCredits > 90 && delayToCredits <= 91)
@@ -156,7 +157,28 @@ bool TitleScreen::Update(float dt)
 			app->titleScreen->Disable();
 		}
 		
+		//FOR CONTINUE BUTTON
+		if (continueTransition == true) delayToContinue++;
 
+		if (delayToContinue > 90 && delayToContinue <= 91)
+		{
+			//app->physics->Enable();
+			app->collisions->Enable();
+			app->map->Enable();
+			app->particles->Enable();
+			app->sceneForest->Enable();
+			app->player->Enable();
+			app->enemies->Enable();
+			app->fonts->Enable();
+
+			app->LoadGameRequest();
+
+			app->guiManager->Disable();
+			app->titleScreen->Disable();
+			//app->fade->FadeToBlack(app->titleScreen, app->sceneCastle, 60);
+		}
+
+		//FOR START BUTTON
 		if (transition == true) delay++;
 
 		if (delay > 90 && delay <= 91)
@@ -262,8 +284,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 
 		if (control->id == 2)
 		{
-			//app->LoadGameRequest();
-			transition = true;
+			continueTransition = true;
 		}
 		if (control->id == 3)
 		{

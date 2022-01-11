@@ -41,8 +41,10 @@ public:
 	int sceneTimer;
 	int delay;
 	int delayToCredits;
+	int delayToContinue;
 	bool transition;
 	bool transitionCredits;
+	bool continueTransition;
 private:
 
 	bool MainMenu = true;
