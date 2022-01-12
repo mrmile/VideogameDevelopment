@@ -94,6 +94,12 @@
     <ClCompile Include="Source\GuiButton.cpp">
       <Filter>General</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GuiCheckbox.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuiSlider.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -217,6 +223,12 @@
       <Filter>General</Filter>
     </ClInclude>
     <ClInclude Include="Source\GuiButton.h">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiCheckbox.h">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiSlider.h">
       <Filter>General</Filter>
     </ClInclude>
   </ItemGroup>

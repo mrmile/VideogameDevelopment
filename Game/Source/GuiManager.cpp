@@ -3,6 +3,8 @@
 #include "Textures.h"
 
 #include "GuiButton.h"
+#include "GuiCheckbox.h"
+#include "GuiSlider.h"
 #include "Audio.h"
 
 GuiManager::GuiManager(bool start_enabled) : Module(start_enabled)
@@ -30,25 +32,12 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 		control = new GuiButton(id, bounds, text);
 		break;
 	
-	case GuiControlType::TOGGLE:
-		break;
 	case GuiControlType::CHECKBOX:
+		control = new GuiCheckbox(id, bounds, text);
 		break;
 	case GuiControlType::SLIDER:
+		control = new GuiSlider(id, bounds, sliderBounds);
 		break;
-	case GuiControlType::SLIDERBAR:
-		break;
-	case GuiControlType::COMBOBOX:
-		break;
-	case GuiControlType::DROPDOWNBOX:
-		break;
-	case GuiControlType::INPUTBOX:
-		break;
-	case GuiControlType::VALUEBOX:
-		break;
-	case GuiControlType::SPINNER:
-		break;
-	
 	default:
 		break;
 	}

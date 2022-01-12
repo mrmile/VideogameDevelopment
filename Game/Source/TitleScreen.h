@@ -36,15 +36,21 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	//Check if save_game.xml player position is different that the original position to see if it has already saved the game
+	bool CheckPlayer_x(pugi::xml_node&);
+
 	//void b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 	int sceneTimer;
 	int delay;
 	int delayToCredits;
 	int delayToContinue;
+	int PositionChecker;
 	bool transition;
 	bool transitionCredits;
 	bool continueTransition;
+
+	bool SavedGame;
 private:
 
 	bool MainMenu = true;
@@ -55,6 +61,7 @@ private:
 	SDL_Texture* startButton;
 	SDL_Texture* loading;
 	SDL_Texture* continueButton;
+	SDL_Texture* continueButtonOff;
 	SDL_Texture* optionsButton;
 	SDL_Texture* creditsButton;
 	SDL_Texture* returnButton;

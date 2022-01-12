@@ -39,15 +39,17 @@ public:
 
 	GuiControl(GuiControlType type, uint32 id) : type(type), id(id), state(GuiControlState::NORMAL) {}
 
-	GuiControl(GuiControlType type, SDL_Rect bounds, const char* text) :
-		type(type),
-		state(GuiControlState::NORMAL),
-		bounds(bounds),
-		text(text)
+	GuiControl(GuiControlType type, SDL_Rect bounds, const char* text) :type(type),state(GuiControlState::NORMAL),bounds(bounds),text(text)
 	{
 		color.r = 255; color.g = 255; color.b = 255;
 		texture=nullptr;
 	}
+	GuiControl(GuiControlType type, SDL_Rect bounds, const char* text, SDL_Rect ExtraBounds) :type(type), state(GuiControlState::NORMAL), bounds(bounds),extraBounds(ExtraBounds)
+	{
+		
+	}
+	
+	
 
 	virtual bool Update(float dt)
 	{
@@ -62,6 +64,11 @@ public:
 	void SetTexture(SDL_Texture* tex)
 	{
 		texture = tex;
+		//section = { 0, 0, 100, 100 };
+	}
+	void SetSliderTexture(SDL_Texture* tex)
+	{
+		textureForSlider = tex;
 		//section = { 0, 0, 100, 100 };
 	}
 
@@ -83,9 +90,11 @@ public:
 
 	SString text;           // Control text (if required)
 	SDL_Rect bounds;        // Position and size
+	SDL_Rect extraBounds;
 	SDL_Color color;        // Tint color
 
-	SDL_Texture* texture;   // Texture atlas reference
+	SDL_Texture* texture;
+	SDL_Texture* textureForSlider;	// Texture atlas reference
 	SDL_Rect section;       // Texture atlas base section
 
 	//Font font;              // Text font

@@ -47,6 +47,7 @@ bool TitleScreen::Start()
 	loading = app->tex->Load("Assets/textures/loadingScreen3.png");
 	startButton = app->tex->Load("Assets/textures/GUI/startButton.png");
 	continueButton = app->tex->Load("Assets/textures/GUI/continueButton.png");
+	continueButtonOff = app->tex->Load("Assets/textures/GUI/continueButtonOff.png");
 	optionsButton = app->tex->Load("Assets/textures/GUI/optionsButton.png");
 	creditsButton = app->tex->Load("Assets/textures/GUI/creditsButton.png");
 	exitButton = app->tex->Load("Assets/textures/GUI/exitButton.png");
@@ -71,6 +72,8 @@ bool TitleScreen::Start()
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
+	
+
 	return true;
 }
 
@@ -84,7 +87,6 @@ bool TitleScreen::PreUpdate()
 bool TitleScreen::Update(float dt)
 {
 	sceneTimer++;
-
 	
 
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
@@ -225,7 +227,8 @@ bool TitleScreen::PostUpdate()
 	
 	
 	startButton_->SetTexture(startButton);
-	continueButton_->SetTexture(continueButton);
+	if(SavedGame == true) continueButton_->SetTexture(continueButton);
+	if(SavedGame == false) continueButton_->SetTexture(continueButtonOff);
 	optionsButton_->SetTexture(optionsButton);
 	creditsButton_->SetTexture(creditsButton);
 	exitButton_->SetTexture(exitButton);
@@ -284,7 +287,11 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 
 		if (control->id == 2)
 		{
-			continueTransition = true;
+			if(SavedGame == true)continueTransition = true;
+			if (SavedGame == false)
+			{
+				//AUDIO THINGY
+			}
 		}
 		if (control->id == 3)
 		{
@@ -319,6 +326,16 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 
 	default: break;
 	}
+
+	return true;
+}
+
+bool TitleScreen::CheckPlayer_x(pugi::xml_node& data)
+{
+	PositionChecker = data.child("position").attribute("x").as_int();
+
+	//if(PositionChecker == )
+
 
 	return true;
 }
