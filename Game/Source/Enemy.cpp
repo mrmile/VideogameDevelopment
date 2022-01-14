@@ -30,11 +30,12 @@ const Collider* Enemy::GetCollider() const
 
 void Enemy::Update(float dt)
 {
+
 	if (currentAnim != nullptr)
-		currentAnim->Update();
+			currentAnim->Update();
 
 	if (collider != nullptr)
-		collider->SetPos(position.x, position.y);
+			collider->SetPos(position.x, position.y);
 
 	EnemyCounter++;
 
@@ -76,10 +77,12 @@ void Enemy::OnCollision(Collider* c2)
 void Enemy::SetToDelete()
 {
 	pendingToDelete = true;
-	app->audio->PlayFx(app->enemies->enemyDestroyedFx);
-	app->particles->AddParticle(app->particles->enemyDefeat, position.x + 4, position.y + 4, Collider::NONE);
+	//app->audio->PlayFx(app->enemies->enemyDestroyedFx);
+	//app->particles->AddParticle(app->particles->enemyDefeat, position.x + 4, position.y + 4, Collider::NONE);
 	if(collider != nullptr)
 	{
+		app->audio->PlayFx(app->enemies->enemyDestroyedFx);
+		app->particles->AddParticle(app->particles->enemyDefeat, position.x + 4, position.y + 4, Collider::NONE);
 		collider->pendingToDelete = true; 
 	}
 		

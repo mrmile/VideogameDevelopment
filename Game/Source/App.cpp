@@ -436,7 +436,7 @@ bool App::LoadGame()
 
 	return ret;
 }
-
+//------------------------------------------------------------------------------
 // L02: DONE 7: Implement the xml save method for current state
 bool App::SaveGame() const
 {

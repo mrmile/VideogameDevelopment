@@ -11,6 +11,7 @@
 #include "Map.h"
 #include "Pathfinding.h"
 #include "ModulePhysics.h"
+#include "SceneForest.h"
 
 Flying_Enemy_2::Flying_Enemy_2(int x, int y) : Enemy(x, y)
 {
@@ -45,74 +46,92 @@ void Flying_Enemy_2::Update(float dt)
 {
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
 	
-	collider->SetPos(position.x, position.y);
-	Flying_Enemy_2_List.end->data->GetPosition(position.x, position.y);
-	currentAnim = &Flying_Enemy_2_Left;
-
-	if (position.DistanceTo(app->player->position) < 200)
+	if (app->sceneForest->PauseMenu == true)
 	{
-		if (position.x < app->player->position.x)
-		{
-			currentAnim = &Flying_Enemy_2_Right;
-			Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ 0.7f,0.0f });
-
-		}
-		if (position.x > app->player->position.x)
-		{
-			currentAnim = &Flying_Enemy_2_Left;
-			Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ -0.7f,0.0f });
-
-		}
-		if (position.y > app->player->position.y)
-		{
-			Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ 0.0f,-0.5f });
-		}
-		if (position.y < app->player->position.y)
-		{
-			Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ 0.0f,0.5f });
-		}
-		if (position.x < app->player->position.x && position.y > app->player->position.y)
-		{
-			currentAnim = &Flying_Enemy_2_Right;
-			Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ 0.7f,-0.5f });
-
-		}
-		if (position.x > app->player->position.x && position.y > app->player->position.y)
-		{
-			currentAnim = &Flying_Enemy_2_Left;
-			Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ -0.7f,-0.5f });
-
-		}
-		if (position.x < app->player->position.x && position.y < app->player->position.y)
-		{
-			currentAnim = &Flying_Enemy_2_Right;
-			Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ 0.7f,0.5f });
-
-		}
-		if (position.x > app->player->position.x && position.y < app->player->position.y)
-		{
-			currentAnim = &Flying_Enemy_2_Left;
-			Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ -0.7f,0.5f });
-
-		}
+		iPoint NewPosition = position;
+		collider->SetPos(NewPosition.x, NewPosition.y);
+		Flying_Enemy_2_List.end->data->GetPosition(NewPosition.x, NewPosition.y);
+		if (position.x < app->player->position.x) currentAnim = &Flying_Enemy_2_Right;
+		if (position.x > app->player->position.x) currentAnim = &Flying_Enemy_2_Left;
+		currentAnim->loop = false;
+		//Enemy::Update(dt);
 	}
-		
-	
-
-
-	if ((EnemyHP == 0)|| (app->enemies->active==false))
+	if (app->sceneForest->PauseMenu == false)
 	{
-		app->player->score += 10;
-		Flying_Enemy_2_List.end->data->body->DestroyFixture(Flying_Enemy_2_List.end->data->body->GetFixtureList());
-		SetToDelete();
-	}
-	if (app->enemies->KoopaLoading == true)
-	{
-		Flying_Enemy_2_List.end->data->body->DestroyFixture(Flying_Enemy_2_List.end->data->body->GetFixtureList());
-	}
-	
+		collider->SetPos(position.x, position.y);
+		Flying_Enemy_2_List.end->data->GetPosition(position.x, position.y);
+		if (position.DistanceTo(app->player->position) < 200)
+		{
+			if (position.x < app->player->position.x)
+			{
+				currentAnim = &Flying_Enemy_2_Right;
+				currentAnim->loop = true;
+				Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ 0.7f,0.0f });
 
-	// Call to the base class. It must be called at the end
-	// It will update the collider depending on the position
-	Enemy::Update(dt);
+			}
+			if (position.x > app->player->position.x)
+			{
+				currentAnim = &Flying_Enemy_2_Left;
+				currentAnim->loop = true;
+				Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ -0.7f,0.0f });
+
+			}
+			if (position.y > app->player->position.y)
+			{
+				Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ 0.0f,-0.5f });
+			}
+			if (position.y < app->player->position.y)
+			{
+				Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ 0.0f,0.5f });
+			}
+			if (position.x < app->player->position.x && position.y > app->player->position.y)
+			{
+				currentAnim = &Flying_Enemy_2_Right;
+				currentAnim->loop = true;
+				Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ 0.7f,-0.5f });
+
+			}
+			if (position.x > app->player->position.x && position.y > app->player->position.y)
+			{
+				currentAnim = &Flying_Enemy_2_Left;
+				currentAnim->loop = true;
+				Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ -0.7f,-0.5f });
+
+			}
+			if (position.x < app->player->position.x && position.y < app->player->position.y)
+			{
+				currentAnim = &Flying_Enemy_2_Right;
+				currentAnim->loop = true;
+				Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ 0.7f,0.5f });
+
+			}
+			if (position.x > app->player->position.x && position.y < app->player->position.y)
+			{
+				currentAnim = &Flying_Enemy_2_Left;
+				currentAnim->loop = true;
+				Flying_Enemy_2_List.end->data->body->SetLinearVelocity({ -0.7f,0.5f });
+
+			}
+		}
+
+
+
+
+		if ((EnemyHP == 0) || (app->enemies->active == false))
+		{
+			app->player->score += 10;
+			Flying_Enemy_2_List.end->data->body->DestroyFixture(Flying_Enemy_2_List.end->data->body->GetFixtureList());
+			SetToDelete();
+		}
+		if (app->enemies->KoopaLoading == true)
+		{
+			Flying_Enemy_2_List.end->data->body->DestroyFixture(Flying_Enemy_2_List.end->data->body->GetFixtureList());
+		}
+
+
+		// Call to the base class. It must be called at the end
+		// It will update the collider depending on the position
+		Enemy::Update(dt);
+	}
+
 }

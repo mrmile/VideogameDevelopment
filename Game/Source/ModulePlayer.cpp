@@ -288,478 +288,478 @@ bool ModulePlayer::Start()
 
 bool ModulePlayer::Update(float dt)
 {
-	playerFPS++;
-	invincibleDelay++;
-
-	//OPTICK_EVENT();
-	collider->SetPos(position.x, position.y);
-	colliderFeet->SetPos(position.x + 5, position.y + 23);
-	currentCoin = &coins;
-	playerTimer++;
-
-	if (createPlayer == true)
+	
+	if (app->sceneForest->PauseMenu==true)
 	{
-		//App->audio->PlayFx(ball_spawn_sound);
-		
+		iPoint NewPosition = position;
+		collider->SetPos(NewPosition.x, NewPosition.y);
+		colliderFeet->SetPos(NewPosition.x + 5, NewPosition.y + 23);
 	}
-	
-	
-
-	//app->win->GetWindowSize()
-	
-	//LOG("Player %s", Player->body->GetPosition().x);
-	//LOG("Camera %s", app->render->camera.x);
-	//------------------------------------------------------------------------------------------------------------------------------------------
-	if (Player->body->GetLinearVelocity().y != 0) //To make so the player can drop onto enemies without needing to jump
+	if (app->sceneForest->PauseMenu == false)
 	{
-		//inTheAir = true; //Removed because if not player cannot jump while going up/down slopes
-	}
-	if (destroyed == false && playerWin == false && app->sceneCastle->godMode == false && app->sceneForest->godMode == false)
-	{
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_A) == KeyState::KEY_REPEAT)
+		playerFPS++;
+		invincibleDelay++;
+
+		//OPTICK_EVENT();
+		collider->SetPos(position.x, position.y);
+		colliderFeet->SetPos(position.x + 5, position.y + 23);
+		currentCoin = &coins;
+		playerTimer++;
+		//------------------------------------------------------------------------------------------------------------------------------------------
+		if (destroyed == false && playerWin == false && app->sceneCastle->godMode == false && app->sceneForest->godMode == false)
 		{
-
-			if (run == false)
+			if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_A) == KeyState::KEY_REPEAT)
 			{
-				if (Player->body->GetLinearVelocity().x >= -2) Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
 
-				if (currentAnimation != &leftAnim && hover == false)
+				if (run == false)
 				{
-					leftAnim.Reset();
-					currentAnimation = &leftAnim;
+					if (Player->body->GetLinearVelocity().x >= -2) Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
+
+					if (currentAnimation != &leftAnim && hover == false)
+					{
+						leftAnim.Reset();
+						currentAnimation = &leftAnim;
+					}
+				}
+				else if (run == true)
+				{
+					if (Player->body->GetLinearVelocity().x >= -4) Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
+
+					if (currentAnimation != &leftRunAnim && hover == false)
+					{
+						leftRunAnim.Reset();
+						currentAnimation = &leftRunAnim;
+					}
+				}
+
+				PlayerLookingPosition = 1;
+
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_D) == KeyState::KEY_REPEAT)
+			{
+
+				if (run == false)
+				{
+					if (Player->body->GetLinearVelocity().x <= 2) Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
+
+					if (currentAnimation != &rightAnim && hover == false)
+					{
+						rightAnim.Reset();
+						currentAnimation = &rightAnim;
+					}
+				}
+				else if (run == true)
+				{
+					if (Player->body->GetLinearVelocity().x <= 4) Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
+
+					if (currentAnimation != &rightRunAnim && hover == false)
+					{
+						rightRunAnim.Reset();
+						currentAnimation = &rightRunAnim;
+					}
+				}
+
+
+
+				PlayerLookingPosition = 2;
+
+			}
+
+			if ((app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN) && jump == false && inTheAir == false)
+			{
+				Player->body->ApplyLinearImpulse({ 0,-160 }, { 0,0 }, true);
+				app->audio->PlayFx(jumpSound);
+				//jump = true;
+			}
+
+			if (Player->body->GetLinearVelocity().y < 0 && (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN))
+			{
+				jump = true;
+			}
+
+			if (Player->body->GetLinearVelocity().y == 0 && app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_IDLE && app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_IDLE)
+			{
+				jump = false;
+				inTheAir = false;
+				hover = false;
+				hoverTimer = 0;
+			}
+
+
+
+			if ((app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_REPEAT) && Player->body->GetLinearVelocity().y > 0) // <--
+			{
+				hover = true;
+				run = false;
+
+				if (hoverTimer < 75)
+				{
+					Player->body->ApplyForce({ 0,-1800 }, { 0,0 }, true);
+					if (hoverTimer < 2 && hover == true) app->audio->PlayFx(hoverSound);
+					if (hoverTimer > 30 && hoverTimer < 34 && hover == true) app->audio->PlayFx(hoverSound);
+				}
+
+				if (PlayerLookingPosition == 1)
+				{
+					if (Player->body->GetLinearVelocity().x < -1) Player->body->ApplyLinearImpulse({ 3.0f,0 }, { 0,0 }, true);
+					if (currentAnimation != &hoverLeftAnim)
+					{
+						hoverLeftAnim.Reset();
+						currentAnimation = &hoverLeftAnim;
+					}
+				}
+				if (PlayerLookingPosition == 2)
+				{
+					if (Player->body->GetLinearVelocity().x > 1) Player->body->ApplyLinearImpulse({ -3.0f,0 }, { 0,0 }, true);
+					if (currentAnimation != &hoverRightAnim)
+					{
+						hoverRightAnim.Reset();
+						currentAnimation = &hoverRightAnim;
+					}
 				}
 			}
-			else if (run == true)
+			if (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_UP && app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_UP)
 			{
-				if (Player->body->GetLinearVelocity().x >= -4) Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
+				hover = false;
+			}
+			if (hover == true)
+			{
+				hoverTimer++;
+			}
+			if (hoverTimer > 75)
+			{
+				hover = false;
+			}
 
-				if (currentAnimation != &leftRunAnim && hover == false)
+			if (PlayerLookingPosition == 1 && jump == true && hover == false)
+			{
+				if (Player->body->GetLinearVelocity().y < 0)
 				{
-					leftRunAnim.Reset();
-					currentAnimation = &leftRunAnim;
+					if (currentAnimation != &jumpLeftAnim)
+					{
+						jumpLeftAnim.Reset();
+						currentAnimation = &jumpLeftAnim;
+					}
+				}
+				if (Player->body->GetLinearVelocity().y > 0)
+				{
+					if (currentAnimation != &fallLeftAnim)
+					{
+						fallLeftAnim.Reset();
+						currentAnimation = &fallLeftAnim;
+					}
+				}
+			}
+			if (PlayerLookingPosition == 2 && jump == true && hover == false)
+			{
+				if (Player->body->GetLinearVelocity().y < 0)
+				{
+					if (currentAnimation != &jumpRightAnim)
+					{
+						jumpRightAnim.Reset();
+						currentAnimation = &jumpRightAnim;
+					}
+				}
+				if (Player->body->GetLinearVelocity().y > 0)
+				{
+					if (currentAnimation != &fallRightAnim)
+					{
+						fallRightAnim.Reset();
+						currentAnimation = &fallRightAnim;
+					}
 				}
 			}
 
-			PlayerLookingPosition = 1;
-
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_D) == KeyState::KEY_REPEAT)
-		{
-
-			if (run == false)
+			if ((app->input->GetKey(SDL_SCANCODE_X) == KeyState::KEY_REPEAT) || (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KeyState::KEY_REPEAT))
 			{
-				if (Player->body->GetLinearVelocity().x <= 2) Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
-
-				if (currentAnimation != &rightAnim && hover == false)
+				if (hover == false) run = true;
+			}
+			else
+			{
+				run = false;
+			}
+			/*
+			if (doubleJump == true)
+			{
+				if (app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN)
 				{
-					rightAnim.Reset();
-					currentAnimation = &rightAnim;
+					if (PlayerLookingPosition == 1)
+					{
+						Player->body->ApplyForce({ 0,-500 }, { 0,0 }, true);
+						doubleJump = false;
+					}
+					if (PlayerLookingPosition == 2)
+					{
+						Player->body->ApplyForce({ 0,-500 }, { 0,0 }, true);
+						doubleJump = false;
+					}
 				}
 			}
-			else if (run == true)
-			{
-				if (Player->body->GetLinearVelocity().x <= 4) Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
+			*/
 
-				if (currentAnimation != &rightRunAnim && hover == false)
+
+			// If no up/down movement detected, set the current animation back to idle
+			if (app->input->GetKey(SDL_SCANCODE_DOWN) == KeyState::KEY_IDLE
+				&& app->input->GetKey(SDL_SCANCODE_UP) == KeyState::KEY_IDLE
+				&& app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_IDLE
+				&& app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_IDLE
+				&& jump == false && Player->body->GetLinearVelocity().x == 0)
+			{
+				playerIdleAnimationTimer++;
+				speed = 0;
+
+				switch (PlayerLookingPosition)
 				{
-					rightRunAnim.Reset();
-					currentAnimation = &rightRunAnim;
+				case 1:
+					if (playerIdleAnimationTimer <= 180)
+					{
+						if (currentAnimation != &idleLeftAnim)
+						{
+							idleLeftAnim.Reset();
+							currentAnimation = &idleLeftAnim;
+						}
+					}
+					else if (playerIdleAnimationTimer > 180) // <-- Should be random
+					{
+						if (currentAnimation != &idleLeftAnim2)
+						{
+							idleLeftAnim2.Reset();
+							currentAnimation = &idleLeftAnim2;
+						}
+						if (playerIdleAnimationTimer >= 243) playerIdleAnimationTimer = 0; // <-- Should also be random
+					}
+
+					break;
+				case 2:
+					if (playerIdleAnimationTimer <= 180)
+					{
+						if (currentAnimation != &idleRightAnim)
+						{
+							idleRightAnim.Reset();
+							currentAnimation = &idleRightAnim;
+						}
+					}
+					else if (playerIdleAnimationTimer > 180) // <-- Should be random
+					{
+						if (currentAnimation != &idleRightAnim2)
+						{
+							idleRightAnim2.Reset();
+							currentAnimation = &idleRightAnim2;
+						}
+						if (playerIdleAnimationTimer >= 243) playerIdleAnimationTimer = 0; // <-- Should also be random
+					}
+
+					break;
 				}
 			}
-
-
-
-			PlayerLookingPosition = 2;
-
 		}
-
-		if ((app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN) && jump == false && inTheAir == false)
+		//------------------------------------------------------------------------------------------------------------------------------------------
+		if (destroyed == false && playerWin == false && (app->sceneCastle->godMode == true || app->sceneForest->godMode == true))
 		{
-			Player->body->ApplyLinearImpulse({ 0,-160 }, { 0,0 }, true);
-			app->audio->PlayFx(jumpSound);
-			//jump = true;
-		}
-
-		if (Player->body->GetLinearVelocity().y < 0 && (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN))
-		{
-			jump = true;
-		}
-
-		if (Player->body->GetLinearVelocity().y == 0 && app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_IDLE && app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_IDLE)
-		{
-			jump = false;
-			inTheAir = false;
-			hover = false;
-			hoverTimer = 0;
-		}
-
-
-
-		if ((app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_REPEAT) && Player->body->GetLinearVelocity().y > 0) // <--
-		{
-			hover = true;
-			run = false;
-
-			if (hoverTimer < 75)
+			if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_A))
 			{
-				Player->body->ApplyForce({ 0,-1800 }, { 0,0 }, true);
-				if (hoverTimer < 2 && hover == true) app->audio->PlayFx(hoverSound);
-				if (hoverTimer > 30 && hoverTimer < 34 && hover == true) app->audio->PlayFx(hoverSound);
+
+				if (run == false)
+				{
+					if (Player->body->GetLinearVelocity().x >= -2) Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
+
+					if (currentAnimation != &leftAnim && hover == false)
+					{
+						leftRunAnim.Reset();
+						currentAnimation = &leftAnim;
+					}
+				}
+				else if (run == true)
+				{
+					if (Player->body->GetLinearVelocity().x >= -4) Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
+
+					if (currentAnimation != &leftRunAnim && hover == false)
+					{
+						leftRunAnim.Reset();
+						currentAnimation = &leftRunAnim;
+					}
+				}
+
+				PlayerLookingPosition = 1;
+
 			}
 
+			if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_D))
+			{
+
+				if (run == false)
+				{
+					if (Player->body->GetLinearVelocity().x <= 2) Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
+
+					if (currentAnimation != &rightAnim && hover == false)
+					{
+						rightAnim.Reset();
+						currentAnimation = &rightAnim;
+					}
+				}
+				else if (run == true)
+				{
+					if (Player->body->GetLinearVelocity().x <= 4) Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
+
+					if (currentAnimation != &rightRunAnim && hover == false)
+					{
+						rightAnim.Reset();
+						currentAnimation = &rightRunAnim;
+					}
+				}
+
+
+
+				PlayerLookingPosition = 2;
+
+			}
+
+			if ((app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN) && Player->body->GetLinearVelocity().y >= -2)
+			{
+				Player->body->ApplyLinearImpulse({ 0,-160 }, { 0,0 }, true);
+				app->audio->PlayFx(jumpSound);
+
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_X) == KeyState::KEY_REPEAT)
+			{
+				if (hover == false) run = true;
+			}
+			else
+			{
+				run = false;
+			}
+
+			// If no up/down movement detected, set the current animation back to idle
+			if (app->input->GetKey(SDL_SCANCODE_DOWN) == KeyState::KEY_IDLE
+				&& app->input->GetKey(SDL_SCANCODE_UP) == KeyState::KEY_IDLE
+				&& app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_IDLE
+				&& app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_IDLE
+				&& jump == false && Player->body->GetLinearVelocity().x == 0)
+			{
+				playerIdleAnimationTimer++;
+				speed = 0;
+
+				switch (PlayerLookingPosition)
+				{
+				case 1:
+					if (playerIdleAnimationTimer <= 180)
+					{
+						if (currentAnimation != &idleLeftAnim)
+						{
+							idleLeftAnim.Reset();
+							currentAnimation = &idleLeftAnim;
+						}
+					}
+					else if (playerIdleAnimationTimer > 180) // <-- Should be random
+					{
+						if (currentAnimation != &idleLeftAnim2)
+						{
+							idleLeftAnim2.Reset();
+							currentAnimation = &idleLeftAnim2;
+						}
+						if (playerIdleAnimationTimer >= 243) playerIdleAnimationTimer = 0; // <-- Should also be random
+					}
+
+					break;
+				case 2:
+					if (playerIdleAnimationTimer <= 180)
+					{
+						if (currentAnimation != &idleRightAnim)
+						{
+							idleRightAnim.Reset();
+							currentAnimation = &idleRightAnim;
+						}
+					}
+					else if (playerIdleAnimationTimer > 180) // <-- Should be random
+					{
+						if (currentAnimation != &idleRightAnim2)
+						{
+							idleRightAnim2.Reset();
+							currentAnimation = &idleRightAnim2;
+						}
+						if (playerIdleAnimationTimer >= 243) playerIdleAnimationTimer = 0; // <-- Should also be random
+					}
+
+					break;
+				}
+			}
+		}
+		//------------------------------------------------------------------------------------------------------------------------------------------
+		if (destroyed == true)
+		{
+			if (destroyedDelay < 1)
+			{
+				//Mix_PauseMusic();
+				app->audio->PlayFx(dead);
+			}
 			if (PlayerLookingPosition == 1)
 			{
-				if (Player->body->GetLinearVelocity().x < -1) Player->body->ApplyLinearImpulse({ 3.0f,0 }, { 0,0 }, true);
-				if (currentAnimation != &hoverLeftAnim)
+				if (destroyedDelay < 60) Player->body->SetLinearVelocity(b2VelocitySet);
+
+				if (currentAnimation != &dieLeft)
 				{
-					hoverLeftAnim.Reset();
-					currentAnimation = &hoverLeftAnim;
+					dieLeft.Reset();
+					currentAnimation = &dieLeft;
 				}
 			}
 			if (PlayerLookingPosition == 2)
 			{
-				if (Player->body->GetLinearVelocity().x > 1) Player->body->ApplyLinearImpulse({ -3.0f,0 }, { 0,0 }, true);
-				if (currentAnimation != &hoverRightAnim)
-				{
-					hoverRightAnim.Reset();
-					currentAnimation = &hoverRightAnim;
-				}
-			}
-		}
-		if (app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_UP && app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_UP)
-		{
-			hover = false;
-		}
-		if (hover == true)
-		{
-			hoverTimer++;
-		}
-		if (hoverTimer > 75)
-		{
-			hover = false;
-		}
+				if (destroyedDelay < 60) Player->body->SetLinearVelocity(b2VelocitySet);
 
-		if (PlayerLookingPosition == 1 && jump == true && hover == false)
-		{
-			if (Player->body->GetLinearVelocity().y < 0)
-			{
-				if (currentAnimation != &jumpLeftAnim)
-				{
-					jumpLeftAnim.Reset();
-					currentAnimation = &jumpLeftAnim;
-				}
-			}
-			if (Player->body->GetLinearVelocity().y > 0)
-			{
-				if (currentAnimation != &fallLeftAnim)
-				{
-					fallLeftAnim.Reset();
-					currentAnimation = &fallLeftAnim;
-				}
-			}
-		}
-		if (PlayerLookingPosition == 2 && jump == true && hover == false)
-		{
-			if (Player->body->GetLinearVelocity().y < 0)
-			{
-				if (currentAnimation != &jumpRightAnim)
-				{
-					jumpRightAnim.Reset();
-					currentAnimation = &jumpRightAnim;
-				}
-			}
-			if (Player->body->GetLinearVelocity().y > 0)
-			{
-				if (currentAnimation != &fallRightAnim)
-				{
-					fallRightAnim.Reset();
-					currentAnimation = &fallRightAnim;
-				}
-			}
-		}
 
-		if ((app->input->GetKey(SDL_SCANCODE_X) == KeyState::KEY_REPEAT)||(app->input->GetKey(SDL_SCANCODE_LSHIFT)== KeyState::KEY_REPEAT))
-		{
-			if (hover == false) run = true;
+				if (currentAnimation != &dieRight)
+				{
+					dieRight.Reset();
+					currentAnimation = &dieRight;
+				}
+			}
 		}
-		else
+		//------------------------------------------------------------------------------------------------------------------------------------------
+		if (playerWin == true)
 		{
-			run = false;
+			if (winDelay < 1)
+			{
+				//Mix_PauseMusic();
+				app->audio->PlayFx(firework);
+			}
+			if (PlayerLookingPosition == 1)
+			{
+
+			}
+			if (PlayerLookingPosition == 2)
+			{
+
+			}
 		}
 		/*
-		if (doubleJump == true)
+		if ((PlayerLookingPosition == 1) && (position.x < app->render->camera.x / app->win->GetScale() + 190))
 		{
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN)
-			{
-				if (PlayerLookingPosition == 1)
-				{
-					Player->body->ApplyForce({ 0,-500 }, { 0,0 }, true);
-					doubleJump = false;
-				}
-				if (PlayerLookingPosition == 2)
-				{
-					Player->body->ApplyForce({ 0,-500 }, { 0,0 }, true);
-					doubleJump = false;
-				}
-			}
+			app->render->camera.x -= 5;
+		}
+		if ((PlayerLookingPosition == 2) && (position.x > app->render->camera.x / app->win->GetScale() + 140))
+		{
+			app->render->camera.x += 5;
 		}
 		*/
 
 
-		// If no up/down movement detected, set the current animation back to idle
-		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KeyState::KEY_IDLE
-			&& app->input->GetKey(SDL_SCANCODE_UP) == KeyState::KEY_IDLE
-			&& app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_IDLE
-			&& app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_IDLE
-			&& jump == false && Player->body->GetLinearVelocity().x == 0)
-		{
-			playerIdleAnimationTimer++;
-			speed = 0;
+		currentAnimation->Update();
 
-			switch (PlayerLookingPosition)
-			{
-			case 1:
-				if (playerIdleAnimationTimer <= 180)
-				{
-					if (currentAnimation != &idleLeftAnim)
-					{
-						idleLeftAnim.Reset();
-						currentAnimation = &idleLeftAnim;
-					}
-				}
-				else if (playerIdleAnimationTimer > 180) // <-- Should be random
-				{
-					if (currentAnimation != &idleLeftAnim2)
-					{
-						idleLeftAnim2.Reset();
-						currentAnimation = &idleLeftAnim2;
-					}
-					if (playerIdleAnimationTimer >= 243) playerIdleAnimationTimer = 0; // <-- Should also be random
-				}
+		Player->GetPosition(position.x, position.y);
 
-				break;
-			case 2:
-				if (playerIdleAnimationTimer <= 180)
-				{
-					if (currentAnimation != &idleRightAnim)
-					{
-						idleRightAnim.Reset();
-						currentAnimation = &idleRightAnim;
-					}
-				}
-				else if (playerIdleAnimationTimer > 180) // <-- Should be random
-				{
-					if (currentAnimation != &idleRightAnim2)
-					{
-						idleRightAnim2.Reset();
-						currentAnimation = &idleRightAnim2;
-					}
-					if (playerIdleAnimationTimer >= 243) playerIdleAnimationTimer = 0; // <-- Should also be random
-				}
+		//cout << "PosX: " << position.x << " PosY: " << position.y << endl;
 
-				break;
-			}
-		}
+		return true;
 	}
-	//------------------------------------------------------------------------------------------------------------------------------------------
-	if (destroyed == false && playerWin == false && (app->sceneCastle->godMode == true || app->sceneForest->godMode == true))
-	{
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_A))
-		{
-
-			if (run == false)
-			{
-				if (Player->body->GetLinearVelocity().x >= -2) Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
-
-				if (currentAnimation != &leftAnim && hover == false)
-				{
-					leftRunAnim.Reset();
-					currentAnimation = &leftAnim;
-				}
-			}
-			else if (run == true)
-			{
-				if (Player->body->GetLinearVelocity().x >= -4) Player->body->ApplyLinearImpulse({ -5.0f,0 }, { 0,0 }, true);
-
-				if (currentAnimation != &leftRunAnim && hover == false)
-				{
-					leftRunAnim.Reset();
-					currentAnimation = &leftRunAnim;
-				}
-			}
-
-			PlayerLookingPosition = 1;
-
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_D))
-		{
-
-			if (run == false)
-			{
-				if (Player->body->GetLinearVelocity().x <= 2) Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
-
-				if (currentAnimation != &rightAnim && hover == false)
-				{
-					rightAnim.Reset();
-					currentAnimation = &rightAnim;
-				}
-			}
-			else if (run == true)
-			{
-				if (Player->body->GetLinearVelocity().x <= 4) Player->body->ApplyLinearImpulse({ 5.0f,0 }, { 0,0 }, true);
-
-				if (currentAnimation != &rightRunAnim && hover == false)
-				{
-					rightAnim.Reset();
-					currentAnimation = &rightRunAnim;
-				}
-			}
-
-
-
-			PlayerLookingPosition = 2;
-
-		}
-
-		if ((app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN) && Player->body->GetLinearVelocity().y >= -2)
-		{
-			Player->body->ApplyLinearImpulse({ 0,-160 }, { 0,0 }, true);
-			app->audio->PlayFx(jumpSound);
-			
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_X) == KeyState::KEY_REPEAT)
-		{
-			if (hover == false) run = true;
-		}
-		else
-		{
-			run = false;
-		}
-
-		// If no up/down movement detected, set the current animation back to idle
-		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KeyState::KEY_IDLE
-			&& app->input->GetKey(SDL_SCANCODE_UP) == KeyState::KEY_IDLE
-			&& app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_IDLE
-			&& app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_IDLE
-			&& jump == false && Player->body->GetLinearVelocity().x == 0)
-		{
-			playerIdleAnimationTimer++;
-			speed = 0;
-
-			switch (PlayerLookingPosition)
-			{
-			case 1:
-				if (playerIdleAnimationTimer <= 180)
-				{
-					if (currentAnimation != &idleLeftAnim)
-					{
-						idleLeftAnim.Reset();
-						currentAnimation = &idleLeftAnim;
-					}
-				}
-				else if (playerIdleAnimationTimer > 180) // <-- Should be random
-				{
-					if (currentAnimation != &idleLeftAnim2)
-					{
-						idleLeftAnim2.Reset();
-						currentAnimation = &idleLeftAnim2;
-					}
-					if (playerIdleAnimationTimer >= 243) playerIdleAnimationTimer = 0; // <-- Should also be random
-				}
-
-				break;
-			case 2:
-				if (playerIdleAnimationTimer <= 180)
-				{
-					if (currentAnimation != &idleRightAnim)
-					{
-						idleRightAnim.Reset();
-						currentAnimation = &idleRightAnim;
-					}
-				}
-				else if (playerIdleAnimationTimer > 180) // <-- Should be random
-				{
-					if (currentAnimation != &idleRightAnim2)
-					{
-						idleRightAnim2.Reset();
-						currentAnimation = &idleRightAnim2;
-					}
-					if (playerIdleAnimationTimer >= 243) playerIdleAnimationTimer = 0; // <-- Should also be random
-				}
-
-				break;
-			}
-		}
-	}
-	//------------------------------------------------------------------------------------------------------------------------------------------
-	if (destroyed == true)
-	{
-		if (destroyedDelay < 1)
-		{
-			//Mix_PauseMusic();
-			app->audio->PlayFx(dead);
-		}
-		if (PlayerLookingPosition == 1)
-		{
-			if (destroyedDelay < 60) Player->body->SetLinearVelocity(b2VelocitySet);
-			
-			if (currentAnimation != &dieLeft)
-			{
-				dieLeft.Reset();
-				currentAnimation = &dieLeft;
-			}
-		}
-		if (PlayerLookingPosition == 2)
-		{
-			if (destroyedDelay < 60) Player->body->SetLinearVelocity(b2VelocitySet);
-			
-
-			if (currentAnimation != &dieRight)
-			{
-				dieRight.Reset();
-				currentAnimation = &dieRight;
-			}
-		}
-	}
-	//------------------------------------------------------------------------------------------------------------------------------------------
-	if (playerWin == true)
-	{
-		if (winDelay < 1)
-		{
-			//Mix_PauseMusic();
-			app->audio->PlayFx(firework);
-		}
-		if (PlayerLookingPosition == 1)
-		{
-
-		}
-		if (PlayerLookingPosition == 2)
-		{
-
-		}
-	}
-	/*
-	if ((PlayerLookingPosition == 1) && (position.x < app->render->camera.x / app->win->GetScale() + 190))
-	{
-		app->render->camera.x -= 5;
-	}
-	if ((PlayerLookingPosition == 2) && (position.x > app->render->camera.x / app->win->GetScale() + 140))
-	{
-		app->render->camera.x += 5;
-	}
-	*/
+	
+	
 	
 
-	currentAnimation->Update();
-
-	Player->GetPosition(position.x, position.y);
 	
-	//cout << "PosX: " << position.x << " PosY: " << position.y << endl;
+	//------------------------------------------------------------------------------------------------------------------------------------------
 	
-	return true;
 }
 
 bool ModulePlayer::PostUpdate()
@@ -915,6 +915,8 @@ bool ModulePlayer::LoadState(pugi::xml_node& data)
 	score = data.child("atributes").attribute("score").as_int();
 	playerHP = data.child("atributes").attribute("hp").as_int();
 
+	saved_game = data.child("atributes").attribute("saved_game").as_bool();
+
 	b2Vec2 playerLoadPosition; // No hace falta
 	playerLoadPosition.x = (position.x);
 	playerLoadPosition.y = (position.y);
@@ -945,6 +947,7 @@ bool ModulePlayer::SaveState(pugi::xml_node& data) const
 	playerpos.append_attribute("y") = position.y;
 	playerAtributes.append_attribute("score") = score;
 	playerAtributes.append_attribute("hp") = playerHP;
+	playerAtributes.append_attribute("saved_game") = saved_game;
 
 	return true;
 }
@@ -1086,6 +1089,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			score += 10;
 			//if (playerScore > 1000) playerScore = 1000;
 			app->audio->PlayFx(halfWayPoint);
+			saved_game = true;
 			app->SaveGameRequest();
 			checkPointReached = true;
 		}

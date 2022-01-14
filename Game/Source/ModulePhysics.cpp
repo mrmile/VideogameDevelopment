@@ -4,7 +4,7 @@
 #include "ModulePhysics.h"
 #include "Point.h"
 #include "math.h"
-#include "SceneCastle.h"
+#include "SceneForest.h"
 #include "Log.h"
 
 #include "Box2D/Box2D/Box2D.h"
@@ -64,20 +64,26 @@ bool ModulePhysics::Start()
 
 bool ModulePhysics::PreUpdate()
 {
-	world->Step(1.0f / 60.0f, 6, 2);
-
-	for(b2Contact* c = world->GetContactList(); c; c = c->GetNext())
+	if (app->sceneForest->PauseMenu == true)
 	{
-		if(c->GetFixtureA()->IsSensor() && c->IsTouching())
+		return true;
+	}
+	if (app->sceneForest->PauseMenu == false)
+	{
+		world->Step(1.0f / 60.0f, 6, 2);
+		for (b2Contact* c = world->GetContactList(); c; c = c->GetNext())
 		{
-			PhysBody* pb1 = (PhysBody*)c->GetFixtureA()->GetBody()->GetUserData();
-			PhysBody* pb2 = (PhysBody*)c->GetFixtureA()->GetBody()->GetUserData();
-			if(pb1 && pb2 && pb1->listener)
-				pb1->listener->b2dOnCollision(pb1, pb2);
+			if (c->GetFixtureA()->IsSensor() && c->IsTouching())
+			{
+				PhysBody* pb1 = (PhysBody*)c->GetFixtureA()->GetBody()->GetUserData();
+				PhysBody* pb2 = (PhysBody*)c->GetFixtureA()->GetBody()->GetUserData();
+				if (pb1 && pb2 && pb1->listener)
+					pb1->listener->b2dOnCollision(pb1, pb2);
+			}
 		}
+		return true;
 	}
 
-	return true;
 }
 
 PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
@@ -177,14 +183,13 @@ PhysBody* ModulePhysics::CreateWalkingEnemyBox(int x, int y, int width, int heig
 
 	b2Body* b = world->CreateBody(&body);
 	b2PolygonShape box;
-	
 
 
 	box.SetAsBox(PIXEL_TO_METERS(width) * 0.2f, PIXEL_TO_METERS(height) * 0.4f);
 
 	b2FixtureDef fixture;
 	fixture.shape = &box;
-	fixture.density = 500.0f;
+	fixture.density = 50.0f;
 	
 	//fixture.friction = 0.5f;
 

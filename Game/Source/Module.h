@@ -71,7 +71,6 @@ public:
 	{
 		return true;
 	}
-
 	virtual bool SaveState(pugi::xml_node&) const
 	{
 		return true;

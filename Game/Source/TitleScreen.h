@@ -36,19 +36,19 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
-	//Check if save_game.xml player position is different that the original position to see if it has already saved the game
-	bool CheckPlayer_x(pugi::xml_node&);
-
 	//void b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB);
+
 
 	int sceneTimer;
 	int delay;
 	int delayToCredits;
 	int delayToContinue;
-	int PositionChecker;
 	bool transition;
 	bool transitionCredits;
 	bool continueTransition;
+	
+
+	int buttonClickedFx = 0;
 
 	bool SavedGame;
 private:

@@ -11,6 +11,7 @@
 #include "Map.h"
 #include "ModulePhysics.h"
 #include "Pathfinding.h"
+#include "SceneForest.h"
 
 Walking_Enemy::Walking_Enemy(int x, int y) : Enemy(x, y)
 {	
@@ -49,44 +50,52 @@ Walking_Enemy::Walking_Enemy(int x, int y) : Enemy(x, y)
 void Walking_Enemy::Update(float dt)
 {
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
-	collider->SetPos(position.x, position.y);
-	Walking_Enemy_List.end->data->GetPosition(position.x, position.y);
 	
+	if (app->sceneForest->PauseMenu == true)
+	{
+		iPoint NewPosition = position;
+		collider->SetPos(NewPosition.x, NewPosition.y);
+		Walking_Enemy_List.end->data->GetPosition(NewPosition.x, NewPosition.y);
+		if (position.x < app->player->position.x) currentAnim = &Walking_Enemy_Right;
+		if (position.x > app->player->position.x) currentAnim = &Walking_Enemy_Left;
+		currentAnim->loop = false;
+		//Enemy::Update(dt);
+	}
+	if (app->sceneForest->PauseMenu == false)
+	{
+		collider->SetPos(position.x, position.y);
+		Walking_Enemy_List.end->data->GetPosition(position.x, position.y);
+
+
 		if (position.DistanceTo(app->player->position) < 500)
 		{
 			if (position.x < app->player->position.x)
 			{
 				currentAnim = &Walking_Enemy_Right;
+				currentAnim->loop = true;
 				Walking_Enemy_List.end->data->body->SetLinearVelocity({ 1.0f,0.0f });
-				
+
 			}
 			if (position.x > app->player->position.x)
 			{
 				currentAnim = &Walking_Enemy_Left;
+				currentAnim->loop = true;
 				Walking_Enemy_List.end->data->body->SetLinearVelocity({ -1.0f,0.0f });
-				
+
 			}
 		}
-	
-	
-	
-	
-	
-	
-
-	if ((EnemyHP == 0) || (app->enemies->active == false))
-	{
-		app->player->score += 10;
-		Walking_Enemy_List.end->data->body->DestroyFixture(Walking_Enemy_List.end->data->body->GetFixtureList());
-		SetToDelete();
+		if ((EnemyHP == 0) || (app->enemies->active == false))
+		{
+			app->player->score += 10;
+			Walking_Enemy_List.end->data->body->DestroyFixture(Walking_Enemy_List.end->data->body->GetFixtureList());
+			SetToDelete();
+		}
+		if (app->enemies->GoombaLoading == true)
+		{
+			Walking_Enemy_List.end->data->body->DestroyFixture(Walking_Enemy_List.end->data->body->GetFixtureList());
+		}
+		Enemy::Update(dt);
 	}
-	if (app->enemies->GoombaLoading == true)
-	{
-		Walking_Enemy_List.end->data->body->DestroyFixture(Walking_Enemy_List.end->data->body->GetFixtureList());
-	}
-	
 	// Call to the base class. It must be called at the end
 	// It will update the collider depending on the position
-	
-	Enemy::Update(dt);
 }

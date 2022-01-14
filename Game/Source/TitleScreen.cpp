@@ -54,6 +54,7 @@ bool TitleScreen::Start()
 	returnButton = app->tex->Load("Assets/textures/GUI/returnButton.png");
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
+	buttonClickedFx = app->audio->LoadFx("Assets/audio/fx/Advice.wav");
 
 	// L14: TODO 2_D: Declare a GUI Button and create it using the GuiManager
 	startButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start Button", { 105, 120, 108, 35 }, this); //Observer (this): Class that will receive the event
@@ -72,6 +73,7 @@ bool TitleScreen::Start()
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
+	
 	
 
 	return true;
@@ -267,7 +269,6 @@ bool TitleScreen::CleanUp()
 	app->tex->UnLoad(exitButton);
 	app->tex->UnLoad(returnButton);
 	app->tex->UnLoad(loading);
-
 	return true;
 }
 
@@ -281,26 +282,37 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		//Checks the GUI element ID
 		if (control->id == 1)
 		{
+			app->audio->PlayFx(buttonClickedFx, 0);
 			transition = true;
 			
 		}
 
 		if (control->id == 2)
 		{
-			if(SavedGame == true)continueTransition = true;
-			if (SavedGame == false)
+			app->audio->PlayFx(buttonClickedFx);
+
+			if (app->player->saved_game == true)
 			{
+				app->audio->PlayFx(buttonClickedFx, 0);
+				continueTransition = true;
+			}
+			if (app->player->saved_game == false)
+			{
+				app->audio->PlayFx(buttonClickedFx, 0);
 				//AUDIO THINGY
 			}
 		}
 		if (control->id == 3)
 		{
+			app->audio->PlayFx(buttonClickedFx, 0);
 			MainMenu = false;
 			OptionsMenu = true;
 		}
 
 		if (control->id == 4)
 		{
+			app->audio->PlayFx(buttonClickedFx, 0);
+
 			transitionCredits = true;
 			if (transitionCredits == true) delayToCredits++;
 
@@ -312,10 +324,12 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 5)
 		{
+			app->audio->PlayFx(buttonClickedFx, 0);
 			exit(0);
 		}
 		if (control->id == 6)
 		{
+			app->audio->PlayFx(buttonClickedFx, 0);
 			OptionsMenu = false;
 			MainMenu = true;
 		}
@@ -326,16 +340,6 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 
 	default: break;
 	}
-
-	return true;
-}
-
-bool TitleScreen::CheckPlayer_x(pugi::xml_node& data)
-{
-	PositionChecker = data.child("position").attribute("x").as_int();
-
-	//if(PositionChecker == )
-
 
 	return true;
 }

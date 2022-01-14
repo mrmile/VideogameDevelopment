@@ -89,6 +89,7 @@ bool SceneForest::Start()
 	 sceneForest = true;
 	
 	 app->sceneCastle->sceneCastle = false;
+	 
 
 	return true;
 }
@@ -112,17 +113,32 @@ bool SceneForest::Update(float dt)
 		app->player->checkPointReached = false;
 		playerRestart = true;
 	}
-		
+	
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false)
+	{
+		PauseMenu = true;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_UP && app->player->destroyed == false && app->player->playerWin == false)
+	{
+		PauseMenu = false;
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false)
 		godMode = !godMode;
 
     // L02: DONE 3: Request Load / Save when pressing L/S
-	if(app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false)
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false)
+	{
 		app->LoadGameRequest();
+	}
+		
 
-	if(app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false)
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false)
+	{
+		app->player->saved_game = true;
 		app->SaveGameRequest();
+	}
+		
 
 	//if(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 		//app->render->camera.y -= 5;

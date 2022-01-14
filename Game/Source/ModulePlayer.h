@@ -149,7 +149,9 @@ public:
 	bool createPlayer;
 	bool deletePlayer;
 	bool layerZeroReveal;
-
+	
+	//test for continue mechanic
+	bool saved_game = false;
 };
 
 #endif //!__MODULE_PLAYER_H__
