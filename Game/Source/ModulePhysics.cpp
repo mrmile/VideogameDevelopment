@@ -179,7 +179,7 @@ PhysBody* ModulePhysics::CreateWalkingEnemyBox(int x, int y, int width, int heig
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
-	
+	body.gravityScale = 6.0f;
 
 	b2Body* b = world->CreateBody(&body);
 	b2PolygonShape box;

@@ -71,18 +71,6 @@ bool SceneForest::Start()
 	app->render->camera.x = app->map->MapToWorld(-87, -12).x;
 	app->render->camera.y = app->map->MapToWorld(-87, -12).y;
 
-	//NULL COLLIDER --> (experimental test for camera functions and other mechanical stuff related with old type colliders
-	//app->collisions->AddCollider({ app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(1200), app->map->MapToWorldSingle(100) }, Collider::Type::NULL_COLLIDER);
-
-	//app->collisions->AddCollider({ app->map->MapToWorldSingle(0), app->map->MapToWorldSingle(16), app->map->MapToWorldSingle(19), app->map->MapToWorldSingle(7) }, Collider::Type::H_CB);
-	//app->collisions->AddCollider({ app->map->MapToWorldSingle(118), app->map->MapToWorldSingle(13), app->map->MapToWorldSingle(10), app->map->MapToWorldSingle(10) }, Collider::Type::H_CB);
-
-	//app->map->LoadColliders(); Old version makes the game laggy but with TMX 
-	//app->map->LoadCollidersNewer(); //New version creating the colliders by hand (not needed any more)
-	//app->map->LoadCollidersSensors();
-	 
-	 //app->map->LoadLavaColliders();
-
 	 godMode = false;
 	 playerRestart = false;
 	 destroyScene = false;
@@ -104,8 +92,6 @@ bool SceneForest::PreUpdate()
 bool SceneForest::Update(float dt)
 {
 	sceneTimer++;
-	//app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 640;
-	//app->render->camera.x = -(app->player->Player->body->GetPosition().x * 100) + 160; //<-- Este es el que se aplica al final
 	//F9 --> See colliders
 
 	if ((app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false))
@@ -222,6 +208,10 @@ bool SceneForest::PostUpdate()
 		//playerRestart = true;
 	}
 	
+	if (PauseMenu == true)
+	{
+		app->render->DrawTexture(PauseFrame, 20.20, NULL);
+	}
 	return ret;
 }
 
