@@ -286,6 +286,7 @@ bool ModulePlayer::Update(float dt)
 		iPoint NewPosition = position;
 		collider->SetPos(NewPosition.x, NewPosition.y);
 		colliderFeet->SetPos(NewPosition.x + 5, NewPosition.y + 23);
+		return true;
 	}
 	if (app->sceneForest->PauseMenu == false)
 	{

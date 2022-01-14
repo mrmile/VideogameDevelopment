@@ -85,6 +85,7 @@ bool SceneForest::Start()
 // Called each loop iteration
 bool SceneForest::PreUpdate()
 {
+	
 	return true;
 }
 
@@ -207,11 +208,12 @@ bool SceneForest::PostUpdate()
 
 		//playerRestart = true;
 	}
-	
 	if (PauseMenu == true)
 	{
-		app->render->DrawTexture(PauseFrame, 20.20, NULL);
+		//CREAR BOTONES Y TODO AQUI
+		
 	}
+	
 	return ret;
 }
 

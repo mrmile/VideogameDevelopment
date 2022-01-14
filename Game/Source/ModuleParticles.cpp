@@ -5,6 +5,7 @@
 #include "Textures.h"
 #include "Render.h"
 #include "ModuleCollisions.h"
+#include "SceneForest.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -165,20 +166,28 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 
 bool ModuleParticles::Update(float dt)
 {
-	for(uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	if (app->sceneForest->PauseMenu == false)
 	{
-		Particle* particle = particles[i];
-
-		if(particle == nullptr)	continue;
-
-		// Call particle Update. If it has reached its lifetime, destroy it
-		if(particle->Update() == false)
+		for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		{
-			particles[i]->SetToDelete();
+			Particle* particle = particles[i];
+
+			if (particle == nullptr)	continue;
+
+			// Call particle Update. If it has reached its lifetime, destroy it
+			if (particle->Update() == false)
+			{
+				particles[i]->SetToDelete();
+			}
 		}
+		return true;
+	}
+	if (app->sceneForest->PauseMenu == true)
+	{
+		return true;
 	}
 
-	return true;
+	
 }
 
 bool ModuleParticles::PostUpdate()

@@ -59,6 +59,7 @@ void Flying_Enemy::Update(float dt)
 		if (position.x < app->player->position.x) currentAnim = &Flying_Enemy_Right;
 		if (position.x > app->player->position.x) currentAnim = &Flying_Enemy_Left;
 		currentAnim->loop = false;
+		Enemy::Update(dt);
 	}
 	if (app->sceneForest->PauseMenu == false)
 	{
