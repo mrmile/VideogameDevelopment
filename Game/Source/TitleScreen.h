@@ -3,6 +3,8 @@
 
 #include "Module.h"
 #include "GuiButton.h"
+#include "GuiCheckbox.h"
+#include "GuiSlider.h"
 
 struct SDL_Texture;
 
@@ -58,23 +60,36 @@ private:
 
 	SDL_Texture* titleScreen;
 	SDL_Texture* titleScreen2;
-	SDL_Texture* startButton;
 	SDL_Texture* loading;
+	//BUTTONS TEXTURES
+	SDL_Texture* startButton;
 	SDL_Texture* continueButton;
 	SDL_Texture* continueButtonOff;
 	SDL_Texture* optionsButton;
 	SDL_Texture* creditsButton;
 	SDL_Texture* returnButton;
 	SDL_Texture* exitButton;
+	//CHECBOX TEXTURES
+	SDL_Texture* fullScreenCheckOn;
+	SDL_Texture* fullScreenCheckOff;
+	SDL_Texture* VSyncOn;
+	SDL_Texture* VSyncOff;
+	//SLIDER TEXTURES
+	
 
-	// L14: TODO 2_D: Declare a GUI Button and create it using the GuiManager
+	//GUI BUTTONS
 	GuiButton* startButton_;
 	GuiButton* continueButton_;
 	GuiButton* optionsButton_;
 	GuiButton* creditsButton_;
 	GuiButton* returnButton_;
 	GuiButton* exitButton_;
-
+	//GUI CHECKBOX
+	GuiCheckbox* fullScreenCheck;
+	GuiCheckbox* VSyncCheck;
+	//GUI SLIDER
+	GuiSlider* musicVolumeSlider;
+	GuiSlider* fxVolumeSlider;
 };
 
 #endif // __TITLE_SCREEN_H__

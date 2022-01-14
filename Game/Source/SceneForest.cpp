@@ -50,7 +50,7 @@ bool SceneForest::Start()
 	Mix_SetMusicPosition(0);
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/jungle.ogg");
-
+	app->tex->Load("Assets/textures/GUI/PauseMenuFrame.png");
 	sceneTimer = 0;
 
 	//b2Filter filter;
@@ -221,7 +221,6 @@ bool SceneForest::PostUpdate()
 
 		//playerRestart = true;
 	}
-
 	
 	return ret;
 }

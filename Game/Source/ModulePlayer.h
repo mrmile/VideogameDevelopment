@@ -63,6 +63,8 @@ public:
 	//TEXTURE FOR UI LIFES AND COINS
 	SDL_Texture* texture2 = nullptr;
 
+	SDL_Texture* coinsForScore;
+	SDL_Texture* livesForScore;
 	// The pointer to the current player animation
 	// It will be switched depending on the player's movement direction
 	Animation* currentAnimation = nullptr;
@@ -86,10 +88,7 @@ public:
 	Animation dieRight;
 
 
-	//IMAGES FOR UI LIVES AND COINS
-	Animation* currentCoin = nullptr;
-	Animation coins;
-	Animation Lives;
+	
 
 	// Sound effects indices
 	uint jumpSound = 0;

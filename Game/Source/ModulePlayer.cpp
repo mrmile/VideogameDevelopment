@@ -173,15 +173,6 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	dieRight.PushBack({ 428, 59, 28, 40 });
 	dieRight.loop = false;
 	dieRight.speed = 0.2f;
-
-	//coins
-	coins.PushBack({ 18,0,12,17 });
-	coins.loop = true;
-	coins.speed = 0.2f;
-	//lives
-	Lives.PushBack({ 0,0,16,17 });
-	Lives.loop = true;
-	Lives.speed = 0.2f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -201,7 +192,8 @@ bool ModulePlayer::Start()
 	bool ret = true;
 	
 	texture = app->tex->Load("Assets/textures/player.png");
-	texture2 = app->tex->Load("Assets/textures/scores_images.png");
+	coinsForScore = app->tex->Load("Assets/textures/coins_score.png");
+	livesForScore = app->tex->Load("Assets/textures/lives_score.png");
 	currentAnimation = &idleRightAnim;
 
 	jumpSound = app->audio->LoadFx("Assets/audio/fx/Jump.wav");
@@ -282,7 +274,7 @@ bool ModulePlayer::Start()
 	playerHP = 100;
 	invincibleDelay = 120;
 	playerFPS = 0;
-
+	
 	return ret;
 }
 
@@ -303,7 +295,6 @@ bool ModulePlayer::Update(float dt)
 		//OPTICK_EVENT();
 		collider->SetPos(position.x, position.y);
 		colliderFeet->SetPos(position.x + 5, position.y + 23);
-		currentCoin = &coins;
 		playerTimer++;
 		//------------------------------------------------------------------------------------------------------------------------------------------
 		if (destroyed == false && playerWin == false && app->sceneCastle->godMode == false && app->sceneForest->godMode == false)
@@ -790,6 +781,7 @@ bool ModulePlayer::PostUpdate()
 
 	// Draw UI (score) --------------------------------------
 	sprintf_s(scoreText, 10, "%5d", score);
+	
 
 	SDL_Rect quad;
 	quad = { 5, 10, playerHP, 10 };
@@ -888,9 +880,8 @@ bool ModulePlayer::PostUpdate()
 	}
 
 	// TODO 3: Blit the text of the score in at the bottom of the screen
-	app->render->DrawTexture(texture2, 350, 10, &coins.GetCurrentFrame());
-	app->fonts->BlitText(350,10 , scoreFont, scoreText);
 	
+	app->fonts->BlitText(350,10 , scoreFont, scoreText);
 	//app->fonts->BlitText(150, 248, scoreFont, "this is just a font test message");
 
 	return true;

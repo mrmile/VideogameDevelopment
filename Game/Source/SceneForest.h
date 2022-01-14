@@ -51,8 +51,11 @@ public:
 
 	int PauseDelay=0;
 
+	SDL_Rect* rectangle = {};
+
 private:
 	SDL_Texture* img;
+	SDL_Texture* PauseFrame;
 };
 
 #endif // __SCENE_FOREST_H__

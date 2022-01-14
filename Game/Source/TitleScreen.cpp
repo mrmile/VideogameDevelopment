@@ -52,6 +52,7 @@ bool TitleScreen::Start()
 	creditsButton = app->tex->Load("Assets/textures/GUI/creditsButton.png");
 	exitButton = app->tex->Load("Assets/textures/GUI/exitButton.png");
 	returnButton = app->tex->Load("Assets/textures/GUI/returnButton.png");
+	
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
 	buttonClickedFx = app->audio->LoadFx("Assets/audio/fx/Advice.wav");
@@ -246,7 +247,7 @@ bool TitleScreen::PostUpdate()
 	}
 	if (OptionsMenu == true)
 	{
-		//app->render->DrawTexture(titleScreen2, 0, 0, NULL);
+		app->render->DrawTexture(titleScreen2, 0, 0, NULL);
 		returnButton_->Draw(app->render);
 	}
 	
