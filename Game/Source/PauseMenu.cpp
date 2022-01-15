@@ -8,6 +8,7 @@
 #include "SceneForest.h"
 #include "TitleScreen.h"
 #include "GuiManager.h"
+#include "ModulePlayer.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -38,7 +39,11 @@ bool PauseMenu::Start()
 	buttonClickedFx = app->audio->LoadFx("Assets/audio/fx/Advice.wav");
 	exitButton2 = app->tex->Load("Assets/textures/GUI/exitButton.png");
 	exitButton_2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Exit Button", { 5, 5, 108, 35 }, this);
-	exitButton_2->SetTexture(exitButton2);
+	
+
+
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
 
 	return true;
 }
@@ -53,7 +58,7 @@ bool PauseMenu::PreUpdate()
 // Called each loop iteration
 bool PauseMenu::Update(float dt)
 {
- 
+	
 	//SETTINGS BUTTON
 	/*
 	if (optionsButton_->state == GuiControlState::PRESSED)
@@ -86,14 +91,14 @@ bool PauseMenu::PostUpdate()
 {
 	if (app->sceneForest->PauseMenu == true)
 	{
-		
+		exitButton_2->SetTexture(exitButton2);
 		SDL_Rect quad2;
 		quad2 = { 50, 10, 100, 10 };
 
 		SDL_Rect quad3;
 		quad3 = { 100, 10, 100, 10 };
 		app->render->DrawRectangle2(quad2, 200, 200, 200, 255, 0.0f, true);
-		app->render->DrawTexture(PauseFrame, 100, 100, &quad3);
+		exitButton_2->Draw(app->render);
 	}
 	
 	
