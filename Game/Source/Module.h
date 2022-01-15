@@ -75,7 +75,10 @@ public:
 	{
 		return true;
 	}
-
+	virtual bool CheckSave(pugi::xml_node&) 
+	{
+		return true;
+	}
 	
 	virtual bool OnGuiMouseClickEvent(GuiControl* control)
 	{

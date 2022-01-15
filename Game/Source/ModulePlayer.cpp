@@ -756,136 +756,139 @@ bool ModulePlayer::Update(float dt)
 
 bool ModulePlayer::PostUpdate()
 {
-	if (destroyed == true)
-	{
-		destroyedDelay++;
-	}
+	
+		if (destroyed == true)
+		{
+			destroyedDelay++;
+		}
 
-	if (playerWin == true)
-	{
-		winDelay++;
-	}
+		if (playerWin == true)
+		{
+			winDelay++;
+		}
 
-	if (invincibleDelay <= 120)
-	{
-		if ((playerFPS / 5) % 2 == 0)
+		if (invincibleDelay <= 120)
+		{
+			if ((playerFPS / 5) % 2 == 0)
+			{
+				SDL_Rect rect = currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(texture, position.x, position.y, &rect);
+			}
+		}
+		else
 		{
 			SDL_Rect rect = currentAnimation->GetCurrentFrame();
 			app->render->DrawTexture(texture, position.x, position.y, &rect);
 		}
-	}
-	else
-	{
-		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, position.x, position.y, &rect);
-	}
 
-	// Draw UI (score) --------------------------------------
-	sprintf_s(scoreText, 10, "%5d", score);
-	
+		// Draw UI (score) --------------------------------------
+		sprintf_s(scoreText, 10, "%5d", score);
 
-	SDL_Rect quad;
-	quad = { 5, 10, playerHP, 10 };
 
-	SDL_Rect quad2;
-	quad2 = { 5, 10, 100, 10 };
+		SDL_Rect quad;
+		quad = { 5, 10, playerHP, 10 };
 
-	SDL_Rect bgquad;
-	bgquad = { 3, 8, 104, 14 };
-	app->render->DrawRectangle2(bgquad, 255, 255, 255, 255, 0.0f, true);
-	app->render->DrawRectangle2(quad2, 200, 200, 200, 255, 0.0f, true);
-	//app->render->DrawRectangle(bgquad, 255, 255, 255, 165, true, true);
-	if (playerHP >= 100)
-	{
-		playerHP = 100;
-		app->render->DrawRectangle2(quad, 0, 255, 0, 255, 0.0f, true);
-	}
-	else if (playerHP > 50)
-	{
-		app->render->DrawRectangle2(quad, 120, 255, 0, 255, 0.0f, true);
-	}
-	else if (playerHP > 20 && playerHP <= 50)
-	{
-		app->render->DrawRectangle2(quad, 255, 255, 0, 255, 0.0f, true);
-	}
-	else
-	{
-		if ((playerFPS / 5) % 2 == 0)
+		SDL_Rect quad2;
+		quad2 = { 5, 10, 100, 10 };
+
+		SDL_Rect bgquad;
+		bgquad = { 3, 8, 104, 14 };
+		app->render->DrawRectangle2(bgquad, 255, 255, 255, 255, 0.0f, true);
+		app->render->DrawRectangle2(quad2, 200, 200, 200, 255, 0.0f, true);
+		//app->render->DrawRectangle(bgquad, 255, 255, 255, 165, true, true);
+		if (playerHP >= 100)
 		{
-			app->render->DrawRectangle2(quad, 255, 0, 0, 255, 0.0f, true);
+			playerHP = 100;
+			app->render->DrawRectangle2(quad, 0, 255, 0, 255, 0.0f, true);
+		}
+		else if (playerHP > 50)
+		{
+			app->render->DrawRectangle2(quad, 120, 255, 0, 255, 0.0f, true);
+		}
+		else if (playerHP > 20 && playerHP <= 50)
+		{
+			app->render->DrawRectangle2(quad, 255, 255, 0, 255, 0.0f, true);
 		}
 		else
 		{
-			app->render->DrawRectangle2(quad, 255, 150, 0, 255, 0.0f, true);
+			if ((playerFPS / 5) % 2 == 0)
+			{
+				app->render->DrawRectangle2(quad, 255, 0, 0, 255, 0.0f, true);
+			}
+			else
+			{
+				app->render->DrawRectangle2(quad, 255, 150, 0, 255, 0.0f, true);
+			}
+
 		}
 
-	}
+		if (app->sceneCastle->playerRestart == true)
+		{
+			//horizontalCB = true;
+			app->sceneCastle->sceneTimer = 0;
 
-	if (app->sceneCastle->playerRestart == true)
-	{
-		//horizontalCB = true;
-		app->sceneCastle->sceneTimer = 0;
+			//if (checkPointReached == false) position = app->map->MapToWorld(32, 14);
+				//if (checkPointReached == true) position = app->map->MapToWorld(32, 14);
+			score = 0;
+			app->player->Disable();
+			app->sceneCastle->Disable();
+			app->collisions->Disable();
+			app->map->Disable();
+			app->enemies->Disable();
+			app->particles->Disable();
+			app->fonts->Disable();
 
-		//if (checkPointReached == false) position = app->map->MapToWorld(32, 14);
-			//if (checkPointReached == true) position = app->map->MapToWorld(32, 14);
-		score = 0;
-		app->player->Disable();
-		app->sceneCastle->Disable();
-		app->collisions->Disable();
-		app->map->Disable();
-		app->enemies->Disable();
-		app->particles->Disable();
-		app->fonts->Disable();
+			if (checkPointReached == false) position = app->map->playerStartPos;
+			if (checkPointReached == true) position = app->map->playerCheckPointPos;
 
-		if (checkPointReached == false) position = app->map->playerStartPos;
-		if (checkPointReached == true) position = app->map->playerCheckPointPos;
+			app->player->Enable();
+			app->sceneCastle->Enable();
+			app->collisions->Enable();
+			app->map->Enable();
+			app->enemies->Enable();
+			app->particles->Enable();
+			app->fonts->Enable();
 
-		app->player->Enable();
-		app->sceneCastle->Enable();
-		app->collisions->Enable();
-		app->map->Enable();
-		app->enemies->Enable();
-		app->particles->Enable();
-		app->fonts->Enable();
+			app->sceneCastle->playerRestart = false;
+		}
 
-		app->sceneCastle->playerRestart = false;
-	}
+		if (app->sceneForest->playerRestart == true)
+		{
+			//horizontalCB = true;
+			app->sceneForest->sceneTimer = 0;
 
-	if (app->sceneForest->playerRestart == true)
-	{
-		//horizontalCB = true;
-		app->sceneForest->sceneTimer = 0;
+			//if (checkPointReached == false) position = app->map->MapToWorld(32, 14);
+				//if (checkPointReached == true) position = app->map->MapToWorld(32, 14);
+			app->player->Disable();
+			app->sceneForest->Disable();
+			app->collisions->Disable();
+			app->map->Disable();
+			app->enemies->Disable();
+			app->particles->Disable();
+			app->fonts->Disable();
 
-		//if (checkPointReached == false) position = app->map->MapToWorld(32, 14);
-			//if (checkPointReached == true) position = app->map->MapToWorld(32, 14);
-		app->player->Disable();
-		app->sceneForest->Disable();
-		app->collisions->Disable();
-		app->map->Disable();
-		app->enemies->Disable();
-		app->particles->Disable();
-		app->fonts->Disable();
+			if (checkPointReached == false) position = app->map->playerStartPos;
+			if (checkPointReached == true) position = app->map->playerCheckPointPos;
 
-		if (checkPointReached == false) position = app->map->playerStartPos;
-		if (checkPointReached == true) position = app->map->playerCheckPointPos;
+			app->player->Enable();
+			app->sceneForest->Enable();
+			app->collisions->Enable();
+			app->map->Enable();
+			app->enemies->Enable();
+			app->particles->Enable();
+			app->fonts->Enable();
 
-		app->player->Enable();
-		app->sceneForest->Enable();
-		app->collisions->Enable();
-		app->map->Enable();
-		app->enemies->Enable();
-		app->particles->Enable();
-		app->fonts->Enable();
+			app->sceneForest->playerRestart = false;
+		}
 
-		app->sceneForest->playerRestart = false;
-	}
+		// TODO 3: Blit the text of the score in at the bottom of the screen
 
-	// TODO 3: Blit the text of the score in at the bottom of the screen
+		app->fonts->BlitText(350, 10, scoreFont, scoreText);
+		//app->fonts->BlitText(150, 248, scoreFont, "this is just a font test message");
+
+		return true;
 	
-	app->fonts->BlitText(350,10 , scoreFont, scoreText);
-	//app->fonts->BlitText(150, 248, scoreFont, "this is just a font test message");
-
-	return true;
+	
 }
 
 bool ModulePlayer::CleanUp()
@@ -907,16 +910,15 @@ bool ModulePlayer::LoadState(pugi::xml_node& data)
 	score = data.child("atributes").attribute("score").as_int();
 	playerHP = data.child("atributes").attribute("hp").as_int();
 
-	saved_game = data.child("atributes").attribute("saved_game").as_bool();
 
-	b2Vec2 playerLoadPosition; // No hace falta
-	playerLoadPosition.x = (position.x);
-	playerLoadPosition.y = (position.y);
+	if (app->player->IsEnabled() == true)
+	{
+		app->player->Player->body->DestroyFixture(app->player->Player->body->GetFixtureList());
 
-	app->player->Player->body->DestroyFixture(app->player->Player->body->GetFixtureList());
-
-	Player = app->physics->CreatePlayerBox(position.x + 28 / 2, position.y + 33 / 2, 28, 33);
-	Player->listener = app->sceneCastle;
+		Player = app->physics->CreatePlayerBox(position.x + 28 / 2, position.y + 33 / 2, 28, 33);
+	}
+	
+	
 	//b2Filter b;
 	//b.categoryBits = 0x0001;
 	//b.maskBits = 0x0001 | 0x0002;
@@ -934,12 +936,12 @@ bool ModulePlayer::SaveState(pugi::xml_node& data) const
 {
 	pugi::xml_node playerpos = data.append_child("position");
 	pugi::xml_node playerAtributes = data.append_child("atributes");
-
+	
 	playerpos.append_attribute("x") = position.x;
 	playerpos.append_attribute("y") = position.y;
 	playerAtributes.append_attribute("score") = score;
 	playerAtributes.append_attribute("hp") = playerHP;
-	playerAtributes.append_attribute("saved_game") = saved_game;
+
 
 	return true;
 }
@@ -1081,8 +1083,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			score += 10;
 			//if (playerScore > 1000) playerScore = 1000;
 			app->audio->PlayFx(halfWayPoint);
-			saved_game = true;
+			app->titleScreen->SavedGame = true;
 			app->SaveGameRequest();
+			saved_game = true;
 			checkPointReached = true;
 		}
 
@@ -1091,6 +1094,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			//playerScore += 10;
 			//if (playerScore > 1000) playerScore = 1000;
 			app->audio->PlayFx(levelClear);
+			app->titleScreen->SavedGame = false;
 			app->SaveGameRequest();
 			playerWin = true;
 

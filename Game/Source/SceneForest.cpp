@@ -77,6 +77,7 @@ bool SceneForest::Start()
 	
 	 app->sceneCastle->sceneCastle = false;
 	 
+	 PauseMenu = false;
 
 	return true;
 }
@@ -118,7 +119,7 @@ bool SceneForest::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false)
 	{
-		app->player->saved_game = true;
+		app->titleScreen->SavedGame = true;
 		app->SaveGameRequest();
 	}
 		
@@ -135,7 +136,7 @@ bool SceneForest::Update(float dt)
 	//if(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		//app->render->camera.x += 5;
 
-	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
+	//app->render->DrawTexture2(img, 380, 100); // Placeholder not needed any more
 	// Draw map
 	app->map->Draw();
 

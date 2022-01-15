@@ -71,11 +71,13 @@ bool TitleScreen::Start()
 	sceneTimer = 0;
 	delay = 0;
 	transition = false;
+	continueTransition = false;
+	transitionCredits = false;
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
-	
+	app->LoadGameRequest();
 	
 
 	return true;
@@ -83,27 +85,15 @@ bool TitleScreen::Start()
 
 bool TitleScreen::PreUpdate()
 {
+	//app->LoadGameRequest();
 
-	
 	return true;
 }
 
 bool TitleScreen::Update(float dt)
 {
 	sceneTimer++;
-	
 
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		app->render->camera.y -= 5;
-
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		app->render->camera.y += 5;
-
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		app->render->camera.x -= 5;
-
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		app->render->camera.x += 5;
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		transition = true;
@@ -171,15 +161,26 @@ bool TitleScreen::Update(float dt)
 			//app->physics->Enable();
 			app->collisions->Enable();
 			app->map->Enable();
+			app->map->Start();
 			app->particles->Enable();
 			app->sceneForest->Enable();
 			app->player->Enable();
 			app->enemies->Enable();
 			app->fonts->Enable();
+			app->collisions->Enable();
+			app->map->Enable();
+			app->particles->Enable();
+			app->sceneForest->Enable();
+			app->player->Enable();
+			app->enemies->Enable();
+			app->fonts->Enable();
+			app->tex->Enable();
+			app->pause_menu->Enable();
 
 			app->LoadGameRequest();
 
 			
+
 			app->titleScreen->Disable();
 			//app->fade->FadeToBlack(app->titleScreen, app->sceneCastle, 60);
 		}
@@ -192,6 +193,7 @@ bool TitleScreen::Update(float dt)
 			//app->physics->Enable();
 			app->collisions->Enable();
 			app->map->Enable();
+			app->map->Start();
 			app->particles->Enable();
 			app->sceneForest->Enable();
 			app->player->Enable();
@@ -199,6 +201,9 @@ bool TitleScreen::Update(float dt)
 			app->fonts->Enable();
 			app->tex->Enable();
 			app->pause_menu->Enable();
+			app->player->score = 0;
+			SavedGame = false;
+			
 
 			app->titleScreen->Disable();
 			//app->fade->FadeToBlack(app->titleScreen, app->sceneCastle, 60);
@@ -226,7 +231,9 @@ bool TitleScreen::PostUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-	app->render->DrawTexture(titleScreen, 0, 0, NULL);
+	app->render->DrawTexture2(titleScreen, 0, 0, NULL);
+
+	
 
 	//if (((sceneTimer / 30) % 2 == 0)&& button1->state==GuiControlState::PRESSED) button1->Draw(app->render);
 	
@@ -249,12 +256,12 @@ bool TitleScreen::PostUpdate()
 	}
 	if (OptionsMenu == true)
 	{
-		app->render->DrawTexture(titleScreen2, 0, 0, NULL);
+		app->render->DrawTexture2(titleScreen2, 0, 0, NULL);
 		returnButton_->Draw(app->render);
 	}
 	
 
-	if (transition == true) app->render->DrawTexture(loading, 0, 0, NULL);
+	if (transition == true) app->render->DrawTexture2(loading, 0, 0, NULL);
 
 	return ret;
 	
@@ -294,12 +301,12 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			app->audio->PlayFx(buttonClickedFx);
 
-			if (app->player->saved_game == true)
+			if (SavedGame == true)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
 				continueTransition = true;
 			}
-			if (app->player->saved_game == false)
+			if (SavedGame == false)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
 				//AUDIO THINGY
@@ -343,6 +350,21 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 
 	default: break;
 	}
+
+	return true;
+}
+bool TitleScreen::LoadState(pugi::xml_node& data) 
+{
+	SavedGame = data.child("saved_game").attribute("bool").as_bool();
+
+	return true;
+}
+
+bool TitleScreen::SaveState(pugi::xml_node& data) const
+{
+	pugi::xml_node savedGame = data.append_child("saved_game");
+	
+	savedGame.append_attribute("bool") = SavedGame;
 
 	return true;
 }

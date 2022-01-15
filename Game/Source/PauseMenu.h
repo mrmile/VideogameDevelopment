@@ -40,6 +40,9 @@ public:
 	int buttonClickedFx = 0;
 	int sceneTimer;
 
+	bool TitleTransition = false;
+	
+
 private:
 
 
@@ -49,7 +52,7 @@ private:
 	SDL_Texture* resumeButton;
 	SDL_Texture* optionsButton;
 	SDL_Texture* backToTitleButton;
-	SDL_Texture* exitButton2;
+	SDL_Texture* exitButton;
 	//CHECBOX TEXTURES
 	SDL_Texture* fullScreenCheckOn;
 	SDL_Texture* fullScreenCheckOff;
@@ -62,7 +65,7 @@ private:
 	GuiButton* resumeButton_;
 	GuiButton* optionsButton_;
 	GuiButton* backToTitleButton_;
-	GuiButton* exitButton_2;
+	GuiButton* exitButton_;
 	//GUI CHECKBOX
 	GuiCheckbox* fullScreenCheck;
 	GuiCheckbox* VSyncCheck;

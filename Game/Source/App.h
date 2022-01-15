@@ -137,7 +137,6 @@ private:
 
 	mutable bool saveGameRequested;
 	bool loadGameRequested;
-	bool checkingForSavedGame;
 
 	// L07: DONE 4: Calculate some timing measures
 	// required variables are provided:

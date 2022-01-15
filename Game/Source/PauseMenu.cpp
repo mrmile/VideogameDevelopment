@@ -9,7 +9,11 @@
 #include "TitleScreen.h"
 #include "ModulePlayer.h"
 #include "GuiManager.h"
-
+#include "ModuleFonts.h"
+#include "ModuleCollisions.h"
+#include "ModuleParticles.h"
+#include "Map.h"
+#include "Enemies.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -37,12 +41,17 @@ bool PauseMenu::Start()
 {
 	PauseFrame = app->tex->Load("Assets/textures/GUI/PauseMenuFrame.png");
 	buttonClickedFx = app->audio->LoadFx("Assets/audio/fx/Advice.wav");
-	exitButton2 = app->tex->Load("Assets/textures/GUI/exitButton.png");
-	exitButton_2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Exit Button", { 5, 5, 108, 35 }, this);
+	resumeButton = app->tex->Load("Assets/textures/GUI/resumeButton.png");
+	optionsButton = app->tex->Load("Assets/textures/GUI/optionsButton.png");
+	backToTitleButton = app->tex->Load("Assets/textures/GUI/titlescreenButton.png");
+	exitButton = app->tex->Load("Assets/textures/GUI/exitButton.png");
+	resumeButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Resume Button", { 200,50,108,35 }, this);
+	optionsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Settings Button", { 200,100,108,35 }, this);
+	backToTitleButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Title Button", { 50,100,108,35 }, this);
+	exitButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Exit Button", { 50, 50, 108, 35 }, this);
 	
 	
-	app->render->camera.x = 0;
-	app->render->camera.y = 0;
+	
 
 	sceneTimer = 0;
 	return true;
@@ -60,23 +69,47 @@ bool PauseMenu::Update(float dt)
 {
 	sceneTimer++;
 	
-	//SETTINGS BUTTON
-	/*
-	if (optionsButton_->state == GuiControlState::PRESSED)
-	{
-		OnGuiMouseClickEvent(optionsButton_);
-	}
-	*/
-	//EXIT BUTTON
 	if (app->sceneForest->PauseMenu == true)
 	{
+		resumeButton_->canClick = true;
+		optionsButton_->canClick = true;
+		backToTitleButton_->canClick = true;
+		exitButton_->canClick = true;
 
-		exitButton_2->canClick = true;
 
-		if (exitButton_2->state == GuiControlState::PRESSED)
+		if (resumeButton_->state == GuiControlState::PRESSED)
 		{
-			OnGuiMouseClickEvent(exitButton_2);
+			OnGuiMouseClickEvent(resumeButton_);
 		}
+		if (optionsButton_->state == GuiControlState::PRESSED)
+		{
+			OnGuiMouseClickEvent(optionsButton_);
+		}
+		if (backToTitleButton_->state == GuiControlState::PRESSED)
+		{
+			OnGuiMouseClickEvent(backToTitleButton_);
+		}
+		if (exitButton_->state == GuiControlState::PRESSED)
+		{
+			OnGuiMouseClickEvent(exitButton_);
+		}
+		
+		if (TitleTransition == true)
+		{
+			app->map->Disable();
+			app->collisions->Disable();
+			app->particles->Disable();
+			app->sceneForest->Disable();
+			app->player->Disable();
+			app->enemies->Disable();
+			app->fonts->Disable();
+			app->tex->Disable();
+			app->pause_menu->Disable();
+			TitleTransition = false;
+			
+			app->titleScreen->Enable();
+		}
+		
 
 	}
 	
@@ -93,17 +126,24 @@ bool PauseMenu::PostUpdate()
 {
 	bool ret = true;
 
-	exitButton_2->SetTexture(exitButton2);
-	
+	exitButton_->SetTexture(exitButton);
+	resumeButton_->SetTexture(resumeButton);
+	optionsButton_->SetTexture(optionsButton);
+	backToTitleButton_->SetTexture(backToTitleButton);
+
 	if (app->sceneForest->PauseMenu == true)
 	{
-		SDL_Rect quad2;
-		quad2 = { 100, 50, 100, 100 };
+		//SDL_Rect quad2;
+		//quad2 = { 100, 50, 100, 100 };
 		SDL_Rect bgquad;
-		bgquad = { 97, 48, 104, 104 };
-		app->render->DrawRectangle2(bgquad, 255, 255, 255, 255, 0.0f, true);
-		app->render->DrawRectangle2(quad2, 200, 200, 200, 255, 0.0f, true);
-		exitButton_2->Draw(app->render);
+		bgquad = { 20, 20, 380, 200 };
+		app->render->DrawRectangle2(bgquad, 255, 255, 255, 150, 0.0f, true);
+		//app->render->DrawRectangle2(quad2, 200, 200, 200, 255, 0.0f, true);
+		app->render->DrawTexture2(PauseFrame, 20, 20, NULL);
+		exitButton_->Draw(app->render);
+		resumeButton_->Draw(app->render);
+		optionsButton_->Draw(app->render);
+		backToTitleButton_->Draw(app->render);
 	}
 	
 	return ret;
@@ -127,40 +167,31 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control){
 		//Checks the GUI element ID
 		if (control->id == 1)
 		{
+			//RESUME BUTTON
 			app->audio->PlayFx(buttonClickedFx, 0);
-
+			app->sceneForest->PauseMenu = false;
 		}
 
 		if (control->id == 2)
 		{
+			//SETTINGS BUTTON
 			app->audio->PlayFx(buttonClickedFx);
-
 
 		}
 		if (control->id == 3)
 		{
+			//BACK TO TITLE BUTTON
 			app->audio->PlayFx(buttonClickedFx, 0);
-
+			TitleTransition = true;
 		}
 
 		if (control->id == 4)
 		{
-			app->audio->PlayFx(buttonClickedFx, 0);
-
-
-		}
-		if (control->id == 5)
-		{
+			//EXIT BUTTON
 			app->audio->PlayFx(buttonClickedFx, 0);
 			exit(0);
-		}
-		if (control->id == 6)
-		{
-			app->audio->PlayFx(buttonClickedFx, 0);
 
 		}
-
-
 	}
 
 	default: break;

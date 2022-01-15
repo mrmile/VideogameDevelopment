@@ -38,6 +38,9 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	bool SaveState(pugi::xml_node&) const;
+	bool LoadState(pugi::xml_node&);
+
 	//void b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 
@@ -45,13 +48,14 @@ public:
 	int delay;
 	int delayToCredits;
 	int delayToContinue;
-	bool transition;
-	bool transitionCredits;
-	bool continueTransition;
+	bool transition=false;
+	bool transitionCredits=false;
+	bool continueTransition=false;
 	
 
 	int buttonClickedFx = 0;
 
+	bool titleScreenWait = true;
 	bool SavedGame;
 private:
 

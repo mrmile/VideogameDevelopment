@@ -46,7 +46,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fade = new ModuleFadeToBlack(true);
 	player = new ModulePlayer(false);
 	collisions = new ModuleCollisions(true);
-	pause_menu = new PauseMenu(true);
+	pause_menu = new PauseMenu(false);
 	enemies = new Enemies(true);
 	particles = new ModuleParticles(true);
 	pathfinding = new PathFinding(false);
@@ -399,13 +399,15 @@ void App::LoadGameRequest()
 	// NOTE: We should check if SAVE_STATE_FILENAME actually exist
 	loadGameRequested = true;
 }
-
 // ---------------------------------------
 void App::SaveGameRequest() const
 {
 	// NOTE: We should check if SAVE_STATE_FILENAME actually exist and... should we overwriten
 	saveGameRequested = true;
 }
+
+
+//TRY FOR CHECKING SAVE
 
 // ---------------------------------------
 // L02: DONE 5: Create a method to actually load an xml file
@@ -438,11 +440,12 @@ bool App::LoadGame()
 
 	return ret;
 }
+
 //------------------------------------------------------------------------------
 // L02: DONE 7: Implement the xml save method for current state
 bool App::SaveGame() const
 {
-	bool ret = false;
+	bool ret;
 
 	pugi::xml_document* saveDoc = new pugi::xml_document();
 	pugi::xml_node saveStateNode = saveDoc->append_child("save_state");

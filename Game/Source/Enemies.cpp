@@ -214,11 +214,7 @@ bool Enemies::LoadState(pugi::xml_node& data)
 
 			if (enemies[i] != nullptr)
 			{
-
-
 				enemies[i]->GetCollider();
-
-				//AddEnemy(HelperQueue[i], enemies[i]->position.x + 28 / 2, enemies[i]->position.y + 33 / 2);
 				if (HelperQueue[i] == Enemy_Type::GOOMBA)  	AddEnemy(Enemy_Type::GOOMBA, enemies[i]->position.x + 28 / 2, enemies[i]->position.y + 33 / 2);
 				if (HelperQueue[i] == Enemy_Type::SHYGUY)  	AddEnemy(Enemy_Type::SHYGUY, enemies[i]->position.x + 28 / 2, enemies[i]->position.y + 33 / 2);
 				if (HelperQueue[i] == Enemy_Type::FLYING_KOOPA)		AddEnemy(Enemy_Type::FLYING_KOOPA, enemies[i]->startingKoopaPosition.x , enemies[i]->startingKoopaPosition.y);

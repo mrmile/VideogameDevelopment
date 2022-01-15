@@ -100,6 +100,7 @@ ModuleParticles::ModuleParticles(bool start_enabled) : Module(start_enabled)
 	firework3.speed.y = 0;
 	firework3.anim.loop = false;
 	firework3.anim.speed = 0.15f;
+
 }
 
 ModuleParticles::~ModuleParticles()

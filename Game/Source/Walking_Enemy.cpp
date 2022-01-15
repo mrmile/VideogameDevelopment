@@ -73,14 +73,14 @@ void Walking_Enemy::Update(float dt)
 			{
 				currentAnim = &Walking_Enemy_Right;
 				currentAnim->loop = true;
-				Walking_Enemy_List.end->data->body->SetLinearVelocity({ 2.0f,0.0f });
+				Walking_Enemy_List.end->data->body->SetLinearVelocity({ 1.5f,0.0f });
 
 			}
 			if (position.x > app->player->position.x)
 			{
 				currentAnim = &Walking_Enemy_Left;
 				currentAnim->loop = true;
-				Walking_Enemy_List.end->data->body->SetLinearVelocity({ -2.0f,0.0f });
+				Walking_Enemy_List.end->data->body->SetLinearVelocity({ -1.5f,0.0f });
 
 			}
 		}
