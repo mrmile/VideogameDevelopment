@@ -31,6 +31,7 @@ class ModuleParticles;
 class PathFinding;
 class ModuleFonts;
 class GuiManager;
+class PauseMenu;
 
 class App
 {
@@ -114,6 +115,7 @@ public:
 	PathFinding* pathfinding;
 	ModuleFonts* fonts;
 	GuiManager* guiManager;
+	PauseMenu* pause_menu;
 
 private:
 

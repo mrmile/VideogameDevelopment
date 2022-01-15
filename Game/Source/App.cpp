@@ -20,6 +20,7 @@
 #include "Enemy.h"
 #include "Pathfinding.h"
 #include "GuiManager.h"
+#include "PauseMenu.h"
 
 #include <iostream>
 #include <sstream>
@@ -45,7 +46,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fade = new ModuleFadeToBlack(true);
 	player = new ModulePlayer(false);
 	collisions = new ModuleCollisions(true);
-	//enemy = new Enemy(true);
+	pause_menu = new PauseMenu(true);
 	enemies = new Enemies(true);
 	particles = new ModuleParticles(true);
 	pathfinding = new PathFinding(false);
@@ -71,6 +72,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fade);
 	AddModule(pathfinding);
 	AddModule(guiManager);
+	AddModule(pause_menu);
 	// Render last to swap buffer
 	AddModule(render);
 

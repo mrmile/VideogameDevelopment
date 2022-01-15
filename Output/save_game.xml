@@ -11,15 +11,15 @@
 	<SceneCastle />
 	<:anonymous />
 	<player>
-		<position x="498" y="206" />
-		<atributes score="0" hp="100" saved_game="true" />
+		<position x="4421" y="190" />
+		<atributes score="470" hp="100" saved_game="true" />
 	</player>
 	<enemies>
 		<position x="1415" y="221" />
 		<atributes timer="0" enemyHp="1" />
 		<position x="1374" y="221" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="807" y="221" />
+		<position x="824" y="221" />
 		<atributes timer="0" enemyHp="1" />
 		<position x="1915" y="205" />
 		<atributes timer="0" enemyHp="1" />
@@ -33,20 +33,20 @@
 		<atributes timer="0" enemyHp="1" />
 		<position x="7707" y="237" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="1548" y="167" />
-		<atributes timer="63" enemyHp="1" />
-		<position x="2365" y="177" />
-		<atributes timer="63" enemyHp="1" />
-		<position x="6066" y="215" />
-		<atributes timer="63" enemyHp="1" />
-		<position x="8235" y="214" />
-		<atributes timer="63" enemyHp="1" />
-		<position x="7963" y="193" />
-		<atributes timer="63" enemyHp="1" />
-		<position x="7082" y="189" />
-		<atributes timer="63" enemyHp="1" />
-		<position x="5174" y="229" />
-		<atributes timer="63" enemyHp="1" />
+		<position x="1548" y="183" />
+		<atributes timer="3" enemyHp="1" />
+		<position x="2365" y="193" />
+		<atributes timer="3" enemyHp="1" />
+		<position x="6066" y="231" />
+		<atributes timer="3" enemyHp="1" />
+		<position x="8235" y="230" />
+		<atributes timer="3" enemyHp="1" />
+		<position x="7963" y="209" />
+		<atributes timer="3" enemyHp="1" />
+		<position x="7082" y="205" />
+		<atributes timer="3" enemyHp="1" />
+		<position x="5174" y="245" />
+		<atributes timer="3" enemyHp="1" />
 		<position x="1113" y="120" />
 		<atributes timer="0" enemyHp="1" />
 		<position x="1783" y="170" />
@@ -66,6 +66,6 @@
 	<pathfinding />
 	<guiManager />
 	<renderer>
-		<camera x="-1392" y="-192" />
+		<camera x="-12675" y="-192" />
 	</renderer>
 </save_state>

@@ -319,7 +319,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 
 			if (delayToCredits > 90 && delayToCredits <= 91)
 			{
-				//app->credits->Enable();    //NEED TO ADD THE CREDITS SCEN
+				//app->credits->Enable();    //NEED TO ADD THE CREDITS SCENE
 				app->titleScreen->Disable();
 			}
 		}

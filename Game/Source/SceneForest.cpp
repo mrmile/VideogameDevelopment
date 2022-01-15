@@ -15,7 +15,7 @@
 #include "Enemy.h"
 #include "ModuleParticles.h"
 #include "ModuleFonts.h"
-
+#include "PauseMenu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -45,7 +45,6 @@ bool SceneForest::Start()
 	// L03: DONE: Load map
 	//app->map->Load("hello.tmx");
 	app->map->Load("forest.tmx");
-	
 	Mix_ResumeMusic();
 	Mix_SetMusicPosition(0);
 	// Load music
@@ -208,11 +207,7 @@ bool SceneForest::PostUpdate()
 
 		//playerRestart = true;
 	}
-	if (PauseMenu == true)
-	{
-		//CREAR BOTONES Y TODO AQUI
-		
-	}
+
 	
 	return ret;
 }
