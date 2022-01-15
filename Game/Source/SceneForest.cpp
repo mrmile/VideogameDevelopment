@@ -102,12 +102,9 @@ bool SceneForest::Update(float dt)
 	
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false)
 	{
-		PauseMenu = true;
+		PauseMenu = !PauseMenu;
 	}
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_UP && app->player->destroyed == false && app->player->playerWin == false)
-	{
-		PauseMenu = false;
-	}
+	
 
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false)
 		godMode = !godMode;

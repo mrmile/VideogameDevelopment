@@ -12,7 +12,7 @@
 	<:anonymous />
 	<player>
 		<position x="4421" y="190" />
-		<atributes score="470" hp="100" saved_game="true" />
+		<atributes score="475" hp="100" saved_game="true" />
 	</player>
 	<enemies>
 		<position x="1415" y="221" />
@@ -65,6 +65,7 @@
 	<:anonymous />
 	<pathfinding />
 	<guiManager />
+	<PauseMenu />
 	<renderer>
 		<camera x="-12675" y="-192" />
 	</renderer>

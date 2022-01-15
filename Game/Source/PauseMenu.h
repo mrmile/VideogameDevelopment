@@ -12,7 +12,7 @@ class PauseMenu : public Module
 {
 public:
 
-	PauseMenu(bool start_enabled = false);
+	PauseMenu(bool start_enabled);
 
 	// Destructor
 	virtual ~PauseMenu();
@@ -38,6 +38,7 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	int buttonClickedFx = 0;
+	int sceneTimer;
 
 private:
 

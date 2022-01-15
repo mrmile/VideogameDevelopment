@@ -17,6 +17,7 @@
 #include "ModuleParticles.h"
 #include "ModuleFonts.h"
 #include "GuiManager.h"
+#include "PauseMenu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -178,7 +179,7 @@ bool TitleScreen::Update(float dt)
 
 			app->LoadGameRequest();
 
-			app->guiManager->Disable();
+			
 			app->titleScreen->Disable();
 			//app->fade->FadeToBlack(app->titleScreen, app->sceneCastle, 60);
 		}
@@ -196,8 +197,9 @@ bool TitleScreen::Update(float dt)
 			app->player->Enable();
 			app->enemies->Enable();
 			app->fonts->Enable();
+			app->tex->Enable();
+			app->pause_menu->Enable();
 
-			app->guiManager->Disable();
 			app->titleScreen->Disable();
 			//app->fade->FadeToBlack(app->titleScreen, app->sceneCastle, 60);
 		}
