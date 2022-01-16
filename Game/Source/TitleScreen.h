@@ -39,7 +39,7 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	bool SaveState(pugi::xml_node&) const;
-	bool LoadState(pugi::xml_node&);
+	bool CheckSave(pugi::xml_node&);
 
 	//void b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
@@ -52,6 +52,8 @@ public:
 	bool transitionCredits=false;
 	bool continueTransition=false;
 	
+
+	bool GameHasContinued = false;
 
 	int buttonClickedFx = 0;
 

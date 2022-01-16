@@ -22,6 +22,8 @@
 #include "Defs.h"
 #include "Log.h"
 
+#include <SDL_mixer/include/SDL_mixer.h>
+
 TitleScreen::TitleScreen(bool start_enabled) : Module(start_enabled)
 {
 	name.Create("TitleScreen");
@@ -70,14 +72,17 @@ bool TitleScreen::Start()
 	
 	sceneTimer = 0;
 	delay = 0;
+	delayToContinue = 0;
+	delayToCredits = 0;
 	transition = false;
 	continueTransition = false;
 	transitionCredits = false;
+	GameHasContinued = false;
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
-	app->LoadGameRequest();
+	app->CheckGameRequest();
 	
 
 	return true;
@@ -177,9 +182,8 @@ bool TitleScreen::Update(float dt)
 			app->tex->Enable();
 			app->pause_menu->Enable();
 
-			app->LoadGameRequest();
-
-			
+		
+			GameHasContinued = true;
 
 			app->titleScreen->Disable();
 			//app->fade->FadeToBlack(app->titleScreen, app->sceneCastle, 60);
@@ -193,7 +197,6 @@ bool TitleScreen::Update(float dt)
 			//app->physics->Enable();
 			app->collisions->Enable();
 			app->map->Enable();
-			app->map->Start();
 			app->particles->Enable();
 			app->sceneForest->Enable();
 			app->player->Enable();
@@ -353,7 +356,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 
 	return true;
 }
-bool TitleScreen::LoadState(pugi::xml_node& data) 
+bool TitleScreen::CheckSave(pugi::xml_node& data) 
 {
 	SavedGame = data.child("saved_game").attribute("bool").as_bool();
 

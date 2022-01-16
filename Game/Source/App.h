@@ -66,6 +66,7 @@ public:
 
     // L02: DONE 1: Create methods to request Load / Save
 	void LoadGameRequest();
+	void CheckGameRequest();
 	void SaveGameRequest() const;
 
 private:
@@ -91,6 +92,7 @@ private:
 
 	// Load / Save
 	bool LoadGame();
+	bool CheckGame();
 	bool SaveGame() const;
 
 public:
@@ -136,6 +138,7 @@ private:
 	//float dt;
 
 	mutable bool saveGameRequested;
+	bool checkGameRequested;
 	bool loadGameRequested;
 
 	// L07: DONE 4: Calculate some timing measures

@@ -79,13 +79,22 @@ bool SceneForest::Start()
 	 
 	 PauseMenu = false;
 
+	// app->titleScreen->transition = false;
+	// app->titleScreen->continueTransition = false;
+	
+
 	return true;
 }
 
 // Called each loop iteration
 bool SceneForest::PreUpdate()
 {
-	
+	if (app->titleScreen->GameHasContinued == true)
+	{
+		app->LoadGameRequest();
+		app->titleScreen->GameHasContinued = false;
+	}
+
 	return true;
 }
 
@@ -94,6 +103,7 @@ bool SceneForest::Update(float dt)
 {
 	sceneTimer++;
 	//F9 --> See colliders
+	
 
 	if ((app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false))
 	{

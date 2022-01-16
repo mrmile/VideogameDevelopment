@@ -231,6 +231,7 @@ void App::FinishUpdate()
 	// L02: DONE 1: This is a good place to call Load / Save methods
 	if (loadGameRequested == true) LoadGame();
 	if (saveGameRequested == true) SaveGame();
+	if (checkGameRequested == true) CheckGame();
 	
 	if (app->player->deletePlayer == true) // Usar solo esto menos en el Load/Save Game
 	{
@@ -408,7 +409,11 @@ void App::SaveGameRequest() const
 
 
 //TRY FOR CHECKING SAVE
-
+void App::CheckGameRequest() 
+{
+	// NOTE: We should check if SAVE_STATE_FILENAME actually exist and... should we overwriten
+	checkGameRequested = true;
+}
 // ---------------------------------------
 // L02: DONE 5: Create a method to actually load an xml file
 // then call all the modules to load themselves
@@ -440,6 +445,36 @@ bool App::LoadGame()
 
 	return ret;
 }
+
+bool App::CheckGame()
+{
+	bool ret = true;
+
+	pugi::xml_document gameStateFile;
+	pugi::xml_parse_result result = gameStateFile.load_file("save_game.xml");
+
+	if (result == NULL)
+	{
+		LOG("Could not load xml file save_game.xml. pugi error: %s", result.description());
+		ret = false;
+	}
+	else
+	{
+		ListItem<Module*>* item;
+		item = modules.start;
+
+		while (item != NULL && ret == true)
+		{
+			ret = item->data->CheckSave(gameStateFile.child("save_state").child(item->data->name.GetString()));
+			item = item->next;
+		}
+	}
+
+	checkGameRequested = false;
+
+	return ret;
+}
+
 
 //------------------------------------------------------------------------------
 // L02: DONE 7: Implement the xml save method for current state
