@@ -96,6 +96,8 @@ bool PauseMenu::Update(float dt)
 		
 		if (TitleTransition == true)
 		{
+			app->titleScreen->Enable();
+
 			app->map->Disable();
 			app->collisions->Disable();
 			app->particles->Disable();
@@ -103,11 +105,8 @@ bool PauseMenu::Update(float dt)
 			app->player->Disable();
 			app->enemies->Disable();
 			app->fonts->Disable();
-			app->tex->Disable();
 			app->pause_menu->Disable();
 			TitleTransition = false;
-			
-			app->titleScreen->Enable();
 		}
 		
 
