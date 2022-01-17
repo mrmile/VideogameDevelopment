@@ -59,7 +59,7 @@ public:
 
 	bool titleScreenWait = true;
 	bool SavedGame;
-private:
+public:
 
 	bool MainMenu = true;
 	bool OptionsMenu = false;

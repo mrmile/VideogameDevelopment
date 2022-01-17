@@ -2,6 +2,7 @@
 #include "Render.h"
 #include "App.h"
 #include "Audio.h"
+#include "TitleScreen.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -52,7 +53,7 @@ bool GuiButton::Update(float dt)
 
 bool GuiButton::Draw(Render* render)
 {
-
+	
 	// Draw the right button depending on state
 	switch (state)
 	{
@@ -65,6 +66,18 @@ bool GuiButton::Draw(Render* render)
 	case GuiControlState::NORMAL:
 	{
 		render->DrawTexture2(texture, bounds.x, bounds.y, NULL);
+		
+
+		if (app->titleScreen->MainMenu == true)
+		{
+			//render->DrawTexture2(app->titleScreen->startButton, bounds.x, bounds.y, NULL); //<--Usar esto
+			
+		}
+		if (app->titleScreen->OptionsMenu == true)
+		{
+			//app->render->DrawTexture2(titleScreen2, 0, 0, NULL);
+			//returnButton_->Draw(app->render);
+		}
 
 	} break;
 

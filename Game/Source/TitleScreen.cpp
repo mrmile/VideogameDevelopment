@@ -249,7 +249,7 @@ bool TitleScreen::PostUpdate()
 	exitButton_->SetTexture(exitButton);
 	returnButton_->SetTexture(returnButton);
 
-	if (MainMenu == true)
+	if (MainMenu == true) //Mover a GuiButton si da error
 	{
 		startButton_->Draw(app->render);
 		continueButton_->Draw(app->render);
