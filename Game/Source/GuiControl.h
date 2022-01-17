@@ -84,6 +84,7 @@ public:
 
 public:
 
+	bool SelectedForDrawing;
 	uint32 id;
 	GuiControlType type;
 	GuiControlState state;

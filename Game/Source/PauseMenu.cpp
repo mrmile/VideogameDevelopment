@@ -45,10 +45,10 @@ bool PauseMenu::Start()
 	optionsButton = app->tex->Load("Assets/textures/GUI/optionsButton.png");
 	backToTitleButton = app->tex->Load("Assets/textures/GUI/titlescreenButton.png");
 	exitButton = app->tex->Load("Assets/textures/GUI/exitButton.png");
-	resumeButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Resume Button", { 200,50,108,35 }, this);
-	optionsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Settings Button", { 200,100,108,35 }, this);
-	backToTitleButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Title Button", { 50,100,108,35 }, this);
-	exitButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Exit Button", { 50, 50, 108, 35 }, this);
+	resumeButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Resume Button", { 200,50,108,35 }, this,resumeButton);
+	optionsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Settings Button", { 200,100,108,35 }, this,optionsButton);
+	backToTitleButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Title Button", { 50,100,108,35 }, this,backToTitleButton);
+	exitButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Exit Button", { 50, 50, 108, 35 }, this,exitButton);
 	
 	
 	
@@ -97,6 +97,7 @@ bool PauseMenu::Update(float dt)
 		if (TitleTransition == true)
 		{
 			app->titleScreen->Enable();
+			app->titleScreen->MainMenu = true;
 
 			app->map->Disable();
 			app->collisions->Disable();
@@ -113,10 +114,6 @@ bool PauseMenu::Update(float dt)
 	}
 	
 
-	
-	//FOR CREDITS BUTTOn
-
-
 	return true;
 }
 
@@ -124,16 +121,15 @@ bool PauseMenu::Update(float dt)
 bool PauseMenu::PostUpdate()
 {
 	bool ret = true;
-
+	
 	exitButton_->SetTexture(exitButton);
 	resumeButton_->SetTexture(resumeButton);
 	optionsButton_->SetTexture(optionsButton);
 	backToTitleButton_->SetTexture(backToTitleButton);
-
+	
 	if (app->sceneForest->PauseMenu == true)
 	{
-		//SDL_Rect quad2;
-		//quad2 = { 100, 50, 100, 100 };
+
 		SDL_Rect bgquad;
 		bgquad = { 20, 20, 380, 200 };
 		app->render->DrawRectangle2(bgquad, 255, 255, 255, 150, 0.0f, true);
@@ -145,6 +141,8 @@ bool PauseMenu::PostUpdate()
 		backToTitleButton_->Draw(app->render);
 	}
 	
+
+
 	return ret;
 
 	return true;

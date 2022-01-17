@@ -4,11 +4,11 @@
 #include "Audio.h"
 #include "TitleScreen.h"
 
-GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
+GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text,SDL_Texture* texture) : GuiControl(GuiControlType::BUTTON, id)
 {
 	this->bounds = bounds;
 	this->text = text;
-
+	this->texture = texture;
 	canClick = true;
 	drawBasic = false;
 }
@@ -54,48 +54,59 @@ bool GuiButton::Update(float dt)
 bool GuiButton::Draw(Render* render)
 {
 	
+
 	// Draw the right button depending on state
 	switch (state)
 	{
 
 	case GuiControlState::DISABLED:
 	{
-		render->DrawTexture2(texture, bounds.x, bounds.y,NULL);
+		
+			render->DrawTexture2(texture, bounds.x, bounds.y, NULL); //<--Usar esto
+			
+		
+		
 	} break;
 
 	case GuiControlState::NORMAL:
 	{
-		render->DrawTexture2(texture, bounds.x, bounds.y, NULL);
-		
-
-		if (app->titleScreen->MainMenu == true)
-		{
-			//render->DrawTexture2(app->titleScreen->startButton, bounds.x, bounds.y, NULL); //<--Usar esto
+	
+			render->DrawTexture2(texture, bounds.x, bounds.y, NULL); //<--Usar esto
 			
-		}
-		if (app->titleScreen->OptionsMenu == true)
-		{
-			//app->render->DrawTexture2(titleScreen2, 0, 0, NULL);
-			//returnButton_->Draw(app->render);
-		}
+			
+		
 
 	} break;
 
 	//L14: TODO 4: Draw the button according the GuiControl State
 	case GuiControlState::FOCUSED:
 	{
-		render->DrawTexture2(texture, bounds.x, bounds.y, NULL);
+	
+			render->DrawTexture2(texture, bounds.x, bounds.y, NULL); //<--Usar esto
+			
+
+		
 	} break;
 	case GuiControlState::PRESSED:
 	{
-		render->DrawTexture2(texture, bounds.x, bounds.y, NULL);
+		
+			render->DrawTexture2(texture, bounds.x, bounds.y, NULL); //<--Usar esto
+			
+
+		
 	} break;
 
 	/******/
 
-	case GuiControlState::SELECTED:render->DrawTexture2(texture, bounds.x, bounds.y, NULL);
-		break;
+	case GuiControlState::SELECTED:
+	{
+		
+			render->DrawTexture2(texture, bounds.x, bounds.y, NULL); //<--Usar esto
+			
 
+		
+	
+	}break;
 	default:
 		break;
 	}

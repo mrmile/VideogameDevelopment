@@ -17,6 +17,7 @@
 #include "ModuleParticles.h"
 #include "ModuleFonts.h"
 #include "GuiManager.h"
+#include "GuiButton.h"
 #include "PauseMenu.h"
 
 #include "Defs.h"
@@ -61,12 +62,12 @@ bool TitleScreen::Start()
 	buttonClickedFx = app->audio->LoadFx("Assets/audio/fx/Advice.wav");
 
 	// L14: TODO 2_D: Declare a GUI Button and create it using the GuiManager
-	startButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start Button", { 105, 120, 108, 35 }, this); //Observer (this): Class that will receive the event
-	continueButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue Button", { 105, 160, 108, 35 }, this);
-	optionsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Options Button", { 105, 200, 108, 35 }, this);
-	creditsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits Button", { 215, 120, 108, 35 }, this);
-	exitButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Exit Button", { 215, 160, 108, 35 }, this);
-	returnButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Return Button", { 10, 10, 71, 35 }, this);
+	startButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start Button", { 105, 120, 108, 35 }, this,startButton); //Observer (this): Class that will receive the event
+	continueButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue Button", { 105, 160, 108, 35 }, this,continueButton);
+	optionsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Options Button", { 105, 200, 108, 35 }, this,optionsButton);
+	creditsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits Button", { 215, 120, 108, 35 }, this,creditsButton);
+	exitButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Exit Button", { 215, 160, 108, 35 }, this,exitButton);
+	returnButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Return Button", { 10, 10, 71, 35 }, this,returnButton);
 	
 
 	
@@ -81,6 +82,7 @@ bool TitleScreen::Start()
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
+
 
 	app->CheckGameRequest();
 	
@@ -235,22 +237,22 @@ bool TitleScreen::PostUpdate()
 		ret = false;
 
 	app->render->DrawTexture2(titleScreen, 0, 0, NULL);
-
 	
-
-	//if (((sceneTimer / 30) % 2 == 0)&& button1->state==GuiControlState::PRESSED) button1->Draw(app->render);
 	
+	if (SavedGame == true) continueButton_->SetTexture(continueButton);
+	if (SavedGame == false) continueButton_->SetTexture(continueButtonOff);
 	
 	startButton_->SetTexture(startButton);
-	if(SavedGame == true) continueButton_->SetTexture(continueButton);
-	if(SavedGame == false) continueButton_->SetTexture(continueButtonOff);
 	optionsButton_->SetTexture(optionsButton);
 	creditsButton_->SetTexture(creditsButton);
 	exitButton_->SetTexture(exitButton);
 	returnButton_->SetTexture(returnButton);
-
+	
+	//if (((sceneTimer / 30) % 2 == 0)&& button1->state==GuiControlState::PRESSED) button1->Draw(app->render);
+	
 	if (MainMenu == true) //Mover a GuiButton si da error
 	{
+
 		startButton_->Draw(app->render);
 		continueButton_->Draw(app->render);
 		optionsButton_->Draw(app->render);
@@ -263,7 +265,14 @@ bool TitleScreen::PostUpdate()
 		returnButton_->Draw(app->render);
 	}
 	
+	
+	
+	
 
+	
+	
+	
+	
 	if (transition == true) app->render->DrawTexture2(loading, 0, 0, NULL);
 
 	return ret;
