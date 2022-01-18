@@ -16,6 +16,7 @@
 #include "Enemies.h"
 #include "Defs.h"
 #include "Log.h"
+#include <SDL_mixer/include/SDL_mixer.h>
 
 
 PauseMenu::PauseMenu(bool start_enabled) : Module(start_enabled)
@@ -52,7 +53,8 @@ bool PauseMenu::Start()
 	
 	
 	
-
+	pauseTimer = 0;
+	noPauseTimer = 0;
 	sceneTimer = 0;
 	return true;
 }
@@ -71,6 +73,9 @@ bool PauseMenu::Update(float dt)
 	
 	if (app->sceneForest->PauseMenu == true)
 	{
+		pauseTimer++;
+		noPauseTimer = 0;
+
 		resumeButton_->canClick = true;
 		optionsButton_->canClick = true;
 		backToTitleButton_->canClick = true;
@@ -110,7 +115,15 @@ bool PauseMenu::Update(float dt)
 			TitleTransition = false;
 		}
 		
+		if(pauseTimer <= 1) Mix_PauseMusic();
 
+	}
+	else
+	{
+		pauseTimer = 0;
+		noPauseTimer++;
+
+		if (noPauseTimer <= 1) Mix_ResumeMusic();
 	}
 	
 

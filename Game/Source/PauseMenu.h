@@ -39,6 +39,8 @@ public:
 
 	int buttonClickedFx = 0;
 	int sceneTimer;
+	int pauseTimer;
+	int noPauseTimer;
 
 	bool TitleTransition = false;
 	
