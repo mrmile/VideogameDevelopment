@@ -72,10 +72,9 @@ bool TitleScreen::Start()
 	exitButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Exit Button", { 215, 160, 108, 35 }, this,exitButton, NULL, {});
 	returnButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Return Button", { 10, 10, 71, 35 }, this, returnButton, NULL, {});
 
-
 	//SLIDERS
 	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1, "Fx slider", { 20,80,195,35 }, this, baseSlider, sliderSelector, {31,90,14,16});
-	
+	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 2, "Music slider", { 20,120,195,35 }, this, baseSlider, sliderSelector, { 31,130,14,16 });
 
 	
 	sceneTimer = 0;
@@ -235,51 +234,12 @@ bool TitleScreen::Update(float dt)
 		{
 			OnGuiMouseClickEvent(fxVolumeSlider);
 		}
+		if (musicVolumeSlider->state == GuiControlState::PRESSED)
+		{
+			OnGuiMouseClickEvent(fxVolumeSlider);
+		}
 		//METER LOGICA SLIDER
-		if (SliderLevel == 0)
-		{
-			printf("0\n");
-		}
-		if (SliderLevel == 1)
-		{
-			printf("1\n");
-		}
-		if (SliderLevel == 2)
-		{
-			printf("2\n");
-		}
-		if (SliderLevel == 3)
-		{
-			printf("3\n");
-		}
-		if (SliderLevel == 4)
-		{
-			printf("4\n");
-		}
-		if (SliderLevel == 5)
-		{
-			printf("5\n");
-		}
-		if (SliderLevel == 6)
-		{
-			printf("6\n");
-		}
-		if (SliderLevel == 7)
-		{
-			printf("7\n");
-		}
-		if (SliderLevel == 8)
-		{
-			printf("8\n");
-		}
-		if (SliderLevel == 9)
-		{
-			printf("9\n");
-		}
-		if (SliderLevel == 10)
-		{
-			printf("10\n");
-		}
+		//FALTA MIRAR COMO CAMBIAR VOLUMEN MUSICA Y VOLUMEN FX Y MODIFICARLO SEGUN EL SLIDER LEVEL FX O SLIDER LEVEL MUSIC
 	}
 	
 	return true;
@@ -312,6 +272,7 @@ bool TitleScreen::PostUpdate()
 		app->render->DrawTexture2(titleScreen2, 0, 0, NULL);
 		returnButton_->Draw(app->render);
 		fxVolumeSlider->Draw(app->render);
+		musicVolumeSlider->Draw(app->render);
 	}
 
 	if (transition == true) app->render->DrawTexture2(loading, 0, 0, NULL);
@@ -410,49 +371,100 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 				if (control->extraBounds.x > control->bounds.x + control->bounds.w-20)
 				{
 					//AUN NO FUNCIONA EL 10 me da palo
-					SliderLevel = 10;
+					SliderLevelFX = 10;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.9f) && control->extraBounds.x < control->bounds.x + control->bounds.w)
 				{
-					SliderLevel = 9;
+					SliderLevelFX = 9;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.8f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.9f))
 				{
-					SliderLevel = 8;
+					SliderLevelFX = 8;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.7f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.8f))
 				{
-					SliderLevel = 7;
+					SliderLevelFX = 7;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.6f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.7f))
 				{
-					SliderLevel = 6;
+					SliderLevelFX = 6;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.5f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.6f))
 				{
-					SliderLevel = 5;
+					SliderLevelFX = 5;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.4f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.5f))
 				{
-					SliderLevel = 4;
+					SliderLevelFX = 4;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.3f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.4f))
 				{
-					SliderLevel = 3;
+					SliderLevelFX = 3;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.2f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.3f))
 				{
-					SliderLevel = 2;
+					SliderLevelFX = 2;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.1f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.2f))
 				{
-					SliderLevel = 1;
+					SliderLevelFX = 1;
 				}
 				if (control->extraBounds.x > control->bounds.x && control->extraBounds.x < control->bounds.x+(control->bounds.w*0.1f))
 				{
-					SliderLevel = 0;
+					SliderLevelFX = 0;
 				}
 				
+			}
+
+			if (control->id == 2)
+			{
+
+				if (control->extraBounds.x > control->bounds.x + control->bounds.w - 20)
+				{
+					//AUN NO FUNCIONA EL 10 me da palo
+					SliderLevelMusic = 10;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.9f) && control->extraBounds.x < control->bounds.x + control->bounds.w)
+				{
+					SliderLevelMusic = 9;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.8f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.9f))
+				{
+					SliderLevelMusic = 8;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.7f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.8f))
+				{
+					SliderLevelMusic = 7;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.6f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.7f))
+				{
+					SliderLevelMusic = 6;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.5f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.6f))
+				{
+					SliderLevelMusic = 5;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.4f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.5f))
+				{
+					SliderLevelMusic = 4;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.3f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.4f))
+				{
+					SliderLevelMusic = 3;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.2f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.3f))
+				{
+					SliderLevelMusic = 2;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.1f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.2f))
+				{
+					SliderLevelMusic = 1;
+				}
+				if (control->extraBounds.x > control->bounds.x && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.1f))
+				{
+					SliderLevelMusic = 0;
+				}
+
 			}
 
 		}
