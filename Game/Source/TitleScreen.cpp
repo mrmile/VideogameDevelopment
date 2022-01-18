@@ -56,18 +56,25 @@ bool TitleScreen::Start()
 	creditsButton = app->tex->Load("Assets/textures/GUI/creditsButton.png");
 	exitButton = app->tex->Load("Assets/textures/GUI/exitButton.png");
 	returnButton = app->tex->Load("Assets/textures/GUI/returnButton.png");
-	
+	baseSlider = app->tex->Load("Assets/textures/GUI/BaseSlider.png");
+	sliderSelector = app->tex->Load("Assets/textures/GUI/sliderInput.png");
+
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
 	buttonClickedFx = app->audio->LoadFx("Assets/audio/fx/Advice.wav");
 
 	// L14: TODO 2_D: Declare a GUI Button and create it using the GuiManager
-	startButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start Button", { 105, 120, 108, 35 }, this,startButton); //Observer (this): Class that will receive the event
-	continueButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue Button", { 105, 160, 108, 35 }, this,continueButton);
-	optionsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Options Button", { 105, 200, 108, 35 }, this,optionsButton);
-	creditsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits Button", { 215, 120, 108, 35 }, this,creditsButton);
-	exitButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Exit Button", { 215, 160, 108, 35 }, this,exitButton);
-	returnButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Return Button", { 10, 10, 71, 35 }, this,returnButton);
+	//BUTTONS
+	startButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start Button", { 105, 120, 108, 35 }, this,startButton,NULL, {}); //Observer (this): Class that will receive the event
+	continueButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue Button", { 105, 160, 108, 35 }, this,continueButton, NULL, {});
+	optionsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Options Button", { 105, 200, 108, 35 }, this,optionsButton, NULL, {});
+	creditsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits Button", { 215, 120, 108, 35 }, this,creditsButton, NULL, {});
+	exitButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Exit Button", { 215, 160, 108, 35 }, this,exitButton, NULL, {});
+	returnButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Return Button", { 10, 10, 71, 35 }, this, returnButton, NULL, {});
+
+
+	//SLIDERS
+	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1, "Fx slider", { 20,80,195,35 }, this, baseSlider, sliderSelector, {31,90,14,16});
 	
 
 	
@@ -116,6 +123,7 @@ bool TitleScreen::Update(float dt)
 	if (OptionsMenu == true)
 	{
 		returnButton_->canClick = true;
+		fxVolumeSlider->canClick = true;
 	}
 
 
@@ -223,7 +231,55 @@ bool TitleScreen::Update(float dt)
 		{
 			OnGuiMouseClickEvent(returnButton_);
 		}
-		
+		if (fxVolumeSlider->state == GuiControlState::PRESSED)
+		{
+			OnGuiMouseClickEvent(fxVolumeSlider);
+		}
+		//METER LOGICA SLIDER
+		if (SliderLevel == 0)
+		{
+			printf("0\n");
+		}
+		if (SliderLevel == 1)
+		{
+			printf("1\n");
+		}
+		if (SliderLevel == 2)
+		{
+			printf("2\n");
+		}
+		if (SliderLevel == 3)
+		{
+			printf("3\n");
+		}
+		if (SliderLevel == 4)
+		{
+			printf("4\n");
+		}
+		if (SliderLevel == 5)
+		{
+			printf("5\n");
+		}
+		if (SliderLevel == 6)
+		{
+			printf("6\n");
+		}
+		if (SliderLevel == 7)
+		{
+			printf("7\n");
+		}
+		if (SliderLevel == 8)
+		{
+			printf("8\n");
+		}
+		if (SliderLevel == 9)
+		{
+			printf("9\n");
+		}
+		if (SliderLevel == 10)
+		{
+			printf("10\n");
+		}
 	}
 	
 	return true;
@@ -242,15 +298,7 @@ bool TitleScreen::PostUpdate()
 	if (SavedGame == true) continueButton_->SetTexture(continueButton);
 	if (SavedGame == false) continueButton_->SetTexture(continueButtonOff);
 	
-	startButton_->SetTexture(startButton);
-	optionsButton_->SetTexture(optionsButton);
-	creditsButton_->SetTexture(creditsButton);
-	exitButton_->SetTexture(exitButton);
-	returnButton_->SetTexture(returnButton);
-	
-	//if (((sceneTimer / 30) % 2 == 0)&& button1->state==GuiControlState::PRESSED) button1->Draw(app->render);
-	
-	if (MainMenu == true) //Mover a GuiButton si da error
+	if (MainMenu == true) 
 	{
 
 		startButton_->Draw(app->render);
@@ -263,16 +311,9 @@ bool TitleScreen::PostUpdate()
 	{
 		app->render->DrawTexture2(titleScreen2, 0, 0, NULL);
 		returnButton_->Draw(app->render);
+		fxVolumeSlider->Draw(app->render);
 	}
-	
-	
-	
-	
 
-	
-	
-	
-	
 	if (transition == true) app->render->DrawTexture2(loading, 0, 0, NULL);
 
 	return ret;
@@ -291,6 +332,8 @@ bool TitleScreen::CleanUp()
 	app->tex->UnLoad(exitButton);
 	app->tex->UnLoad(returnButton);
 	app->tex->UnLoad(loading);
+	app->tex->UnLoad(sliderSelector);
+	app->tex->UnLoad(baseSlider);
 	return true;
 }
 
@@ -299,70 +342,123 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 
 	switch (control->type)
 	{
-	case GuiControlType::BUTTON:
-	{
-		//Checks the GUI element ID
-		if (control->id == 1)
+		case GuiControlType::BUTTON:
 		{
-			app->audio->PlayFx(buttonClickedFx, 0);
-			transition = true;
-			
-		}
-
-		if (control->id == 2)
-		{
-			app->audio->PlayFx(buttonClickedFx);
-
-			if (SavedGame == true)
+			//Checks the GUI element ID
+			if (control->id == 1)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
-				continueTransition = true;
+				transition = true;
+
 			}
-			if (SavedGame == false)
+
+			if (control->id == 2)
+			{
+				app->audio->PlayFx(buttonClickedFx);
+
+				if (SavedGame == true)
+				{
+					app->audio->PlayFx(buttonClickedFx, 0);
+					continueTransition = true;
+				}
+				if (SavedGame == false)
+				{
+					app->audio->PlayFx(buttonClickedFx, 0);
+					//AUDIO THINGY
+				}
+			}
+			if (control->id == 3)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
-				//AUDIO THINGY
+				MainMenu = false;
+				OptionsMenu = true;
 			}
-		}
-		if (control->id == 3)
-		{
-			app->audio->PlayFx(buttonClickedFx, 0);
-			MainMenu = false;
-			OptionsMenu = true;
-		}
 
-		if (control->id == 4)
-		{
-			app->audio->PlayFx(buttonClickedFx, 0);
-
-			transitionCredits = true;
-			if (transitionCredits == true) delayToCredits++;
-
-			if (delayToCredits > 90 && delayToCredits <= 91)
+			if (control->id == 4)
 			{
-				//app->credits->Enable();    //NEED TO ADD THE CREDITS SCENE
-				app->titleScreen->Disable();
+				app->audio->PlayFx(buttonClickedFx, 0);
+
+				transitionCredits = true;
+				if (transitionCredits == true) delayToCredits++;
+
+				if (delayToCredits > 90 && delayToCredits <= 91)
+				{
+					//app->credits->Enable();    //NEED TO ADD THE CREDITS SCENE
+					app->titleScreen->Disable();
+				}
 			}
+			if (control->id == 5)
+			{
+				app->audio->PlayFx(buttonClickedFx, 0);
+				exit(0);
+			}
+			if (control->id == 6)
+			{
+				app->audio->PlayFx(buttonClickedFx, 0);
+				OptionsMenu = false;
+				MainMenu = true;
+			}
+
+
 		}
-		if (control->id == 5)
+		//Other cases here
+		case GuiControlType::SLIDER:
 		{
-			app->audio->PlayFx(buttonClickedFx, 0);
-			exit(0);
+			if (control->id == 1)
+			{
+
+				if (control->extraBounds.x > control->bounds.x + control->bounds.w-20)
+				{
+					//AUN NO FUNCIONA EL 10 me da palo
+					SliderLevel = 10;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.9f) && control->extraBounds.x < control->bounds.x + control->bounds.w)
+				{
+					SliderLevel = 9;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.8f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.9f))
+				{
+					SliderLevel = 8;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.7f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.8f))
+				{
+					SliderLevel = 7;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.6f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.7f))
+				{
+					SliderLevel = 6;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.5f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.6f))
+				{
+					SliderLevel = 5;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.4f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.5f))
+				{
+					SliderLevel = 4;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.3f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.4f))
+				{
+					SliderLevel = 3;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.2f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.3f))
+				{
+					SliderLevel = 2;
+				}
+				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.1f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.2f))
+				{
+					SliderLevel = 1;
+				}
+				if (control->extraBounds.x > control->bounds.x && control->extraBounds.x < control->bounds.x+(control->bounds.w*0.1f))
+				{
+					SliderLevel = 0;
+				}
+				
+			}
+
 		}
-		if (control->id == 6)
-		{
-			app->audio->PlayFx(buttonClickedFx, 0);
-			OptionsMenu = false;
-			MainMenu = true;
-		}
-
-
+		default: break;
 	}
-	//Other cases here
-
-	default: break;
-	}
-
+	
 	return true;
 }
 bool TitleScreen::CheckSave(pugi::xml_node& data) 

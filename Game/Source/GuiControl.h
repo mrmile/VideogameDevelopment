@@ -64,12 +64,12 @@ public:
 	void SetTexture(SDL_Texture* tex)
 	{
 		texture = tex;
-		//section = { 0, 0, 100, 100 };
+		
 	}
 	void SetSliderTexture(SDL_Texture* tex)
 	{
 		textureForSlider = tex;
-		//section = { 0, 0, 100, 100 };
+		
 	}
 
 	void SetObserver(Module* module)
@@ -99,6 +99,8 @@ public:
 	SDL_Rect section;       // Texture atlas base section
 
 	//Font font;              // Text font
+
+	int SliderLevel;
 
 	Module* observer;        // Observer module (it should probably be an array/list)
 };

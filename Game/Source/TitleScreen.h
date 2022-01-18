@@ -59,6 +59,9 @@ public:
 
 	bool titleScreenWait = true;
 	bool SavedGame;
+
+
+	int SliderLevel;
 public:
 
 	bool MainMenu = true;
@@ -81,7 +84,8 @@ public:
 	SDL_Texture* VSyncOn;
 	SDL_Texture* VSyncOff;
 	//SLIDER TEXTURES
-	
+	SDL_Texture* baseSlider;
+	SDL_Texture* sliderSelector;
 
 	//GUI BUTTONS
 	GuiButton* startButton_;

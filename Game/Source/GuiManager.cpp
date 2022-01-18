@@ -19,7 +19,7 @@ bool GuiManager::Start()
 	return true;
 }
 
-GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char* text, SDL_Rect bounds, Module* observer,SDL_Texture* texture, SDL_Rect sliderBounds)
+GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char* text, SDL_Rect bounds, Module* observer,SDL_Texture* texture,SDL_Texture* sliderTexture, SDL_Rect sliderBounds)
 {
 	// L14: TODO1_D: Create a GUI control and add it to the list of controls
 
@@ -36,7 +36,7 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 		control = new GuiCheckbox(id, bounds, text);
 		break;
 	case GuiControlType::SLIDER:
-		control = new GuiSlider(id, bounds, sliderBounds);
+		control = new GuiSlider(id, bounds, sliderBounds,texture,sliderTexture);
 		break;
 	default:
 		break;

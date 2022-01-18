@@ -63,19 +63,12 @@ bool GuiButton::Draw(Render* render)
 	{
 		
 			render->DrawTexture2(texture, bounds.x, bounds.y, NULL); //<--Usar esto
-			
-		
-		
 	} break;
 
 	case GuiControlState::NORMAL:
 	{
 	
 			render->DrawTexture2(texture, bounds.x, bounds.y, NULL); //<--Usar esto
-			
-			
-		
-
 	} break;
 
 	//L14: TODO 4: Draw the button according the GuiControl State
@@ -83,29 +76,18 @@ bool GuiButton::Draw(Render* render)
 	{
 	
 			render->DrawTexture2(texture, bounds.x, bounds.y, NULL); //<--Usar esto
-			
-
-		
 	} break;
 	case GuiControlState::PRESSED:
 	{
 		
 			render->DrawTexture2(texture, bounds.x, bounds.y, NULL); //<--Usar esto
-			
-
-		
 	} break;
 
 	/******/
 
 	case GuiControlState::SELECTED:
 	{
-		
 			render->DrawTexture2(texture, bounds.x, bounds.y, NULL); //<--Usar esto
-			
-
-		
-	
 	}break;
 	default:
 		break;

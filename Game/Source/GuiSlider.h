@@ -10,7 +10,7 @@ class GuiSlider : public GuiControl
 {
 public:
 
-	GuiSlider(uint32 id, SDL_Rect bounds, SDL_Rect sliderBounds);
+	GuiSlider(uint32 id, SDL_Rect bounds, SDL_Rect sliderBounds,SDL_Texture* texture,SDL_Texture* sliderTexture);
 	virtual ~GuiSlider();
 
 	bool Update(float dt);
@@ -19,6 +19,7 @@ public:
 	int mouseX, mouseY;
 	unsigned int click;
 
+	
 	bool canClick = true;
 	bool drawBasic = false;
 };

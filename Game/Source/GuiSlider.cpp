@@ -3,10 +3,12 @@
 #include "App.h"
 #include "Audio.h"
 
-GuiSlider::GuiSlider(uint32 id, SDL_Rect bounds, SDL_Rect sliderBounds) : GuiControl(GuiControlType::SLIDER, id)
+GuiSlider::GuiSlider(uint32 id, SDL_Rect bounds, SDL_Rect sliderBounds,SDL_Texture* texture,SDL_Texture* sliderTexture) : GuiControl(GuiControlType::SLIDER, id)
 {
 	this->bounds = bounds;
 	this->extraBounds = sliderBounds;
+	this->texture = texture;
+	this->textureForSlider = sliderTexture;
 	canClick = true;
 	drawBasic = false;
 }
@@ -32,7 +34,8 @@ bool GuiSlider::Update(float dt)
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
 			{
 				state = GuiControlState::PRESSED;
-				
+				extraBounds.x = mouseX;
+
 			}
 			else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
 			{
@@ -58,31 +61,35 @@ bool GuiSlider::Draw(Render* render)
 
 	case GuiControlState::DISABLED:
 	{
-		render->DrawTexture(texture, bounds.x, bounds.y,NULL);
+		render->DrawTexture2(texture, bounds.x, bounds.y,NULL);
+		render->DrawTexture2(textureForSlider, extraBounds.x, extraBounds.y, NULL);
 	} break;
 
 	case GuiControlState::NORMAL:
 	{
-		render->DrawTexture(texture, bounds.x, bounds.y, NULL);
-
+		render->DrawTexture2(texture, bounds.x, bounds.y, NULL);
+		render->DrawTexture2(textureForSlider, extraBounds.x, extraBounds.y, NULL);
 	} break;
 
 	//L14: TODO 4: Draw the button according the GuiControl State
 	case GuiControlState::FOCUSED:
 	{
-		render->DrawTexture(texture, bounds.x, bounds.y, NULL);
+		render->DrawTexture2(texture, bounds.x, bounds.y, NULL);
+		render->DrawTexture2(textureForSlider, extraBounds.x, extraBounds.y, NULL);
 	} break;
 	case GuiControlState::PRESSED:
 	{
-		render->DrawTexture(texture, bounds.x, bounds.y, NULL);
+		render->DrawTexture2(texture, bounds.x, bounds.y, NULL);
+		render->DrawTexture2(textureForSlider, extraBounds.x, extraBounds.y, NULL);
 	} break;
 
 	/******/
 
 	case GuiControlState::SELECTED:
-		render->DrawTexture(texture, bounds.x, bounds.y, NULL);
-		break;
-
+	{
+		render->DrawTexture2(texture, bounds.x, bounds.y, NULL);
+		render->DrawTexture2(textureForSlider, extraBounds.x, extraBounds.y, NULL);
+	}break;
 	default:
 		break;
 	}
