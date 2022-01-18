@@ -51,7 +51,7 @@ void Walking_Enemy::Update(float dt)
 {
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
 	
-	if (app->sceneForest->PauseMenu == true)
+	if (app->player->pauseMenu == true)
 	{
 		iPoint NewPosition = position;
 		collider->SetPos(NewPosition.x, NewPosition.y);
@@ -61,7 +61,7 @@ void Walking_Enemy::Update(float dt)
 		currentAnim->loop = false;
 		Enemy::Update(dt);
 	}
-	if (app->sceneForest->PauseMenu == false)
+	if (app->player->pauseMenu == false)
 	{
 		collider->SetPos(position.x, position.y);
 		Walking_Enemy_List.end->data->GetPosition(position.x, position.y);

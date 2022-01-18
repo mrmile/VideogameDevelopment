@@ -46,7 +46,7 @@ void Flying_Enemy_2::Update(float dt)
 {
 	//ADD THE PATHFINDING LOGIC FOR MOVEMENT
 	
-	if (app->sceneForest->PauseMenu == true)
+	if (app->player->pauseMenu == true)
 	{
 		iPoint NewPosition = position;
 		collider->SetPos(NewPosition.x, NewPosition.y);
@@ -56,7 +56,7 @@ void Flying_Enemy_2::Update(float dt)
 		currentAnim->loop = false;
 		Enemy::Update(dt);
 	}
-	if (app->sceneForest->PauseMenu == false)
+	if (app->player->pauseMenu == false)
 	{
 		collider->SetPos(position.x, position.y);
 		Flying_Enemy_2_List.end->data->GetPosition(position.x, position.y);

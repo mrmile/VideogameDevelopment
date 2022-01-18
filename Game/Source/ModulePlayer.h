@@ -101,6 +101,7 @@ public:
 	uint recoverLifePowerUp = 0;
 	uint levelClear = 0;
 	uint firework = 0;
+	uint paused = 0;
 
 	// The player's colliders
 	Collider* collider = nullptr;
@@ -135,6 +136,8 @@ public:
 
 	//Collision bools
 	bool plantCollision;
+
+	bool pauseMenu = false;
 
 	//Action things
 	bool run = false;

@@ -206,6 +206,7 @@ bool ModulePlayer::Start()
 	recoverLifePowerUp = app->audio->LoadFx("Assets/audio/fx/itemGet.wav");
 	levelClear = app->audio->LoadFx("Assets/audio/fx/levelClear.wav");
 	firework = app->audio->LoadFx("Assets/audio/fx/fireworks.wav");
+	paused = app->audio->LoadFx("Assets/audio/fx/pause.wav");
 
 	//laserFx = app->audio->LoadFx("Assets/Fx/laser.wav");
 	//explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");
@@ -274,6 +275,8 @@ bool ModulePlayer::Start()
 	playerHP = 100;
 	invincibleDelay = 120;
 	playerFPS = 0;
+
+	pauseMenu = false;
 	
 	return ret;
 }
@@ -281,14 +284,14 @@ bool ModulePlayer::Start()
 bool ModulePlayer::Update(float dt)
 {
 	
-	if (app->sceneForest->PauseMenu==true)
+	if (pauseMenu==true)
 	{
 		iPoint NewPosition = position;
 		collider->SetPos(NewPosition.x, NewPosition.y);
 		colliderFeet->SetPos(NewPosition.x + 5, NewPosition.y + 23);
 		return true;
 	}
-	if (app->sceneForest->PauseMenu == false)
+	if (pauseMenu == false)
 	{
 		playerFPS++;
 		invincibleDelay++;
@@ -743,15 +746,19 @@ bool ModulePlayer::Update(float dt)
 
 		//cout << "PosX: " << position.x << " PosY: " << position.y << endl;
 
-		return true;
+		
 	}
 	
 	
-	
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false)
+	{
+		app->audio->PlayFx(paused);
+		pauseMenu = !pauseMenu;
+	}
 
 	
 	//------------------------------------------------------------------------------------------------------------------------------------------
-	
+	return true;
 }
 
 bool ModulePlayer::PostUpdate()

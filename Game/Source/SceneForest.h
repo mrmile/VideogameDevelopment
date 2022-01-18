@@ -47,8 +47,6 @@ public:
 
 	bool sceneForest;
 
-	bool PauseMenu	= false;
-
 	int PauseDelay=0;
 
 	SDL_Rect* rectangle = {};

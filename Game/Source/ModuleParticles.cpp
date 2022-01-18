@@ -6,6 +6,7 @@
 #include "Render.h"
 #include "ModuleCollisions.h"
 #include "SceneForest.h"
+#include "ModulePlayer.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -167,7 +168,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 
 bool ModuleParticles::Update(float dt)
 {
-	if (app->sceneForest->PauseMenu == false)
+	if (app->player->pauseMenu == false)
 	{
 		for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		{
@@ -183,7 +184,7 @@ bool ModuleParticles::Update(float dt)
 		}
 		return true;
 	}
-	if (app->sceneForest->PauseMenu == true)
+	if (app->player->pauseMenu == true)
 	{
 		return true;
 	}

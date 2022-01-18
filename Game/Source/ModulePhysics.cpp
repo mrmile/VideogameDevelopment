@@ -6,6 +6,7 @@
 #include "math.h"
 #include "SceneForest.h"
 #include "Log.h"
+#include "ModulePlayer.h"
 
 #include "Box2D/Box2D/Box2D.h"
 
@@ -65,11 +66,11 @@ bool ModulePhysics::Start()
 bool ModulePhysics::PreUpdate()
 {
 	
-	if (app->sceneForest->PauseMenu == true)
+	if (app->player->pauseMenu == true)
 	{
 		return true;
 	}
-	if (app->sceneForest->PauseMenu == false)
+	if (app->player->pauseMenu == false)
 	{
 	
 		world->Step(1.0f / 60.0f, 6, 2);

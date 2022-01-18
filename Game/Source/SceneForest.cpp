@@ -76,8 +76,6 @@ bool SceneForest::Start()
 	 sceneForest = true;
 	
 	 app->sceneCastle->sceneCastle = false;
-	 
-	 PauseMenu = false;
 
 	// app->titleScreen->transition = false;
 	// app->titleScreen->continueTransition = false;
@@ -109,11 +107,6 @@ bool SceneForest::Update(float dt)
 	{
 		app->player->checkPointReached = false;
 		playerRestart = true;
-	}
-	
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false)
-	{
-		PauseMenu = !PauseMenu;
 	}
 	
 

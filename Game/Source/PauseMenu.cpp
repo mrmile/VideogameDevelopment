@@ -71,7 +71,7 @@ bool PauseMenu::Update(float dt)
 {
 	sceneTimer++;
 	
-	if (app->sceneForest->PauseMenu == true)
+	if (app->player->pauseMenu == true)
 	{
 		pauseTimer++;
 		noPauseTimer = 0;
@@ -135,7 +135,7 @@ bool PauseMenu::PostUpdate()
 {
 	bool ret = true;
 	
-	if (app->sceneForest->PauseMenu == true)
+	if (app->player->pauseMenu == true)
 	{
 
 		SDL_Rect bgquad;
@@ -179,7 +179,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control){
 		{
 			//RESUME BUTTON
 			app->audio->PlayFx(buttonClickedFx, 0);
-			app->sceneForest->PauseMenu = false;
+			app->player->pauseMenu = false;
 		}
 
 		if (control->id == 2)
