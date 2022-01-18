@@ -275,7 +275,7 @@ bool TitleScreen::PostUpdate()
 		musicVolumeSlider->Draw(app->render);
 	}
 
-	if (transition == true) app->render->DrawTexture2(loading, 0, 0, NULL);
+	if (transition == true || continueTransition == true) app->render->DrawTexture2(loading, 0, 0, NULL);
 
 	return ret;
 	

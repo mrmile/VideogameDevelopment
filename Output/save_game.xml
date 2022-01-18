@@ -14,26 +14,26 @@
 	<:anonymous />
 	<player>
 		<position x="4421" y="190" />
-		<atributes score="725" hp="100" />
+		<atributes score="785" hp="100" />
 	</player>
 	<enemies>
-		<position x="1423" y="222" />
+		<position x="1435" y="221" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="1382" y="222" />
+		<position x="1394" y="221" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="832" y="222" />
+		<position x="844" y="221" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="1922" y="206" />
+		<position x="1933" y="229" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="3369" y="174" />
+		<position x="3386" y="173" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="6848" y="238" />
+		<position x="6862" y="256" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="6637" y="206" />
+		<position x="6641" y="229" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="7233" y="222" />
+		<position x="7248" y="246" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="7721" y="238" />
+		<position x="7733" y="262" />
 		<atributes timer="0" enemyHp="1" />
 		<position x="1548" y="184" />
 		<atributes timer="2" enemyHp="1" />
@@ -49,17 +49,17 @@
 		<atributes timer="2" enemyHp="1" />
 		<position x="5174" y="246" />
 		<atributes timer="2" enemyHp="1" />
-		<position x="1125" y="126" />
+		<position x="1142" y="135" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="1794" y="176" />
+		<position x="1811" y="184" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="7674" y="168" />
+		<position x="7691" y="176" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="2999" y="129" />
+		<position x="3016" y="138" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="3701" y="177" />
+		<position x="3717" y="183" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="4124" y="199" />
+		<position x="4141" y="201" />
 		<atributes timer="0" enemyHp="1" />
 	</enemies>
 	<:anonymous />
