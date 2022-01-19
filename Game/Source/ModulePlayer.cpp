@@ -742,21 +742,21 @@ bool ModulePlayer::Update(float dt)
 		
 		if (lives == 0)
 		{
-			if (dieLeft.HasFinished() == true || dieRight.HasFinished() == true)
-			{
-				app->titleScreen->SavedGame = false;
-				app->titleScreen->Enable();
-				app->CheckGameRequest();
-				app->titleScreen->MainMenu = true;
+			SDL_Delay(600);
+			
+			app->titleScreen->SavedGame = false;
+			app->titleScreen->Enable();
+			app->CheckGameRequest();
+			app->titleScreen->MainMenu = true;
 				
-				app->map->Disable();
-				app->collisions->Disable();
-				app->particles->Disable();
-				app->sceneForest->Disable();
-				app->player->Disable();
-				app->enemies->Disable();
-				app->fonts->Disable();
-			}
+			app->map->Disable();
+			app->collisions->Disable();
+			app->particles->Disable();
+			app->sceneForest->Disable();
+			app->player->Disable();
+			app->enemies->Disable();
+			app->fonts->Disable();
+			
 		}
 
 		currentAnimation->Update();

@@ -35,10 +35,12 @@ bool GuiSlider::Update(float dt)
 			{
 				state = GuiControlState::PRESSED;
 				extraBounds.x = mouseX;
+				
 
 			}
 			else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
 			{
+				SDL_Delay(100);
 				NotifyObserver();
 			}
 			else

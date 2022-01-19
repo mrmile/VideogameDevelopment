@@ -214,6 +214,7 @@ bool TitleScreen::Update(float dt)
 			app->tex->Enable();
 			app->pause_menu->Enable();
 			app->player->score = 0;
+			app->player->lives = 3;
 			SavedGame = false;
 			
 
