@@ -258,7 +258,7 @@ bool ModulePlayer::Start()
 	hoverTimer = 0;
 	destroyedDelay = 0;
 	winDelay = 0;
-
+	TransationToTilteDelay = 0;
 	jump = false;
 	createPlayer = false;
 
@@ -688,6 +688,7 @@ bool ModulePlayer::Update(float dt)
 			{
 				//Mix_PauseMusic();
 				app->audio->PlayFx(dead);
+				lives--;
 			}
 			if (PlayerLookingPosition == 1)
 			{
@@ -738,7 +739,25 @@ bool ModulePlayer::Update(float dt)
 			app->render->camera.x += 5;
 		}
 		*/
-
+		
+		if (lives == 0)
+		{
+			if (dieLeft.HasFinished() == true || dieRight.HasFinished() == true)
+			{
+				app->titleScreen->SavedGame = false;
+				app->titleScreen->Enable();
+				app->CheckGameRequest();
+				app->titleScreen->MainMenu = true;
+				
+				app->map->Disable();
+				app->collisions->Disable();
+				app->particles->Disable();
+				app->sceneForest->Disable();
+				app->player->Disable();
+				app->enemies->Disable();
+				app->fonts->Disable();
+			}
+		}
 
 		currentAnimation->Update();
 
@@ -768,7 +787,6 @@ bool ModulePlayer::PostUpdate()
 		{
 			destroyedDelay++;
 		}
-
 		if (playerWin == true)
 		{
 			winDelay++;
@@ -889,7 +907,7 @@ bool ModulePlayer::PostUpdate()
 		}
 
 		// TODO 3: Blit the text of the score in at the bottom of the screen
-
+		app->render->DrawTexture2(coinsForScore, 400, 7, NULL);
 		app->fonts->BlitText(350, 10, scoreFont, scoreText);
 		//app->fonts->BlitText(150, 248, scoreFont, "this is just a font test message");
 
@@ -916,6 +934,7 @@ bool ModulePlayer::LoadState(pugi::xml_node& data)
 
 	score = data.child("atributes").attribute("score").as_int();
 	playerHP = data.child("atributes").attribute("hp").as_int();
+	lives = data.child("atributes").attribute("lives").as_int();
 
 
 	if (app->player->IsEnabled() == true)
@@ -948,6 +967,7 @@ bool ModulePlayer::SaveState(pugi::xml_node& data) const
 	playerpos.append_attribute("y") = position.y;
 	playerAtributes.append_attribute("score") = score;
 	playerAtributes.append_attribute("hp") = playerHP;
+	playerAtributes.append_attribute("lives") = lives;
 
 
 	return true;

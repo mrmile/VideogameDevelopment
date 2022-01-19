@@ -43,6 +43,7 @@ public:
 
 	// Collision callback, called when the player intersects with another collider
 	void OnCollision(Collider* c1, Collider* c2) override;
+	
 
 public:
 	// Position of the player in the map
@@ -115,6 +116,11 @@ public:
 	int scoreFont = -1;
 	char scoreText[10] = { "\0" };
 
+	//Lives player
+	uint lives = 3;
+	int livesFont = -1;
+	char livesText[10] = { "\0" };
+	int TransationToTilteDelay;
 	int PlayerLookingPosition;
 
 	int playerTimer;
