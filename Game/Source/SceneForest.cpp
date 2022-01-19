@@ -146,13 +146,13 @@ bool SceneForest::Update(float dt)
 	if (app->player->destroyed == true && app->player->destroyedDelay < 1)
 	{
 		Mix_PauseMusic();
-		//app->audio->PlayFx(dead);
+		//app->audio->PlayFx(dead, 0);
 	}
 
 	if (app->player->playerWin == true && app->player->winDelay < 1)
 	{
 		Mix_PauseMusic();
-		//app->audio->PlayFx(levelClear);
+		//app->audio->PlayFx(levelClear, 0);
 	}
 
 	

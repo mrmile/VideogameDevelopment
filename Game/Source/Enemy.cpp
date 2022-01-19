@@ -77,11 +77,11 @@ void Enemy::OnCollision(Collider* c2)
 void Enemy::SetToDelete()
 {
 	pendingToDelete = true;
-	//app->audio->PlayFx(app->enemies->enemyDestroyedFx);
+	//app->audio->PlayFx(app->enemies->enemyDestroyedFx, 0);
 	//app->particles->AddParticle(app->particles->enemyDefeat, position.x + 4, position.y + 4, Collider::NONE);
 	if(collider != nullptr)
 	{
-		app->audio->PlayFx(app->enemies->enemyDestroyedFx);
+		app->audio->PlayFx(app->enemies->enemyDestroyedFx, 0);
 		app->particles->AddParticle(app->particles->enemyDefeat, position.x + 4, position.y + 4, Collider::NONE);
 		collider->pendingToDelete = true; 
 	}

@@ -63,9 +63,10 @@ bool Audio::Awake(pugi::xml_node& config)
 bool Audio::Update(float dt)
 {
 	Mix_VolumeMusic(SliderLevelMusic);
-	Mix_Volume(1,SliderLevelFX);
+	Mix_Volume(0,SliderLevelFX);
 
-	cout << SliderLevelMusic << endl;
+	cout << SliderLevelFX << endl;
+	//cout << SliderLevelMusic << endl;
 
 	return true;
 }

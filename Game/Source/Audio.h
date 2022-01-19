@@ -42,8 +42,8 @@ private:
 
 public:
 
-	int SliderLevelFX = 0;
-	int SliderLevelMusic = 0;
+	int SliderLevelFX = 90;
+	int SliderLevelMusic = 90;
 
 };
 

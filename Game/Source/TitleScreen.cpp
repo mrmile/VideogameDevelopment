@@ -73,8 +73,8 @@ bool TitleScreen::Start()
 	returnButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Return Button", { 10, 10, 71, 35 }, this, returnButton, NULL, {});
 
 	//SLIDERS
-	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1, "Fx slider", { 20,80,195,35 }, this, baseSlider, sliderSelector, {31,90,14,16});
-	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 2, "Music slider", { 20,120,195,35 }, this, baseSlider, sliderSelector, { 31,130,14,16 });
+	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1, "Fx slider", { 20,80,195,35 }, this, baseSlider, sliderSelector, {214,90,14,16});
+	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 2, "Music slider", { 20,120,195,35 }, this, baseSlider, sliderSelector, { 214,130,14,16 });
 
 	
 	sceneTimer = 0;
@@ -236,7 +236,7 @@ bool TitleScreen::Update(float dt)
 		}
 		if (musicVolumeSlider->state == GuiControlState::PRESSED)
 		{
-			OnGuiMouseClickEvent(fxVolumeSlider);
+			OnGuiMouseClickEvent(musicVolumeSlider);
 		}
 		//METER LOGICA SLIDER
 		//FALTA MIRAR COMO CAMBIAR VOLUMEN MUSICA Y VOLUMEN FX Y MODIFICARLO SEGUN EL SLIDER LEVEL FX O SLIDER LEVEL MUSIC
@@ -315,7 +315,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 
 			if (control->id == 2)
 			{
-				app->audio->PlayFx(buttonClickedFx);
+				app->audio->PlayFx(buttonClickedFx, 0);
 
 				if (SavedGame == true)
 				{
