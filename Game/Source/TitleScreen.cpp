@@ -371,43 +371,43 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 				if (control->extraBounds.x > control->bounds.x + control->bounds.w-20)
 				{
 					//AUN NO FUNCIONA EL 10 me da palo
-					SliderLevelFX = 10;
+					SliderLevelFX = 100;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.9f) && control->extraBounds.x < control->bounds.x + control->bounds.w)
 				{
-					SliderLevelFX = 9;
+					SliderLevelFX = 90;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.8f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.9f))
 				{
-					SliderLevelFX = 8;
+					SliderLevelFX = 80;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.7f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.8f))
 				{
-					SliderLevelFX = 7;
+					SliderLevelFX = 70;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.6f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.7f))
 				{
-					SliderLevelFX = 6;
+					SliderLevelFX = 60;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.5f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.6f))
 				{
-					SliderLevelFX = 5;
+					SliderLevelFX = 50;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.4f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.5f))
 				{
-					SliderLevelFX = 4;
+					SliderLevelFX = 40;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.3f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.4f))
 				{
-					SliderLevelFX = 3;
+					SliderLevelFX = 30;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.2f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.3f))
 				{
-					SliderLevelFX = 2;
+					SliderLevelFX = 20;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.1f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.2f))
 				{
-					SliderLevelFX = 1;
+					SliderLevelFX = 10;
 				}
 				if (control->extraBounds.x > control->bounds.x && control->extraBounds.x < control->bounds.x+(control->bounds.w*0.1f))
 				{
@@ -422,43 +422,43 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 				if (control->extraBounds.x > control->bounds.x + control->bounds.w - 20)
 				{
 					//AUN NO FUNCIONA EL 10 me da palo
-					SliderLevelMusic = 10;
+					SliderLevelMusic = 100;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.9f) && control->extraBounds.x < control->bounds.x + control->bounds.w)
 				{
-					SliderLevelMusic = 9;
+					SliderLevelMusic = 90;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.8f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.9f))
 				{
-					SliderLevelMusic = 8;
+					SliderLevelMusic = 80;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.7f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.8f))
 				{
-					SliderLevelMusic = 7;
+					SliderLevelMusic = 70;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.6f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.7f))
 				{
-					SliderLevelMusic = 6;
+					SliderLevelMusic = 60;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.5f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.6f))
 				{
-					SliderLevelMusic = 5;
+					SliderLevelMusic = 50;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.4f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.5f))
 				{
-					SliderLevelMusic = 4;
+					SliderLevelMusic = 40;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.3f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.4f))
 				{
-					SliderLevelMusic = 3;
+					SliderLevelMusic = 30;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.2f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.3f))
 				{
-					SliderLevelMusic = 2;
+					SliderLevelMusic = 20;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.1f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.2f))
 				{
-					SliderLevelMusic = 1;
+					SliderLevelMusic = 10;
 				}
 				if (control->extraBounds.x > control->bounds.x && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.1f))
 				{
