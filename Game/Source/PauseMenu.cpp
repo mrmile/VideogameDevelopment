@@ -185,7 +185,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control){
 		if (control->id == 2)
 		{
 			//SETTINGS BUTTON
-			app->audio->PlayFx(buttonClickedFx);
+			app->audio->PlayFx(buttonClickedFx, 0);
 
 		}
 		if (control->id == 3)

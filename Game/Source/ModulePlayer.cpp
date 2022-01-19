@@ -364,7 +364,7 @@ bool ModulePlayer::Update(float dt)
 			if ((app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN) && jump == false && inTheAir == false)
 			{
 				Player->body->ApplyLinearImpulse({ 0,-160 }, { 0,0 }, true);
-				app->audio->PlayFx(jumpSound);
+				app->audio->PlayFx(jumpSound, 0);
 				//jump = true;
 			}
 
@@ -391,8 +391,8 @@ bool ModulePlayer::Update(float dt)
 				if (hoverTimer < 75)
 				{
 					Player->body->ApplyForce({ 0,-1800 }, { 0,0 }, true);
-					if (hoverTimer < 2 && hover == true) app->audio->PlayFx(hoverSound);
-					if (hoverTimer > 30 && hoverTimer < 34 && hover == true) app->audio->PlayFx(hoverSound);
+					if (hoverTimer < 2 && hover == true) app->audio->PlayFx(hoverSound, 0);
+					if (hoverTimer > 30 && hoverTimer < 34 && hover == true) app->audio->PlayFx(hoverSound, 0);
 				}
 
 				if (PlayerLookingPosition == 1)
@@ -613,7 +613,7 @@ bool ModulePlayer::Update(float dt)
 			if ((app->input->GetKey(SDL_SCANCODE_Z) == KeyState::KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KeyState::KEY_DOWN) && Player->body->GetLinearVelocity().y >= -2)
 			{
 				Player->body->ApplyLinearImpulse({ 0,-160 }, { 0,0 }, true);
-				app->audio->PlayFx(jumpSound);
+				app->audio->PlayFx(jumpSound, 0);
 
 			}
 
@@ -687,7 +687,7 @@ bool ModulePlayer::Update(float dt)
 			if (destroyedDelay < 1)
 			{
 				//Mix_PauseMusic();
-				app->audio->PlayFx(dead);
+				app->audio->PlayFx(dead, 0);
 			}
 			if (PlayerLookingPosition == 1)
 			{
@@ -717,7 +717,7 @@ bool ModulePlayer::Update(float dt)
 			if (winDelay < 1)
 			{
 				//Mix_PauseMusic();
-				app->audio->PlayFx(firework);
+				app->audio->PlayFx(firework, 0);
 			}
 			if (PlayerLookingPosition == 1)
 			{
@@ -752,7 +752,7 @@ bool ModulePlayer::Update(float dt)
 	
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false)
 	{
-		app->audio->PlayFx(paused);
+		app->audio->PlayFx(paused, 0);
 		pauseMenu = !pauseMenu;
 	}
 
@@ -963,13 +963,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			playerHP -= 10;
 			if (playerHP < 0) playerHP = 0;
 			invincibleDelay = 0;
-			if (playerHP != 0) app->audio->PlayFx(damaged);
+			if (playerHP != 0) app->audio->PlayFx(damaged, 0);
 
 			if (playerHP <= 0)
 			{
 				invincibleDelay = 121;
 				playerHP = 0;
-				//app->audio->PlayFx(dead);
+				//app->audio->PlayFx(dead, 0);
 				destroyed = true;
 
 			}
@@ -1042,13 +1042,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			playerHP -= 100;
 			if (playerHP < 0) playerHP = 0;
 			invincibleDelay = 0;
-			if (playerHP != 0) app->audio->PlayFx(damaged);
+			if (playerHP != 0) app->audio->PlayFx(damaged, 0);
 
 			if (playerHP <= 0)
 			{
 				invincibleDelay = 121;
 				playerHP = 0;
-				//app->audio->PlayFx(dead);
+				//app->audio->PlayFx(dead, 0);
 				destroyed = true;
 
 			}
@@ -1059,13 +1059,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			playerHP -= 100;
 			if (playerHP < 0) playerHP = 0;
 			invincibleDelay = 0;
-			if (playerHP != 0) app->audio->PlayFx(damaged);
+			if (playerHP != 0) app->audio->PlayFx(damaged, 0);
 
 			if (playerHP <= 0)
 			{
 				invincibleDelay = 121;
 				playerHP = 0;
-				//app->audio->PlayFx(dead);
+				//app->audio->PlayFx(dead, 0);
 				destroyed = true;
 
 			}
@@ -1075,21 +1075,21 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		{
 			playerHP += 10;
 			if (playerHP > 100) playerHP = 100;
-			app->audio->PlayFx(recoverLifePowerUp);
+			app->audio->PlayFx(recoverLifePowerUp, 0);
 		}
 
 		if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type == Collider::Type::COIN)
 		{
 			score += 5;
 			//if (playerScore > 1000) playerScore = 1000;
-			app->audio->PlayFx(coin);
+			app->audio->PlayFx(coin, 0);
 		}
 
 		if ((c1->type == Collider::Type::PLAYER || c1->type == Collider::Type::PLAYER_FEET) && c2->type == Collider::Type::CHECKPOINT)
 		{
 			score += 10;
 			//if (playerScore > 1000) playerScore = 1000;
-			app->audio->PlayFx(halfWayPoint);
+			app->audio->PlayFx(halfWayPoint, 0);
 			app->titleScreen->SavedGame = true;
 			app->SaveGameRequest();
 			saved_game = true;
@@ -1100,7 +1100,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		{
 			//playerScore += 10;
 			//if (playerScore > 1000) playerScore = 1000;
-			app->audio->PlayFx(levelClear);
+			app->audio->PlayFx(levelClear, 0);
 			app->titleScreen->SavedGame = false;
 			app->SaveGameRequest();
 			playerWin = true;
