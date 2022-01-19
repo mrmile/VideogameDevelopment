@@ -371,98 +371,98 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 				if (control->extraBounds.x > control->bounds.x + control->bounds.w-20)
 				{
 					//AUN NO FUNCIONA EL 10 me da palo
-					SliderLevelFX = 100;
+					app->audio->SliderLevelFX = 100;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.9f) && control->extraBounds.x < control->bounds.x + control->bounds.w)
 				{
-					SliderLevelFX = 90;
+					app->audio->SliderLevelFX = 90;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.8f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.9f))
 				{
-					SliderLevelFX = 80;
+					app->audio->SliderLevelFX = 80;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.7f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.8f))
 				{
-					SliderLevelFX = 70;
+					app->audio->SliderLevelFX = 70;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.6f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.7f))
 				{
-					SliderLevelFX = 60;
+					app->audio->SliderLevelFX = 60;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.5f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.6f))
 				{
-					SliderLevelFX = 50;
+					app->audio->SliderLevelFX = 50;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.4f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.5f))
 				{
-					SliderLevelFX = 40;
+					app->audio->SliderLevelFX = 40;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.3f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.4f))
 				{
-					SliderLevelFX = 30;
+					app->audio->SliderLevelFX = 30;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.2f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.3f))
 				{
-					SliderLevelFX = 20;
+					app->audio->SliderLevelFX = 20;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.1f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.2f))
 				{
-					SliderLevelFX = 10;
+					app->audio->SliderLevelFX = 10;
 				}
 				if (control->extraBounds.x > control->bounds.x && control->extraBounds.x < control->bounds.x+(control->bounds.w*0.1f))
 				{
-					SliderLevelFX = 0;
+					app->audio->SliderLevelFX = 0;
 				}
 				
 			}
-
+			
 			if (control->id == 2)
 			{
 
 				if (control->extraBounds.x > control->bounds.x + control->bounds.w - 20)
 				{
 					//AUN NO FUNCIONA EL 10 me da palo
-					SliderLevelMusic = 100;
+					app->audio->SliderLevelMusic = 100;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.9f) && control->extraBounds.x < control->bounds.x + control->bounds.w)
 				{
-					SliderLevelMusic = 90;
+					app->audio->SliderLevelMusic = 90;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.8f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.9f))
 				{
-					SliderLevelMusic = 80;
+					app->audio->SliderLevelMusic = 80;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.7f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.8f))
 				{
-					SliderLevelMusic = 70;
+					app->audio->SliderLevelMusic = 70;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.6f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.7f))
 				{
-					SliderLevelMusic = 60;
+					app->audio->SliderLevelMusic = 60;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.5f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.6f))
 				{
-					SliderLevelMusic = 50;
+					app->audio->SliderLevelMusic = 50;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.4f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.5f))
 				{
-					SliderLevelMusic = 40;
+					app->audio->SliderLevelMusic = 40;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.3f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.4f))
 				{
-					SliderLevelMusic = 30;
+					app->audio->SliderLevelMusic = 30;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.2f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.3f))
 				{
-					SliderLevelMusic = 20;
+					app->audio->SliderLevelMusic = 20;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.1f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.2f))
 				{
-					SliderLevelMusic = 10;
+					app->audio->SliderLevelMusic = 10;
 				}
 				if (control->extraBounds.x > control->bounds.x && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.1f))
 				{
-					SliderLevelMusic = 0;
+					app->audio->SliderLevelMusic = 0;
 				}
 
 			}

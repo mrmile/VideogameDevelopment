@@ -8,6 +8,8 @@
 // instead of 'hardcoding' library location path in code logic
 #include "SDL/include/SDL.h"
 #include "SDL_mixer/include/SDL_mixer.h"
+#include <iostream>
+using namespace std;
 
 // NOTE: Library linkage is configured in Linker Options
 //#pragma comment(lib, "../Game/Source/External/SDL_mixer/libx86/SDL2_mixer.lib")
@@ -56,6 +58,16 @@ bool Audio::Awake(pugi::xml_node& config)
 	}
 
 	return ret;
+}
+
+bool Audio::Update(float dt)
+{
+	Mix_VolumeMusic(SliderLevelMusic);
+	Mix_Volume(1,SliderLevelFX);
+
+	cout << SliderLevelMusic << endl;
+
+	return true;
 }
 
 // Called before quitting

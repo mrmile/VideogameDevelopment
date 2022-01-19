@@ -20,6 +20,9 @@ public:
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
 
+	// Called each loop iteration
+	bool Update(float dt);
+
 	// Called before quitting
 	bool CleanUp();
 
@@ -36,6 +39,12 @@ private:
 
 	_Mix_Music* music;
 	List<Mix_Chunk *>	fx;
+
+public:
+
+	int SliderLevelFX = 0;
+	int SliderLevelMusic = 0;
+
 };
 
 #endif // __AUDIO_H__

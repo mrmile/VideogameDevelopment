@@ -25,6 +25,7 @@
 #include <iostream>
 #include <sstream>
 #include <Optick/include/optick.h>
+#include <SDL_mixer/include/SDL_mixer.h>
 
 // Constructor
 App::App(int argc, char* args[]) : argc(argc), args(args)

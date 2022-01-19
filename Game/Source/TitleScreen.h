@@ -60,10 +60,6 @@ public:
 	bool titleScreenWait = true;
 	bool SavedGame;
 
-
-	int SliderLevelFX;
-	int SliderLevelMusic;
-
 	bool Vsync = false;
 	bool FullScreen = false;
 public:
