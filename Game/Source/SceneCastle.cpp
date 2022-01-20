@@ -200,7 +200,8 @@ bool SceneCastle::PostUpdate()
 		// Load music
 		//app->audio->PlayMusic("Assets/audio/music/jungle.ogg");
 
-		playerRestart = true;
+		if (app->player->lives != 0) playerRestart = true;
+		if (app->player->lives == 0) app->titleScreen->toTitleScreen = true;
 	}
 
 	if (app->player->winDelay > 300 && app->player->winDelay <= 301)

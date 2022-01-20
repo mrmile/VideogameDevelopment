@@ -740,15 +740,16 @@ bool ModulePlayer::Update(float dt)
 		}
 		*/
 		
+		/*
 		if (lives == 0)
 		{
-			SDL_Delay(600);
+			//SDL_Delay(600); <-- Esto pausa el juego completo no hace que se espere algo.
 			
 			app->titleScreen->SavedGame = false;
 			app->titleScreen->Enable();
 			app->CheckGameRequest();
 			app->titleScreen->MainMenu = true;
-				
+			
 			app->map->Disable();
 			app->collisions->Disable();
 			app->particles->Disable();
@@ -758,6 +759,7 @@ bool ModulePlayer::Update(float dt)
 			app->fonts->Disable();
 			
 		}
+		*/
 
 		currentAnimation->Update();
 
@@ -904,6 +906,23 @@ bool ModulePlayer::PostUpdate()
 			app->fonts->Enable();
 
 			app->sceneForest->playerRestart = false;
+		}
+
+		if (app->titleScreen->toTitleScreen == true)
+		{
+			app->titleScreen->SavedGame = false;
+			app->titleScreen->Enable();
+			app->CheckGameRequest();
+
+			app->map->Disable();
+			app->collisions->Disable();
+			app->particles->Disable();
+			app->sceneForest->Disable();
+			app->player->Disable();
+			app->enemies->Disable();
+			app->fonts->Disable();
+
+			app->titleScreen->toTitleScreen = false;
 		}
 
 		// TODO 3: Blit the text of the score in at the bottom of the screen

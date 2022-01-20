@@ -65,6 +65,7 @@ public:
 public:
 
 	bool MainMenu = true;
+	bool toTitleScreen = false;
 	bool OptionsMenu = false;
 
 	SDL_Texture* titleScreen;
