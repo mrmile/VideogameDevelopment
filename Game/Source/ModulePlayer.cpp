@@ -192,9 +192,10 @@ bool ModulePlayer::Start()
 	bool ret = true;
 	
 	texture = app->tex->Load("Assets/textures/player.png");
-	coinsForScore = app->tex->Load("Assets/textures/coins_score.png");
+	ptsScore = app->tex->Load("Assets/textures/pts_score.png");
 	livesForScore = app->tex->Load("Assets/textures/lives_score.png");
 	gameOverScreen = app->tex->Load("Assets/textures/game_over.png");
+	yoshiFace = app->tex->Load("Assets/textures/lives_score_e.png");
 	currentAnimation = &idleRightAnim;
 
 	jumpSound = app->audio->LoadFx("Assets/audio/fx/Jump.wav");
@@ -251,7 +252,7 @@ bool ModulePlayer::Start()
 
 	//LOADING FONT FOR GAME
 	char lookupTable[] = { "0123456789" };
-	scoreFont = app->fonts->Load("Assets/textures/numbers.png", lookupTable, 1);
+	scoreFont = app->fonts->Load("Assets/textures/numbersV3.png", lookupTable, 1);
 
 	PlayerLookingPosition = 2;
 
@@ -813,7 +814,8 @@ bool ModulePlayer::PostUpdate()
 
 		// Draw UI (score) --------------------------------------
 		sprintf_s(scoreText, 10, "%5d", score);
-
+		sprintf_s(lifeText, 10, "%1d", lives);
+		app->render->DrawTexture2(yoshiFace, 5, 28, NULL, 0.0f);
 
 		SDL_Rect quad;
 		quad = { 5, 10, playerHP, 10 };
@@ -938,8 +940,10 @@ bool ModulePlayer::PostUpdate()
 		}
 
 		// TODO 3: Blit the text of the score in at the bottom of the screen
-		app->render->DrawTexture2(coinsForScore, 400, 7, NULL);
-		app->fonts->BlitText(350, 10, scoreFont, scoreText);
+		app->render->DrawTexture2(ptsScore, 400, 15, NULL);
+		app->fonts->BlitText(320, 10, scoreFont, scoreText);
+		app->fonts->BlitText(30, 30, scoreFont, lifeText);
+
 		//app->fonts->BlitText(150, 248, scoreFont, "this is just a font test message");
 
 		return true;

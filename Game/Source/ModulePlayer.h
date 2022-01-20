@@ -64,10 +64,12 @@ public:
 	//TEXTURE FOR UI LIFES AND COINS
 	SDL_Texture* texture2 = nullptr;
 
-	SDL_Texture* coinsForScore;
+	SDL_Texture* ptsScore;
 	SDL_Texture* livesForScore;
 
 	SDL_Texture* gameOverScreen;
+
+	SDL_Texture* yoshiFace;
 
 	// The pointer to the current player animation
 	// It will be switched depending on the player's movement direction
@@ -119,6 +121,7 @@ public:
 	uint score = 000;
 	int scoreFont = -1;
 	char scoreText[10] = { "\0" };
+	char lifeText[10] = { "\0" };
 
 	//Lives player
 	uint lives = 3;
