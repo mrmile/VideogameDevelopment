@@ -7,6 +7,7 @@
 #include "ModuleCollisions.h"
 #include "SceneForest.h"
 #include "ModulePlayer.h"
+#include "TitleScreen.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -188,8 +189,6 @@ bool ModuleParticles::Update(float dt)
 	{
 		return true;
 	}
-
-	
 }
 
 bool ModuleParticles::PostUpdate()
@@ -203,6 +202,11 @@ bool ModuleParticles::PostUpdate()
 		{
 			app->render->DrawTexture(texture, particle->position.x, particle->position.y, &(particle->anim.GetCurrentFrame()));
 		}
+	}
+
+	if (app->titleScreen->toTitleScreen == true) // <-- No tendría que estar aquí pero es mas simple ponerlo aquí por como está ordenado el render draw
+	{
+		app->render->DrawTexture2(app->player->gameOverScreen, 0, 0, NULL, 0.0f);
 	}
 
 	return true;

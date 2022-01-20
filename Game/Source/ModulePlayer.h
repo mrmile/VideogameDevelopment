@@ -66,6 +66,9 @@ public:
 
 	SDL_Texture* coinsForScore;
 	SDL_Texture* livesForScore;
+
+	SDL_Texture* gameOverScreen;
+
 	// The pointer to the current player animation
 	// It will be switched depending on the player's movement direction
 	Animation* currentAnimation = nullptr;
@@ -103,6 +106,7 @@ public:
 	uint levelClear = 0;
 	uint firework = 0;
 	uint paused = 0;
+	uint gameOverfx = 0;
 
 	// The player's colliders
 	Collider* collider = nullptr;
@@ -133,6 +137,7 @@ public:
 	int playerScore = 0;
 	bool playerWin= false;
 	int winDelay;
+	int gameOverDelay;
 	bool checkPointReached;
 
 	b2Vec2 b2VelocitySet;

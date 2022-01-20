@@ -194,6 +194,7 @@ bool ModulePlayer::Start()
 	texture = app->tex->Load("Assets/textures/player.png");
 	coinsForScore = app->tex->Load("Assets/textures/coins_score.png");
 	livesForScore = app->tex->Load("Assets/textures/lives_score.png");
+	gameOverScreen = app->tex->Load("Assets/textures/game_over.png");
 	currentAnimation = &idleRightAnim;
 
 	jumpSound = app->audio->LoadFx("Assets/audio/fx/Jump.wav");
@@ -207,6 +208,7 @@ bool ModulePlayer::Start()
 	levelClear = app->audio->LoadFx("Assets/audio/fx/levelClear.wav");
 	firework = app->audio->LoadFx("Assets/audio/fx/fireworks.wav");
 	paused = app->audio->LoadFx("Assets/audio/fx/pause.wav");
+	gameOverfx = app->audio->LoadFx("Assets/audio/fx/GameOver.wav");
 
 	//laserFx = app->audio->LoadFx("Assets/Fx/laser.wav");
 	//explosionFx = app->audio->LoadFx("Assets/Fx/explosion.wav");
@@ -258,6 +260,7 @@ bool ModulePlayer::Start()
 	hoverTimer = 0;
 	destroyedDelay = 0;
 	winDelay = 0;
+	gameOverDelay = 0;
 	TransationToTilteDelay = 0;
 	jump = false;
 	createPlayer = false;
@@ -910,19 +913,28 @@ bool ModulePlayer::PostUpdate()
 
 		if (app->titleScreen->toTitleScreen == true)
 		{
-			app->titleScreen->SavedGame = false;
-			app->titleScreen->Enable();
-			app->CheckGameRequest();
+			gameOverDelay++;
 
-			app->map->Disable();
-			app->collisions->Disable();
-			app->particles->Disable();
-			app->sceneForest->Disable();
-			app->player->Disable();
-			app->enemies->Disable();
-			app->fonts->Disable();
+			app->render->DrawTexture2(gameOverScreen, 0, 0, NULL, 0.0f);
 
-			app->titleScreen->toTitleScreen = false;
+			if (gameOverDelay > 1 && gameOverDelay <= 2) app->audio->PlayFx(gameOverfx);
+
+			if (gameOverDelay > 600 && gameOverDelay <= 601)
+			{
+				app->titleScreen->SavedGame = false;
+				app->titleScreen->Enable();
+				app->CheckGameRequest();
+
+				app->map->Disable();
+				app->collisions->Disable();
+				app->particles->Disable();
+				app->sceneForest->Disable();
+				app->player->Disable();
+				app->enemies->Disable();
+				app->fonts->Disable();
+
+				app->titleScreen->toTitleScreen = false;
+			}
 		}
 
 		// TODO 3: Blit the text of the score in at the bottom of the screen
