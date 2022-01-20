@@ -69,7 +69,7 @@ public:
 
 	SDL_Texture* gameOverScreen;
 
-	SDL_Texture* yoshiFace;
+	SDL_Texture* yoshiIcon;
 
 	// The pointer to the current player animation
 	// It will be switched depending on the player's movement direction

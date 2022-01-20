@@ -195,7 +195,7 @@ bool ModulePlayer::Start()
 	ptsScore = app->tex->Load("Assets/textures/pts_score.png");
 	livesForScore = app->tex->Load("Assets/textures/lives_score.png");
 	gameOverScreen = app->tex->Load("Assets/textures/game_over.png");
-	yoshiFace = app->tex->Load("Assets/textures/lives_score_e.png");
+	yoshiIcon = app->tex->Load("Assets/textures/lives_score_e.png");
 	currentAnimation = &idleRightAnim;
 
 	jumpSound = app->audio->LoadFx("Assets/audio/fx/Jump.wav");
@@ -815,7 +815,7 @@ bool ModulePlayer::PostUpdate()
 		// Draw UI (score) --------------------------------------
 		sprintf_s(scoreText, 10, "%5d", score);
 		sprintf_s(lifeText, 10, "%1d", lives);
-		app->render->DrawTexture2(yoshiFace, 5, 28, NULL, 0.0f);
+		app->render->DrawTexture2(yoshiIcon, 5, 28, NULL, 0.0f);
 
 		SDL_Rect quad;
 		quad = { 5, 10, playerHP, 10 };
@@ -954,6 +954,11 @@ bool ModulePlayer::PostUpdate()
 bool ModulePlayer::CleanUp()
 {
 	app->tex->UnLoad(texture);
+	app->tex->UnLoad(ptsScore);
+	app->tex->UnLoad(livesForScore);
+	app->tex->UnLoad(gameOverScreen);
+	app->tex->UnLoad(yoshiIcon);
+
 	//deletePlayer = true;
 	app->player->Player->body->DestroyFixture(app->player->Player->body->GetFixtureList());
 	//app->collisions->RemoveCollider(app->player->collider);

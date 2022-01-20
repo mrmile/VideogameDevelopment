@@ -289,6 +289,7 @@ bool TitleScreen::CleanUp()
 	app->tex->UnLoad(startButton);
 	app->tex->UnLoad(titleScreen2);
 	app->tex->UnLoad(continueButton);
+	app->tex->UnLoad(continueButtonOff);
 	app->tex->UnLoad(optionsButton);
 	app->tex->UnLoad(creditsButton);
 	app->tex->UnLoad(exitButton);
@@ -296,6 +297,7 @@ bool TitleScreen::CleanUp()
 	app->tex->UnLoad(loading);
 	app->tex->UnLoad(sliderSelector);
 	app->tex->UnLoad(baseSlider);
+
 	return true;
 }
 
