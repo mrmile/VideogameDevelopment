@@ -371,8 +371,8 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 
 				if (control->extraBounds.x > control->bounds.x + control->bounds.w-20)
 				{
-					//AUN NO FUNCIONA EL 10 me da palo
-					app->audio->SliderLevelFX = 100;
+					//AUN NO FUNCIONA EL 10 me da palo <-- Da igual. Este no se hace y ya está. Es el causante de que automaticamente el volumen vuelva a 100 sin tocar nada
+					//app->audio->SliderLevelFX = 100;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.9f) && control->extraBounds.x < control->bounds.x + control->bounds.w)
 				{
@@ -422,8 +422,8 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 
 				if (control->extraBounds.x > control->bounds.x + control->bounds.w - 20)
 				{
-					//AUN NO FUNCIONA EL 10 me da palo
-					app->audio->SliderLevelMusic = 100;
+					//AUN NO FUNCIONA EL 10 me da palo <-- Da igual. Este no se hace y ya está. Es el causante de que automaticamente el volumen vuelva a 100 sin tocar nada
+					//app->audio->SliderLevelMusic = 100;
 				}
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.9f) && control->extraBounds.x < control->bounds.x + control->bounds.w)
 				{
