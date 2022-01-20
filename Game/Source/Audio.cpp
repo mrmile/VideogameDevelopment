@@ -65,8 +65,8 @@ bool Audio::Update(float dt)
 	Mix_VolumeMusic(SliderLevelMusic);
 	Mix_Volume(-1,SliderLevelFX);
 
-	cout << SliderLevelFX << endl;
-	//cout << SliderLevelMusic << endl;
+	cout << "Fx: " << SliderLevelFX << endl;
+	cout << "Music: " << SliderLevelMusic << endl;
 
 	return true;
 }
