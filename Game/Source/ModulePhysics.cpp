@@ -171,8 +171,8 @@ PhysBody* ModulePhysics::CreatePlayerBox(int x, int y, int width, int height)
 
 	b2Filter filter;
 
-	filter.categoryBits = 0x0001;
-	filter.maskBits = 0x0001 | 0x0002;
+	filter.categoryBits = 0x0002;
+	filter.maskBits = 0x0002 | 0x0001;
 
 	pbody->body->GetFixtureList()->SetFilterData(filter);
 	

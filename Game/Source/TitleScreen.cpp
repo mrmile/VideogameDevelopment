@@ -280,7 +280,7 @@ bool TitleScreen::PostUpdate()
 
 	return ret;
 	
-	return true;
+	//return true;
 }
 
 bool TitleScreen::CleanUp()
