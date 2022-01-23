@@ -32,20 +32,25 @@ bool GuiSlider::Update(float dt)
 				(mouseY > bounds.y && mouseY < bounds.y + bounds.h))
 			{
 				state = GuiControlState::FOCUSED;
+				extraBounds.x = mouseX;
 
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
+
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN)
 				{
 					state = GuiControlState::PRESSED;
-					extraBounds.x = mouseX;
+					extraBounds.x = extraBounds.x;
+					NotifyObserver();
+					
 				}
+				/*
 				else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
 				{
-					NotifyObserver();
+					
 				}
+				*/
 				else
 				{
 					state = GuiControlState::NORMAL;
-					NotifyObserver();
 				}
 			}
 		}
