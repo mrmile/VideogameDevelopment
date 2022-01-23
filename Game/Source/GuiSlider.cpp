@@ -2,6 +2,7 @@
 #include "Render.h"
 #include "App.h"
 #include "Audio.h"
+#include "TitleScreen.h"
 
 GuiSlider::GuiSlider(uint32 id, SDL_Rect bounds, SDL_Rect sliderBounds,SDL_Texture* texture,SDL_Texture* sliderTexture) : GuiControl(GuiControlType::SLIDER, id)
 {
@@ -9,7 +10,7 @@ GuiSlider::GuiSlider(uint32 id, SDL_Rect bounds, SDL_Rect sliderBounds,SDL_Textu
 	this->extraBounds = sliderBounds;
 	this->texture = texture;
 	this->textureForSlider = sliderTexture;
-	canClick = true;
+	//canClick = true;
 	drawBasic = false;
 }
 
@@ -22,32 +23,34 @@ bool GuiSlider::Update(float dt)
 {
 	if (state != GuiControlState::DISABLED)
 	{
-		// L14: TODO 3_D: Update the state of the GUiButton according to the mouse position
-		int mouseX, mouseY;
-		app->input->GetMousePosition(mouseX, mouseY);
-
-		if ((mouseX > bounds.x && mouseX < (bounds.x + bounds.w)) &&
-			(mouseY > bounds.y && mouseY < bounds.y + bounds.h))
+		if (canClick == true)
 		{
-			state = GuiControlState::FOCUSED;
+			int mouseX, mouseY;
+			app->input->GetMousePosition(mouseX, mouseY);
 
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
+			if ((mouseX > bounds.x && mouseX < (bounds.x + bounds.w)) &&
+				(mouseY > bounds.y && mouseY < bounds.y + bounds.h))
 			{
-				state = GuiControlState::PRESSED;
-				extraBounds.x = mouseX;
-				
+				state = GuiControlState::FOCUSED;
 
-			}
-			else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
-			{
-				SDL_Delay(100);
-				NotifyObserver();
-			}
-			else
-			{
-				state = GuiControlState::NORMAL;
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
+				{
+					state = GuiControlState::PRESSED;
+					extraBounds.x = mouseX;
+				}
+				else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
+				{
+					NotifyObserver();
+				}
+				else
+				{
+					state = GuiControlState::NORMAL;
+					NotifyObserver();
+				}
 			}
 		}
+		// L14: TODO 3_D: Update the state of the GUiButton according to the mouse position
+		
 
 	}
 

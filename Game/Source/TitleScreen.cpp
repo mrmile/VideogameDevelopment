@@ -73,8 +73,8 @@ bool TitleScreen::Start()
 	returnButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Return Button", { 10, 10, 71, 35 }, this, returnButton, NULL, {});
 
 	//SLIDERS
-	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1, "Fx slider", { 20,80,195,35 }, this, baseSlider, sliderSelector, {214,90,14,16});
-	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 2, "Music slider", { 20,120,195,35 }, this, baseSlider, sliderSelector, { 214,130,14,16 });
+	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 7, "Fx slider", { 20,80,195,35 }, this, baseSlider, sliderSelector, {214,90,14,16});
+	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 8, "Music slider", { 20,120,195,35 }, this, baseSlider, sliderSelector, { 214,130,14,16 });
 
 	
 	sceneTimer = 0;
@@ -118,11 +118,21 @@ bool TitleScreen::Update(float dt)
 		optionsButton_->canClick = true;
 		creditsButton_->canClick = true;
 		exitButton_->canClick = true;
+		returnButton_->canClick = false;
+		fxVolumeSlider->canClick = false;
+		musicVolumeSlider->canClick = false;
+
 	}
 	if (OptionsMenu == true)
 	{
+		startButton_->canClick = false;
+		continueButton_->canClick = false;
+		optionsButton_->canClick = false;
+		creditsButton_->canClick = false;
+		exitButton_->canClick = false;
 		returnButton_->canClick = true;
 		fxVolumeSlider->canClick = true;
+		musicVolumeSlider->canClick = true;
 	}
 
 
@@ -130,27 +140,27 @@ bool TitleScreen::Update(float dt)
 	{
 		
 		//START BUTTON
-		if (startButton_->state == GuiControlState::PRESSED)
+		if (startButton_->state == GuiControlState::PRESSED && startButton_->canClick==true)
 		{
 			OnGuiMouseClickEvent(startButton_);
 		}
 		//CONTINUE BUTTON
-		if (continueButton_->state == GuiControlState::PRESSED)
+		if (continueButton_->state == GuiControlState::PRESSED && continueButton_->canClick == true)
 		{
 			OnGuiMouseClickEvent(continueButton_);
 		}
 		//SETTINGS BUTTON
-		if (optionsButton_->state == GuiControlState::PRESSED)
+		if (optionsButton_->state == GuiControlState::PRESSED && optionsButton_->canClick == true)
 		{
 			OnGuiMouseClickEvent(optionsButton_);
 		}
 		//CREDITS BUTTON
-		if (creditsButton_->state == GuiControlState::PRESSED)
+		if (creditsButton_->state == GuiControlState::PRESSED && creditsButton_->canClick == true)
 		{
 			OnGuiMouseClickEvent(creditsButton_);
 		}
 		//EXIT BUTTON
-		if (exitButton_->state == GuiControlState::PRESSED)
+		if (exitButton_->state == GuiControlState::PRESSED && exitButton_->canClick == true)
 		{
 			OnGuiMouseClickEvent(exitButton_);
 		}
@@ -227,15 +237,15 @@ bool TitleScreen::Update(float dt)
 	{
 		//RETURN TO MAIN MENU BUTTON
 		
-		if (returnButton_->state == GuiControlState::PRESSED)
+		if (returnButton_->state == GuiControlState::PRESSED && returnButton_->canClick == true)
 		{
 			OnGuiMouseClickEvent(returnButton_);
 		}
-		if (fxVolumeSlider->state == GuiControlState::PRESSED)
+		if (fxVolumeSlider->state == GuiControlState::PRESSED && fxVolumeSlider->canClick == true)
 		{
 			OnGuiMouseClickEvent(fxVolumeSlider);
-		}
-		if (musicVolumeSlider->state == GuiControlState::PRESSED)
+		} 
+		if (musicVolumeSlider->state == GuiControlState::PRESSED && musicVolumeSlider->canClick == true)
 		{
 			OnGuiMouseClickEvent(musicVolumeSlider);
 		}
@@ -359,7 +369,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 			if (control->id == 6)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
-				OptionsMenu = false;
+				OptionsMenu = false; 
 				MainMenu = true;
 			}
 
@@ -368,10 +378,9 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		//Other cases here
 		case GuiControlType::SLIDER:
 		{
-			if (control->id == 1)
+			if (control->id == 7)
 			{
-
-				if (control->extraBounds.x > control->bounds.x + control->bounds.w-20)
+				if (control->extraBounds.x > control->bounds.x + control->bounds.w - 20)
 				{
 					//AUN NO FUNCIONA EL 10 me da palo <-- Da igual. Este no se hace y ya está. Es el causante de que automaticamente el volumen vuelva a 100 sin tocar nada
 					//app->audio->SliderLevelFX = 100;
@@ -412,16 +421,15 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 				{
 					app->audio->SliderLevelFX = 10;
 				}
-				if (control->extraBounds.x > control->bounds.x && control->extraBounds.x < control->bounds.x+(control->bounds.w*0.1f))
+				if (control->extraBounds.x > control->bounds.x && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.1f))
 				{
 					app->audio->SliderLevelFX = 0;
 				}
-				
-			}
-			
-			if (control->id == 2)
-			{
 
+			}
+
+			if (control->id == 8)
+			{
 				if (control->extraBounds.x > control->bounds.x + control->bounds.w - 20)
 				{
 					//AUN NO FUNCIONA EL 10 me da palo <-- Da igual. Este no se hace y ya está. Es el causante de que automaticamente el volumen vuelva a 100 sin tocar nada
@@ -467,7 +475,6 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 				{
 					app->audio->SliderLevelMusic = 0;
 				}
-
 			}
 
 		}
@@ -479,6 +486,8 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 bool TitleScreen::CheckSave(pugi::xml_node& data) 
 {
 	SavedGame = data.child("saved_game").attribute("bool").as_bool();
+	app->audio->SliderLevelFX = data.child("saved_game").attribute("Fx").as_int();
+	app->audio->SliderLevelMusic = data.child("saved_game").attribute("Music").as_int();
 
 	return true;
 }
@@ -488,6 +497,8 @@ bool TitleScreen::SaveState(pugi::xml_node& data) const
 	pugi::xml_node savedGame = data.append_child("saved_game");
 	
 	savedGame.append_attribute("bool") = SavedGame;
+	savedGame.append_attribute("Fx") = app->audio->SliderLevelFX;
+	savedGame.append_attribute("Music") = app->audio->SliderLevelMusic;
 
 	return true;
 }
