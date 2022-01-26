@@ -140,7 +140,8 @@ bool TitleScreen::Update(float dt)
 
 	if (MainMenu == true)
 	{
-		
+		//No sirve de nada
+		/*
 		//START BUTTON
 		if (startButton_->state == GuiControlState::PRESSED && startButton_->canClick==true)
 		{
@@ -167,13 +168,14 @@ bool TitleScreen::Update(float dt)
 		{
 			OnGuiMouseClickEvent(exitButton_);
 		}
+		*/
 		
 		//FOR CREDITS BUTTOn
 		if (transitionCredits == true) delayToCredits++;
 
-		if (delayToCredits > 90 && delayToCredits <= 91)
+		if (delayToCredits > 90 && delayToCredits <= 91) // 
 		{
-			//app->credits->Enable();    NEED TO ADD THE CREDITS SCENE
+			//app->credits->Enable();    NEED TO ADD THE CREDITS SCENE <-- NO HACE FALTA. SOLO SE NECESITA HACER QUE SE DIBUJE UNA IMAGEN CON NUESTROS NOMBRES
 			app->player->Enable();
 			app->fonts->Enable();
 
@@ -240,6 +242,8 @@ bool TitleScreen::Update(float dt)
 	{
 		//RETURN TO MAIN MENU BUTTON
 		
+		//No sirve de nada
+		/*
 		if (returnButton_->state == GuiControlState::PRESSED && returnButton_->canClick == true)
 		{
 			OnGuiMouseClickEvent(returnButton_);
@@ -252,6 +256,7 @@ bool TitleScreen::Update(float dt)
 		{
 			OnGuiMouseClickEvent(musicVolumeSlider);
 		}
+		*/
 		//METER LOGICA SLIDER
 		//FALTA MIRAR COMO CAMBIAR VOLUMEN MUSICA Y VOLUMEN FX Y MODIFICARLO SEGUN EL SLIDER LEVEL FX O SLIDER LEVEL MUSIC
 	}
@@ -322,14 +327,14 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		case GuiControlType::BUTTON:
 		{
 			//Checks the GUI element ID
-			if (control->id == 1)
+			if (control->id == 1 && startButton_->canClick == true)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
 				transition = true;
 
 			}
 
-			if (control->id == 2)
+			if (control->id == 2 && continueButton_->canClick == true)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
 
@@ -344,32 +349,32 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 					//AUDIO THINGY
 				}
 			}
-			if (control->id == 3)
+			if (control->id == 3 && optionsButton_->canClick == true)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
 				MainMenu = false;
 				OptionsMenu = true;
 			}
 
-			if (control->id == 4)
+			if (control->id == 4 && creditsButton_->canClick == true)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
 
-				transitionCredits = true;
-				if (transitionCredits == true) delayToCredits++;
+				//transitionCredits = true;
+				//if (transitionCredits == true) delayToCredits++;
 
 				if (delayToCredits > 90 && delayToCredits <= 91)
 				{
-					//app->credits->Enable();    //NEED TO ADD THE CREDITS SCENE
-					app->titleScreen->Disable();
+					//app->credits->Enable();    //NEED TO ADD THE CREDITS SCENE <-- NO HACE FALTA. SOLO SE NECESITA HACER QUE SE DIBUJE UNA IMAGEN CON NUESTROS NOMBRES
+					//app->titleScreen->Disable();
 				}
 			}
-			if (control->id == 5)
+			if (control->id == 5 && exitButton_->canClick == true)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
 				exit(0);
 			}
-			if (control->id == 6)
+			if (control->id == 6 && returnButton_->canClick == true)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
 				OptionsMenu = false; 
@@ -381,7 +386,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		//Other cases here
 		case GuiControlType::SLIDER:
 		{
-			if (control->id == 7)
+			if (control->id == 7 && fxVolumeSlider->canClick == true)
 			{
 				if (control->extraBounds.x > control->bounds.x + control->bounds.w - 20)
 				{
@@ -431,7 +436,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 
 			}
 
-			if (control->id == 8)
+			if (control->id == 8 && musicVolumeSlider->canClick == true)
 			{
 				if (control->extraBounds.x > control->bounds.x + control->bounds.w - 20)
 				{
