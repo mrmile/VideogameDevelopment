@@ -51,6 +51,7 @@ bool TitleScreen::Start()
 	titleScreen = app->tex->Load("Assets/textures/titleScreen3.png");
 	titleScreen2 = app->tex->Load("Assets/textures/island.png");
 	loading = app->tex->Load("Assets/textures/loadingScreen3.png");
+	creditsScene = app->tex->Load("Assets/textures/creditsScreen3.png");
 	startButton = app->tex->Load("Assets/textures/GUI/startButton.png");
 	continueButton = app->tex->Load("Assets/textures/GUI/continueButton.png");
 	continueButtonOff = app->tex->Load("Assets/textures/GUI/continueButtonOff.png");
@@ -85,8 +86,8 @@ bool TitleScreen::Start()
 	delayToCredits = 0;
 	transition = false;
 	continueTransition = false;
-	transitionCredits = false;
 	GameHasContinued = false;
+	credits = false;
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
@@ -136,6 +137,17 @@ bool TitleScreen::Update(float dt)
 		fxVolumeSlider->canClick = true;
 		musicVolumeSlider->canClick = true;
 	}
+	if (credits == true)
+	{
+		startButton_->canClick = false;
+		continueButton_->canClick = false;
+		optionsButton_->canClick = false;
+		creditsButton_->canClick = false;
+		exitButton_->canClick = false;
+		returnButton_->canClick = true;
+		fxVolumeSlider->canClick = false;
+		musicVolumeSlider->canClick = false;
+	}
 
 
 	if (MainMenu == true)
@@ -169,18 +181,6 @@ bool TitleScreen::Update(float dt)
 			OnGuiMouseClickEvent(exitButton_);
 		}
 		*/
-		
-		//FOR CREDITS BUTTOn
-		if (transitionCredits == true) delayToCredits++;
-
-		if (delayToCredits > 90 && delayToCredits <= 91) // 
-		{
-			//app->credits->Enable();    NEED TO ADD THE CREDITS SCENE <-- NO HACE FALTA. SOLO SE NECESITA HACER QUE SE DIBUJE UNA IMAGEN CON NUESTROS NOMBRES
-			app->player->Enable();
-			app->fonts->Enable();
-
-			app->titleScreen->Disable();
-		}
 		
 		//FOR CONTINUE BUTTON
 		if (continueTransition == true) delayToContinue++;
@@ -293,6 +293,12 @@ bool TitleScreen::PostUpdate()
 		fxVolumeSlider->Draw(app->render);
 		musicVolumeSlider->Draw(app->render);
 	}
+	if (credits == true)
+	{
+		app->render->DrawTexture2(titleScreen2, 0, 0, NULL);
+		app->render->DrawTexture2(creditsScene, 0, 0, NULL);
+		returnButton_->Draw(app->render);
+	}
 
 	if (transition == true || continueTransition == true) app->render->DrawTexture2(loading, 0, 0, NULL);
 
@@ -305,6 +311,7 @@ bool TitleScreen::CleanUp()
 {
 	app->tex->UnLoad(titleScreen);
 	app->tex->UnLoad(startButton);
+	app->tex->UnLoad(creditsScene);
 	app->tex->UnLoad(titleScreen2);
 	app->tex->UnLoad(continueButton);
 	app->tex->UnLoad(continueButtonOff);
@@ -360,14 +367,8 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
 
-				//transitionCredits = true;
-				//if (transitionCredits == true) delayToCredits++;
-
-				if (delayToCredits > 90 && delayToCredits <= 91)
-				{
-					//app->credits->Enable();    //NEED TO ADD THE CREDITS SCENE <-- NO HACE FALTA. SOLO SE NECESITA HACER QUE SE DIBUJE UNA IMAGEN CON NUESTROS NOMBRES
-					//app->titleScreen->Disable();
-				}
+				MainMenu = false;
+				credits = true;
 			}
 			if (control->id == 5 && exitButton_->canClick == true)
 			{
@@ -378,6 +379,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
 				OptionsMenu = false; 
+				credits = false;
 				MainMenu = true;
 			}
 

@@ -49,8 +49,8 @@ public:
 	int delayToCredits;
 	int delayToContinue;
 	bool transition=false;
-	bool transitionCredits=false;
 	bool continueTransition=false;
+	bool credits = false;
 	
 
 	bool GameHasContinued = false;
@@ -70,6 +70,7 @@ public:
 
 	SDL_Texture* titleScreen;
 	SDL_Texture* titleScreen2;
+	SDL_Texture* creditsScene;
 	SDL_Texture* loading;
 	//BUTTONS TEXTURES
 	SDL_Texture* startButton;
