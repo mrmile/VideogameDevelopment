@@ -45,10 +45,11 @@ bool GuiButton::Update(float dt)
 				//cout << "Selected " << endl;
 				//NotifyObserver();
 			}
-			else
-			{
-				state = GuiControlState::NORMAL;
-			}
+			
+		}
+		else
+		{
+			state = GuiControlState::NORMAL;
 		}
 
 	}

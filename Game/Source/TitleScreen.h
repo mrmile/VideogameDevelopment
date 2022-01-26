@@ -80,14 +80,46 @@ public:
 	SDL_Texture* creditsButton;
 	SDL_Texture* returnButton;
 	SDL_Texture* exitButton;
+
+	SDL_Texture* startButtonOnIdle;
+	SDL_Texture* continueButtonOnIdle;
+	SDL_Texture* continueButtonOffOnIdle;
+	SDL_Texture* optionsButtonOnIdle;
+	SDL_Texture* creditsButtonOnIdle;
+	SDL_Texture* returnButtonOnIdle;
+	SDL_Texture* exitButtonOnIdle;
+
+	SDL_Texture* startButtonPressed;
+	SDL_Texture* continueButtonPressed;
+	SDL_Texture* continueButtonOffPressed;
+	SDL_Texture* optionsButtonPressed;
+	SDL_Texture* creditsButtonPressed;
+	SDL_Texture* returnButtonPressed;
+	SDL_Texture* exitButtonPressed;
 	//CHECBOX TEXTURES
 	SDL_Texture* fullScreenCheckOn;
 	SDL_Texture* fullScreenCheckOff;
 	SDL_Texture* VSyncOn;
 	SDL_Texture* VSyncOff;
+
+	SDL_Texture* fullScreenCheckOnOnIdle;
+	SDL_Texture* fullScreenCheckOffOnIdle;
+	SDL_Texture* VSyncOnOnIdle;
+	SDL_Texture* VSyncOffOnIdle;
+
+	SDL_Texture* fullScreenCheckOnPressed;
+	SDL_Texture* fullScreenCheckOffPressed;
+	SDL_Texture* VSyncOnPressed;
+	SDL_Texture* VSyncOffPressed;
 	//SLIDER TEXTURES
 	SDL_Texture* baseSlider;
 	SDL_Texture* sliderSelector;
+
+	SDL_Texture* baseSliderOnIdle;
+	SDL_Texture* sliderSelectorOnIdle;
+
+	SDL_Texture* baseSliderPressed;
+	SDL_Texture* sliderSelectorPressed;
 
 	//GUI BUTTONS
 	GuiButton* startButton_;

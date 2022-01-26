@@ -52,6 +52,7 @@ bool TitleScreen::Start()
 	titleScreen2 = app->tex->Load("Assets/textures/island.png");
 	loading = app->tex->Load("Assets/textures/loadingScreen3.png");
 	creditsScene = app->tex->Load("Assets/textures/creditsScreen3.png");
+
 	startButton = app->tex->Load("Assets/textures/GUI/startButton.png");
 	continueButton = app->tex->Load("Assets/textures/GUI/continueButton.png");
 	continueButtonOff = app->tex->Load("Assets/textures/GUI/continueButtonOff.png");
@@ -61,6 +62,26 @@ bool TitleScreen::Start()
 	returnButton = app->tex->Load("Assets/textures/GUI/returnButton.png");
 	baseSlider = app->tex->Load("Assets/textures/GUI/BaseSlider.png");
 	sliderSelector = app->tex->Load("Assets/textures/GUI/sliderInput.png");
+
+	startButtonOnIdle = app->tex->Load("Assets/textures/GUI/startButton_onIdle.png");
+	continueButtonOnIdle = app->tex->Load("Assets/textures/GUI/continueButton_onIdle.png");
+	continueButtonOffOnIdle = app->tex->Load("Assets/textures/GUI/continueButtonOff_onIdle.png");
+	optionsButtonOnIdle = app->tex->Load("Assets/textures/GUI/optionsButton_onIdle.png");
+	creditsButtonOnIdle = app->tex->Load("Assets/textures/GUI/creditsButton_onIdle.png");
+	exitButtonOnIdle = app->tex->Load("Assets/textures/GUI/exitButton_onIdle.png");
+	returnButtonOnIdle = app->tex->Load("Assets/textures/GUI/returnButton_onIdle.png");
+	baseSliderOnIdle = app->tex->Load("Assets/textures/GUI/BaseSlider_onIdle.png");
+	sliderSelectorOnIdle = app->tex->Load("Assets/textures/GUI/sliderInput_onIdle.png");
+
+	startButtonPressed = app->tex->Load("Assets/textures/GUI/startButton_pressed.png");
+	continueButtonPressed = app->tex->Load("Assets/textures/GUI/continueButton_pressed.png");
+	continueButtonOffPressed = app->tex->Load("Assets/textures/GUI/continueButtonOff_pressed.png");
+	optionsButtonPressed = app->tex->Load("Assets/textures/GUI/optionsButton_pressed.png");
+	creditsButtonPressed = app->tex->Load("Assets/textures/GUI/creditsButton_pressed.png");
+	exitButtonPressed = app->tex->Load("Assets/textures/GUI/exitButton_pressed.png");
+	returnButtonPressed = app->tex->Load("Assets/textures/GUI/returnButton_pressed.png");
+	baseSliderPressed = app->tex->Load("Assets/textures/GUI/BaseSlider_pressed.png");
+	sliderSelectorPressed = app->tex->Load("Assets/textures/GUI/sliderInput_pressed.png");
 
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
@@ -280,23 +301,57 @@ bool TitleScreen::PostUpdate()
 	if (MainMenu == true) 
 	{
 
+		if (startButton_->state == GuiControlState::NORMAL && startButton_->canClick == true) startButton_->SetTexture(startButton);
+		if (startButton_->state == GuiControlState::FOCUSED && startButton_->canClick == true) startButton_->SetTexture(startButtonOnIdle);
+		if (startButton_->state == GuiControlState::SELECTED && startButton_->canClick == true) startButton_->SetTexture(startButtonPressed);
 		startButton_->Draw(app->render);
+
+		if (continueButton_->state == GuiControlState::NORMAL && continueButton_->canClick == true) continueButton_->SetTexture(continueButton);
+		if (continueButton_->state == GuiControlState::FOCUSED && continueButton_->canClick == true) continueButton_->SetTexture(continueButtonOnIdle);
+		if (continueButton_->state == GuiControlState::SELECTED && continueButton_->canClick == true) continueButton_->SetTexture(continueButtonPressed);
 		continueButton_->Draw(app->render);
+
+		if (optionsButton_->state == GuiControlState::NORMAL && optionsButton_->canClick == true) optionsButton_->SetTexture(optionsButton);
+		if (optionsButton_->state == GuiControlState::FOCUSED && optionsButton_->canClick == true) optionsButton_->SetTexture(optionsButtonOnIdle);
+		if (optionsButton_->state == GuiControlState::SELECTED && optionsButton_->canClick == true) optionsButton_->SetTexture(optionsButtonPressed);
 		optionsButton_->Draw(app->render);
+
+		if (creditsButton_->state == GuiControlState::NORMAL && creditsButton_->canClick == true) creditsButton_->SetTexture(creditsButton);
+		if (creditsButton_->state == GuiControlState::FOCUSED && creditsButton_->canClick == true) creditsButton_->SetTexture(creditsButtonOnIdle);
+		if (creditsButton_->state == GuiControlState::SELECTED && creditsButton_->canClick == true) creditsButton_->SetTexture(creditsButtonPressed);
 		creditsButton_->Draw(app->render);
+
+		if (exitButton_->state == GuiControlState::NORMAL && exitButton_->canClick == true) exitButton_->SetTexture(exitButton);
+		if (exitButton_->state == GuiControlState::FOCUSED && exitButton_->canClick == true) exitButton_->SetTexture(exitButtonOnIdle);
+		if (exitButton_->state == GuiControlState::SELECTED && exitButton_->canClick == true) exitButton_->SetTexture(exitButtonPressed);
 		exitButton_->Draw(app->render);
 	}
 	if (OptionsMenu == true)
 	{
 		app->render->DrawTexture2(titleScreen2, 0, 0, NULL);
+
+		if (returnButton_->state == GuiControlState::NORMAL && returnButton_->canClick == true) returnButton_->SetTexture(returnButton);
+		if (returnButton_->state == GuiControlState::FOCUSED && returnButton_->canClick == true) returnButton_->SetTexture(returnButtonOnIdle);
+		if (returnButton_->state == GuiControlState::SELECTED && returnButton_->canClick == true) returnButton_->SetTexture(returnButtonPressed);
 		returnButton_->Draw(app->render);
+
 		fxVolumeSlider->Draw(app->render);
+
+
+
 		musicVolumeSlider->Draw(app->render);
+
+
+
 	}
 	if (credits == true)
 	{
 		app->render->DrawTexture2(titleScreen2, 0, 0, NULL);
 		app->render->DrawTexture2(creditsScene, 0, 0, NULL);
+
+		if (returnButton_->state == GuiControlState::NORMAL && returnButton_->canClick == true) returnButton_->SetTexture(returnButton);
+		if (returnButton_->state == GuiControlState::FOCUSED && returnButton_->canClick == true) returnButton_->SetTexture(returnButtonOnIdle);
+		if (returnButton_->state == GuiControlState::SELECTED && returnButton_->canClick == true) returnButton_->SetTexture(returnButtonPressed);
 		returnButton_->Draw(app->render);
 	}
 
@@ -313,15 +368,34 @@ bool TitleScreen::CleanUp()
 	app->tex->UnLoad(startButton);
 	app->tex->UnLoad(creditsScene);
 	app->tex->UnLoad(titleScreen2);
+	app->tex->UnLoad(loading);
+
 	app->tex->UnLoad(continueButton);
 	app->tex->UnLoad(continueButtonOff);
 	app->tex->UnLoad(optionsButton);
 	app->tex->UnLoad(creditsButton);
 	app->tex->UnLoad(exitButton);
 	app->tex->UnLoad(returnButton);
-	app->tex->UnLoad(loading);
 	app->tex->UnLoad(sliderSelector);
 	app->tex->UnLoad(baseSlider);
+
+	app->tex->UnLoad(continueButtonOnIdle);
+	app->tex->UnLoad(continueButtonOffOnIdle);
+	app->tex->UnLoad(optionsButtonOnIdle);
+	app->tex->UnLoad(creditsButtonOnIdle);
+	app->tex->UnLoad(exitButtonOnIdle);
+	app->tex->UnLoad(returnButtonOnIdle);
+	app->tex->UnLoad(sliderSelectorOnIdle);
+	app->tex->UnLoad(baseSliderOnIdle);
+
+	app->tex->UnLoad(continueButtonPressed);
+	app->tex->UnLoad(continueButtonOffPressed);
+	app->tex->UnLoad(optionsButtonPressed);
+	app->tex->UnLoad(creditsButtonPressed);
+	app->tex->UnLoad(exitButtonPressed);
+	app->tex->UnLoad(returnButtonPressed);
+	app->tex->UnLoad(sliderSelectorPressed);
+	app->tex->UnLoad(baseSliderPressed);
 
 	return true;
 }
