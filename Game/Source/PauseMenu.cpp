@@ -41,13 +41,25 @@ bool PauseMenu::Awake()
 bool PauseMenu::Start()
 {
 	PauseFrame = app->tex->Load("Assets/textures/GUI/PauseMenuFrame.png");
+
 	buttonClickedFx = app->audio->LoadFx("Assets/audio/fx/Advice.wav");
 	resumeButton = app->tex->Load("Assets/textures/GUI/resumeButton.png");
 	optionsButton = app->tex->Load("Assets/textures/GUI/optionsButton.png");
 	backToTitleButton = app->tex->Load("Assets/textures/GUI/titlescreenButton.png");
 	exitButton = app->tex->Load("Assets/textures/GUI/exitButton.png");
+
+	resumeButtonOnIdle = app->tex->Load("Assets/textures/GUI/resumeButton_onIdle.png");
+	optionsButtonOnIdle = app->tex->Load("Assets/textures/GUI/optionsButton_onIdle.png");
+	backToTitleButtonOnIdle = app->tex->Load("Assets/textures/GUI/titlescreenButton_onIdle.png");
+	exitButtonOnIdle = app->tex->Load("Assets/textures/GUI/exitButton_onIdle.png");
+
+	resumeButtonPressed = app->tex->Load("Assets/textures/GUI/resumeButton_pressed.png");
+	optionsButtonPressed = app->tex->Load("Assets/textures/GUI/optionsButton_pressed.png");
+	backToTitleButtonPressed = app->tex->Load("Assets/textures/GUI/titlescreenButton_pressed.png");
+	exitButtonPressed = app->tex->Load("Assets/textures/GUI/exitButton_pressed.png");
+
 	resumeButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Resume Button", { 200,50,108,35 }, this, resumeButton, NULL, {});
-	optionsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Settings Button", { 200,100,108,35 }, this,optionsButton, NULL, {});
+	//optionsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Settings Button", { 200,100,108,35 }, this,optionsButton, NULL, {});
 	backToTitleButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Title Button", { 50,100,108,35 }, this,backToTitleButton, NULL, {});
 	exitButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Exit Button", { 50, 50, 108, 35 }, this,exitButton, NULL, {});
 	
@@ -77,11 +89,12 @@ bool PauseMenu::Update(float dt)
 		noPauseTimer = 0;
 
 		resumeButton_->canClick = true;
-		optionsButton_->canClick = true;
+		//optionsButton_->canClick = true;
 		backToTitleButton_->canClick = true;
 		exitButton_->canClick = true;
 
 
+		/* // No sirve
 		if (resumeButton_->state == GuiControlState::PRESSED)
 		{
 			OnGuiMouseClickEvent(resumeButton_);
@@ -98,6 +111,7 @@ bool PauseMenu::Update(float dt)
 		{
 			OnGuiMouseClickEvent(exitButton_);
 		}
+		*/
 		
 		if (TitleTransition == true)
 		{
@@ -143,9 +157,22 @@ bool PauseMenu::PostUpdate()
 		app->render->DrawRectangle2(bgquad, 255, 255, 255, 150, 0.0f, true);
 		//app->render->DrawRectangle2(quad2, 200, 200, 200, 255, 0.0f, true);
 		app->render->DrawTexture2(PauseFrame, 20, 20, NULL);
+
+		if (exitButton_->state == GuiControlState::NORMAL && exitButton_->canClick == true) exitButton_->SetTexture(exitButton);
+		if (exitButton_->state == GuiControlState::FOCUSED && exitButton_->canClick == true) exitButton_->SetTexture(exitButtonOnIdle);
+		if (exitButton_->state == GuiControlState::SELECTED && exitButton_->canClick == true) exitButton_->SetTexture(exitButtonPressed);
 		exitButton_->Draw(app->render);
+		
+		if (resumeButton_->state == GuiControlState::NORMAL && resumeButton_->canClick == true) resumeButton_->SetTexture(resumeButton);
+		if (resumeButton_->state == GuiControlState::FOCUSED && resumeButton_->canClick == true) resumeButton_->SetTexture(resumeButtonOnIdle);
+		if (resumeButton_->state == GuiControlState::SELECTED && resumeButton_->canClick == true) resumeButton_->SetTexture(resumeButtonPressed);
 		resumeButton_->Draw(app->render);
-		optionsButton_->Draw(app->render);
+
+		//optionsButton_->Draw(app->render);
+
+		if (backToTitleButton_->state == GuiControlState::NORMAL && backToTitleButton_->canClick == true) backToTitleButton_->SetTexture(backToTitleButton);
+		if (backToTitleButton_->state == GuiControlState::FOCUSED && backToTitleButton_->canClick == true) backToTitleButton_->SetTexture(backToTitleButtonOnIdle);
+		if (backToTitleButton_->state == GuiControlState::SELECTED && backToTitleButton_->canClick == true) backToTitleButton_->SetTexture(backToTitleButtonPressed);
 		backToTitleButton_->Draw(app->render);
 	}
 	
@@ -159,12 +186,24 @@ bool PauseMenu::PostUpdate()
 // Called before quitting
 bool PauseMenu::CleanUp()
 {
+	app->tex->UnLoad(PauseFrame);
+
 	app->tex->UnLoad(exitButton);
 	app->tex->UnLoad(resumeButton);
 	app->tex->UnLoad(optionsButton);
 	app->tex->UnLoad(backToTitleButton);
 	app->tex->UnLoad(exitButton);
-	app->tex->UnLoad(PauseFrame);
+
+	app->tex->UnLoad(exitButtonOnIdle);
+	app->tex->UnLoad(optionsButtonOnIdle);
+	app->tex->UnLoad(backToTitleButtonOnIdle);
+	app->tex->UnLoad(exitButtonOnIdle);
+
+	app->tex->UnLoad(exitButtonPressed);
+	app->tex->UnLoad(resumeButtonPressed);
+	app->tex->UnLoad(optionsButtonPressed);
+	app->tex->UnLoad(backToTitleButtonPressed);
+	app->tex->UnLoad(exitButtonPressed);
 
 	return true;
 }
@@ -185,7 +224,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control){
 		if (control->id == 2)
 		{
 			//SETTINGS BUTTON
-			app->audio->PlayFx(buttonClickedFx, 0);
+			//app->audio->PlayFx(buttonClickedFx, 0);
 
 		}
 		if (control->id == 3)

@@ -86,6 +86,7 @@ bool TitleScreen::Start()
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/fortress.ogg");
 	buttonClickedFx = app->audio->LoadFx("Assets/audio/fx/Advice.wav");
+	buttonNotClickedFx = app->audio->LoadFx("Assets/audio/fx/No.wav");
 
 	// L14: TODO 2_D: Declare a GUI Button and create it using the GuiManager
 	//BUTTONS
@@ -292,11 +293,7 @@ bool TitleScreen::PostUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-	app->render->DrawTexture2(titleScreen, 0, 0, NULL);
-	
-	
-	if (SavedGame == true) continueButton_->SetTexture(continueButton);
-	if (SavedGame == false) continueButton_->SetTexture(continueButtonOff);
+	app->render->DrawTexture2(titleScreen, 0, 0, NULL);	
 	
 	if (MainMenu == true) 
 	{
@@ -306,10 +303,18 @@ bool TitleScreen::PostUpdate()
 		if (startButton_->state == GuiControlState::SELECTED && startButton_->canClick == true) startButton_->SetTexture(startButtonPressed);
 		startButton_->Draw(app->render);
 
-		if (continueButton_->state == GuiControlState::NORMAL && continueButton_->canClick == true) continueButton_->SetTexture(continueButton);
-		if (continueButton_->state == GuiControlState::FOCUSED && continueButton_->canClick == true) continueButton_->SetTexture(continueButtonOnIdle);
-		if (continueButton_->state == GuiControlState::SELECTED && continueButton_->canClick == true) continueButton_->SetTexture(continueButtonPressed);
-		continueButton_->Draw(app->render);
+		if (SavedGame == true)
+		{
+			if (continueButton_->state == GuiControlState::NORMAL && continueButton_->canClick == true) continueButton_->SetTexture(continueButton);
+			if (continueButton_->state == GuiControlState::FOCUSED && continueButton_->canClick == true) continueButton_->SetTexture(continueButtonOnIdle);
+			if (continueButton_->state == GuiControlState::SELECTED && continueButton_->canClick == true) continueButton_->SetTexture(continueButtonPressed);
+			continueButton_->Draw(app->render);
+		}
+		if (SavedGame == false)
+		{
+			continueButton_->SetTexture(continueButtonOff);
+			continueButton_->Draw(app->render);
+		}
 
 		if (optionsButton_->state == GuiControlState::NORMAL && optionsButton_->canClick == true) optionsButton_->SetTexture(optionsButton);
 		if (optionsButton_->state == GuiControlState::FOCUSED && optionsButton_->canClick == true) optionsButton_->SetTexture(optionsButtonOnIdle);
@@ -417,17 +422,16 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 
 			if (control->id == 2 && continueButton_->canClick == true)
 			{
-				app->audio->PlayFx(buttonClickedFx, 0);
 
 				if (SavedGame == true)
 				{
+					app->audio->PlayFx(buttonClickedFx, 0);
 					app->audio->PlayFx(buttonClickedFx, 0);
 					continueTransition = true;
 				}
 				if (SavedGame == false)
 				{
-					app->audio->PlayFx(buttonClickedFx, 0);
-					//AUDIO THINGY
+					app->audio->PlayFx(buttonNotClickedFx, 0);
 				}
 			}
 			if (control->id == 3 && optionsButton_->canClick == true)

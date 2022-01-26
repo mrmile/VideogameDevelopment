@@ -56,6 +56,7 @@ public:
 	bool GameHasContinued = false;
 
 	int buttonClickedFx = 0;
+	int buttonNotClickedFx = 0;
 
 	bool titleScreenWait = true;
 	bool SavedGame;

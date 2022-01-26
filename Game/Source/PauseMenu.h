@@ -55,6 +55,16 @@ private:
 	SDL_Texture* optionsButton;
 	SDL_Texture* backToTitleButton;
 	SDL_Texture* exitButton;
+
+	SDL_Texture* resumeButtonOnIdle;
+	SDL_Texture* optionsButtonOnIdle;
+	SDL_Texture* backToTitleButtonOnIdle;
+	SDL_Texture* exitButtonOnIdle;
+
+	SDL_Texture* resumeButtonPressed;
+	SDL_Texture* optionsButtonPressed;
+	SDL_Texture* backToTitleButtonPressed;
+	SDL_Texture* exitButtonPressed;
 	//CHECBOX TEXTURES
 	SDL_Texture* fullScreenCheckOn;
 	SDL_Texture* fullScreenCheckOff;
