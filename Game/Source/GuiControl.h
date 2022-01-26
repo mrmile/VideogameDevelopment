@@ -44,10 +44,12 @@ public:
 		color.r = 255; color.g = 255; color.b = 255;
 		texture=nullptr;
 	}
+	/*
 	GuiControl(GuiControlType type, SDL_Rect bounds, const char* text, SDL_Rect ExtraBounds) :type(type), state(GuiControlState::NORMAL), bounds(bounds),extraBounds(ExtraBounds)
 	{
 		
 	}
+	*/
 	
 	
 

@@ -31,14 +31,17 @@ bool GuiCheckbox::Update(float dt)
 		{
 			state = GuiControlState::FOCUSED;
 
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP)
 			{
 				state = GuiControlState::PRESSED;
-				
+				//cout << "Pressed " << endl;
+				NotifyObserver();
 			}
 			else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
 			{
-				NotifyObserver();
+				state = GuiControlState::SELECTED;
+				//cout << "Selected " << endl;
+				//NotifyObserver();
 			}
 			else
 			{

@@ -24,6 +24,8 @@
 #include "Log.h"
 
 #include <SDL_mixer/include/SDL_mixer.h>
+#include <iostream>
+using namespace std;
 
 TitleScreen::TitleScreen(bool start_enabled) : Module(start_enabled)
 {
@@ -153,6 +155,7 @@ bool TitleScreen::Update(float dt)
 		if (optionsButton_->state == GuiControlState::PRESSED && optionsButton_->canClick == true)
 		{
 			OnGuiMouseClickEvent(optionsButton_);
+			//cout << "Pressed " << endl;
 		}
 		//CREDITS BUTTON
 		if (creditsButton_->state == GuiControlState::PRESSED && creditsButton_->canClick == true)

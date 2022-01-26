@@ -3,6 +3,8 @@
 #include "App.h"
 #include "Audio.h"
 #include "TitleScreen.h"
+#include <iostream>
+using namespace std;
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text,SDL_Texture* texture) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -31,14 +33,17 @@ bool GuiButton::Update(float dt)
 		{
 			state = GuiControlState::FOCUSED;
 
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP)
 			{
 				state = GuiControlState::PRESSED;
-				
+				//cout << "Pressed " << endl;
+				NotifyObserver();
 			}
 			else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
 			{
-				NotifyObserver();
+				state = GuiControlState::SELECTED;
+				//cout << "Selected " << endl;
+				//NotifyObserver();
 			}
 			else
 			{
