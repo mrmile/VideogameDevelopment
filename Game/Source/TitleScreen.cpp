@@ -52,6 +52,8 @@ bool TitleScreen::Start()
 	titleScreen2 = app->tex->Load("Assets/textures/island.png");
 	loading = app->tex->Load("Assets/textures/loadingScreen3.png");
 	creditsScene = app->tex->Load("Assets/textures/creditsScreen3.png");
+	baseSlider_fx = app->tex->Load("Assets/textures/GUI/BaseSlider_fx.png");
+	baseSlider_music = app->tex->Load("Assets/textures/GUI/BaseSlider_music.png");
 
 	startButton = app->tex->Load("Assets/textures/GUI/startButton.png");
 	continueButton = app->tex->Load("Assets/textures/GUI/continueButton.png");
@@ -60,7 +62,6 @@ bool TitleScreen::Start()
 	creditsButton = app->tex->Load("Assets/textures/GUI/creditsButton.png");
 	exitButton = app->tex->Load("Assets/textures/GUI/exitButton.png");
 	returnButton = app->tex->Load("Assets/textures/GUI/returnButton.png");
-	baseSlider = app->tex->Load("Assets/textures/GUI/BaseSlider.png");
 	sliderSelector = app->tex->Load("Assets/textures/GUI/sliderInput.png");
 
 	startButtonOnIdle = app->tex->Load("Assets/textures/GUI/startButton_onIdle.png");
@@ -70,7 +71,6 @@ bool TitleScreen::Start()
 	creditsButtonOnIdle = app->tex->Load("Assets/textures/GUI/creditsButton_onIdle.png");
 	exitButtonOnIdle = app->tex->Load("Assets/textures/GUI/exitButton_onIdle.png");
 	returnButtonOnIdle = app->tex->Load("Assets/textures/GUI/returnButton_onIdle.png");
-	baseSliderOnIdle = app->tex->Load("Assets/textures/GUI/BaseSlider_onIdle.png");
 	sliderSelectorOnIdle = app->tex->Load("Assets/textures/GUI/sliderInput_onIdle.png");
 
 	startButtonPressed = app->tex->Load("Assets/textures/GUI/startButton_pressed.png");
@@ -80,7 +80,6 @@ bool TitleScreen::Start()
 	creditsButtonPressed = app->tex->Load("Assets/textures/GUI/creditsButton_pressed.png");
 	exitButtonPressed = app->tex->Load("Assets/textures/GUI/exitButton_pressed.png");
 	returnButtonPressed = app->tex->Load("Assets/textures/GUI/returnButton_pressed.png");
-	baseSliderPressed = app->tex->Load("Assets/textures/GUI/BaseSlider_pressed.png");
 	sliderSelectorPressed = app->tex->Load("Assets/textures/GUI/sliderInput_pressed.png");
 
 	// Load music
@@ -98,8 +97,8 @@ bool TitleScreen::Start()
 	returnButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Return Button", { 10, 10, 71, 35 }, this, returnButton, NULL, {});
 
 	//SLIDERS
-	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 7, "Fx slider", { 20,80,195,35 }, this, baseSlider, sliderSelector, {214,90,14,16});
-	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 8, "Music slider", { 20,120,195,35 }, this, baseSlider, sliderSelector, { 214,130,14,16 });
+	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 7, "Fx slider", { 20,80,195,35 }, this, baseSlider_fx, sliderSelector, {214,90,14,16});
+	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 8, "Music slider", { 20,120,195,35 }, this, baseSlider_music, sliderSelector, { 214,130,14,16 });
 
 	//CHECKBOXES
 
@@ -339,7 +338,8 @@ bool TitleScreen::CleanUp()
 	app->tex->UnLoad(exitButton);
 	app->tex->UnLoad(returnButton);
 	app->tex->UnLoad(sliderSelector);
-	app->tex->UnLoad(baseSlider);
+	app->tex->UnLoad(baseSlider_fx);
+	app->tex->UnLoad(baseSlider_music);
 
 	app->tex->UnLoad(continueButtonOnIdle);
 	app->tex->UnLoad(continueButtonOffOnIdle);
@@ -348,7 +348,6 @@ bool TitleScreen::CleanUp()
 	app->tex->UnLoad(exitButtonOnIdle);
 	app->tex->UnLoad(returnButtonOnIdle);
 	app->tex->UnLoad(sliderSelectorOnIdle);
-	app->tex->UnLoad(baseSliderOnIdle);
 
 	app->tex->UnLoad(continueButtonPressed);
 	app->tex->UnLoad(continueButtonOffPressed);
@@ -357,7 +356,6 @@ bool TitleScreen::CleanUp()
 	app->tex->UnLoad(exitButtonPressed);
 	app->tex->UnLoad(returnButtonPressed);
 	app->tex->UnLoad(sliderSelectorPressed);
-	app->tex->UnLoad(baseSliderPressed);
 
 	return true;
 }

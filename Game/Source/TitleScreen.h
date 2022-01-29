@@ -114,13 +114,12 @@ public:
 	SDL_Texture* VSyncOnPressed;
 	SDL_Texture* VSyncOffPressed;
 	//SLIDER TEXTURES
-	SDL_Texture* baseSlider;
+	SDL_Texture* baseSlider_fx;
+	SDL_Texture* baseSlider_music;
 	SDL_Texture* sliderSelector;
 
-	SDL_Texture* baseSliderOnIdle;
 	SDL_Texture* sliderSelectorOnIdle;
 
-	SDL_Texture* baseSliderPressed;
 	SDL_Texture* sliderSelectorPressed;
 
 	//GUI BUTTONS
