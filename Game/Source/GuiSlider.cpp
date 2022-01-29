@@ -55,9 +55,6 @@ bool GuiSlider::Update(float dt)
 				}
 			}
 		}
-		// L14: TODO 3_D: Update the state of the GUiButton according to the mouse position
-		
-
 	}
 
 	return false;

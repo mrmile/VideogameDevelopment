@@ -68,6 +68,7 @@ public:
 	void LoadGameRequest();
 	void CheckGameRequest();
 	void SaveGameRequest() const;
+	void SaveGameAudio();
 
 private:
 
@@ -94,6 +95,7 @@ private:
 	bool LoadGame();
 	bool CheckGame();
 	bool SaveGame() const;
+	bool SaveAudio();
 
 public:
 
@@ -140,6 +142,7 @@ private:
 	mutable bool saveGameRequested;
 	bool checkGameRequested;
 	bool loadGameRequested;
+	bool saveGameAudioRequested;
 
 	// L07: DONE 4: Calculate some timing measures
 	// required variables are provided:

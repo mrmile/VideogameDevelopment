@@ -415,6 +415,10 @@ void App::CheckGameRequest()
 	// NOTE: We should check if SAVE_STATE_FILENAME actually exist and... should we overwriten
 	checkGameRequested = true;
 }
+void::App::SaveGameAudio()
+{
+	saveGameAudioRequested = true;
+}
 // ---------------------------------------
 // L02: DONE 5: Create a method to actually load an xml file
 // then call all the modules to load themselves
@@ -501,6 +505,29 @@ bool App::SaveGame() const
 
 	return ret;
 }
+bool App::SaveAudio() 
+{
+	bool ret;
+
+	pugi::xml_document* saveDoc = new pugi::xml_document();
+	pugi::xml_node saveStateNode = saveDoc->append_child("save_state");
+
+	ListItem<Module*>* item;
+	item = modules.start;
+
+	while (item != NULL)
+	{
+		ret = item->data->CheckAudioSave(saveStateNode.append_child(item->data->name.GetString()));
+		item = item->next;
+	}
+
+	ret = saveDoc->save_file("save_game.xml");
+
+	saveGameAudioRequested = false;
+
+	return ret;
+}
+
 
 
 

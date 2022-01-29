@@ -79,6 +79,10 @@ public:
 	{
 		return true;
 	}
+	virtual bool CheckAudioSave(pugi::xml_node&)
+	{
+		return true;
+	}
 	
 	virtual bool OnGuiMouseClickEvent(GuiControl* control)
 	{

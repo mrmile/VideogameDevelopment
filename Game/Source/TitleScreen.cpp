@@ -116,14 +116,14 @@ bool TitleScreen::Start()
 
 
 	app->CheckGameRequest();
-	
+	app->SaveGameAudio();
 
 	return true;
 }
 
 bool TitleScreen::PreUpdate()
 {
-	//app->LoadGameRequest();
+	
 
 	return true;
 }
@@ -131,6 +131,9 @@ bool TitleScreen::PreUpdate()
 bool TitleScreen::Update(float dt)
 {
 	sceneTimer++;
+
+	cout << "Fx: " << app->audio->SliderLevelFX << endl;
+	cout << "Music: " << app->audio->SliderLevelMusic << endl;
 
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
@@ -174,35 +177,7 @@ bool TitleScreen::Update(float dt)
 
 	if (MainMenu == true)
 	{
-		//No sirve de nada
-		/*
-		//START BUTTON
-		if (startButton_->state == GuiControlState::PRESSED && startButton_->canClick==true)
-		{
-			OnGuiMouseClickEvent(startButton_);
-		}
-		//CONTINUE BUTTON
-		if (continueButton_->state == GuiControlState::PRESSED && continueButton_->canClick == true)
-		{
-			OnGuiMouseClickEvent(continueButton_);
-		}
-		//SETTINGS BUTTON
-		if (optionsButton_->state == GuiControlState::PRESSED && optionsButton_->canClick == true)
-		{
-			OnGuiMouseClickEvent(optionsButton_);
-			//cout << "Pressed " << endl;
-		}
-		//CREDITS BUTTON
-		if (creditsButton_->state == GuiControlState::PRESSED && creditsButton_->canClick == true)
-		{
-			OnGuiMouseClickEvent(creditsButton_);
-		}
-		//EXIT BUTTON
-		if (exitButton_->state == GuiControlState::PRESSED && exitButton_->canClick == true)
-		{
-			OnGuiMouseClickEvent(exitButton_);
-		}
-		*/
+		
 		
 		//FOR CONTINUE BUTTON
 		if (continueTransition == true) delayToContinue++;
@@ -260,28 +235,7 @@ bool TitleScreen::Update(float dt)
 		}
 	}
 
-	if (OptionsMenu == true)
-	{
-		//RETURN TO MAIN MENU BUTTON
-		
-		//No sirve de nada
-		/*
-		if (returnButton_->state == GuiControlState::PRESSED && returnButton_->canClick == true)
-		{
-			OnGuiMouseClickEvent(returnButton_);
-		}
-		if (fxVolumeSlider->state == GuiControlState::PRESSED && fxVolumeSlider->canClick == true)
-		{
-			OnGuiMouseClickEvent(fxVolumeSlider);
-		} 
-		if (musicVolumeSlider->state == GuiControlState::PRESSED && musicVolumeSlider->canClick == true)
-		{
-			OnGuiMouseClickEvent(musicVolumeSlider);
-		}
-		*/
-		//METER LOGICA SLIDER
-		//FALTA MIRAR COMO CAMBIAR VOLUMEN MUSICA Y VOLUMEN FX Y MODIFICARLO SEGUN EL SLIDER LEVEL FX O SLIDER LEVEL MUSIC
-	}
+	
 	
 	return true;
 }
@@ -456,6 +410,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 			if (control->id == 6 && returnButton_->canClick == true)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
+				app->SaveGameAudio();
 				OptionsMenu = false; 
 				credits = false;
 				MainMenu = true;
@@ -468,11 +423,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			if (control->id == 7 && fxVolumeSlider->canClick == true)
 			{
-				if (control->extraBounds.x > control->bounds.x + control->bounds.w - 20)
-				{
-					//AUN NO FUNCIONA EL 10 me da palo <-- Da igual. Este no se hace y ya está. Es el causante de que automaticamente el volumen vuelva a 100 sin tocar nada
-					//app->audio->SliderLevelFX = 100;
-				}
+				
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.9f) && control->extraBounds.x < control->bounds.x + control->bounds.w)
 				{
 					app->audio->SliderLevelFX = 90;
@@ -518,11 +469,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 
 			if (control->id == 8 && musicVolumeSlider->canClick == true)
 			{
-				if (control->extraBounds.x > control->bounds.x + control->bounds.w - 20)
-				{
-					//AUN NO FUNCIONA EL 10 me da palo <-- Da igual. Este no se hace y ya está. Es el causante de que automaticamente el volumen vuelva a 100 sin tocar nada
-					//app->audio->SliderLevelMusic = 100;
-				}
+				
 				if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.9f) && control->extraBounds.x < control->bounds.x + control->bounds.w)
 				{
 					app->audio->SliderLevelMusic = 90;
@@ -574,9 +521,6 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 bool TitleScreen::CheckSave(pugi::xml_node& data) 
 {
 	SavedGame = data.child("saved_game").attribute("bool").as_bool();
-	app->audio->SliderLevelFX = data.child("saved_game").attribute("Fx").as_int();
-	app->audio->SliderLevelMusic = data.child("saved_game").attribute("Music").as_int();
-
 	return true;
 }
 
@@ -588,5 +532,13 @@ bool TitleScreen::SaveState(pugi::xml_node& data) const
 	savedGame.append_attribute("Fx") = app->audio->SliderLevelFX;
 	savedGame.append_attribute("Music") = app->audio->SliderLevelMusic;
 
+	return true;
+}
+bool TitleScreen::CheckAudioSave(pugi::xml_node& data) 
+{
+	pugi::xml_node savedGame = data.append_child("saved_game");
+	app->audio->SliderLevelFX = data.child("saved_game").attribute("Fx").as_int();
+	app->audio->SliderLevelMusic = data.child("saved_game").attribute("Music").as_int();
+	
 	return true;
 }

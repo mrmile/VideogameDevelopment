@@ -40,6 +40,7 @@ public:
 
 	bool SaveState(pugi::xml_node&) const;
 	bool CheckSave(pugi::xml_node&);
+	bool CheckAudioSave(pugi::xml_node&);
 
 	//void b2dOnCollision(PhysBody* bodyA, PhysBody* bodyB);
 

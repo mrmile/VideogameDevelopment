@@ -58,10 +58,10 @@ bool PauseMenu::Start()
 	backToTitleButtonPressed = app->tex->Load("Assets/textures/GUI/titlescreenButton_pressed.png");
 	exitButtonPressed = app->tex->Load("Assets/textures/GUI/exitButton_pressed.png");
 
-	resumeButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Resume Button", { 200,50,108,35 }, this, resumeButton, NULL, {});
-	//optionsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Settings Button", { 200,100,108,35 }, this,optionsButton, NULL, {});
-	backToTitleButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Title Button", { 50,100,108,35 }, this,backToTitleButton, NULL, {});
-	exitButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Exit Button", { 50, 50, 108, 35 }, this,exitButton, NULL, {});
+	resumeButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Resume Button", { 225,75,108,35 }, this, resumeButton, NULL, {});
+	optionsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Settings Button", { 225,125,108,35 }, this,optionsButton, NULL, {});
+	backToTitleButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Title Button", { 75,125,108,35 }, this,backToTitleButton, NULL, {});
+	exitButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Exit Button", { 75, 75, 108, 35 }, this,exitButton, NULL, {});
 	
 	
 	
@@ -89,7 +89,7 @@ bool PauseMenu::Update(float dt)
 		noPauseTimer = 0;
 
 		resumeButton_->canClick = true;
-		//optionsButton_->canClick = true;
+		optionsButton_->canClick = true;
 		backToTitleButton_->canClick = true;
 		exitButton_->canClick = true;
 
@@ -117,7 +117,7 @@ bool PauseMenu::Update(float dt)
 		{
 			app->titleScreen->Enable();
 			app->titleScreen->MainMenu = true;
-
+			app->player->pauseMenu = false;
 			app->map->Disable();
 			app->collisions->Disable();
 			app->particles->Disable();
@@ -139,7 +139,14 @@ bool PauseMenu::Update(float dt)
 
 		if (noPauseTimer <= 1) Mix_ResumeMusic();
 	}
-	
+	if (app->player->pauseMenu == false)
+	{
+
+		resumeButton_->canClick = false;
+		optionsButton_->canClick = false;
+		backToTitleButton_->canClick = false;
+		exitButton_->canClick = false;
+	}
 
 	return true;
 }
@@ -168,7 +175,10 @@ bool PauseMenu::PostUpdate()
 		if (resumeButton_->state == GuiControlState::SELECTED && resumeButton_->canClick == true) resumeButton_->SetTexture(resumeButtonPressed);
 		resumeButton_->Draw(app->render);
 
-		//optionsButton_->Draw(app->render);
+		if (optionsButton_->state == GuiControlState::NORMAL && optionsButton_->canClick == true) optionsButton_->SetTexture(optionsButton);
+		if (optionsButton_->state == GuiControlState::FOCUSED && optionsButton_->canClick == true) optionsButton_->SetTexture(optionsButtonOnIdle);
+		if (optionsButton_->state == GuiControlState::SELECTED && optionsButton_->canClick == true) optionsButton_->SetTexture(optionsButtonPressed);
+		optionsButton_->Draw(app->render);
 
 		if (backToTitleButton_->state == GuiControlState::NORMAL && backToTitleButton_->canClick == true) backToTitleButton_->SetTexture(backToTitleButton);
 		if (backToTitleButton_->state == GuiControlState::FOCUSED && backToTitleButton_->canClick == true) backToTitleButton_->SetTexture(backToTitleButtonOnIdle);
@@ -214,27 +224,27 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control){
 	case GuiControlType::BUTTON:
 	{
 		//Checks the GUI element ID
-		if (control->id == 1)
+		if (control->id == 1 && resumeButton_->canClick==true)
 		{
 			//RESUME BUTTON
 			app->audio->PlayFx(buttonClickedFx, 0);
 			app->player->pauseMenu = false;
 		}
 
-		if (control->id == 2)
+		if (control->id == 2 && optionsButton_->canClick == true)
 		{
 			//SETTINGS BUTTON
-			//app->audio->PlayFx(buttonClickedFx, 0);
+			app->audio->PlayFx(buttonClickedFx, 0);
 
 		}
-		if (control->id == 3)
+		if (control->id == 3 && backToTitleButton_->canClick == true)
 		{
 			//BACK TO TITLE BUTTON
 			app->audio->PlayFx(buttonClickedFx, 0);
 			TitleTransition = true;
 		}
 
-		if (control->id == 4)
+		if (control->id == 4 && exitButton_->canClick == true)
 		{
 			//EXIT BUTTON
 			app->audio->PlayFx(buttonClickedFx, 0);
