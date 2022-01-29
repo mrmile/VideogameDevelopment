@@ -7,41 +7,37 @@
 	<:anonymous />
 	<map />
 	<TitleScreen>
-		<saved_game bool="false" Fx="90" Music="90" />
+		<saved_game bool="true" Fx="30" Music="40" FullScreen="true" />
 	</TitleScreen>
 	<SceneForest />
 	<SceneCastle />
 	<:anonymous />
 	<player>
-		<position x="8639" y="184" />
-		<atributes score="615" hp="100" lives="3" />
+		<position x="4413" y="177" />
+		<atributes score="310" hp="100" lives="3" />
 	</player>
 	<enemies>
-		<position x="1548" y="177" />
-		<atributes timer="230" enemyHp="1" />
-		<position x="2365" y="187" />
-		<atributes timer="230" enemyHp="1" />
-		<position x="6066" y="225" />
-		<atributes timer="230" enemyHp="1" />
-		<position x="8235" y="224" />
-		<atributes timer="230" enemyHp="1" />
-		<position x="7963" y="203" />
-		<atributes timer="230" enemyHp="1" />
-		<position x="7082" y="199" />
-		<atributes timer="230" enemyHp="1" />
-		<position x="5174" y="239" />
-		<atributes timer="230" enemyHp="1" />
-		<position x="21" y="3" />
+		<position x="6841" y="237" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="14" y="3" />
+		<position x="6630" y="205" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="7" y="3" />
+		<position x="7226" y="221" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="0" y="3" />
+		<position x="7707" y="237" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="-7" y="3" />
+		<position x="6066" y="192" />
+		<atributes timer="78" enemyHp="1" />
+		<position x="8235" y="191" />
+		<atributes timer="78" enemyHp="1" />
+		<position x="7963" y="160" />
+		<atributes timer="78" enemyHp="1" />
+		<position x="7082" y="160" />
+		<atributes timer="78" enemyHp="1" />
+		<position x="5174" y="206" />
+		<atributes timer="78" enemyHp="1" />
+		<position x="2936" y="-986" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="-14" y="3" />
+		<position x="7663" y="162" />
 		<atributes timer="0" enemyHp="1" />
 	</enemies>
 	<:anonymous />
@@ -51,6 +47,6 @@
 	<guiManager />
 	<PauseMenu />
 	<renderer>
-		<camera x="-25168" y="-192" />
+		<camera x="-12652" y="-192" />
 	</renderer>
 </save_state>

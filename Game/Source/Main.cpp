@@ -140,14 +140,16 @@ int main(int argc, char* args[])
 				{
 					SDL_Delay(frameDelay - frameTime);
 				}
-
+				
 				if (app->AppTitleScreenFull == false)
 				{
+					SDL_SetWindowSize(app->win->window, 1280, 720);
 					SDL_SetWindowFullscreen(app->win->window, 0);
 				}
 				else if (app->AppTitleScreenFull == true)
 				{
 					SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
+					
 				}
 
 				break;

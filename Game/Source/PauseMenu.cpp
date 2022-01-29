@@ -93,26 +93,6 @@ bool PauseMenu::Update(float dt)
 		backToTitleButton_->canClick = true;
 		exitButton_->canClick = true;
 
-
-		/* // No sirve
-		if (resumeButton_->state == GuiControlState::PRESSED)
-		{
-			OnGuiMouseClickEvent(resumeButton_);
-		}
-		if (optionsButton_->state == GuiControlState::PRESSED)
-		{
-			OnGuiMouseClickEvent(optionsButton_);
-		}
-		if (backToTitleButton_->state == GuiControlState::PRESSED)
-		{
-			OnGuiMouseClickEvent(backToTitleButton_);
-		}
-		if (exitButton_->state == GuiControlState::PRESSED)
-		{
-			OnGuiMouseClickEvent(exitButton_);
-		}
-		*/
-		
 		if (TitleTransition == true)
 		{
 			app->titleScreen->Enable();

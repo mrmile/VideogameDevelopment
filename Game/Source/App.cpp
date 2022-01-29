@@ -421,6 +421,7 @@ void::App::SaveGameAudio()
 {
 	saveGameAudioRequested = true;
 }
+
 // ---------------------------------------
 // L02: DONE 5: Create a method to actually load an xml file
 // then call all the modules to load themselves
@@ -509,21 +510,27 @@ bool App::SaveGame() const
 }
 bool App::SaveAudio() 
 {
-	bool ret;
+	bool ret = true;
 
-	pugi::xml_document* saveDoc = new pugi::xml_document();
-	pugi::xml_node saveStateNode = saveDoc->append_child("save_state");
+	pugi::xml_document gameStateFile;
+	pugi::xml_parse_result result = gameStateFile.load_file("save_game.xml");
 
-	ListItem<Module*>* item;
-	item = modules.start;
-
-	while (item != NULL)
+	if (result == NULL)
 	{
-		ret = item->data->CheckAudioSave(saveStateNode.append_child(item->data->name.GetString()));
-		item = item->next;
+		LOG("Could not load xml file save_game.xml. pugi error: %s", result.description());
+		ret = false;
 	}
+	else
+	{
+		ListItem<Module*>* item;
+		item = modules.start;
 
-	ret = saveDoc->save_file("save_game.xml");
+		while (item != NULL && ret == true)
+		{
+			ret = item->data->CheckAudioSave(gameStateFile.child("save_state").child(item->data->name.GetString()));
+			item = item->next;
+		}
+	}
 
 	saveGameAudioRequested = false;
 

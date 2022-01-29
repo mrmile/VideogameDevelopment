@@ -71,8 +71,6 @@ bool GuiCheckbox::Draw(Render* render)
 		render->DrawTexture(texture, bounds.x, bounds.y, NULL);
 
 	} break;
-
-	//L14: TODO 4: Draw the button according the GuiControl State
 	case GuiControlState::FOCUSED:
 	{
 		render->DrawTexture(texture, bounds.x, bounds.y, NULL);

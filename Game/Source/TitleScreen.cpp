@@ -101,13 +101,16 @@ bool TitleScreen::Start()
 	returnButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Return Button", { 10, 10, 71, 35 }, this, returnButton, NULL, {});
 
 	//SLIDERS
-	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 7, "Fx slider", { 20,80,195,35 }, this, baseSlider_fx, sliderSelector, {214,90,14,16});
-	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 8, "Music slider", { 20,120,195,35 }, this, baseSlider_music, sliderSelector, { 214,130,14,16 });
+	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 7, "Fx slider", { 20,60,195,35 }, this, baseSlider_fx, sliderSelector, {214,70,14,16});
+	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 8, "Music slider", { 20,100,195,35 }, this, baseSlider_music, sliderSelector, { 214,110,14,16 });
 
 	//CHECKBOXES
-	fullScreenCheck = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 9, "Full Screen", { 185, 169, 17, 17 }, this, fullScreenCheckOff, NULL, {});
-	fullScreenCheck_tag = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 10, "Full Screen Tag", { 20, 160, 161, 9 }, this, fullScreenTag, NULL, {});
+	fullScreenCheck = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 9, "Full Screen", { 185, 149, 17, 17 }, this, fullScreenCheckOff, NULL, {});
+	fullScreenCheck_tag = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 10, "Full Screen Tag", { 20, 140, 161, 9 }, this, fullScreenTag, NULL, {});
 	
+	app->CheckGameRequest();
+	app->SaveGameAudio();
+
 	sceneTimer = 0;
 	delay = 0;
 	delayToContinue = 0;
@@ -123,8 +126,7 @@ bool TitleScreen::Start()
 	fxVolumeSlider->extraBounds.x = 33 + fxVolumeSlider->bounds.x * (app->audio->SliderLevelFX / 10);
 	musicVolumeSlider->extraBounds.x = 33 + musicVolumeSlider->bounds.x * (app->audio->SliderLevelMusic / 10);
 
-	app->CheckGameRequest();
-	app->SaveGameAudio();
+	
 
 	return true;
 }
@@ -140,8 +142,8 @@ bool TitleScreen::Update(float dt)
 {
 	sceneTimer++;
 
-	cout << "Fx: " << app->audio->SliderLevelFX << endl;
-	cout << "Music: " << app->audio->SliderLevelMusic << endl;
+	//cout << "Fx: " << app->audio->SliderLevelFX << endl;
+	//cout << "Music: " << app->audio->SliderLevelMusic << endl;
 
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
@@ -193,8 +195,6 @@ bool TitleScreen::Update(float dt)
 
 	if (MainMenu == true)
 	{
-		
-		
 		//FOR CONTINUE BUTTON
 		if (continueTransition == true) delayToContinue++;
 
@@ -321,7 +321,7 @@ bool TitleScreen::PostUpdate()
 		fullScreenCheck_tag->Draw(app->render);
 
 		if(FullScreen == false) fullScreenCheck->SetTexture(fullScreenCheckOff);
-		if (FullScreen == true) fullScreenCheck->SetTexture(fullScreenCheckOn);
+		if(FullScreen == true) fullScreenCheck->SetTexture(fullScreenCheckOn);
 		fullScreenCheck->Draw(app->render);
 
 	}
@@ -540,6 +540,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 			if (control->id == 9 && fullScreenCheck->canClick == true)
 			{
 				FullScreen = !FullScreen;
+				cout << "control->id 9 registered" << endl;
 			}
 			if (control->id == 10 && fullScreenCheck_tag->canClick == true)
 			{
@@ -564,13 +565,13 @@ bool TitleScreen::SaveState(pugi::xml_node& data) const
 	savedGame.append_attribute("bool") = SavedGame;
 	savedGame.append_attribute("Fx") = app->audio->SliderLevelFX;
 	savedGame.append_attribute("Music") = app->audio->SliderLevelMusic;
+	savedGame.append_attribute("FullScreen") = FullScreen;
 	
 
 	return true;
 }
 bool TitleScreen::CheckAudioSave(pugi::xml_node& data) 
 {
-	pugi::xml_node savedGame = data.append_child("saved_game");
 	app->audio->SliderLevelFX = data.child("saved_game").attribute("Fx").as_int();
 	app->audio->SliderLevelMusic = data.child("saved_game").attribute("Music").as_int();
 	
