@@ -131,8 +131,8 @@ public:
 	GuiButton* returnButton_;
 	GuiButton* exitButton_;
 	//GUI CHECKBOX
-	GuiCheckbox* fullScreenCheck_tag;
-	GuiCheckbox* fullScreenCheck;
+	GuiCheckbox* fullScreenCheck_tag_;
+	GuiCheckbox* fullScreenCheck_;
 	GuiCheckbox* VSyncCheck;
 	//GUI SLIDER
 	GuiSlider* musicVolumeSlider;

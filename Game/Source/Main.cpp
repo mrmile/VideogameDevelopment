@@ -143,7 +143,7 @@ int main(int argc, char* args[])
 				
 				if (app->AppTitleScreenFull == false)
 				{
-					SDL_SetWindowSize(app->win->window, 1280, 720);
+					//SDL_SetWindowSize(app->win->window, 1280, 720); <-- Ya se hace desde el XML
 					SDL_SetWindowFullscreen(app->win->window, 0);
 				}
 				else if (app->AppTitleScreenFull == true)
