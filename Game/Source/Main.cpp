@@ -1,4 +1,5 @@
 #include "App.h"
+#include "Window.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -138,6 +139,15 @@ int main(int argc, char* args[])
 				if (frameDelay > frameTime)
 				{
 					SDL_Delay(frameDelay - frameTime);
+				}
+
+				if (app->AppTitleScreenFull == false)
+				{
+					SDL_SetWindowFullscreen(app->win->window, 0);
+				}
+				else if (app->AppTitleScreenFull == true)
+				{
+					SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
 				}
 
 				break;

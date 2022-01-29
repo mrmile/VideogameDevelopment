@@ -121,6 +121,8 @@ public:
 	GuiManager* guiManager;
 	PauseMenu* pause_menu;
 
+	bool AppTitleScreenFull = false;
+
 private:
 
 	int argc;

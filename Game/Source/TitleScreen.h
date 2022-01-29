@@ -101,6 +101,7 @@ public:
 	//CHECBOX TEXTURES
 	SDL_Texture* fullScreenCheckOn;
 	SDL_Texture* fullScreenCheckOff;
+	SDL_Texture* fullScreenTag;
 	SDL_Texture* VSyncOn;
 	SDL_Texture* VSyncOff;
 
@@ -130,6 +131,7 @@ public:
 	GuiButton* returnButton_;
 	GuiButton* exitButton_;
 	//GUI CHECKBOX
+	GuiCheckbox* fullScreenCheck_tag;
 	GuiCheckbox* fullScreenCheck;
 	GuiCheckbox* VSyncCheck;
 	//GUI SLIDER

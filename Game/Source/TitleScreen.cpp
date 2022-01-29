@@ -52,8 +52,10 @@ bool TitleScreen::Start()
 	titleScreen2 = app->tex->Load("Assets/textures/island.png");
 	loading = app->tex->Load("Assets/textures/loadingScreen3.png");
 	creditsScene = app->tex->Load("Assets/textures/creditsScreen3.png");
+
 	baseSlider_fx = app->tex->Load("Assets/textures/GUI/BaseSlider_fx.png");
 	baseSlider_music = app->tex->Load("Assets/textures/GUI/BaseSlider_music.png");
+	fullScreenTag = app->tex->Load("Assets/textures/GUI/Fullscreen_tag.png");
 
 	startButton = app->tex->Load("Assets/textures/GUI/startButton.png");
 	continueButton = app->tex->Load("Assets/textures/GUI/continueButton.png");
@@ -63,6 +65,8 @@ bool TitleScreen::Start()
 	exitButton = app->tex->Load("Assets/textures/GUI/exitButton.png");
 	returnButton = app->tex->Load("Assets/textures/GUI/returnButton.png");
 	sliderSelector = app->tex->Load("Assets/textures/GUI/sliderInput.png");
+	fullScreenCheckOff = app->tex->Load("Assets/textures/GUI/checkBoxOff.png");
+	fullScreenCheckOn = app->tex->Load("Assets/textures/GUI/checkBoxOn.png");
 
 	startButtonOnIdle = app->tex->Load("Assets/textures/GUI/startButton_onIdle.png");
 	continueButtonOnIdle = app->tex->Load("Assets/textures/GUI/continueButton_onIdle.png");
@@ -101,7 +105,9 @@ bool TitleScreen::Start()
 	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 8, "Music slider", { 20,120,195,35 }, this, baseSlider_music, sliderSelector, { 214,130,14,16 });
 
 	//CHECKBOXES
-
+	fullScreenCheck = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 9, "Full Screen", { 185, 169, 17, 17 }, this, fullScreenCheckOff, NULL, {});
+	fullScreenCheck_tag = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 10, "Full Screen Tag", { 20, 160, 161, 9 }, this, fullScreenTag, NULL, {});
+	
 	sceneTimer = 0;
 	delay = 0;
 	delayToContinue = 0;
@@ -151,6 +157,8 @@ bool TitleScreen::Update(float dt)
 		returnButton_->canClick = false;
 		fxVolumeSlider->canClick = false;
 		musicVolumeSlider->canClick = false;
+		fullScreenCheck->canClick = false;
+		fullScreenCheck_tag->canClick = false;
 
 	}
 	if (OptionsMenu == true)
@@ -163,6 +171,9 @@ bool TitleScreen::Update(float dt)
 		returnButton_->canClick = true;
 		fxVolumeSlider->canClick = true;
 		musicVolumeSlider->canClick = true;
+		fullScreenCheck->canClick = true;
+		fullScreenCheck_tag->canClick = true;
+
 	}
 	if (credits == true)
 	{
@@ -174,6 +185,9 @@ bool TitleScreen::Update(float dt)
 		returnButton_->canClick = true;
 		fxVolumeSlider->canClick = false;
 		musicVolumeSlider->canClick = false;
+		fullScreenCheck->canClick = false;
+		fullScreenCheck_tag->canClick = false;
+
 	}
 
 
@@ -303,6 +317,12 @@ bool TitleScreen::PostUpdate()
 		musicVolumeSlider->Draw(app->render);
 
 
+		fullScreenCheck_tag->SetTexture(fullScreenTag);
+		fullScreenCheck_tag->Draw(app->render);
+
+		if(FullScreen == false) fullScreenCheck->SetTexture(fullScreenCheckOff);
+		if (FullScreen == true) fullScreenCheck->SetTexture(fullScreenCheckOn);
+		fullScreenCheck->Draw(app->render);
 
 	}
 	if (credits == true)
@@ -330,6 +350,7 @@ bool TitleScreen::CleanUp()
 	app->tex->UnLoad(creditsScene);
 	app->tex->UnLoad(titleScreen2);
 	app->tex->UnLoad(loading);
+	app->tex->UnLoad(fullScreenTag);
 
 	app->tex->UnLoad(continueButton);
 	app->tex->UnLoad(continueButtonOff);
@@ -513,6 +534,17 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 				}
 			}
 
+		}
+		case GuiControlType::CHECKBOX:
+		{
+			if (control->id == 9 && fullScreenCheck->canClick == true)
+			{
+				FullScreen = !FullScreen;
+			}
+			if (control->id == 10 && fullScreenCheck_tag->canClick == true)
+			{
+				// Do nothing it is just decoration
+			}
 		}
 		default: break;
 	}
