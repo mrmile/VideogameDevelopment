@@ -7,16 +7,25 @@
 	<:anonymous />
 	<map />
 	<TitleScreen>
-		<saved_game bool="true" Fx="20" Music="50" />
+		<saved_game bool="false" Fx="30" Music="20" />
 	</TitleScreen>
 	<SceneForest />
 	<SceneCastle />
 	<:anonymous />
 	<player>
-		<position x="0" y="0" />
-		<atributes score="0" hp="0" lives="3" />
+		<position x="8642" y="168" />
+		<atributes score="465" hp="60" lives="3" />
 	</player>
-	<enemies />
+	<enemies>
+		<position x="7633" y="253" />
+		<atributes timer="0" enemyHp="1" />
+		<position x="8235" y="170" />
+		<atributes timer="113" enemyHp="1" />
+		<position x="5174" y="185" />
+		<atributes timer="113" enemyHp="1" />
+		<position x="1172" y="199" />
+		<atributes timer="0" enemyHp="1" />
+	</enemies>
 	<:anonymous />
 	<:anonymous />
 	<:anonymous />
@@ -24,6 +33,6 @@
 	<guiManager />
 	<PauseMenu />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-25168" y="-192" />
 	</renderer>
 </save_state>

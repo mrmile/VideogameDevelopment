@@ -101,7 +101,8 @@ bool TitleScreen::Start()
 	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 7, "Fx slider", { 20,80,195,35 }, this, baseSlider, sliderSelector, {214,90,14,16});
 	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 8, "Music slider", { 20,120,195,35 }, this, baseSlider, sliderSelector, { 214,130,14,16 });
 
-	
+	//CHECKBOXES
+
 	sceneTimer = 0;
 	delay = 0;
 	delayToContinue = 0;
@@ -114,6 +115,8 @@ bool TitleScreen::Start()
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
+	fxVolumeSlider->extraBounds.x = 33 + fxVolumeSlider->bounds.x * (app->audio->SliderLevelFX / 10);
+	musicVolumeSlider->extraBounds.x = 33 + musicVolumeSlider->bounds.x * (app->audio->SliderLevelMusic / 10);
 
 	app->CheckGameRequest();
 	app->SaveGameAudio();
@@ -531,6 +534,7 @@ bool TitleScreen::SaveState(pugi::xml_node& data) const
 	savedGame.append_attribute("bool") = SavedGame;
 	savedGame.append_attribute("Fx") = app->audio->SliderLevelFX;
 	savedGame.append_attribute("Music") = app->audio->SliderLevelMusic;
+	
 
 	return true;
 }
