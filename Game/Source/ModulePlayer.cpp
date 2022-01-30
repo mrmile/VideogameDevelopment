@@ -992,6 +992,7 @@ bool ModulePlayer::LoadState(pugi::xml_node& data)
 	score = data.child("atributes").attribute("score").as_int();
 	playerHP = data.child("atributes").attribute("hp").as_int();
 	lives = data.child("atributes").attribute("lives").as_int();
+	sceneTimer = data.child("atributes").attribute("timer").as_int();
 
 
 	if (app->player->IsEnabled() == true)
@@ -1025,6 +1026,7 @@ bool ModulePlayer::SaveState(pugi::xml_node& data) const
 	playerAtributes.append_attribute("score") = score;
 	playerAtributes.append_attribute("hp") = playerHP;
 	playerAtributes.append_attribute("lives") = lives;
+	playerAtributes.append_attribute("timer") = sceneTimer;
 
 
 	return true;
