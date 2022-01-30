@@ -80,15 +80,15 @@ bool PauseMenu::Start()
 	returnButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, "Return Button", { 10, 10, 71, 35 }, this, returnButton, NULL, {});
 	
 	//SLIDERS
-	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 17, "Fx slider", { 20,60,195,35 }, this, baseSlider_fx, sliderSelector, { 214,70,14,16 });
-	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 18, "Music slider", { 20,100,195,35 }, this, baseSlider_music, sliderSelector, { 214,110,14,16 });
+	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 17, "Fx slider", { 80,50,195,35 }, this, baseSlider_fx, sliderSelector, { 274,60,14,16 });
+	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 18, "Music slider", { 80,90,195,35 }, this, baseSlider_music, sliderSelector, { 274,100,14,16 });
 
 	//CHECKBOXES
-	fullScreenCheck_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 19, "Full Screen Check Box", { 185, 149, 17, 17 }, this, fullScreenCheckOff, NULL, {});
-	fullScreenCheck_tag_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 20, "Full Screen Tag", { 20, 140, 161, 9 }, this, fullScreenTag, NULL, {});
+	fullScreenCheck_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 19, "Full Screen Check Box", { 245, 139, 17, 17 }, this, fullScreenCheckOff, NULL, {});
+	fullScreenCheck_tag_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 20, "Full Screen Tag", { 80, 130, 161, 9 }, this, fullScreenTag, NULL, {});
 
-	VSyncCheck = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 21, "Vsync", { 185,189,17,17 }, this, fullScreenCheckOff, NULL, {});
-	VSyncCheck_tag_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 22, "Vsync", { 20,180,213,35 }, this, VSyncOff, NULL, {});
+	VSyncCheck = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 21, "Vsync", { 245,179,17,17 }, this, fullScreenCheckOff, NULL, {});
+	VSyncCheck_tag_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 22, "Vsync", { 80,170,213,35 }, this, VSyncOff, NULL, {});
 
 	pauseTimer = 0;
 	noPauseTimer = 0;
