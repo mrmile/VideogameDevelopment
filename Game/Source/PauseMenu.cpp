@@ -58,12 +58,34 @@ bool PauseMenu::Start()
 	backToTitleButtonPressed = app->tex->Load("Assets/textures/GUI/titlescreenButton_pressed.png");
 	exitButtonPressed = app->tex->Load("Assets/textures/GUI/exitButton_pressed.png");
 
-	resumeButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Resume Button", { 225,75,108,35 }, this, resumeButton, NULL, {});
-	optionsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Settings Button", { 225,125,108,35 }, this,optionsButton, NULL, {});
-	backToTitleButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Title Button", { 75,125,108,35 }, this,backToTitleButton, NULL, {});
-	exitButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Exit Button", { 75, 75, 108, 35 }, this,exitButton, NULL, {});
+
+	fullScreenTag = app->tex->Load("Assets/textures/GUI/Fullscreen_tag.png");
+	VSyncOff = app->tex->Load("Assets/textures/GUI/VsyncOff.png");
+	VSyncOn = app->tex->Load("Assets/textures/GUI/VsyncOn.png");
+	fullScreenCheckOff = app->tex->Load("Assets/textures/GUI/checkBoxOff.png");
+	fullScreenCheckOn = app->tex->Load("Assets/textures/GUI/checkBoxOn.png");
+	baseSlider_fx = app->tex->Load("Assets/textures/GUI/BaseSlider_fx.png");
+	baseSlider_music = app->tex->Load("Assets/textures/GUI/BaseSlider_music.png");
+	sliderSelector = app->tex->Load("Assets/textures/GUI/sliderInput.png");
+	returnButton = app->tex->Load("Assets/textures/GUI/returnButton.png");
+	returnButtonOnIdle = app->tex->Load("Assets/textures/GUI/returnButton_onIdle.png");
+	returnButtonPressed = app->tex->Load("Assets/textures/GUI/returnButton_pressed.png");
+
+	resumeButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "Resume Button", { 225,75,108,35 }, this, resumeButton, NULL, {});
+	optionsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "Settings Button", { 225,125,108,35 }, this,optionsButton, NULL, {});
+	backToTitleButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, "Title Button", { 75,125,108,35 }, this,backToTitleButton, NULL, {});
+	exitButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, "Exit Button", { 75, 75, 108, 35 }, this,exitButton, NULL, {});
+	returnButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Return Button", { 10, 10, 71, 35 }, this, returnButton, NULL, {});
 	
-	
+	//SLIDERS
+	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 7, "Fx slider", { 20,60,195,35 }, this, baseSlider_fx, sliderSelector, { 214,70,14,16 });
+	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 8, "Music slider", { 20,100,195,35 }, this, baseSlider_music, sliderSelector, { 214,110,14,16 });
+
+	//CHECKBOXES
+	fullScreenCheck_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 9, "Full Screen Check Box", { 185, 149, 17, 17 }, this, fullScreenCheckOff, NULL, {});
+	fullScreenCheck_tag_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 10, "Full Screen Tag", { 20, 140, 161, 9 }, this, fullScreenTag, NULL, {});
+
+	VSyncCheck = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 11, "Vsync", { 20,180,213,35 }, this, VSyncOff, NULL, {});
 	
 	pauseTimer = 0;
 	noPauseTimer = 0;
@@ -92,6 +114,12 @@ bool PauseMenu::Update(float dt)
 		optionsButton_->canClick = true;
 		backToTitleButton_->canClick = true;
 		exitButton_->canClick = true;
+		returnButton_->canClick = false;
+		fxVolumeSlider->canClick = false;
+		musicVolumeSlider->canClick = false;
+		fullScreenCheck_->canClick = false;
+		fullScreenCheck_tag_->canClick = false;
+		VSyncCheck->canClick = false;
 
 		if (TitleTransition == true)
 		{
@@ -126,6 +154,21 @@ bool PauseMenu::Update(float dt)
 		optionsButton_->canClick = false;
 		backToTitleButton_->canClick = false;
 		exitButton_->canClick = false;
+		returnButton_->canClick = false;
+		fxVolumeSlider->canClick = false;
+		musicVolumeSlider->canClick = false;
+		fullScreenCheck_->canClick = false;
+		fullScreenCheck_tag_->canClick = false;
+		VSyncCheck->canClick = false;
+	}
+	if (options == true)
+	{
+		fxVolumeSlider->canClick = true;
+		musicVolumeSlider->canClick = true;
+		fullScreenCheck_->canClick = true;
+		fullScreenCheck_tag_->canClick = false;
+		VSyncCheck->canClick = true;
+		returnButton_->canClick = true;
 	}
 
 	return true;
@@ -144,26 +187,53 @@ bool PauseMenu::PostUpdate()
 		app->render->DrawRectangle2(bgquad, 255, 255, 255, 150, 0.0f, true);
 		//app->render->DrawRectangle2(quad2, 200, 200, 200, 255, 0.0f, true);
 		app->render->DrawTexture2(PauseFrame, 20, 20, NULL);
+		if (options == false)
+		{
+			if (exitButton_->state == GuiControlState::NORMAL && exitButton_->canClick == true) exitButton_->SetTexture(exitButton);
+			if (exitButton_->state == GuiControlState::FOCUSED && exitButton_->canClick == true) exitButton_->SetTexture(exitButtonOnIdle);
+			if (exitButton_->state == GuiControlState::SELECTED && exitButton_->canClick == true) exitButton_->SetTexture(exitButtonPressed);
+			exitButton_->Draw(app->render);
 
-		if (exitButton_->state == GuiControlState::NORMAL && exitButton_->canClick == true) exitButton_->SetTexture(exitButton);
-		if (exitButton_->state == GuiControlState::FOCUSED && exitButton_->canClick == true) exitButton_->SetTexture(exitButtonOnIdle);
-		if (exitButton_->state == GuiControlState::SELECTED && exitButton_->canClick == true) exitButton_->SetTexture(exitButtonPressed);
-		exitButton_->Draw(app->render);
-		
-		if (resumeButton_->state == GuiControlState::NORMAL && resumeButton_->canClick == true) resumeButton_->SetTexture(resumeButton);
-		if (resumeButton_->state == GuiControlState::FOCUSED && resumeButton_->canClick == true) resumeButton_->SetTexture(resumeButtonOnIdle);
-		if (resumeButton_->state == GuiControlState::SELECTED && resumeButton_->canClick == true) resumeButton_->SetTexture(resumeButtonPressed);
-		resumeButton_->Draw(app->render);
+			if (resumeButton_->state == GuiControlState::NORMAL && resumeButton_->canClick == true) resumeButton_->SetTexture(resumeButton);
+			if (resumeButton_->state == GuiControlState::FOCUSED && resumeButton_->canClick == true) resumeButton_->SetTexture(resumeButtonOnIdle);
+			if (resumeButton_->state == GuiControlState::SELECTED && resumeButton_->canClick == true) resumeButton_->SetTexture(resumeButtonPressed);
+			resumeButton_->Draw(app->render);
 
-		if (optionsButton_->state == GuiControlState::NORMAL && optionsButton_->canClick == true) optionsButton_->SetTexture(optionsButton);
-		if (optionsButton_->state == GuiControlState::FOCUSED && optionsButton_->canClick == true) optionsButton_->SetTexture(optionsButtonOnIdle);
-		if (optionsButton_->state == GuiControlState::SELECTED && optionsButton_->canClick == true) optionsButton_->SetTexture(optionsButtonPressed);
-		optionsButton_->Draw(app->render);
+			if (optionsButton_->state == GuiControlState::NORMAL && optionsButton_->canClick == true) optionsButton_->SetTexture(optionsButton);
+			if (optionsButton_->state == GuiControlState::FOCUSED && optionsButton_->canClick == true) optionsButton_->SetTexture(optionsButtonOnIdle);
+			if (optionsButton_->state == GuiControlState::SELECTED && optionsButton_->canClick == true) optionsButton_->SetTexture(optionsButtonPressed);
+			optionsButton_->Draw(app->render);
 
-		if (backToTitleButton_->state == GuiControlState::NORMAL && backToTitleButton_->canClick == true) backToTitleButton_->SetTexture(backToTitleButton);
-		if (backToTitleButton_->state == GuiControlState::FOCUSED && backToTitleButton_->canClick == true) backToTitleButton_->SetTexture(backToTitleButtonOnIdle);
-		if (backToTitleButton_->state == GuiControlState::SELECTED && backToTitleButton_->canClick == true) backToTitleButton_->SetTexture(backToTitleButtonPressed);
-		backToTitleButton_->Draw(app->render);
+			if (backToTitleButton_->state == GuiControlState::NORMAL && backToTitleButton_->canClick == true) backToTitleButton_->SetTexture(backToTitleButton);
+			if (backToTitleButton_->state == GuiControlState::FOCUSED && backToTitleButton_->canClick == true) backToTitleButton_->SetTexture(backToTitleButtonOnIdle);
+			if (backToTitleButton_->state == GuiControlState::SELECTED && backToTitleButton_->canClick == true) backToTitleButton_->SetTexture(backToTitleButtonPressed);
+			backToTitleButton_->Draw(app->render);
+		}
+		if (options == true)
+		{
+			if (returnButton_->state == GuiControlState::NORMAL && returnButton_->canClick == true) returnButton_->SetTexture(returnButton);
+			if (returnButton_->state == GuiControlState::FOCUSED && returnButton_->canClick == true) returnButton_->SetTexture(returnButtonOnIdle);
+			if (returnButton_->state == GuiControlState::SELECTED && returnButton_->canClick == true) returnButton_->SetTexture(returnButtonPressed);
+			returnButton_->Draw(app->render);
+
+			fxVolumeSlider->Draw(app->render);
+
+
+
+			musicVolumeSlider->Draw(app->render);
+
+
+			fullScreenCheck_tag_->SetTexture(fullScreenTag);
+			fullScreenCheck_tag_->Draw(app->render);
+
+			//if (FullScreen == false) fullScreenCheck_->SetTexture(fullScreenCheckOff);
+			//if (FullScreen == true) fullScreenCheck_->SetTexture(fullScreenCheckOn);
+			fullScreenCheck_->Draw(app->render);
+
+		//	if (Vsync == false) VSyncCheck->SetTexture(VSyncOff);
+		//	if (Vsync == true) VSyncCheck->SetTexture(VSyncOn);
+			//VSyncCheck->Draw(app->render);
+		}
 	}
 	
 
@@ -194,7 +264,10 @@ bool PauseMenu::CleanUp()
 	app->tex->UnLoad(optionsButtonPressed);
 	app->tex->UnLoad(backToTitleButtonPressed);
 	app->tex->UnLoad(exitButtonPressed);
-
+	app->guiManager->DestroyGuiControl(11);
+	app->guiManager->DestroyGuiControl(12);
+	app->guiManager->DestroyGuiControl(13);
+	app->guiManager->DestroyGuiControl(14);
 	return true;
 }
 
@@ -204,27 +277,29 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control){
 	case GuiControlType::BUTTON:
 	{
 		//Checks the GUI element ID
-		if (control->id == 1 && resumeButton_->canClick==true)
+		if (control->id == 12 && resumeButton_->canClick==true)
 		{
 			//RESUME BUTTON
 			app->audio->PlayFx(buttonClickedFx, 0);
 			app->player->pauseMenu = false;
 		}
 
-		if (control->id == 2 && optionsButton_->canClick == true)
+		if (control->id == 13 && optionsButton_->canClick == true)
 		{
 			//SETTINGS BUTTON
 			app->audio->PlayFx(buttonClickedFx, 0);
+			options = true;
+			
 
 		}
-		if (control->id == 3 && backToTitleButton_->canClick == true)
+		if (control->id == 14 && backToTitleButton_->canClick == true)
 		{
 			//BACK TO TITLE BUTTON
 			app->audio->PlayFx(buttonClickedFx, 0);
 			TitleTransition = true;
 		}
 
-		if (control->id == 4 && exitButton_->canClick == true)
+		if (control->id == 15 && exitButton_->canClick == true)
 		{
 			//EXIT BUTTON
 			app->audio->PlayFx(buttonClickedFx, 0);

@@ -56,6 +56,8 @@ bool TitleScreen::Start()
 	baseSlider_fx = app->tex->Load("Assets/textures/GUI/BaseSlider_fx.png");
 	baseSlider_music = app->tex->Load("Assets/textures/GUI/BaseSlider_music.png");
 	fullScreenTag = app->tex->Load("Assets/textures/GUI/Fullscreen_tag.png");
+	VSyncOff = app->tex->Load("Assets/textures/GUI/VsyncOff.png");
+	VSyncOn = app->tex->Load("Assets/textures/GUI/VsyncOn.png");
 
 	startButton = app->tex->Load("Assets/textures/GUI/startButton.png");
 	continueButton = app->tex->Load("Assets/textures/GUI/continueButton.png");
@@ -107,6 +109,8 @@ bool TitleScreen::Start()
 	//CHECKBOXES
 	fullScreenCheck_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 9, "Full Screen Check Box", { 185, 149, 17, 17 }, this, fullScreenCheckOff, NULL, {});
 	fullScreenCheck_tag_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 10, "Full Screen Tag", { 20, 140, 161, 9 }, this, fullScreenTag, NULL, {});
+
+	VSyncCheck = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 11, "Vsync", { 20,180,213,35 }, this, VSyncOff, NULL, {});
 	
 	app->CheckGameRequest();
 	app->SaveGameAudio();
@@ -161,6 +165,7 @@ bool TitleScreen::Update(float dt)
 		musicVolumeSlider->canClick = false;
 		fullScreenCheck_->canClick = false;
 		fullScreenCheck_tag_->canClick = false;
+		VSyncCheck->canClick = false;
 
 	}
 	if (OptionsMenu == true)
@@ -175,6 +180,7 @@ bool TitleScreen::Update(float dt)
 		musicVolumeSlider->canClick = true;
 		fullScreenCheck_->canClick = true;
 		fullScreenCheck_tag_->canClick = false;
+		VSyncCheck->canClick = true;
 
 	}
 	if (credits == true)
@@ -189,7 +195,7 @@ bool TitleScreen::Update(float dt)
 		musicVolumeSlider->canClick = false;
 		fullScreenCheck_->canClick = false;
 		fullScreenCheck_tag_->canClick = false;
-
+		VSyncCheck->canClick = false;
 	}
 
 
@@ -324,6 +330,10 @@ bool TitleScreen::PostUpdate()
 		if(FullScreen == true) fullScreenCheck_->SetTexture(fullScreenCheckOn);
 		fullScreenCheck_->Draw(app->render);
 
+		if (Vsync == false) VSyncCheck->SetTexture(VSyncOff);
+		if (Vsync == true) VSyncCheck->SetTexture(VSyncOn);
+		VSyncCheck->Draw(app->render);
+
 	}
 	if (credits == true)
 	{
@@ -377,7 +387,17 @@ bool TitleScreen::CleanUp()
 	app->tex->UnLoad(exitButtonPressed);
 	app->tex->UnLoad(returnButtonPressed);
 	app->tex->UnLoad(sliderSelectorPressed);
-
+	app->guiManager->DestroyGuiControl(1);
+	app->guiManager->DestroyGuiControl(2);
+	app->guiManager->DestroyGuiControl(3);
+	app->guiManager->DestroyGuiControl(4);
+	app->guiManager->DestroyGuiControl(5);
+	app->guiManager->DestroyGuiControl(6);
+	app->guiManager->DestroyGuiControl(7);
+	app->guiManager->DestroyGuiControl(8);
+	app->guiManager->DestroyGuiControl(9);
+	app->guiManager->DestroyGuiControl(10);
+	app->guiManager->DestroyGuiControl(11);
 	return true;
 }
 
@@ -413,6 +433,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 			if (control->id == 3 && optionsButton_->canClick == true)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
+				cout << "control->id 3 registered" << endl;
 				MainMenu = false;
 				OptionsMenu = true;
 			}
@@ -545,6 +566,10 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 			if (control->id == 10 && fullScreenCheck_tag_->canClick == true)
 			{
 				// Do nothing it is just decoration
+			}
+			if (control->id == 11 && VSyncCheck->canClick == true)
+			{
+				Vsync = !Vsync;
 			}
 		}
 		default: break;

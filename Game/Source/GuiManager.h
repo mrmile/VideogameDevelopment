@@ -30,7 +30,7 @@ public:
 
 	// Additional methods
 	GuiControl* CreateGuiControl(GuiControlType type, int id, const char* text, SDL_Rect bounds, Module* observer, SDL_Texture* texture,SDL_Texture* sliderTexture,SDL_Rect sliderBounds);
-	void DestroyGuiControl(GuiControl* entity);
+	void DestroyGuiControl(int id);
 	void AddGuiControl(GuiControl* entity);
 
 public:

@@ -41,7 +41,7 @@ public:
 	int sceneTimer;
 	int pauseTimer;
 	int noPauseTimer;
-
+	bool options = false;
 	bool TitleTransition = false;
 	
 
@@ -55,31 +55,50 @@ private:
 	SDL_Texture* optionsButton;
 	SDL_Texture* backToTitleButton;
 	SDL_Texture* exitButton;
+	SDL_Texture* returnButton;
 
 	SDL_Texture* resumeButtonOnIdle;
 	SDL_Texture* optionsButtonOnIdle;
 	SDL_Texture* backToTitleButtonOnIdle;
 	SDL_Texture* exitButtonOnIdle;
+	SDL_Texture* returnButtonOnIdle;
 
 	SDL_Texture* resumeButtonPressed;
 	SDL_Texture* optionsButtonPressed;
 	SDL_Texture* backToTitleButtonPressed;
 	SDL_Texture* exitButtonPressed;
+	SDL_Texture* returnButtonPressed;
+	
 	//CHECBOX TEXTURES
 	SDL_Texture* fullScreenCheckOn;
 	SDL_Texture* fullScreenCheckOff;
+	SDL_Texture* fullScreenTag;
 	SDL_Texture* VSyncOn;
 	SDL_Texture* VSyncOff;
-	//SLIDER TEXTURES
 
+	SDL_Texture* fullScreenCheckOnOnIdle;
+	SDL_Texture* fullScreenCheckOffOnIdle;
+	SDL_Texture* VSyncOnOnIdle;
+	SDL_Texture* VSyncOffOnIdle;
+
+	SDL_Texture* fullScreenCheckOnPressed;
+	SDL_Texture* fullScreenCheckOffPressed;
+	SDL_Texture* VSyncOnPressed;
+	SDL_Texture* VSyncOffPressed;
+	//SLIDER TEXTURES
+	SDL_Texture* baseSlider_fx;
+	SDL_Texture* baseSlider_music;
+	SDL_Texture* sliderSelector;
 
 	//GUI BUTTONS
 	GuiButton* resumeButton_;
 	GuiButton* optionsButton_;
 	GuiButton* backToTitleButton_;
 	GuiButton* exitButton_;
+	GuiButton* returnButton_;
 	//GUI CHECKBOX
-	GuiCheckbox* fullScreenCheck;
+	GuiCheckbox* fullScreenCheck_tag_;
+	GuiCheckbox* fullScreenCheck_;
 	GuiCheckbox* VSyncCheck;
 	//GUI SLIDER
 	GuiSlider* musicVolumeSlider;

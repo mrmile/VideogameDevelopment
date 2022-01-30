@@ -46,7 +46,6 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 
 	// Created GuiControls are added to the list of controls
 	if (control != nullptr) controls.add(control);
-
 	return control;
 }
 
@@ -97,7 +96,19 @@ bool GuiManager::Draw()
 	return true;
 
 }
-
+void GuiManager::DestroyGuiControl(int id)
+{
+	ListItem<GuiControl*>* control = controls.start;
+	while (control != nullptr)
+	{
+		if (control->data->id == id)
+		{
+			controls.del(control);
+		}
+		control = control->next;
+	}
+	
+}
 bool GuiManager::CleanUp()
 {
 	ListItem<GuiControl*>* control = controls.start;
