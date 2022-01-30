@@ -7,33 +7,33 @@
 	<:anonymous />
 	<map />
 	<TitleScreen>
-		<saved_game bool="true" Fx="90" Music="90" FullScreen="false" />
+		<saved_game bool="true" Fx="10" Music="10" FullScreen="false" />
 	</TitleScreen>
 	<SceneForest />
 	<SceneCastle />
 	<:anonymous />
 	<player>
-		<position x="4431" y="170" />
-		<atributes score="235" hp="90" lives="3" timer="416" />
+		<position x="4431" y="171" />
+		<atributes score="255" hp="90" lives="3" timer="416" />
 	</player>
 	<enemies>
-		<position x="1443" y="223" />
+		<position x="1450" y="231" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="1439" y="223" />
+		<position x="1441" y="222" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="1782" y="237" />
+		<position x="1783" y="236" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="6851" y="238" />
+		<position x="6858" y="246" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="6641" y="207" />
+		<position x="6650" y="215" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="7240" y="223" />
+		<position x="7244" y="231" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="7721" y="245" />
+		<position x="7725" y="253" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="6077" y="176" />
+		<position x="6081" y="184" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="8247" y="175" />
+		<position x="8251" y="183" />
 		<atributes timer="0" enemyHp="1" />
 		<position x="1548" y="184" />
 		<atributes timer="2" enemyHp="1" />
@@ -49,17 +49,17 @@
 		<atributes timer="2" enemyHp="1" />
 		<position x="5174" y="246" />
 		<atributes timer="2" enemyHp="1" />
-		<position x="27" y="9" />
+		<position x="33" y="12" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="22" y="9" />
+		<position x="28" y="12" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="18" y="9" />
+		<position x="24" y="12" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="14" y="9" />
+		<position x="20" y="12" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="11" y="9" />
+		<position x="16" y="12" />
 		<atributes timer="0" enemyHp="1" />
-		<position x="6" y="9" />
+		<position x="11" y="12" />
 		<atributes timer="0" enemyHp="1" />
 	</enemies>
 	<:anonymous />
