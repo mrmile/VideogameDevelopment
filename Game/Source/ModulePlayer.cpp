@@ -305,13 +305,6 @@ bool ModulePlayer::Update(float dt)
 		playerFPS++;
 		invincibleDelay++;
 
-		if ((playerFPS % 60) == 0) sceneTimer--;
-		if (sceneTimer <= 0)
-		{
-			sceneTimer = 0;
-			app->player->playerHP = 0;
-		}
-
 		//OPTICK_EVENT();
 		collider->SetPos(position.x, position.y);
 		colliderFeet->SetPos(position.x + 5, position.y + 23);
@@ -319,6 +312,13 @@ bool ModulePlayer::Update(float dt)
 		//------------------------------------------------------------------------------------------------------------------------------------------
 		if (destroyed == false && playerWin == false && app->sceneCastle->godMode == false && app->sceneForest->godMode == false)
 		{
+			if ((playerFPS % 60) == 0) sceneTimer--;
+			if (sceneTimer <= 0)
+			{
+				sceneTimer = 0;
+				app->player->playerHP = 0;
+			}
+
 			if (app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_A) == KeyState::KEY_REPEAT)
 			{
 
