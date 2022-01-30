@@ -223,12 +223,12 @@ bool PauseMenu::PostUpdate()
 			musicVolumeSlider->Draw(app->render);
 
 
-			fullScreenCheck_tag_->SetTexture(fullScreenTag);
-			fullScreenCheck_tag_->Draw(app->render);
+			//fullScreenCheck_tag_->SetTexture(fullScreenTag);
+			//fullScreenCheck_tag_->Draw(app->render);
 
 			//if (FullScreen == false) fullScreenCheck_->SetTexture(fullScreenCheckOff);
 			//if (FullScreen == true) fullScreenCheck_->SetTexture(fullScreenCheckOn);
-			fullScreenCheck_->Draw(app->render);
+			//fullScreenCheck_->Draw(app->render);
 
 		//	if (Vsync == false) VSyncCheck->SetTexture(VSyncOff);
 		//	if (Vsync == true) VSyncCheck->SetTexture(VSyncOn);
