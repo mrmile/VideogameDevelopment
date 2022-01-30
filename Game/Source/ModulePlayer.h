@@ -71,6 +71,8 @@ public:
 
 	SDL_Texture* yoshiIcon;
 
+	SDL_Texture* clockIcon;
+
 	// The pointer to the current player animation
 	// It will be switched depending on the player's movement direction
 	Animation* currentAnimation = nullptr;
@@ -122,6 +124,7 @@ public:
 	int scoreFont = -1;
 	char scoreText[10] = { "\0" };
 	char lifeText[10] = { "\0" };
+	char timerText[10] = { "\0" };
 
 	//Lives player
 	uint lives = 3;
@@ -129,6 +132,7 @@ public:
 	char livesText[10] = { "\0" };
 	int TransationToTilteDelay;
 	int PlayerLookingPosition;
+	int sceneTimer = 450;
 
 	int playerTimer;
 	int playerIdleAnimationTimer;

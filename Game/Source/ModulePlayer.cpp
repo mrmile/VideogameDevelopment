@@ -196,6 +196,8 @@ bool ModulePlayer::Start()
 	livesForScore = app->tex->Load("Assets/textures/lives_score.png");
 	gameOverScreen = app->tex->Load("Assets/textures/game_over.png");
 	yoshiIcon = app->tex->Load("Assets/textures/lives_score_e.png");
+	clockIcon = app->tex->Load("Assets/textures/clock.png");
+
 	currentAnimation = &idleRightAnim;
 
 	jumpSound = app->audio->LoadFx("Assets/audio/fx/Jump.wav");
@@ -280,6 +282,8 @@ bool ModulePlayer::Start()
 	invincibleDelay = 120;
 	playerFPS = 0;
 
+	sceneTimer = 450;
+
 	pauseMenu = false;
 	
 	return ret;
@@ -287,6 +291,7 @@ bool ModulePlayer::Start()
 
 bool ModulePlayer::Update(float dt)
 {
+
 	
 	if (pauseMenu==true)
 	{
@@ -299,6 +304,13 @@ bool ModulePlayer::Update(float dt)
 	{
 		playerFPS++;
 		invincibleDelay++;
+
+		if ((playerFPS % 60) == 0) sceneTimer--;
+		if (sceneTimer <= 0)
+		{
+			sceneTimer = 0;
+			app->player->playerHP = 0;
+		}
 
 		//OPTICK_EVENT();
 		collider->SetPos(position.x, position.y);
@@ -775,7 +787,7 @@ bool ModulePlayer::Update(float dt)
 	}
 	
 	
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && app->player->destroyed == false && app->player->playerWin == false)
+	if ((app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) && app->player->destroyed == false && app->player->playerWin == false)
 	{
 		app->audio->PlayFx(paused);
 		pauseMenu = !pauseMenu;
@@ -815,7 +827,10 @@ bool ModulePlayer::PostUpdate()
 		// Draw UI (score) --------------------------------------
 		sprintf_s(scoreText, 10, "%5d", score);
 		sprintf_s(lifeText, 10, "%1d", lives);
+		sprintf_s(timerText, 10, "%3d", sceneTimer);
+
 		app->render->DrawTexture2(yoshiIcon, 5, 28, NULL, 0.0f);
+		app->render->DrawTexture2(clockIcon, 400, 30, NULL, 0.0f);
 
 		SDL_Rect quad;
 		quad = { 5, 10, playerHP, 10 };
@@ -943,6 +958,7 @@ bool ModulePlayer::PostUpdate()
 		app->render->DrawTexture2(ptsScore, 400, 15, NULL);
 		app->fonts->BlitText(320, 10, scoreFont, scoreText);
 		app->fonts->BlitText(30, 30, scoreFont, lifeText);
+		app->fonts->BlitText(350, 30, scoreFont, timerText);
 
 		//app->fonts->BlitText(150, 248, scoreFont, "this is just a font test message");
 
@@ -958,6 +974,7 @@ bool ModulePlayer::CleanUp()
 	app->tex->UnLoad(livesForScore);
 	app->tex->UnLoad(gameOverScreen);
 	app->tex->UnLoad(yoshiIcon);
+	app->tex->UnLoad(clockIcon);
 
 	//deletePlayer = true;
 	app->player->Player->body->DestroyFixture(app->player->Player->body->GetFixtureList());

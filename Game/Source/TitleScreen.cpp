@@ -268,8 +268,7 @@ bool TitleScreen::PostUpdate()
 {
 	bool ret = true;
 
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	
 
 	app->render->DrawTexture2(titleScreen, 0, 0, NULL);	
 	

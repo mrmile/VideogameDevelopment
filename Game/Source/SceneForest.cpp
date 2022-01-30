@@ -165,8 +165,7 @@ bool SceneForest::PostUpdate()
 {
 	bool ret = true;
 
-	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+
 
 	// L08: TODO 6: Make the camera movement independent of framerate
 
