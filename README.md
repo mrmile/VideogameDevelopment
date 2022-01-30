@@ -15,6 +15,7 @@ Project link: https://github.com/mrmile/VideogameDevelopment
 * Z key to jump
 * Hold Z to hover in the air (instead of adding a double jump we added a hover option)
 * X key to run
+* P key to pause game
 
 /Class assignment (may be uncomfortable)/
 
@@ -23,6 +24,7 @@ Project link: https://github.com/mrmile/VideogameDevelopment
 * SPACEBAR key to jump
 * Hold SPACEBAR to hover in the air (instead of adding a double jump we added a hover option)
 * SHIFT key to run
+* ESC key to pause game
 ### Debug Keys
 * F5 to save the current state
 * F6 to load the previous state
