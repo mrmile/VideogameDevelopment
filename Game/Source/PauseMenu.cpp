@@ -230,31 +230,29 @@ bool PauseMenu::PostUpdate()
 			if (returnButton_->state == GuiControlState::SELECTED && returnButton_->canClick == true) returnButton_->SetTexture(returnButtonPressed);
 			returnButton_->Draw(app->render);
 
-			fxVolumeSlider->SetTexture(baseSlider_fx);
 			fxVolumeSlider->Draw(app->render);
 
-			
-			musicVolumeSlider->SetTexture(baseSlider_music);
+
+
 			musicVolumeSlider->Draw(app->render);
 
-			
+
 			fullScreenCheck_tag_->SetTexture(fullScreenTag);
 			fullScreenCheck_tag_->Draw(app->render);
-			
-			if (FullScreen == false) fullScreenCheck_->SetTexture(fullScreenCheckOff);
-			if (FullScreen == true) fullScreenCheck_->SetTexture(fullScreenCheckOn);
+
+			if (app->titleScreen->FullScreen == false) fullScreenCheck_->SetTexture(fullScreenCheckOff);
+			if (app->titleScreen->FullScreen == true) fullScreenCheck_->SetTexture(fullScreenCheckOn);
 			fullScreenCheck_->Draw(app->render);
-			
-			
-			if (Vsync == false) VSyncCheck->SetTexture(VSyncOff);
-			if (Vsync == true) VSyncCheck->SetTexture(VSyncOn);
+
+			if (app->titleScreen->Vsync == false) VSyncCheck->SetTexture(VSyncOff);
+			if (app->titleScreen->Vsync == true) VSyncCheck->SetTexture(VSyncOn);
 			VSyncCheck->Draw(app->render);
 		}
 	}
 	
 
 
-	return ret;
+	//return ret;
 
 	return true;
 }
@@ -427,12 +425,15 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control){
 	{
 		if (control->id == 19 && fullScreenCheck_->canClick == true)
 		{
-			FullScreen = !FullScreen;
-			exit(0);
+			app->titleScreen->FullScreen = !app->titleScreen->FullScreen;
+		}
+		if (control->id == 20 && fullScreenCheck_tag_->canClick == true)
+		{
+			//Do nothing
 		}
 		if (control->id == 21 && VSyncCheck->canClick == true)
 		{
-			Vsync = !Vsync;
+			app->titleScreen->Vsync = !app->titleScreen->Vsync;
 		}
 	}
 	default: break;

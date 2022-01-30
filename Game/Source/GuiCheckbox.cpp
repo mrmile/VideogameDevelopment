@@ -63,28 +63,34 @@ bool GuiCheckbox::Draw(Render* render)
 
 	case GuiControlState::DISABLED:
 	{
-		render->DrawTexture(texture, bounds.x, bounds.y,NULL);
+
+		render->DrawTexture2(texture, bounds.x, bounds.y, NULL); //<--Usar esto
 	} break;
 
 	case GuiControlState::NORMAL:
 	{
-		render->DrawTexture(texture, bounds.x, bounds.y, NULL);
 
+		render->DrawTexture2(texture, bounds.x, bounds.y, NULL); //<--Usar esto
 	} break;
+
+	//L14: TODO 4: Draw the button according the GuiControl State
 	case GuiControlState::FOCUSED:
 	{
-		render->DrawTexture(texture, bounds.x, bounds.y, NULL);
+
+		render->DrawTexture2(texture, bounds.x, bounds.y, NULL); //<--Usar esto
 	} break;
 	case GuiControlState::PRESSED:
 	{
-		render->DrawTexture(texture, bounds.x, bounds.y, NULL);
+
+		render->DrawTexture2(texture, bounds.x, bounds.y, NULL); //<--Usar esto
 	} break;
 
 	/******/
 
-	case GuiControlState::SELECTED:render->DrawTexture(texture, bounds.x, bounds.y, NULL);
-		break;
-
+	case GuiControlState::SELECTED:
+	{
+		render->DrawTexture2(texture, bounds.x, bounds.y, NULL); //<--Usar esto
+	}break;
 	default:
 		break;
 	}

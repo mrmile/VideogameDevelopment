@@ -247,8 +247,6 @@ bool TitleScreen::Update(float dt)
 			app->fonts->Enable();
 			app->tex->Enable();
 			app->pause_menu->Enable();
-			app->pause_menu->FullScreen = FullScreen;
-			app->pause_menu->Vsync = Vsync;
 			app->player->score = 0;
 			app->player->lives = 3;
 			SavedGame = false;
