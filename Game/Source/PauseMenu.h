@@ -99,6 +99,8 @@ private:
 	GuiCheckbox* fullScreenCheck_tag_;
 	GuiCheckbox* fullScreenCheck_;
 	GuiCheckbox* VSyncCheck;
+	GuiCheckbox* VSyncCheck_tag_;
+
 	//GUI SLIDER
 	GuiSlider* musicVolumeSlider;
 	GuiSlider* fxVolumeSlider;

@@ -62,7 +62,7 @@ bool PauseMenu::Start()
 
 
 	fullScreenTag = app->tex->Load("Assets/textures/GUI/Fullscreen_tag.png");
-	VSyncOff = app->tex->Load("Assets/textures/GUI/VsyncOff.png");
+	VSyncOff = app->tex->Load("Assets/textures/GUI/Vsync_tag.png");
 	VSyncOn = app->tex->Load("Assets/textures/GUI/VsyncOn.png");
 	fullScreenCheckOff = app->tex->Load("Assets/textures/GUI/checkBoxOff.png");
 	fullScreenCheckOn = app->tex->Load("Assets/textures/GUI/checkBoxOn.png");
@@ -87,8 +87,9 @@ bool PauseMenu::Start()
 	fullScreenCheck_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 19, "Full Screen Check Box", { 185, 149, 17, 17 }, this, fullScreenCheckOff, NULL, {});
 	fullScreenCheck_tag_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 20, "Full Screen Tag", { 20, 140, 161, 9 }, this, fullScreenTag, NULL, {});
 
-	VSyncCheck = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 21, "Vsync", { 20,180,213,35 }, this, VSyncOff, NULL, {});
-	
+	VSyncCheck = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 21, "Vsync", { 185,189,17,17 }, this, fullScreenCheckOff, NULL, {});
+	VSyncCheck_tag_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 22, "Vsync", { 20,180,213,35 }, this, VSyncOff, NULL, {});
+
 	pauseTimer = 0;
 	noPauseTimer = 0;
 	sceneTimer = 0;
@@ -148,6 +149,7 @@ bool PauseMenu::Update(float dt)
 			fullScreenCheck_->canClick = false;
 			fullScreenCheck_tag_->canClick = false;
 			VSyncCheck->canClick = false;
+			VSyncCheck_tag_->canClick = false;
 		}
 		if (options == true)
 		{
@@ -161,6 +163,7 @@ bool PauseMenu::Update(float dt)
 			fullScreenCheck_tag_->canClick = false;
 			VSyncCheck->canClick = true;
 			returnButton_->canClick = true;
+			VSyncCheck_tag_->canClick = false;
 		}
 	}
 	else
@@ -183,6 +186,7 @@ bool PauseMenu::Update(float dt)
 		fullScreenCheck_->canClick = false;
 		fullScreenCheck_tag_->canClick = false;
 		VSyncCheck->canClick = false;
+		VSyncCheck_tag_->canClick = false;
 	}
 	
 
@@ -244,8 +248,11 @@ bool PauseMenu::PostUpdate()
 			if (app->titleScreen->FullScreen == true) fullScreenCheck_->SetTexture(fullScreenCheckOn);
 			fullScreenCheck_->Draw(app->render);
 
-			if (app->titleScreen->Vsync == false) VSyncCheck->SetTexture(VSyncOff);
-			if (app->titleScreen->Vsync == true) VSyncCheck->SetTexture(VSyncOn);
+			VSyncCheck_tag_->SetTexture(VSyncOff);
+			VSyncCheck_tag_->Draw(app->render);
+
+			if (app->titleScreen->Vsync == false) VSyncCheck->SetTexture(fullScreenCheckOff);
+			if (app->titleScreen->Vsync == true) VSyncCheck->SetTexture(fullScreenCheckOn);
 			VSyncCheck->Draw(app->render);
 		}
 	}
@@ -434,6 +441,10 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control){
 		if (control->id == 21 && VSyncCheck->canClick == true)
 		{
 			app->titleScreen->Vsync = !app->titleScreen->Vsync;
+		}
+		if (control->id == 22 && VSyncCheck_tag_->canClick == true)
+		{
+			//Do nothing
 		}
 	}
 	default: break;

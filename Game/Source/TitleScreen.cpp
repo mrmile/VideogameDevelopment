@@ -56,7 +56,7 @@ bool TitleScreen::Start()
 	baseSlider_fx = app->tex->Load("Assets/textures/GUI/BaseSlider_fx.png");
 	baseSlider_music = app->tex->Load("Assets/textures/GUI/BaseSlider_music.png");
 	fullScreenTag = app->tex->Load("Assets/textures/GUI/Fullscreen_tag.png");
-	VSyncOff = app->tex->Load("Assets/textures/GUI/VsyncOff.png");
+	VSyncOff = app->tex->Load("Assets/textures/GUI/Vsync_tag.png");
 	VSyncOn = app->tex->Load("Assets/textures/GUI/VsyncOn.png");
 
 	startButton = app->tex->Load("Assets/textures/GUI/startButton.png");
@@ -110,8 +110,9 @@ bool TitleScreen::Start()
 	fullScreenCheck_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 9, "Full Screen Check Box", { 185, 149, 17, 17 }, this, fullScreenCheckOff, NULL, {});
 	fullScreenCheck_tag_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 10, "Full Screen Tag", { 20, 140, 161, 9 }, this, fullScreenTag, NULL, {});
 
-	VSyncCheck = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 11, "Vsync", { 20,180,213,35 }, this, VSyncOff, NULL, {});
-	
+	VSyncCheck = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 11, "Vsync", { 185,189,17,17 }, this, fullScreenCheckOff, NULL, {});
+	VSyncCheck_tag_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 23, "Vsync", { 20,180,213,35 }, this, VSyncOff, NULL, {});
+
 	app->CheckGameRequest();
 	app->SaveGameAudio();
 
@@ -166,7 +167,7 @@ bool TitleScreen::Update(float dt)
 		fullScreenCheck_->canClick = false;
 		fullScreenCheck_tag_->canClick = false;
 		VSyncCheck->canClick = false;
-
+		VSyncCheck_tag_->canClick = false;
 	}
 	if (OptionsMenu == true)
 	{
@@ -181,7 +182,7 @@ bool TitleScreen::Update(float dt)
 		fullScreenCheck_->canClick = true;
 		fullScreenCheck_tag_->canClick = false;
 		VSyncCheck->canClick = true;
-
+		VSyncCheck_tag_->canClick = false;
 	}
 	if (credits == true)
 	{
@@ -196,6 +197,7 @@ bool TitleScreen::Update(float dt)
 		fullScreenCheck_->canClick = false;
 		fullScreenCheck_tag_->canClick = false;
 		VSyncCheck->canClick = false;
+		VSyncCheck_tag_->canClick = false;
 	}
 
 
@@ -330,8 +332,11 @@ bool TitleScreen::PostUpdate()
 		if(FullScreen == true) fullScreenCheck_->SetTexture(fullScreenCheckOn);
 		fullScreenCheck_->Draw(app->render);
 
-		if (Vsync == false) VSyncCheck->SetTexture(VSyncOff);
-		if (Vsync == true) VSyncCheck->SetTexture(VSyncOn);
+		VSyncCheck_tag_->SetTexture(VSyncOff);
+		VSyncCheck_tag_->Draw(app->render);
+
+		if (Vsync == false) VSyncCheck->SetTexture(fullScreenCheckOff);
+		if (Vsync == true) VSyncCheck->SetTexture(fullScreenCheckOn);
 		VSyncCheck->Draw(app->render);
 
 	}
@@ -576,6 +581,10 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 			{
 				Vsync = !Vsync;
 			}
+		}
+		if (control->id == 11 && VSyncCheck_tag_->canClick == true)
+		{
+			// Do nothing it is just decoration
 		}
 		default: break;
 	}
