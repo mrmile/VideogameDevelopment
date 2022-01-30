@@ -223,7 +223,7 @@ void App::PrepareUpdate()
 	lastSecFrameCount++;
 
 	AppTitleScreenFull = app->titleScreen->FullScreen;
-
+	//AppTitleScreenFull = app->pause_menu->FullScreen;
 	// L08: TODO 4: Calculate the dt: differential time since last frame
 
 }

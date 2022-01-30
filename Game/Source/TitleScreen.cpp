@@ -247,6 +247,8 @@ bool TitleScreen::Update(float dt)
 			app->fonts->Enable();
 			app->tex->Enable();
 			app->pause_menu->Enable();
+			app->pause_menu->FullScreen = FullScreen;
+			app->pause_menu->Vsync = Vsync;
 			app->player->score = 0;
 			app->player->lives = 3;
 			SavedGame = false;
@@ -387,6 +389,11 @@ bool TitleScreen::CleanUp()
 	app->tex->UnLoad(exitButtonPressed);
 	app->tex->UnLoad(returnButtonPressed);
 	app->tex->UnLoad(sliderSelectorPressed);
+	app->tex->UnLoad(fullScreenTag);
+	app->tex->UnLoad(fullScreenCheckOff);
+	app->tex->UnLoad(fullScreenCheckOn);
+	app->tex->UnLoad(VSyncOff);
+	app->tex->UnLoad(VSyncOn);
 	app->guiManager->DestroyGuiControl(1);
 	app->guiManager->DestroyGuiControl(2);
 	app->guiManager->DestroyGuiControl(3);
@@ -433,7 +440,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 			if (control->id == 3 && optionsButton_->canClick == true)
 			{
 				app->audio->PlayFx(buttonClickedFx, 0);
-				cout << "control->id 3 registered" << endl;
+				
 				MainMenu = false;
 				OptionsMenu = true;
 			}

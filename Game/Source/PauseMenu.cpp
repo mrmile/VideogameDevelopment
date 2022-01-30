@@ -18,6 +18,8 @@
 #include "Log.h"
 #include <SDL_mixer/include/SDL_mixer.h>
 
+#include <iostream>
+using namespace std;
 
 PauseMenu::PauseMenu(bool start_enabled) : Module(start_enabled)
 {
@@ -75,21 +77,26 @@ bool PauseMenu::Start()
 	optionsButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "Settings Button", { 225,125,108,35 }, this,optionsButton, NULL, {});
 	backToTitleButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, "Title Button", { 75,125,108,35 }, this,backToTitleButton, NULL, {});
 	exitButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, "Exit Button", { 75, 75, 108, 35 }, this,exitButton, NULL, {});
-	returnButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Return Button", { 10, 10, 71, 35 }, this, returnButton, NULL, {});
+	returnButton_ = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, "Return Button", { 10, 10, 71, 35 }, this, returnButton, NULL, {});
 	
 	//SLIDERS
-	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 7, "Fx slider", { 20,60,195,35 }, this, baseSlider_fx, sliderSelector, { 214,70,14,16 });
-	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 8, "Music slider", { 20,100,195,35 }, this, baseSlider_music, sliderSelector, { 214,110,14,16 });
+	fxVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 17, "Fx slider", { 20,60,195,35 }, this, baseSlider_fx, sliderSelector, { 214,70,14,16 });
+	musicVolumeSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 18, "Music slider", { 20,100,195,35 }, this, baseSlider_music, sliderSelector, { 214,110,14,16 });
 
 	//CHECKBOXES
-	fullScreenCheck_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 9, "Full Screen Check Box", { 185, 149, 17, 17 }, this, fullScreenCheckOff, NULL, {});
-	fullScreenCheck_tag_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 10, "Full Screen Tag", { 20, 140, 161, 9 }, this, fullScreenTag, NULL, {});
+	fullScreenCheck_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 19, "Full Screen Check Box", { 185, 149, 17, 17 }, this, fullScreenCheckOff, NULL, {});
+	fullScreenCheck_tag_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 20, "Full Screen Tag", { 20, 140, 161, 9 }, this, fullScreenTag, NULL, {});
 
-	VSyncCheck = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 11, "Vsync", { 20,180,213,35 }, this, VSyncOff, NULL, {});
+	VSyncCheck = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 21, "Vsync", { 20,180,213,35 }, this, VSyncOff, NULL, {});
 	
 	pauseTimer = 0;
 	noPauseTimer = 0;
 	sceneTimer = 0;
+	
+
+	fxVolumeSlider->extraBounds.x = 33 + fxVolumeSlider->bounds.x * (app->audio->SliderLevelFX / 10);
+	musicVolumeSlider->extraBounds.x = 33 + musicVolumeSlider->bounds.x * (app->audio->SliderLevelMusic / 10);
+
 	return true;
 }
 
@@ -110,16 +117,7 @@ bool PauseMenu::Update(float dt)
 		pauseTimer++;
 		noPauseTimer = 0;
 
-		resumeButton_->canClick = true;
-		optionsButton_->canClick = true;
-		backToTitleButton_->canClick = true;
-		exitButton_->canClick = true;
-		returnButton_->canClick = false;
-		fxVolumeSlider->canClick = false;
-		musicVolumeSlider->canClick = false;
-		fullScreenCheck_->canClick = false;
-		fullScreenCheck_tag_->canClick = false;
-		VSyncCheck->canClick = false;
+		
 
 		if (TitleTransition == true)
 		{
@@ -138,7 +136,32 @@ bool PauseMenu::Update(float dt)
 		}
 		
 		if(pauseTimer <= 1) Mix_PauseMusic();
-
+		if (options == false)
+		{
+			resumeButton_->canClick = true;
+			optionsButton_->canClick = true;
+			backToTitleButton_->canClick = true;
+			exitButton_->canClick = true;
+			returnButton_->canClick = false;
+			fxVolumeSlider->canClick = false;
+			musicVolumeSlider->canClick = false;
+			fullScreenCheck_->canClick = false;
+			fullScreenCheck_tag_->canClick = false;
+			VSyncCheck->canClick = false;
+		}
+		if (options == true)
+		{
+			resumeButton_->canClick = false;
+			optionsButton_->canClick = false;
+			backToTitleButton_->canClick = false;
+			exitButton_->canClick = false;
+			fxVolumeSlider->canClick = true;
+			musicVolumeSlider->canClick = true;
+			fullScreenCheck_->canClick = true;
+			fullScreenCheck_tag_->canClick = false;
+			VSyncCheck->canClick = true;
+			returnButton_->canClick = true;
+		}
 	}
 	else
 	{
@@ -161,15 +184,7 @@ bool PauseMenu::Update(float dt)
 		fullScreenCheck_tag_->canClick = false;
 		VSyncCheck->canClick = false;
 	}
-	if (options == true)
-	{
-		fxVolumeSlider->canClick = true;
-		musicVolumeSlider->canClick = true;
-		fullScreenCheck_->canClick = true;
-		fullScreenCheck_tag_->canClick = false;
-		VSyncCheck->canClick = true;
-		returnButton_->canClick = true;
-	}
+	
 
 	return true;
 }
@@ -185,7 +200,6 @@ bool PauseMenu::PostUpdate()
 		SDL_Rect bgquad;
 		bgquad = { 20, 20, 380, 200 };
 		app->render->DrawRectangle2(bgquad, 255, 255, 255, 150, 0.0f, true);
-		//app->render->DrawRectangle2(quad2, 200, 200, 200, 255, 0.0f, true);
 		app->render->DrawTexture2(PauseFrame, 20, 20, NULL);
 		if (options == false)
 		{
@@ -209,30 +223,32 @@ bool PauseMenu::PostUpdate()
 			if (backToTitleButton_->state == GuiControlState::SELECTED && backToTitleButton_->canClick == true) backToTitleButton_->SetTexture(backToTitleButtonPressed);
 			backToTitleButton_->Draw(app->render);
 		}
-		if (options == true)
+		else if (options == true)
 		{
 			if (returnButton_->state == GuiControlState::NORMAL && returnButton_->canClick == true) returnButton_->SetTexture(returnButton);
 			if (returnButton_->state == GuiControlState::FOCUSED && returnButton_->canClick == true) returnButton_->SetTexture(returnButtonOnIdle);
 			if (returnButton_->state == GuiControlState::SELECTED && returnButton_->canClick == true) returnButton_->SetTexture(returnButtonPressed);
 			returnButton_->Draw(app->render);
 
+			fxVolumeSlider->SetTexture(baseSlider_fx);
 			fxVolumeSlider->Draw(app->render);
 
-
-
+			
+			musicVolumeSlider->SetTexture(baseSlider_music);
 			musicVolumeSlider->Draw(app->render);
 
-
-			//fullScreenCheck_tag_->SetTexture(fullScreenTag);
-			//fullScreenCheck_tag_->Draw(app->render);
-
-			//if (FullScreen == false) fullScreenCheck_->SetTexture(fullScreenCheckOff);
-			//if (FullScreen == true) fullScreenCheck_->SetTexture(fullScreenCheckOn);
-			//fullScreenCheck_->Draw(app->render);
-
-		//	if (Vsync == false) VSyncCheck->SetTexture(VSyncOff);
-		//	if (Vsync == true) VSyncCheck->SetTexture(VSyncOn);
-			//VSyncCheck->Draw(app->render);
+			
+			fullScreenCheck_tag_->SetTexture(fullScreenTag);
+			fullScreenCheck_tag_->Draw(app->render);
+			
+			if (FullScreen == false) fullScreenCheck_->SetTexture(fullScreenCheckOff);
+			if (FullScreen == true) fullScreenCheck_->SetTexture(fullScreenCheckOn);
+			fullScreenCheck_->Draw(app->render);
+			
+			
+			if (Vsync == false) VSyncCheck->SetTexture(VSyncOff);
+			if (Vsync == true) VSyncCheck->SetTexture(VSyncOn);
+			VSyncCheck->Draw(app->render);
 		}
 	}
 	
@@ -264,10 +280,16 @@ bool PauseMenu::CleanUp()
 	app->tex->UnLoad(optionsButtonPressed);
 	app->tex->UnLoad(backToTitleButtonPressed);
 	app->tex->UnLoad(exitButtonPressed);
-	app->guiManager->DestroyGuiControl(11);
 	app->guiManager->DestroyGuiControl(12);
 	app->guiManager->DestroyGuiControl(13);
 	app->guiManager->DestroyGuiControl(14);
+	app->guiManager->DestroyGuiControl(15);
+	app->guiManager->DestroyGuiControl(16);
+	app->guiManager->DestroyGuiControl(17);
+	app->guiManager->DestroyGuiControl(18);
+	app->guiManager->DestroyGuiControl(19);
+	app->guiManager->DestroyGuiControl(20);
+	app->guiManager->DestroyGuiControl(21);
 	return true;
 }
 
@@ -306,8 +328,113 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control){
 			exit(0);
 
 		}
+		if (control->id == 16 && returnButton_->canClick == true)
+		{
+			app->audio->PlayFx(buttonClickedFx, 0);
+			options = false;
+		}
 	}
-
+	case GuiControlType::SLIDER:
+	{
+		if (control->id == 17 && fxVolumeSlider->canClick == true)
+		{
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.9f) && control->extraBounds.x < control->bounds.x + control->bounds.w)
+			{
+				app->audio->SliderLevelFX = 90;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.8f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.9f))
+			{
+				app->audio->SliderLevelFX = 80;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.7f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.8f))
+			{
+				app->audio->SliderLevelFX = 70;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.6f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.7f))
+			{
+				app->audio->SliderLevelFX = 60;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.5f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.6f))
+			{
+				app->audio->SliderLevelFX = 50;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.4f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.5f))
+			{
+				app->audio->SliderLevelFX = 40;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.3f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.4f))
+			{
+				app->audio->SliderLevelFX = 30;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.2f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.3f))
+			{
+				app->audio->SliderLevelFX = 20;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.1f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.2f))
+			{
+				app->audio->SliderLevelFX = 10;
+			}
+			if (control->extraBounds.x > control->bounds.x && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.1f))
+			{
+				app->audio->SliderLevelFX = 0;
+			}
+		}
+		if (control->id == 18 && musicVolumeSlider->canClick == true)
+		{
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.9f) && control->extraBounds.x < control->bounds.x + control->bounds.w)
+			{
+				app->audio->SliderLevelMusic = 90;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.8f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.9f))
+			{
+				app->audio->SliderLevelMusic = 80;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.7f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.8f))
+			{
+				app->audio->SliderLevelMusic = 70;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.6f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.7f))
+			{
+				app->audio->SliderLevelMusic = 60;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.5f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.6f))
+			{
+				app->audio->SliderLevelMusic = 50;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.4f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.5f))
+			{
+				app->audio->SliderLevelMusic = 40;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.3f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.4f))
+			{
+				app->audio->SliderLevelMusic = 30;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.2f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.3f))
+			{
+				app->audio->SliderLevelMusic = 20;
+			}
+			if (control->extraBounds.x > control->bounds.x + (control->bounds.w * 0.1f) && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.2f))
+			{
+				app->audio->SliderLevelMusic = 10;
+			}
+			if (control->extraBounds.x > control->bounds.x && control->extraBounds.x < control->bounds.x + (control->bounds.w * 0.1f))
+			{
+				app->audio->SliderLevelMusic = 0;
+			}
+		}
+	}
+	case GuiControlType::CHECKBOX:
+	{
+		if (control->id == 19 && fullScreenCheck_->canClick == true)
+		{
+			FullScreen = !FullScreen;
+			exit(0);
+		}
+		if (control->id == 21 && VSyncCheck->canClick == true)
+		{
+			Vsync = !Vsync;
+		}
+	}
 	default: break;
 	}
 

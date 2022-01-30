@@ -44,6 +44,8 @@ public:
 	bool options = false;
 	bool TitleTransition = false;
 	
+	bool Vsync;
+	bool FullScreen;
 
 private:
 
