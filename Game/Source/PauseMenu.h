@@ -37,6 +37,8 @@ public:
 
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	bool CheckAudioSave(pugi::xml_node&);
+
 	int buttonClickedFx = 0;
 	int sceneTimer;
 	int pauseTimer;

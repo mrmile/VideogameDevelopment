@@ -89,7 +89,7 @@ bool PauseMenu::Start()
 
 	VSyncCheck = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 21, "Vsync", { 245,179,17,17 }, this, fullScreenCheckOff, NULL, {});
 	VSyncCheck_tag_ = (GuiCheckbox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 22, "Vsync", { 80,170,213,35 }, this, VSyncOff, NULL, {});
-
+	app->SaveGameAudio();
 	pauseTimer = 0;
 	noPauseTimer = 0;
 	sceneTimer = 0;
@@ -449,6 +449,13 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control){
 	}
 	default: break;
 	}
+
+	return true;
+}
+bool PauseMenu::CheckAudioSave(pugi::xml_node& data)
+{
+	app->audio->SliderLevelFX = data.child("saved_game").attribute("Fx").as_int();
+	app->audio->SliderLevelMusic = data.child("saved_game").attribute("Music").as_int();
 
 	return true;
 }
