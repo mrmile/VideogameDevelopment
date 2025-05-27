@@ -1,5 +1,5 @@
 ## Game Development Assignment 1
-Simple platformer game created for the Game Development subject during the second year of Videogame design and development in TTC.
+Simple platformer game created for the Game Development subject during the second year of Videogame design and development in TTC. Level was created using the "Tiled Map Editor" and is read by the code using XML serialization.
 
 Project link: https://github.com/mrmile/VideogameDevelopment
 
